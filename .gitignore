@@ -1,0 +1,4 @@
+
+*.backup
+Temp/*
+*.meta
