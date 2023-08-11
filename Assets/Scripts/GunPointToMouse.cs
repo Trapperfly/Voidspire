@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:4508dffbd4c431ed413dd3d4c919235431fbbeb39c717a6b20bb6ac2357d2aea
-size 492
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GunPointToMouse : MonoBehaviour
+{
+    private void Awake()
+    {
+        
+    }
+    private void FixedUpdate()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 direction = mousePosition - transform.position;
+        float angle = Vector2.SignedAngle(Vector2.up, direction);
+        transform.eulerAngles = new Vector3(0, 0, angle);
+    }
+}

@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:2cd1461750f39b2ccd08dbf0431b4d8d18c32a8611e4983e91de370ae4afe87e
-size 1002
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class AdjustToTarget : MonoBehaviour
+{
+    [SerializeField] bool zoom;
+    [SerializeField] float zoomValue;
+    //float baseZoomValue = 5f;
+    [SerializeField] float maxDistance = 10f;
+    [SerializeField] GameObject player;
+    public GameObject target;
+
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+    private void Update()
+    {
+        if (target == null)
+        {
+            if (transform.localPosition != new Vector3(0, 0, 0))
+                transform.localPosition = new Vector3(0, 0, 0);
+            return;
+        }
+        else
+        {
+            transform.position = target.transform.position + (player.transform.position - target.transform.position) / 2;
+            if (Vector2.Distance(player.transform.position, target.transform.position) >= maxDistance)
+                target = null;
+        }
+    }
+}
