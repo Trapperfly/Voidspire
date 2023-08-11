@@ -31,8 +31,10 @@ public class Bullet : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag("Bullet"))
         {
-            //if (collision.GetComponent<Rigidbody2D>() != null)
-                //collision.GetComponent<Rigidbody2D>().AddForce()
+            if (collision.GetComponent<Rigidbody2D>() != null)
+                collision.GetComponent<Rigidbody2D>().AddForce(transform.up * _punch);
+            else if (collision.GetComponentInChildren<Rigidbody2D>() != null)
+                collision.GetComponentInChildren<Rigidbody2D>().AddForce(transform.up * _punch, ForceMode2D.Impulse);
             Destroy(gameObject);
         }
     }

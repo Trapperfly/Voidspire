@@ -103,7 +103,7 @@ public class GunController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.Mouse0) && gunTimer > Mathf.Clamp(60 / fireRate,1,600))
+        if (Input.GetKey(KeyCode.Mouse0) && gunTimer > Mathf.Clamp(60 / fireRate, 1, 600))
         {
             for (int i = amount; i > 0; i--)
             {
