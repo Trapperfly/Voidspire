@@ -4319,7 +4319,7 @@ MonoBehaviour:
   amount: 1
   spread: 10
   spreadChange: 0
-  speed: 0.001
+  speed: 10
   speedChange: 0
   longevity: 1
   homing: 0
@@ -4331,7 +4331,7 @@ MonoBehaviour:
   burst: 0
   burstDelay: 0
   burstShotDelay: 0
-  punch: 0
+  punch: 1
   punchSelf: 0
   overheat: 0
   overheatLimit: 0
