@@ -100,7 +100,7 @@ public class GunController : MonoBehaviour
     [SerializeField] GameObject laserPrefab;
     [SerializeField] GameObject wavePrefab;
     int gunTimer = 0;
-
+    [SerializeField] AdjustToTarget target;
     private void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.Mouse0) && gunTimer > Mathf.Clamp(60 / fireRate, 1, 600))
@@ -130,6 +130,8 @@ public class GunController : MonoBehaviour
         bulletSC._homing = homing;
         bulletSC._homingStrength = homingStrength;
         bulletSC._punch = punch;
+        if (target.target != null)
+            bulletSC.target = target.target;
 
         yield return null;
     }
