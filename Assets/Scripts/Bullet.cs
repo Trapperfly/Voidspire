@@ -39,9 +39,12 @@ public class Bullet : MonoBehaviour
     {
         if (_homing && target != null)
         {
+            /*
             Vector2 direction = (target.transform.position - transform.position)- transform.up;
-            rb.AddForce(direction.normalized * (target.transform.position - transform.position).magnitude * _homingStrength, ForceMode2D.Force);
+            rb.AddForce(direction.normalized * _homingStrength, ForceMode2D.Force);
+            //*(target.transform.position - transform.position).magnitude
             transform.up = rb.velocity;
+            */
         }
         else
             transform.up = rb.velocity;
