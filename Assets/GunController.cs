@@ -103,7 +103,7 @@ public class GunController : MonoBehaviour
     [SerializeField] AdjustToTarget target;
     private void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.Mouse0) && gunTimer > Mathf.Clamp(60 / fireRate, 1, 600))
+        if (Input.GetKey(KeyCode.Mouse0) && gunTimer >= Mathf.Clamp(60 / fireRate, 1, 600))
         {
             for (int i = amount; i > 0; i--)
             {
@@ -123,12 +123,13 @@ public class GunController : MonoBehaviour
         bulletSC._damage = damage;
         bulletSC._damageChange = damageChange;
         bulletSC._sizeChange = bulletSizeChange;
+        bulletSC._speed = speed;
         bulletSC._bulletLongevity = longevity;
         bulletSC._pierce = pierce;
         bulletSC._bounce = bounce;
         bulletSC._bounceToTarget = bounceToTarget;
         bulletSC._homing = homing;
-        bulletSC._homingStrength = homingStrength;
+        bulletSC._homingStrength = homingStrength * 5 * speed;
         bulletSC._punch = punch;
         if (target.target != null)
             bulletSC.target = target.target;

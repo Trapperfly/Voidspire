@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     public float _damage;
     public float _damageChange;
     public float _sizeChange;
+    public float _speed;
     public float _bulletLongevity;
     public int _pierce;
     public int _bounce;
@@ -17,16 +18,12 @@ public class Bullet : MonoBehaviour
     float currTime;
     Rigidbody2D rb;
     public GameObject target;
-    float startVelocity;
 
     private void Awake()
     {
         currTime = Time.time;
         rb = GetComponent<Rigidbody2D>();
-    }
-    private void Start()
-    {
-        startVelocity = rb.velocity.magnitude;
+
     }
     void Update()
     {
@@ -39,6 +36,10 @@ public class Bullet : MonoBehaviour
     {
         if (_homing && target != null)
         {
+            Vector2 direction = (Vector2)target.transform.position - rb.position;
+            float rotateAmount = Vector3.Cross(direction.normalized, transform.up).z;
+            rb.angularVelocity = -_homingStrength * rotateAmount;
+            rb.velocity = transform.up * _speed;
             /*
             Vector2 direction = (target.transform.position - transform.position)- transform.up;
             rb.AddForce(direction.normalized * _homingStrength, ForceMode2D.Force);
@@ -60,6 +61,13 @@ public class Bullet : MonoBehaviour
                 collision.GetComponentInChildren<Rigidbody2D>().AddForce(transform.up * _punch, ForceMode2D.Impulse);
             if (_pierce > 0)
                 _pierce--;
+            else if (_bounce > 0)
+            {
+                Vector2 _hit = collision.gameObject.GetComponent<Collider2D>().ClosestPoint(transform.position) - (Vector2)collision.transform.position;
+                Vector2 _bounceDir = Vector2.Reflect(rb.velocity.normalized, _hit.normalized).normalized;
+                rb.velocity = _bounceDir * _speed;
+                _bounce--;
+            }
             else
                 Destroy(gameObject);
         }
