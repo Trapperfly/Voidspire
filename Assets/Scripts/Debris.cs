@@ -10,6 +10,10 @@ public class Debris : MonoBehaviour
     GameObject player;
     [SerializeField] GameObject resourceSpawner;
     [HideInInspector] public float overkill;
+    private Collider2D col;
+    private Vector3 vel;
+    private float angularVel;
+    private Vector3 position;
     private void Awake()
     {
         SetSize();
@@ -24,11 +28,11 @@ public class Debris : MonoBehaviour
         debrisRb.AddForce(SetDirection() * Random.Range(0, debrisRb.mass / 5), ForceMode2D.Impulse);
         StartCoroutine(nameof(DistanceCheckAndDestroy));
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("Bullet"))
+        if (collision.collider.CompareTag("Bullet"))
         {
-            currentHealth -= collision.GetComponent<Bullet>()._damage;
+            currentHealth -= collision.collider.GetComponent<Bullet>()._damage;
             if (currentHealth <= 0)
             {
                 overkill = currentHealth;

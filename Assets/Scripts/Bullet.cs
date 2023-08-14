@@ -18,6 +18,7 @@ public class Bullet : MonoBehaviour
     float currTime;
     Rigidbody2D rb;
     public GameObject target;
+    Vector3 lastVelocity;
 
     private void Awake()
     {
@@ -49,27 +50,42 @@ public class Bullet : MonoBehaviour
         }
         else
             transform.up = rb.velocity;
+        lastVelocity = rb.velocity;     //Logs last velocity to be used in bounce
     }
-
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.gameObject.CompareTag("Bullet"))
         {
-            if (collision.GetComponent<Rigidbody2D>() != null)
-                collision.GetComponent<Rigidbody2D>().AddForce(transform.up * _punch);
-            else if (collision.GetComponentInChildren<Rigidbody2D>() != null)
-                collision.GetComponentInChildren<Rigidbody2D>().AddForce(transform.up * _punch, ForceMode2D.Impulse);
+            if (collision.collider.GetComponent<Rigidbody2D>() != null)
+                collision.collider.GetComponent<Rigidbody2D>().AddForce(transform.up * _punch);
+            else if (collision.collider.GetComponentInChildren<Rigidbody2D>() != null)
+                collision.collider.GetComponentInChildren<Rigidbody2D>().AddForce(transform.up * _punch, ForceMode2D.Impulse);
             if (_pierce > 0)
+            {
+                rb.velocity = lastVelocity;
                 _pierce--;
+            }
             else if (_bounce > 0)
             {
+                /*
                 Vector2 _hit = collision.gameObject.GetComponent<Collider2D>().ClosestPoint(transform.position) - (Vector2)collision.transform.position;
                 Vector2 _bounceDir = Vector2.Reflect(rb.velocity.normalized, _hit.normalized).normalized;
                 rb.velocity = _bounceDir * _speed;
+                */
+                foreach (var contact in collision.contacts)
+                {
+                    Vector2 _bounceDir = Vector2.Reflect(lastVelocity, contact.normal).normalized;
+                    rb.velocity = _bounceDir * _speed;
+                    rb.angularVelocity = 0;
+                }
                 _bounce--;
             }
             else
                 Destroy(gameObject);
         }
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        
     }
 }
