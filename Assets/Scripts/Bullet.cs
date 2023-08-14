@@ -51,6 +51,7 @@ public class Bullet : MonoBehaviour
         else
             transform.up = rb.velocity;
         lastVelocity = rb.velocity;     //Logs last velocity to be used in bounce
+        rb.angularVelocity = 0;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
