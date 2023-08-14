@@ -4606,7 +4606,7 @@ MonoBehaviour:
   speedChange: 0
   longevity: 5
   homing: 1
-  homingStrength: 3
+  homingStrength: 4
   pierce: 0
   bounce: 1
   bounceToTarget: 0

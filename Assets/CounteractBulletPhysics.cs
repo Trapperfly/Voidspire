@@ -42,7 +42,7 @@ public class CounteractBulletPhysics : MonoBehaviour
     {
         if (collision.CompareTag("Bullet"))
         {
-            collision.GetComponent<Collider2D>().isTrigger = false;
+            collision.isTrigger = false;
         }
     }
 }

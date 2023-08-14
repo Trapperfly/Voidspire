@@ -19,7 +19,7 @@ public class Bullet : MonoBehaviour
     Rigidbody2D rb;
     public GameObject target;
     Vector3 lastVelocity;
-
+    bool bounced = false;
     private void Awake()
     {
         currTime = Time.time;
@@ -49,9 +49,20 @@ public class Bullet : MonoBehaviour
             */
         }
         else
+        {
             transform.up = rb.velocity;
+            rb.angularVelocity = 0;
+        }
         lastVelocity = rb.velocity;     //Logs last velocity to be used in bounce
-        rb.angularVelocity = 0;
+        if (bounced)
+        {
+            GetComponent<Collider2D>().isTrigger = false;
+            bounced = false;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        GetComponent<Collider2D>().isTrigger = false;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -68,25 +79,27 @@ public class Bullet : MonoBehaviour
             }
             else if (_bounce > 0)
             {
-                /*
-                Vector2 _hit = collision.gameObject.GetComponent<Collider2D>().ClosestPoint(transform.position) - (Vector2)collision.transform.position;
-                Vector2 _bounceDir = Vector2.Reflect(rb.velocity.normalized, _hit.normalized).normalized;
-                rb.velocity = _bounceDir * _speed;
-                */
                 foreach (var contact in collision.contacts)
                 {
                     Vector2 _bounceDir = Vector2.Reflect(lastVelocity, contact.normal).normalized;
                     rb.velocity = _bounceDir * _speed;
-                    rb.angularVelocity = 0;
+                    bounced = true;
+                    if (_homing && target != null)
+                        StartCoroutine(WaitAndSwitchHoming(0.01f));
                 }
+                rb.angularVelocity = 0;
                 _bounce--;
             }
             else
                 Destroy(gameObject);
         }
     }
-    void OnTriggerEnter2D(Collider2D collision)
+    
+    IEnumerator WaitAndSwitchHoming(float time)
     {
-        
+        _homing = false;
+        yield return new WaitForSeconds(time * _homingStrength / 25);
+        _homing = true;
+        yield return new WaitForFixedUpdate();
     }
 }
