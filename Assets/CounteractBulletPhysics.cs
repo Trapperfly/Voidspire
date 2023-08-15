@@ -26,16 +26,15 @@ public class CounteractBulletPhysics : MonoBehaviour
     {
         if (collision.collider.CompareTag("Bullet"))
         {
-            if (collision.collider.CompareTag("Bullet"))
-            {
-                collision.collider.isTrigger = true;
-            }
+            collision.collider.isTrigger = true;
+            /*
             if (rb != null)
             {
                 rb.velocity = vel;
                 rb.angularVelocity = angularVel;
                 transform.position = position;
             }
+            */
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

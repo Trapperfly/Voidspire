@@ -20,6 +20,8 @@ public class Bullet : MonoBehaviour
     public GameObject target;
     Vector3 lastVelocity;
     bool bounced = false;
+    public float _weightScalar;
+    public float magnitude;
     private void Awake()
     {
         currTime = Time.time;
@@ -59,6 +61,7 @@ public class Bullet : MonoBehaviour
             GetComponent<Collider2D>().isTrigger = false;
             bounced = false;
         }
+        magnitude = rb.velocity.magnitude;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

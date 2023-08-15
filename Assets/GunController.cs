@@ -85,9 +85,11 @@ public class GunController : MonoBehaviour
     [SerializeField] bool bounceToTarget;
     [Header("Misc")]
     [SerializeField] float chargeUp;            //On gun
-    [SerializeField] bool burst;                //On gun
+    [SerializeField] float charge;
+    bool chargeAvailable = true;
+    [SerializeField] int burst;                //On gun
     [SerializeField] float burstDelay;          //On gun
-    [SerializeField] float burstShotDelay;      //On gun
+    int burstDelayTimer;
     [SerializeField] float punch;               //On bullet
     [SerializeField] float punchSelf;           //On gun
     [SerializeField] bool overheat;             //On gun
@@ -100,25 +102,70 @@ public class GunController : MonoBehaviour
     [SerializeField] GameObject laserPrefab;
     [SerializeField] GameObject wavePrefab;
     int gunTimer = 0;
+    [Header("Testing")]
     [SerializeField] AdjustToTarget target;
+    bool inBurst = false;
+    [SerializeField] float weightScalar = 0.0001f;
     private void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.Mouse0) && gunTimer >= Mathf.Clamp(60 / fireRate, 1, 600))
         {
+            if (chargeUp == 0 || charge > chargeUp * 60)
+            {
+                if (burst != 0 && !inBurst)
+                {
+                    StartCoroutine(Burst(burst, burstDelay));
+                }
+                else if (!inBurst)
+                {
+                    for (int i = amount; i > 0; i--)
+                    {
+                        StartCoroutine(Shoot(speed));
+                        gunTimer = 0;
+                        charge = 0;
+                        chargeAvailable = false;
+                    }
+                }
+            }
+            else if (chargeUp != 0 && chargeAvailable == true)
+            {
+                charge++;
+            }
+        }
+        if (!Input.GetKey(KeyCode.Mouse0))
+        {
+            if (charge >= 2)
+            {
+                charge -= 2;
+            }
+            chargeAvailable = true;
+        }
+        gunTimer++;
+    }
+    IEnumerator Burst(int times, float delay)
+    {
+        inBurst = true;
+        for (int b = times; b > 0; b--)
+        {
             for (int i = amount; i > 0; i--)
             {
                 StartCoroutine(Shoot(speed));
+                gunTimer = 0;
+                charge = 0;
+                chargeAvailable = false;
             }
-            gunTimer = 0;
+            yield return new WaitForSeconds(delay);
         }
-        gunTimer++;
+        yield return null;
+        gunTimer = 0;
+        inBurst = false;
     }
     public IEnumerator Shoot(float bulletSpeed)
     {
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Spread(transform.rotation));
         bullet.transform.localScale *= bulletSize;
         bullet.transform.parent = GameObject.FindGameObjectWithTag("BulletHolder").transform;
-        bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.up * bulletSpeed, ForceMode2D.Impulse);
+        bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.up * bulletSpeed * weightScalar, ForceMode2D.Impulse);
         Bullet bulletSC = bullet.GetComponent<Bullet>();
         bulletSC._damage = damage;
         bulletSC._damageChange = damageChange;
@@ -133,6 +180,8 @@ public class GunController : MonoBehaviour
         bulletSC._punch = punch;
         if (target.target != null)
             bulletSC.target = target.target;
+        bulletSC._weightScalar = weightScalar;
+
 
         yield return null;
     }
