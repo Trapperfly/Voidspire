@@ -17,6 +17,7 @@ public class Bullet : MonoBehaviour
     public float _punch;
     float currTime;
     Rigidbody2D rb;
+    Collider2D col;
     public GameObject target;
     Vector3 lastVelocity;
     bool bounced = false;
@@ -26,7 +27,14 @@ public class Bullet : MonoBehaviour
     {
         currTime = Time.time;
         rb = GetComponent<Rigidbody2D>();
-
+        col = GetComponent<Collider2D>();
+    }
+    private void Start()
+    {
+        if (_bounce > 0)
+        {
+            col.isTrigger = false;
+        }
     }
     void Update()
     {
@@ -58,31 +66,47 @@ public class Bullet : MonoBehaviour
         lastVelocity = rb.velocity;     //Logs last velocity to be used in bounce
         if (bounced)
         {
-            GetComponent<Collider2D>().isTrigger = false;
+            col.isTrigger = false;
             bounced = false;
         }
         magnitude = rb.velocity.magnitude;
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D hit)
     {
-        GetComponent<Collider2D>().isTrigger = false;
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!collision.gameObject.CompareTag("Bullet"))
+        if (_bounce <= 0 && _pierce > 0)
         {
-            if (collision.collider.GetComponent<Rigidbody2D>() != null)
-                collision.collider.GetComponent<Rigidbody2D>().AddForce(transform.up * _punch);
-            else if (collision.collider.GetComponentInChildren<Rigidbody2D>() != null)
-                collision.collider.GetComponentInChildren<Rigidbody2D>().AddForce(transform.up * _punch, ForceMode2D.Impulse);
-            if (_pierce > 0)
+            if (!hit.gameObject.CompareTag("Bullet"))
             {
-                rb.velocity = lastVelocity;
-                _pierce--;
+                if (hit.GetComponent<Rigidbody2D>() != null)
+                    hit.GetComponent<Rigidbody2D>().AddForce(transform.up * _punch);
+                else if (hit.GetComponentInChildren<Rigidbody2D>() != null)
+                    hit.GetComponentInChildren<Rigidbody2D>().AddForce(transform.up * _punch, ForceMode2D.Impulse);
+                if (_pierce > 0)
+                {
+                    _pierce--;
+                }
+                else
+                    Destroy(gameObject);
             }
-            else if (_bounce > 0)
+        }
+    }
+    private void OnTriggerExit2D(Collider2D hit)
+    {
+        if (_bounce > 0 && _pierce < 1)
+            GetComponent<Collider2D>().isTrigger = false;
+    }
+    private void OnCollisionEnter2D(Collision2D hit)
+    {
+        if (!hit.gameObject.CompareTag("Bullet"))
+        {
+            if (hit.collider.GetComponent<Rigidbody2D>() != null)
+                hit.collider.GetComponent<Rigidbody2D>().AddForce(transform.up * _punch);
+            else if (hit.collider.GetComponentInChildren<Rigidbody2D>() != null)
+                hit.collider.GetComponentInChildren<Rigidbody2D>().AddForce(transform.up * _punch, ForceMode2D.Impulse);
+            if (_bounce > 0)
             {
-                foreach (var contact in collision.contacts)
+                col.isTrigger = true;
+                foreach (var contact in hit.contacts)
                 {
                     Vector2 _bounceDir = Vector2.Reflect(lastVelocity, contact.normal).normalized;
                     rb.velocity = _bounceDir * _speed;

@@ -6,7 +6,7 @@ public class Debris : MonoBehaviour
 {
     Rigidbody2D debrisRb;
     float startHealth;
-    float currentHealth;
+    [SerializeField] float currentHealth;
     GameObject player;
     [SerializeField] GameObject resourceSpawner;
     [HideInInspector] public float overkill;
@@ -33,6 +33,19 @@ public class Debris : MonoBehaviour
         if (collision.collider.CompareTag("Bullet"))
         {
             currentHealth -= collision.collider.GetComponent<Bullet>()._damage;
+            if (currentHealth <= 0)
+            {
+                overkill = currentHealth;
+                StartCoroutine(resourceSpawner.GetComponent<SpawnResourceOnDestroy>().SpawnResources(transform.localScale.x, overkill, transform.position));
+                Destroy(gameObject);
+            }
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Bullet"))
+        {
+            currentHealth -= collision.GetComponent<Bullet>()._damage;
             if (currentHealth <= 0)
             {
                 overkill = currentHealth;

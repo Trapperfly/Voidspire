@@ -165,7 +165,7 @@ public class GunController : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Spread(transform.rotation));
         bullet.transform.localScale *= bulletSize;
         bullet.transform.parent = GameObject.FindGameObjectWithTag("BulletHolder").transform;
-        bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.up * bulletSpeed * weightScalar, ForceMode2D.Impulse);
+        bullet.GetComponent<Rigidbody2D>().AddForce(bulletSpeed * weightScalar * bullet.transform.up, ForceMode2D.Impulse);
         Bullet bulletSC = bullet.GetComponent<Bullet>();
         bulletSC._damage = damage;
         bulletSC._damageChange = damageChange;

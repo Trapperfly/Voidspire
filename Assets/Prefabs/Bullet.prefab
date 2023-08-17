@@ -134,6 +134,7 @@ MonoBehaviour:
   _punch: 0
   target: {fileID: 0}
   _weightScalar: 0
+  magnitude: 0
 --- !u!60 &8472300039904323609
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -144,7 +145,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.093}
@@ -213,7 +214,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 3
+  m_Time: 0.1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -230,14 +231,14 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.15447153
       - serializedVersion: 3
-        time: 0.051490515
-        value: 0.115869194
-        inSlope: 0.36638704
-        outSlope: 0.36638704
+        time: 0.01354951
+        value: 1
+        inSlope: -Infinity
+        outSlope: -Infinity
         tangentMode: 0
         weightedMode: 0
         inWeight: 1
-        outWeight: 0.33333334
+        outWeight: 0
       - serializedVersion: 3
         time: 0.23331848
         value: 0.023020372
