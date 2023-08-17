@@ -1289,6 +1289,7 @@ MonoBehaviour:
   - {fileID: 0}
   resetOnAwake: 1
   targetTransformPrefab: {fileID: 6262248691123227558, guid: f8b217729d35357448a713ce141bb6ae, type: 3}
+  targetingRange: 1
   targetMask:
     serializedVersion: 2
     m_Bits: 3584
@@ -4439,12 +4440,11 @@ MonoBehaviour:
   overheatBuildup: 0
   inflictIgnition: 0
   angle: 0
-  rotationSpeed: 0
+  rotationSpeed: 0.01
   bulletPrefab: {fileID: 515737004715930061, guid: d8552827e21d60449b4cb2bd8b280ce1, type: 3}
   laserPrefab: {fileID: 0}
   wavePrefab: {fileID: 0}
   target: {fileID: 994074745}
-  gunPoint: {fileID: 0}
   weightScalar: 0.0001
 --- !u!1 &910625641
 GameObject:
@@ -12198,7 +12198,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1405727134}
   - component: {fileID: 1405727135}
-  - component: {fileID: 1405727136}
   m_Layer: 0
   m_Name: GunRight
   m_TagString: Untagged
@@ -12229,24 +12228,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405727133}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0c7fc52c5711874d9ad472bf71ae614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1405727136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405727133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52eecb6221cecd4bbb97149b70f1918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 515737004715930061, guid: d8552827e21d60449b4cb2bd8b280ce1, type: 3}
 --- !u!1 &1409329412
 GameObject:
   m_ObjectHideFlags: 0
