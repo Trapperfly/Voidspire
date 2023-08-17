@@ -27,6 +27,10 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject targetTransformPrefab;
     AdjustToTarget target;
     GameObject targetInstance;
+    float targetHoldTimer;
+    bool targetingDone = false;
+    [SerializeField] float targetingRange = 1f;
+    [SerializeField] LayerMask targetMask;
 
     [Header("Testing Sliders")]
     [SerializeField] Slider maxSpeedSlider;
@@ -97,25 +101,59 @@ public class Player : MonoBehaviour
             turnSpeed = turnSpeedSlider.value;
         if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && turnBrakeSlider.value != 0) //Reset angular drag to slider value
             rb.angularDrag = turnBrakeSlider.value;
+
+        if (Input.GetMouseButton(1))   //Targeting system
+        {
+            if (targetHoldTimer >= 30 && targetingDone == false)
+            {
+                SetTarget();
+                targetingDone = true;
+            }
+            if (targetingDone == false)
+                targetHoldTimer += 1;
+        }
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1))   //Targeting system, to be fixed to be separate method
+        if (Input.GetMouseButtonUp(1))
         {
-            SetTarget();
+            if (targetHoldTimer < 30)
+                RemoveTarget();
+            targetHoldTimer = 0;
+            targetingDone = false;
         }
     }
-
     void SetTarget()
     {
         Debug.Log("Mouse 1 clicked");
-        Destroy(GameObject.FindGameObjectWithTag("Target"));    //Remove previous target
+        if (targetInstance != null)
+            Destroy(targetInstance);    //Remove previous target
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
-        if (hit != false && hit.collider.CompareTag("Targetable"))
+        Collider2D hit = null;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(ray.origin, targetingRange, targetMask);
+        float bestDistance = 10f;
+        foreach (Collider2D potentialHit in hits)
+        {
+            float _distance = Vector2.Distance(ray.origin, potentialHit.ClosestPoint(ray.origin));
+            Debug.Log(_distance);
+            if (_distance == 0)
+            {
+                hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity).collider;
+                bestDistance = 0;
+            }
+            else if (_distance < bestDistance)
+            {
+                bestDistance = _distance;
+                hit = potentialHit;
+            }
+        }
+        Debug.Log("Chose: " + bestDistance);
+        if (hit != null)
         {
             Debug.Log("Hit targetable");
-            target.target = hit.transform.gameObject;   //If hit something hittable, make that the target
+            targetInstance = Instantiate    //If hit nothing, make a vector 2 and use that as target
+            (targetTransformPrefab, hit.transform.position, new Quaternion(), hit.transform);
+            target.target = hit.gameObject;   //If hit something hittable, make that the target
         }
         else
         {
@@ -130,6 +168,13 @@ public class Player : MonoBehaviour
             );
             target.target = targetInstance;
         }
+    }
+    public void RemoveTarget()
+    {
+        if (targetInstance != null)
+            Destroy(targetInstance);
+        else if (target.target != null)
+            target.target = null;
     }
     float CalculateBulletVelocity(float inputVelocity)
     {

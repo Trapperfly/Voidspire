@@ -15,16 +15,16 @@ public class SpawnResourceOnDestroy : MonoBehaviour
 
         for (int i = 0; i < amount; i++)
         {
-            GameObject resource = Instantiate(resourcePrefab, RandomVector2InsideCircle(position, value), new Quaternion(0, 0, 0, 0), transform);
-            Rigidbody2D resourceRb = resource.GetComponent<Rigidbody2D>();
-            Resource ResourceValues = resource.GetComponent<Resource>();
-            resource.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
-            resourceRb.AddExplosionForce(value/5, position, value, 0, ForceMode2D.Impulse);
-            resource.GetComponentInChildren<SpriteRenderer>().color = new Color(1, Mathf.Clamp(1f - ((value * 0.1f) * Random.Range(0f, 3f)), 0f, 1f), 0);
-            float smallValue = Mathf.Clamp(Mathf.Sqrt(value)/2, 0.4f, 1f);
-            resource.transform.GetChild(0).transform.localScale = 
-                new Vector2(Random.Range(smallValue - (smallValue / 4), smallValue + (smallValue / 2)), Random.Range(smallValue - (smallValue / 4), smallValue + (smallValue / 2)));
-            ResourceValues.worth = Mathf.Clamp((int)value, 1, 1000);
+            Quaternion _rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
+            GameObject _resource = Instantiate(resourcePrefab, RandomVector2InsideCircle(position, value), _rotation, transform);
+            Rigidbody2D _resourceRb = _resource.GetComponent<Rigidbody2D>();
+            Resource _ResourceValues = _resource.GetComponent<Resource>();
+            float _sv = Mathf.Clamp(Mathf.Sqrt(value) / 2, 0.4f, 1f); //sv = smallValue
+
+            _resource.GetComponentInChildren<SpriteRenderer>().color = new Color(1, Mathf.Clamp(1f - ((value * 0.1f) * Random.Range(0f, 3f)), 0f, 1f), 0);
+            _resource.transform.GetChild(0).transform.localScale = new(Random.Range(_sv * 0.75f, _sv * 0.75f), Random.Range(_sv * 0.75f, _sv * 0.75f));
+            _ResourceValues.worth = Mathf.Clamp((int)value, 1, 1000);
+            _resourceRb.AddExplosionForce(value / 5, position, value, 0, ForceMode2D.Impulse);
         }
 
         yield return null;
@@ -32,12 +32,7 @@ public class SpawnResourceOnDestroy : MonoBehaviour
 
     Vector2 RandomVector2InsideCircle(Vector2 middle, float size)
     {
-        Vector2 _position = middle;
-        Vector2 _placement = new(0f,0f);
-        while(Vector2.Distance(middle,_placement) >= size/2)
-        {
-            _placement = new Vector2(_position.x + Random.Range(0 - size/2, 0 + size/2), _position.y + Random.Range(0 - size/2, 0 + size/2));
-        }
+        Vector2 _placement = middle + Random.insideUnitCircle;
         return _placement;
     }
 }

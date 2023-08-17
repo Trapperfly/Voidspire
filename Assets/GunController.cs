@@ -89,13 +89,15 @@ public class GunController : MonoBehaviour
     bool chargeAvailable = true;
     [SerializeField] int burst;                //On gun
     [SerializeField] float burstDelay;          //On gun
-    int burstDelayTimer;
     [SerializeField] float punch;               //On bullet
     [SerializeField] float punchSelf;           //On gun
     [SerializeField] bool overheat;             //On gun
     [SerializeField] float overheatLimit;       //On gun
     [SerializeField] float overheatBuildup;     //On gun
     [SerializeField] bool inflictIgnition;
+    [Header("Gun attributes")]
+    [SerializeField] float angle;
+    [SerializeField] float rotationSpeed;
 
     [Header("Prefabs")]
     [SerializeField] GameObject bulletPrefab;
@@ -104,6 +106,7 @@ public class GunController : MonoBehaviour
     int gunTimer = 0;
     [Header("Testing")]
     [SerializeField] AdjustToTarget target;
+    [SerializeField] GunPointToMouse gunPoint;
     bool inBurst = false;
     [SerializeField] float weightScalar = 0.0001f;
     private void FixedUpdate()

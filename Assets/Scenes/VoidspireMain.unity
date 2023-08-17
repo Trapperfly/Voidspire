@@ -1289,6 +1289,9 @@ MonoBehaviour:
   - {fileID: 0}
   resetOnAwake: 1
   targetTransformPrefab: {fileID: 6262248691123227558, guid: f8b217729d35357448a713ce141bb6ae, type: 3}
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 3584
   maxSpeedSlider: {fileID: 1051764999}
   speedSlider: {fileID: 1453486221}
   brakingSpeedSlider: {fileID: 1180894482}
@@ -4435,10 +4438,13 @@ MonoBehaviour:
   overheatLimit: 0
   overheatBuildup: 0
   inflictIgnition: 0
+  angle: 0
+  rotationSpeed: 0
   bulletPrefab: {fileID: 515737004715930061, guid: d8552827e21d60449b4cb2bd8b280ce1, type: 3}
   laserPrefab: {fileID: 0}
   wavePrefab: {fileID: 0}
   target: {fileID: 994074745}
+  gunPoint: {fileID: 0}
   weightScalar: 0.0001
 --- !u!1 &910625641
 GameObject:

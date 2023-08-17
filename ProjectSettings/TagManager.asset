@@ -18,9 +18,9 @@ TagManager:
   - Player
   - Bullet
   - PostProcessing
-  - 
-  - 
-  - 
+  - Enemy
+  - Ally
+  - Destructible
   - Resource
   - 
   - 

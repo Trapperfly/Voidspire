@@ -19,15 +19,15 @@ public class AdjustToTarget : MonoBehaviour
     {
         if (target == null)
         {
-            if (transform.localPosition != new Vector3(0, 0, 0))
-                transform.localPosition = new Vector3(0, 0, 0);
+            if ((Vector2)transform.localPosition != new Vector2(0, 0))
+                transform.localPosition = new Vector2(0, 0);
             return;
         }
         else
         {
             transform.position = target.transform.position + (player.transform.position - target.transform.position) / 2;
             if (Vector2.Distance(player.transform.position, target.transform.position) >= maxDistance)
-                target = null;
+                player.GetComponent<Player>().RemoveTarget();
         }
     }
 }
