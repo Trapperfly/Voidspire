@@ -4440,7 +4440,7 @@ MonoBehaviour:
   overheatBuildup: 0
   inflictIgnition: 0
   angle: 0
-  rotationSpeed: 0.01
+  rotationSpeed: 1
   bulletPrefab: {fileID: 515737004715930061, guid: d8552827e21d60449b4cb2bd8b280ce1, type: 3}
   laserPrefab: {fileID: 0}
   wavePrefab: {fileID: 0}
