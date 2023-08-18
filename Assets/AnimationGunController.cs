@@ -102,6 +102,9 @@ public class AnimationGunController : MonoBehaviour
     [SerializeField] GameObject wavePrefab;
     int gunTimer = 0;
     [SerializeField] AdjustToTarget target;
+	[Header("Gun attributes")]
+    public float angle;
+    public float rotationSpeed;
 	
 	public Animator animator; 
 	
@@ -123,7 +126,15 @@ public class AnimationGunController : MonoBehaviour
 	
     public IEnumerator Shoot(float bulletSpeed)
     {
-        animator.SetTrigger("Attack");
+        if (fireRate > 2)
+		{
+			animator.SetFloat("AttackSpeed", fireRate);
+		}
+		else
+		{
+			animator.SetFloat("AttackSpeed", 2);
+		}
+		animator.SetTrigger("Attack");
 		GameObject bullet = Instantiate(bulletPrefab, transform.position, Spread(transform.rotation));
         bullet.transform.localScale *= bulletSize;
         bullet.transform.parent = GameObject.FindGameObjectWithTag("BulletHolder").transform;
