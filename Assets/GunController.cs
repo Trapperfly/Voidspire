@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 enum BulletType
 {
@@ -70,10 +71,17 @@ public class GunController : MonoBehaviour
     [SerializeField] float bulletSize;          //On gun
     [SerializeField] float bulletSizeChange;    //On bullet
     [SerializeField] float fireRate;            //On gun
-    [SerializeField] float fireRateChange;      //On gun
+    float fireRateA;
+    [SerializeField] float fireRateChange;   //On gun
+    [SerializeField] float fireRateChangeTimer; //On gun
+    float fireRateScalar = 0;
     [SerializeField] int amount;                //On gun
+    int extraShot = 0;
     [SerializeField] float spread;              //On gun
+    float spreadA;
     [SerializeField] float spreadChange;        //On gun
+    [SerializeField] float spreadChangeTimer;
+    float spreadScalar;
     [SerializeField] float speed;               //On gun
     [SerializeField] float speedChange;         //On bullet
     [SerializeField] float longevity;           //On bullet
@@ -87,7 +95,7 @@ public class GunController : MonoBehaviour
     [SerializeField] float chargeUp;            //On gun
     [SerializeField] float charge;
     bool chargeAvailable = true;
-    [SerializeField] int burst;                //On gun
+    [SerializeField] int burst;                 //On gun
     [SerializeField] float burstDelay;          //On gun
     [SerializeField] float punch;               //On bullet
     [SerializeField] float punchSelf;           //On gun
@@ -108,10 +116,31 @@ public class GunController : MonoBehaviour
     [SerializeField] AdjustToTarget target;
     bool inBurst = false;
     [SerializeField] float weightScalar = 0.0001f;
+    [SerializeField] TMP_Text text;
+    [SerializeField] Transform bulletHolder;
+
+    private void Awake()
+    {
+        fireRateA = fireRate;
+        spreadA = spread;
+    }
+    private void Update()
+    {
+        UpdateText();
+    }
     private void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.Mouse0) && gunTimer >= Mathf.Clamp(60 / fireRate, 1, 600))
+        if (Input.GetKey(KeyCode.Mouse0) && gunTimer >= Mathf.Clamp(60 / fireRateA, 1, 600))
         {
+            if (fireRateChange != 0 && fireRateChangeTimer != 0)
+            {
+                fireRateScalar += (1 / fireRateA) / fireRateChangeTimer;
+            }
+            if (spreadChange != 0 && spreadChangeTimer != 0)
+            {
+                spreadScalar += (1 / fireRateA) / spreadChangeTimer;
+            }
+            FindExtraShotChance(fireRateA);
             if (chargeUp == 0 || charge > chargeUp * 60)
             {
                 if (burst != 0 && !inBurst)
@@ -120,13 +149,13 @@ public class GunController : MonoBehaviour
                 }
                 else if (!inBurst)
                 {
-                    for (int i = amount; i > 0; i--)
+                    for (int i = amount + extraShot; i > 0; i--)
                     {
                         StartCoroutine(Shoot(speed));
-                        gunTimer = 0;
                         charge = 0;
                         chargeAvailable = false;
                     }
+                    extraShot = 0;
                 }
             }
             else if (chargeUp != 0 && chargeAvailable == true)
@@ -141,7 +170,26 @@ public class GunController : MonoBehaviour
                 charge -= 2;
             }
             chargeAvailable = true;
+            if (fireRateScalar > 0)
+            {
+                fireRateScalar -= (1f / (60f)) / fireRateChangeTimer * 2;
+            }
+            if (spreadScalar > 0)
+            {
+                spreadScalar -= (1f / (60f)) / spreadChangeTimer * 2;
+            }
         }
+        fireRateA = Mathf.Lerp(fireRate, fireRate + fireRateChange, fireRateScalar);
+        if (fireRateScalar < 0 || fireRateScalar > 1)
+            fireRateScalar = Mathf.Clamp(fireRateScalar, 0, 1);
+        if (fireRateA != fireRate && fireRateScalar == 0)
+            fireRateA = fireRate;
+
+        spreadA = Mathf.Lerp(spread, spread + spreadChange, spreadScalar);
+        if (spreadScalar < 0 || spreadScalar > 1)
+            spreadScalar = Mathf.Clamp(spreadScalar, 0, 1);
+        if (spreadA != spread && spreadScalar == 0)
+            spreadA = spread;
         gunTimer++;
     }
     IEnumerator Burst(int times, float delay)
@@ -149,18 +197,17 @@ public class GunController : MonoBehaviour
         inBurst = true;
         for (int b = times; b > 0; b--)
         {
-            for (int i = amount; i > 0; i--)
+            for (int i = amount + extraShot; i > 0; i--)
             {
                 StartCoroutine(Shoot(speed));
-                gunTimer = 0;
                 charge = 0;
                 chargeAvailable = false;
             }
             yield return new WaitForSeconds(delay);
         }
         yield return null;
-        gunTimer = 0;
         inBurst = false;
+        extraShot = 0;
     }
     public IEnumerator Shoot(float bulletSpeed)
     {
@@ -183,8 +230,7 @@ public class GunController : MonoBehaviour
         if (target.target != null)
             bulletSC.target = target.target;
         bulletSC._weightScalar = weightScalar;
-
-
+        gunTimer = 0;
         yield return null;
     }
     public void RandomizeGun()
@@ -193,7 +239,24 @@ public class GunController : MonoBehaviour
     }
     Quaternion Spread(Quaternion baseRotation)
     {
-        Quaternion spreadValue = baseRotation * Quaternion.Euler(0, 0, Random.Range(-spread, spread));
+        Quaternion spreadValue = baseRotation * Quaternion.Euler(0, 0, Random.Range(-spreadA, spreadA));
         return spreadValue;
+    }
+
+    void UpdateText()
+    {
+        text.text = bulletHolder.childCount.ToString();
+    }
+
+    void FindExtraShotChance(float _fr)
+    {
+        float chance = (_fr - 60) / 60;
+        float chanceModulus = chance % 1;
+        extraShot = Mathf.Clamp(Mathf.FloorToInt(chance), 0, 100);
+        Debug.Log(chanceModulus);
+        if (Random.value <= chanceModulus)
+        {
+            extraShot += 1;
+        }
     }
 }
