@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public float _damageChange;
     public float _sizeChange;
     public float _speed;
+    public float _speedChange;
     public float _bulletLongevity;
     public int _pierce;
     public int _bounce;
@@ -69,11 +70,25 @@ public class Bullet : MonoBehaviour
             col.isTrigger = false;
             bounced = false;
         }
+        if (_sizeChange != 0)
+        {
+            float _sizeChangeValue = _sizeChange / 100;
+            transform.localScale += new Vector3(_sizeChangeValue, _sizeChangeValue, 0);
+        }
+        if (_damageChange != 0)
+        {
+            _damage += _damageChange / 100;
+        }
+        if (_speedChange != 0)
+        {
+            rb.AddForce(_speedChange * 0.0001f * transform.up, ForceMode2D.Force);
+        }
+
         magnitude = rb.velocity.magnitude;
     }
     private void OnTriggerEnter2D(Collider2D hit)
     {
-        if (_bounce <= 0 && _pierce > 0)
+        if (_bounce <= 0)
         {
             if (!hit.gameObject.CompareTag("Bullet"))
             {

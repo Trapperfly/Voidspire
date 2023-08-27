@@ -90,7 +90,7 @@ public class GunController : MonoBehaviour
     [SerializeField] float homingStrength;      //On bullet
     [SerializeField] int pierce;                //On bullet
     [SerializeField] int bounce;                //On bullet
-    [SerializeField] bool bounceToTarget;
+    //[SerializeField] bool bounceToTarget;
     [Header("Misc")]
     [SerializeField] float chargeUp;            //On gun
     [SerializeField] float charge;
@@ -98,11 +98,11 @@ public class GunController : MonoBehaviour
     [SerializeField] int burst;                 //On gun
     [SerializeField] float burstDelay;          //On gun
     [SerializeField] float punch;               //On bullet
-    [SerializeField] float punchSelf;           //On gun
-    [SerializeField] bool overheat;             //On gun
-    [SerializeField] float overheatLimit;       //On gun
-    [SerializeField] float overheatBuildup;     //On gun
-    [SerializeField] bool inflictIgnition;
+    //[SerializeField] float punchSelf;           //On gun
+    //[SerializeField] bool overheat;             //On gun
+    //[SerializeField] float overheatLimit;       //On gun
+    //[SerializeField] float overheatBuildup;     //On gun
+    //[SerializeField] bool inflictIgnition;
     [Header("Gun attributes")]
     public float angle;
     public float rotationSpeed;
@@ -118,6 +118,40 @@ public class GunController : MonoBehaviour
     [SerializeField] float weightScalar = 0.0001f;
     [SerializeField] TMP_Text text;
     [SerializeField] Transform bulletHolder;
+
+    [Header("RandomizerValues")]
+    [SerializeField] Vector2 R_damage;              //On bullet
+    [SerializeField] Vector2 R_damageChange;        //On bullet
+    [SerializeField] Vector2 R_bulletSize;          //On gun
+    [SerializeField] Vector2 R_bulletSizeChange;    //On bullet
+    [SerializeField] Vector2 R_fireRate;            //On gun
+    [SerializeField] Vector2 R_fireRateChange;   //On gun
+    [SerializeField] Vector2 R_fireRateChangeTimer; //On gun
+    [SerializeField] Vector2 R_amount;                //On gun
+    [SerializeField] Vector2 R_spread;              //On gun
+    [SerializeField] Vector2 R_spreadChange;        //On gun
+    [SerializeField] Vector2 R_spreadChangeTimer;
+    [SerializeField] Vector2 R_speed;               //On gun
+    [SerializeField] Vector2 R_speedChange;         //On bullet
+    [SerializeField] Vector2 R_longevity;           //On bullet
+    [Header("Specials")]
+    [SerializeField] Vector2 R_homingStrength;      //On bullet
+    [SerializeField] Vector2 R_pierce;                //On bullet
+    [SerializeField] Vector2 R_bounce;                //On bullet
+    //[SerializeField] bool bounceToTarget;
+    [Header("Misc")]
+    [SerializeField] Vector2 R_chargeUp;            //On gun
+    [SerializeField] Vector2 R_burst;                 //On gun
+    [SerializeField] Vector2 R_burstDelay;          //On gun
+    [SerializeField] Vector2 R_punch;               //On bullet
+    //[SerializeField] float punchSelf;           //On gun
+    //[SerializeField] bool overheat;             //On gun
+    //[SerializeField] float overheatLimit;       //On gun
+    //[SerializeField] float overheatBuildup;     //On gun
+    //[SerializeField] bool inflictIgnition;
+    [Header("Gun attributes")]
+    public Vector2 R_angle;
+    public Vector2 R_rotationSpeed;
 
     private void Awake()
     {
@@ -220,10 +254,11 @@ public class GunController : MonoBehaviour
         bulletSC._damageChange = damageChange;
         bulletSC._sizeChange = bulletSizeChange;
         bulletSC._speed = speed;
+        bulletSC._speedChange = speedChange;
         bulletSC._bulletLongevity = longevity;
         bulletSC._pierce = pierce;
         bulletSC._bounce = bounce;
-        bulletSC._bounceToTarget = bounceToTarget;
+        //bulletSC._bounceToTarget = bounceToTarget;
         bulletSC._homing = homing;
         bulletSC._homingStrength = homingStrength * 5 * speed;
         bulletSC._punch = punch;
@@ -233,10 +268,7 @@ public class GunController : MonoBehaviour
         gunTimer = 0;
         yield return null;
     }
-    public void RandomizeGun()
-    {
 
-    }
     Quaternion Spread(Quaternion baseRotation)
     {
         Quaternion spreadValue = baseRotation * Quaternion.Euler(0, 0, Random.Range(-spreadA, spreadA));
@@ -258,5 +290,85 @@ public class GunController : MonoBehaviour
         {
             extraShot += 1;
         }
+    }
+    public void RandomizeGun()
+    {
+        int seed = Random.Range(0, 10);
+
+        if (seed < 5)
+        {
+            damage = Random.Range(R_damage.x, R_damage.x + (R_damage.y - R_damage.x) / 2);
+            fireRate = Random.Range(R_fireRate.x + (R_fireRate.y - R_fireRate.x) / 2, R_fireRate.y);
+        }
+        else
+        {
+            damage = Random.Range(R_damage.x + (R_damage.y - R_damage.x) / 2, R_damage.y);
+            fireRate = Random.Range(R_fireRate.x, R_fireRate.x + (R_fireRate.y - R_fireRate.x) / 2);
+        }
+
+        switch (Random.Range(1, 4))
+        {
+            case (1):
+                damageChange = Random.Range(R_damageChange.x, R_damageChange.y);
+                speedChange = 0;
+                bulletSizeChange = 0;
+                break;
+            case (2):
+                bulletSizeChange = Random.Range(R_bulletSizeChange.x, R_bulletSizeChange.y);
+                speedChange = 0;
+                damageChange = 0;
+                break;
+            case (3):
+                speedChange = Random.Range(R_speedChange.x, R_speedChange.y);
+                bulletSizeChange = 0;
+                damageChange = 0;
+                break;
+            default:
+                break;
+        }
+        switch (Random.Range(1, 4))
+        {
+            case (1):
+                fireRateChange = Random.Range(R_fireRateChange.x, R_fireRateChange.y);
+                fireRateChangeTimer = Random.Range(R_fireRateChangeTimer.x, R_fireRateChangeTimer.y);
+                spreadChange = 0;
+                spreadChangeTimer = 0;
+                break;
+            case (2):
+                spreadChange = Random.Range(R_spreadChange.x, R_spreadChange.y);
+                spreadChangeTimer = Random.Range(R_spreadChangeTimer.x, R_spreadChangeTimer.y);
+                fireRateChange = 0;
+                fireRateChangeTimer = 0;
+                break;
+            case (3):
+                fireRateChange = 0;
+                fireRateChangeTimer = 0;
+                spreadChange = 0;
+                spreadChangeTimer = 0;
+                break;
+            default:
+                break;
+        }
+
+        bulletSize = Random.Range(R_bulletSize.x, R_bulletSize.y);
+        
+        amount = Mathf.FloorToInt(Random.Range(R_amount.x, R_amount.y));
+        spread = Random.Range(R_spread.x, R_spread.y);
+
+        speed = Random.Range(R_speed.x, R_speed.y);
+        longevity = Random.Range(R_longevity.x, R_longevity.y);
+        /*
+        homing;
+        homingStrength;
+        pierce;
+        bounce;
+
+        chargeUp;
+        charge;
+
+        burst;
+        burstDelay;
+        punch;
+        */
     }
 }
