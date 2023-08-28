@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Text;
 
 enum BulletType
 {
@@ -118,7 +119,13 @@ public class GunController : MonoBehaviour
     [SerializeField] float weightScalar = 0.0001f;
     [SerializeField] TMP_Text text;
     [SerializeField] Transform bulletHolder;
+    [SerializeField] TMP_InputField input;
+    public int currentSeed = 0;
+    const string characters = "abcdefghijklmnopqrstuvwxyz0123456789";
+    [SerializeField] int minSeedChars;
+    [SerializeField] int maxSeedChars;
 
+    #region RandomizerValues
     [Header("RandomizerValues")]
     [SerializeField] Vector2 R_damage;              //On bullet
     [SerializeField] Vector2 R_damageChange;        //On bullet
@@ -134,12 +141,10 @@ public class GunController : MonoBehaviour
     [SerializeField] Vector2 R_speed;               //On gun
     [SerializeField] Vector2 R_speedChange;         //On bullet
     [SerializeField] Vector2 R_longevity;           //On bullet
-    [Header("Specials")]
     [SerializeField] Vector2 R_homingStrength;      //On bullet
     [SerializeField] Vector2 R_pierce;                //On bullet
     [SerializeField] Vector2 R_bounce;                //On bullet
     //[SerializeField] bool bounceToTarget;
-    [Header("Misc")]
     [SerializeField] Vector2 R_chargeUp;            //On gun
     [SerializeField] Vector2 R_burst;                 //On gun
     [SerializeField] Vector2 R_burstDelay;          //On gun
@@ -152,6 +157,7 @@ public class GunController : MonoBehaviour
     [Header("Gun attributes")]
     public Vector2 R_angle;
     public Vector2 R_rotationSpeed;
+    #endregion
 
     private void Awake()
     {
@@ -293,9 +299,28 @@ public class GunController : MonoBehaviour
     }
     public void RandomizeGun()
     {
-        int seed = Random.Range(0, 10);
+        if (input.text == string.Empty)
+        {
+            currentSeed = System.Environment.TickCount.GetHashCode();
+            Random.InitState(currentSeed);
 
-        if (seed < 5)
+            StringBuilder seedBuilder = new();
+            int charAmount = Random.Range(minSeedChars, maxSeedChars);
+            for (int i = 0; i < charAmount; i++)
+            {
+                seedBuilder.Append(characters[Random.Range(0, characters.Length)]);
+            }
+            currentSeed = seedBuilder.ToString().GetHashCode();
+            Random.InitState(currentSeed);
+        }
+        else
+        {
+            currentSeed = input.text.GetHashCode();
+            Random.InitState(currentSeed);
+        }
+        input.text = null;
+
+        if (Random.Range(0, 10) < 5)
         {
             damage = Random.Range(R_damage.x, R_damage.x + (R_damage.y - R_damage.x) / 2);
             fireRate = Random.Range(R_fireRate.x + (R_fireRate.y - R_fireRate.x) / 2, R_fireRate.y);
@@ -359,7 +384,7 @@ public class GunController : MonoBehaviour
         longevity = Random.Range(R_longevity.x, R_longevity.y);
         /*
         homing;
-        homingStrength;
+        homingStrength = Random.Range();
         pierce;
         bounce;
 
