@@ -88,7 +88,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D hit)
     {
-        if (_bounce <= 0)
+        if (_bounce < 1)
         {
             if (!hit.gameObject.CompareTag("Bullet"))
             {
@@ -108,7 +108,10 @@ public class Bullet : MonoBehaviour
     private void OnTriggerExit2D(Collider2D hit)
     {
         if (_bounce > 0 && _pierce < 1)
+        {
             GetComponent<Collider2D>().isTrigger = false;
+            Debug.Log("Turning off trigger // " + _bounce + " bounces left and " + _pierce + " pierces left");
+        }
     }
     private void OnCollisionEnter2D(Collision2D hit)
     {
