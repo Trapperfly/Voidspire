@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Text;
+using Unity.Entities;
+using Unity.Burst;
 
 enum BulletType
 {
@@ -115,6 +117,7 @@ public class GunController : MonoBehaviour
     [SerializeField] GameObject laserPrefab;
     [SerializeField] GameObject wavePrefab;
     int gunTimer = 0;
+
     [Header("Testing")]
     [SerializeField] AdjustToTarget target;
     bool inBurst = false;
@@ -131,6 +134,7 @@ public class GunController : MonoBehaviour
     int special = 100;
     int gunBonus = 100;
     int bulletBonus = 100;
+    public static Transform[] BulletTransforms;
     #region RandomizerValues
     [Header("RandomizerValues")]
     [SerializeField] Vector2 R_damage;              //On bullet
@@ -261,26 +265,30 @@ public class GunController : MonoBehaviour
     }
     public IEnumerator Shoot()
     {
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Spread(transform.rotation));
-        bullet.transform.localScale *= bulletSize;
-        bullet.transform.parent = GameObject.FindGameObjectWithTag("BulletHolder").transform;
-        bullet.GetComponent<Rigidbody2D>().AddForce(Speed(speed) * weightScalar * bullet.transform.up, ForceMode2D.Impulse);
-        Bullet bulletSC = bullet.GetComponent<Bullet>();
-        bulletSC._damage = damage;
-        bulletSC._damageChange = damageChange;
-        bulletSC._sizeChange = bulletSizeChange;
-        bulletSC._speed = speed;
-        bulletSC._speedChange = speedChange;
-        bulletSC._bulletLongevity = longevity;
-        bulletSC._pierce = pierce;
-        bulletSC._bounce = bounce;
+        GameObject b = 
+            Instantiate(
+                bulletPrefab, bulletSpawnPoint.position,
+            Spread(transform.rotation),
+            GameObject.FindGameObjectWithTag("BulletHolder").transform
+            );
+        b.transform.localScale *= bulletSize;
+        b.GetComponent<Rigidbody2D>().AddForce(Speed(speed) * weightScalar * b.transform.up, ForceMode2D.Impulse);
+        Bullet bc = b.GetComponent<Bullet>();
+        bc._damage = damage;
+        bc._damageChange = damageChange;
+        bc._sizeChange = bulletSizeChange;
+        bc._speed = speed;
+        bc._speedChange = speedChange;
+        bc._bulletLongevity = longevity;
+        bc._pierce = pierce;
+        bc._bounce = bounce;
         //bulletSC._bounceToTarget = bounceToTarget;
-        bulletSC._homing = homing;
-        bulletSC._homingStrength = homingStrength * 5 * speed;
-        bulletSC._punch = punch;
+        bc._homing = homing;
+        bc._homingStrength = homingStrength * 5 * speed;
+        bc._punch = punch;
+        bc._weightScalar = weightScalar;
         if (target.target != null)
-            bulletSC.target = target.target;
-        bulletSC._weightScalar = weightScalar;
+            bc.target = target.target;
         gunTimer = 0;
         yield return null;
     }
