@@ -22,10 +22,9 @@ public class Bullet : MonoBehaviour
     Rigidbody2D rb;
     Collider2D col;
     public GameObject target;
-    Vector3 lastVelocity;
-    bool bounced = false;
+    public Vector3 lastVelocity;
+    public bool bounced = false;
     public float _weightScalar;
-    public float magnitude;
     private void Awake()
     {
         currTime = Time.time;
@@ -66,7 +65,6 @@ public class Bullet : MonoBehaviour
             transform.up = rb.velocity;
             rb.angularVelocity = 0;
         }
-        lastVelocity = rb.velocity;     //Logs last velocity to be used in bounce
         if (bounced)
         {
             col.isTrigger = false;
@@ -85,64 +83,9 @@ public class Bullet : MonoBehaviour
         {
             rb.AddForce(_speedChange * 0.0001f * transform.up, ForceMode2D.Force);
         }
-
-        magnitude = rb.velocity.magnitude;
+        lastVelocity = rb.velocity;     //Logs last velocity to be used in bounce
     }
-    private void OnTriggerEnter2D(Collider2D hit)
-    {
-        if (_bounce < 1)
-        {
-            if (!hit.gameObject.CompareTag("Bullet"))
-            {
-                if (hit.GetComponent<Rigidbody2D>() != null)
-                    hit.GetComponent<Rigidbody2D>().AddForce(transform.up * _punch);
-                else if (hit.GetComponentInChildren<Rigidbody2D>() != null)
-                    hit.GetComponentInChildren<Rigidbody2D>().AddForce(transform.up * _punch, ForceMode2D.Impulse);
-                if (_pierce > 0)
-                {
-                    _pierce--;
-                }
-                else
-                    Destroy(gameObject);
-            }
-        }
-    }
-    private void OnTriggerExit2D(Collider2D hit)
-    {
-        if (_bounce > 0 && _pierce < 1)
-        {
-            GetComponent<Collider2D>().isTrigger = false;
-            Debug.Log("Turning off trigger // " + _bounce + " bounces left and " + _pierce + " pierces left");
-        }
-    }
-    private void OnCollisionEnter2D(Collision2D hit)
-    {
-        if (!hit.gameObject.CompareTag("Bullet"))
-        {
-            if (hit.collider.GetComponent<Rigidbody2D>() != null)
-                hit.collider.GetComponent<Rigidbody2D>().AddForce(transform.up * _punch);
-            else if (hit.collider.GetComponentInChildren<Rigidbody2D>() != null)
-                hit.collider.GetComponentInChildren<Rigidbody2D>().AddForce(transform.up * _punch, ForceMode2D.Impulse);
-            if (_bounce > 0)
-            {
-                col.isTrigger = true;
-                foreach (var contact in hit.contacts)
-                {
-                    Vector2 _bounceDir = Vector2.Reflect(lastVelocity, contact.normal).normalized;
-                    rb.velocity = _bounceDir * _speed;
-                    bounced = true;
-                    if (_homing && target != null)
-                        StartCoroutine(WaitAndSwitchHoming(0.01f));
-                }
-                rb.angularVelocity = 0;
-                _bounce--;
-            }
-            else
-                Destroy(gameObject);
-        }
-    }
-    
-    IEnumerator WaitAndSwitchHoming(float time)
+    public IEnumerator WaitAndSwitchHoming(float time)
     {
         _homing = false;
         yield return new WaitForSeconds(time * _homingStrength / 25);

@@ -9,7 +9,7 @@ public class SpawnResourceOnDestroy : MonoBehaviour
     public int amountScalar = 10;
     int amount;
     public int resourceWorth;
-    public IEnumerator SpawnResources(float value, float overkill, Vector2 position)
+    public void SpawnResources(float value, Vector2 position)
     {
         amount = Mathf.Clamp((int)(value * amountScalar), 1, 1000);
 
@@ -26,8 +26,6 @@ public class SpawnResourceOnDestroy : MonoBehaviour
             _ResourceValues.worth = Mathf.Clamp((int)value, 1, 1000);
             _resourceRb.AddExplosionForce(value / 5, position, value, 0, ForceMode2D.Impulse);
         }
-
-        yield return null;
     }
 
     Vector2 RandomVector2InsideCircle(Vector2 middle, float size)
