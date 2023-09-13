@@ -109,7 +109,7 @@ public class GunController : MonoBehaviour
     //[SerializeField] float overheatBuildup;     //On gun
     //[SerializeField] bool inflictIgnition;
     [Header("Gun attributes")]
-    public float angle;
+    public Vector2 rotationAngle;
     public float rotationSpeed;
 
     [Header("Prefabs")]
@@ -245,6 +245,8 @@ public class GunController : MonoBehaviour
         if (spreadA != spread && spreadScalar == 0)
             spreadA = spread;
         gunTimer++;
+
+        
     }
     IEnumerator Burst(int times, float delay)
     {
