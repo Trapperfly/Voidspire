@@ -9,7 +9,7 @@ public class DestroyBullets : MonoBehaviour
         if (collision.collider.CompareTag("Bullet"))
         {
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-            if (bullet._bounce < 1 && bullet._pierce < 1)
+            if (bullet._localBounce < 1 && bullet._localPierce < 1)
                 Destroy(bullet.gameObject);
         }
     }
@@ -19,7 +19,7 @@ public class DestroyBullets : MonoBehaviour
         if (collision.CompareTag("Bullet"))
         {
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-            if (bullet._bounce < 1 && bullet._pierce < 1)
+            if (bullet._localBounce < 1 && bullet._localPierce < 1)
                 Destroy(bullet.gameObject);
         }
     }

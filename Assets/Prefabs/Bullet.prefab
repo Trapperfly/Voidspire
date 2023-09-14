@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf72a6d57f7b2c14487a25c1e6009135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bc: {fileID: 4274856989476343665, guid: 33c5cd7a2d492214da373dc47fd08253, type: 3}
   _damage: 0
   _damageChange: 0
   _sizeChange: 0
@@ -140,8 +141,9 @@ MonoBehaviour:
   _homingStrength: 0
   _punch: 0
   target: {fileID: 0}
+  lastVelocity: {x: 0, y: 0, z: 0}
+  bounced: 0
   _weightScalar: 0
-  magnitude: 0
 --- !u!60 &8472300039904323609
 PolygonCollider2D:
   m_ObjectHideFlags: 0

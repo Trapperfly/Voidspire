@@ -6,61 +6,6 @@ using System.Text;
 using Unity.Entities;
 using Unity.Burst;
 
-enum BulletType
-{
-    Bullet,     //Standard bullet, some punch, nothing special, free fire rate
-    Laser,      //Innately fast, no punch, free fire rate
-    Wave,       //Innately slow, slows down during flight, good punch, pierces, slower fire rate
-    Rocket,     //Speeds up during flight, explosion knockback, cannot pierce or bounce, slow fire rate
-    Needle,     //Small slow bullets that innately homes, damages target after a few seconds, very fast fire rate
-    Railgun,    //Instant hit, leaves a visual trail, pierces, very slow fire rate
-    Mine,       //Slows down to a stop during flight, long longevity, cannot pierce or bounce, very slow fire rate
-    Hammer,     //Innate spread and multiple bullets, hard punch, very slow fire rate, pushes your ship
-    Cluster,    //Slow shot, explodes into spread of bullets during flight, cannot bounce, slow fire rate
-    Arrow,      //Fires large metal arrows that stick into targets to adjust their centre of mass, cannot pierce or bounce, slow fire rate
-    Mirage,     //
-    Grand,      //Large slower shot, very hard punch, very slow fire rate, pushes your ship, amount adds damage instead
-    Void,       //No bullet, but creates a pulling singularity at mouse cursor
-    Beam,       //Continous beam, bounces off walls
-    Blade,      //Shoots blade drones, slight homing, innate bounce towards new targets
-}
-
-enum Prefix
-{
-    Gatling,    //Ramps up firerate AND spread when trigger is held
-    Precise,    //Gets more precise when trigger is held, when max, pierce
-    Homing,     //Shots home aggressively
-    Swarm,      //Smaller and more shots that home slightly
-    Piercing,   //Pierces infinite targets
-    Bore,       //Pierces few targets but damage is multiplied per pierce, initial damage reduced
-    TwoBurst,   //Shoots in bursts of two with little delay per burst
-    SevenBurst, //Shoots in bursts of seven with long delay per burst
-    Shotgun,    //Shoots many shots at once in an arc
-    Bouncy,     //Shots bounce on objects and looses no speed on bounce
-    BounceShot, //Shots bounce to other targets, but gets smaller and weaker on bounce
-    Expanding,  //Shots get larger and more damaging during flight
-    Fusion,     //Long charge-up with concentrated burst shot
-    Flurry,     //Large spread with more projectiles
-    Shooter,    //Fires as fast as you can pull the trigger
-    Grim,       //Ramps up damage and speed the longer the trigger is held, release to fire
-    Frenzy,     //Charge up and fire in rapid succession
-    Dual,       //Each shot has a paralell shot
-    Fiery,      //Last target hit is ignited
-    Inferno,    //Every target is ignited, reduce damage, increased firerate
-}
-enum Modifier
-{
-    
-}
-
-enum Quality
-{
-    Scrap,
-    Poor,
-    Normal,
-    Quality,
-    Pristine,
-}
 public class GunController : MonoBehaviour
 {
     [Header("Type of weapon")]
@@ -124,6 +69,7 @@ public class GunController : MonoBehaviour
     [SerializeField] float weightScalar = 0.0001f;
     [SerializeField] TMP_Text text;
     [SerializeField] Transform bulletHolder;
+    [SerializeField] BulletController bc;
     [SerializeField] TMP_InputField input;
     public int currentSeed = 0;
     const string characters = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -174,9 +120,11 @@ public class GunController : MonoBehaviour
 
     private void Awake()
     {
+        bulletHolder = GameObject.FindGameObjectWithTag("BulletHolder").transform;
         fireRateA = fireRate;
         spreadA = spread;
         SetValues();
+        StartCoroutine(SetBulletValues());
     }
     private void Update()
     {
@@ -267,31 +215,31 @@ public class GunController : MonoBehaviour
     }
     public IEnumerator Shoot()
     {
-        GameObject b = 
-            Instantiate(
-                bulletPrefab, bulletSpawnPoint.position,
-            Spread(transform.rotation),
-            GameObject.FindGameObjectWithTag("BulletHolder").transform
-            );
-        b.transform.localScale *= bulletSize;
-        b.GetComponent<Rigidbody2D>().AddForce(Speed(speed) * weightScalar * b.transform.up, ForceMode2D.Impulse);
-        Bullet bc = b.GetComponent<Bullet>();
-        bc._damage = damage;
-        bc._damageChange = damageChange;
-        bc._sizeChange = bulletSizeChange;
-        bc._speed = speed;
-        bc._speedChange = speedChange;
-        bc._bulletLongevity = longevity;
-        bc._pierce = pierce;
-        bc._bounce = bounce;
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position,Spread(transform.rotation),bulletHolder);
+        bullet.GetComponent<Bullet>().bc = bc;
+        bullet.transform.localScale *= bulletSize;
+        bullet.GetComponent<Rigidbody2D>().AddForce(Speed(speed) * weightScalar * bullet.transform.up, ForceMode2D.Impulse);
+        gunTimer = 0;
+        yield return null;
+    }
+
+    public IEnumerator SetBulletValues()
+    {
+        bc.damage = damage;
+        bc.damageChange = damageChange;
+        bc.sizeChange = bulletSizeChange;
+        bc.speed = speed;
+        bc.speedChange = speedChange;
+        bc.bulletLongevity = longevity;
+        bc.pierce = pierce;
+        bc.bounce = bounce;
         //bulletSC._bounceToTarget = bounceToTarget;
-        bc._homing = homing;
-        bc._homingStrength = homingStrength * 5 * speed;
-        bc._punch = punch;
-        bc._weightScalar = weightScalar;
+        bc.homing = homing;
+        bc.homingStrength = homingStrength * 5 * speed;
+        bc.punch = punch;
+        bc.weightScalar = weightScalar;
         if (target.target != null)
             bc.target = target.target;
-        gunTimer = 0;
         yield return null;
     }
 
@@ -546,6 +494,7 @@ public class GunController : MonoBehaviour
         }
         punch = Random.Range(R_punch.x, R_punch.y);
         SetValues();
+        StartCoroutine(SetBulletValues());
     }
     float CurveWeightedRandom(AnimationCurve curve)
     {

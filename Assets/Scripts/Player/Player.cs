@@ -168,6 +168,7 @@ public class Player : MonoBehaviour
             );
             target.target = targetInstance;
         }
+        StartCoroutine(gunArray[0].SetBulletValues());
     }
     public void RemoveTarget()
     {

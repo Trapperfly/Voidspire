@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Debris : MonoBehaviour
+enum Modifier
+{
+
+}
+public class GunModifier : MonoBehaviour
 {
     
 }

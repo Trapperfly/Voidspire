@@ -19,7 +19,7 @@ public class Damagable : MonoBehaviour
     {
         if (collision.collider.CompareTag("Bullet"))
         {
-            currentHealth -= collision.collider.GetComponent<Bullet>()._damage;
+            currentHealth -= collision.collider.GetComponent<Bullet>()._localDamage;
             HealthCheck();
         }
     }
@@ -28,7 +28,7 @@ public class Damagable : MonoBehaviour
     {
         if (collision.CompareTag("Bullet"))
         {
-            currentHealth -= collision.GetComponent<Bullet>()._damage;
+            currentHealth -= collision.GetComponent<Bullet>()._localDamage;
             HealthCheck();
         }
     }

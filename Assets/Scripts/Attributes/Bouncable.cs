@@ -11,19 +11,19 @@ public class Bouncable : MonoBehaviour
             Bullet bullet = hit.gameObject.GetComponent<Bullet>();
             Collider2D col = hit.gameObject.GetComponent<Collider2D>();
             Rigidbody2D rb = hit.gameObject.GetComponent<Rigidbody2D>();
-            if (bullet._bounce > 0)
+            if (bullet._localBounce > 0)
             {
                 col.isTrigger = true;
                 foreach (var contact in hit.contacts)
                 {
                     Vector2 _bounceDir = Vector2.Reflect(bullet.lastVelocity, contact.normal).normalized;
-                    rb.velocity = _bounceDir * bullet._speed;
+                    rb.velocity = _bounceDir * bullet.bc.speed;
                     bullet.bounced = true;
-                    if (bullet._homing && bullet.target != null)
+                    if (bullet._localHoming && bullet.bc.target != null)
                         StartCoroutine(bullet.WaitAndSwitchHoming(0.01f));
                 }
                 rb.angularVelocity = 0;
-                bullet._bounce--;
+                bullet._localBounce--;
             }
         }
     }
@@ -32,10 +32,10 @@ public class Bouncable : MonoBehaviour
         if (hit.gameObject.CompareTag("Bullet"))
         {
             Bullet bullet = hit.gameObject.GetComponent<Bullet>();
-            if (bullet._bounce > 0 && bullet._pierce < 1)
+            if (bullet._localBounce > 0 && bullet._localPierce < 1)
             {
                 GetComponent<Collider2D>().isTrigger = false;
-                Debug.Log("Turning off trigger // " + bullet._bounce + " bounces");
+                Debug.Log("Turning off trigger // " + bullet._localBounce + " bounces");
             }
         }
     }

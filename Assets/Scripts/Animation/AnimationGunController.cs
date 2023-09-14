@@ -140,6 +140,7 @@ public class AnimationGunController : MonoBehaviour
         bullet.transform.parent = GameObject.FindGameObjectWithTag("BulletHolder").transform;
         bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.up * bulletSpeed, ForceMode2D.Impulse);
         Bullet bulletSC = bullet.GetComponent<Bullet>();
+        /*
         bulletSC._damage = damage;
         bulletSC._damageChange = damageChange;
         bulletSC._sizeChange = bulletSizeChange;
@@ -152,6 +153,7 @@ public class AnimationGunController : MonoBehaviour
         bulletSC._punch = punch;
         if (target.target != null)
             bulletSC.target = target.target;
+        */
 
         yield return null;
     }
