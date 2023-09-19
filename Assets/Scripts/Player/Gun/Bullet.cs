@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
     
     public Vector3 lastVelocity;
     public bool bounced = false;
-    
+
     private void Awake()
     {
         currTime = Time.time;
@@ -40,6 +40,7 @@ public class Bullet : MonoBehaviour
     {
         if (bounced)
         {
+            _localBounce--;
             col.isTrigger = false;
             bounced = false;
         }

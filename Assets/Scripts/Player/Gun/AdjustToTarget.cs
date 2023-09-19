@@ -27,7 +27,7 @@ public class AdjustToTarget : MonoBehaviour
         {
             transform.position = target.transform.position + (player.transform.position - target.transform.position) / 2;
             if (Vector2.Distance(player.transform.position, target.transform.position) >= maxDistance)
-                player.GetComponent<Player>().RemoveTarget();
+                player.GetComponent<TargetStandard>().RemoveTarget();
         }
     }
 }

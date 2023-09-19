@@ -18,12 +18,12 @@ public class Bouncable : MonoBehaviour
                 {
                     Vector2 _bounceDir = Vector2.Reflect(bullet.lastVelocity, contact.normal).normalized;
                     rb.velocity = _bounceDir * bullet.bc.speed;
-                    bullet.bounced = true;
                     if (bullet._localHoming && bullet.bc.target != null)
                         StartCoroutine(bullet.WaitAndSwitchHoming(0.01f));
                 }
                 rb.angularVelocity = 0;
-                bullet._localBounce--;
+                if (bullet._localBounce > 0)
+                    bullet.bounced = true;
             }
         }
     }
