@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MrDumbassAI : MonoBehaviour
+public class LurkerAI : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float rotSpeed;
