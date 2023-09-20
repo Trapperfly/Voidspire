@@ -86,7 +86,7 @@ public class TargetStandard : MonoBehaviour
             );
             target.target = targetInstance;
         }
-        StartCoroutine(guns.gunArray[0].SetBulletValues());
+        StartCoroutine(guns.gunArray[0].SetTargetValues());
     }
     public void RemoveTarget()
     {

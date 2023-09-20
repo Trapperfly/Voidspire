@@ -243,6 +243,13 @@ public class GunController : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator SetTargetValues()
+    {
+        if (target.target != null)
+            bc.target = target.target;
+        yield return null;
+    }
+
     float Speed(float baseSpeed)
     {
         float spreadSpeed = baseSpeed;

@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Damagable : MonoBehaviour
 {
-    float startHealth;
+    [SerializeField] float startHealth = 0;
     [SerializeField] float currentHealth;
 
 
     private void Awake()
     {
         float size = (transform.localScale.x + transform.localScale.y) / 2;
-        startHealth = Mathf.Pow(size + 1, 3);
+        if (startHealth == 0)
+            startHealth = Mathf.Pow(size + 1, 3);
         currentHealth = startHealth;
     }
 

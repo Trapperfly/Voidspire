@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    [SerializeField] GunController gunController;
     public float damage;
     public float damageChange;
     public float sizeChange;
