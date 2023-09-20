@@ -306,7 +306,7 @@ public class GunRandomizer : MonoBehaviour
             {
                 case 1:
                     if (input.text == string.Empty)
-                        _vString.Append("Seed: " + currentSeed);
+                        _vString.Append("Seed: " + currentRandomSeed);
                     else
                         _vString.Append("Seed: " + input.text);
                     break;
