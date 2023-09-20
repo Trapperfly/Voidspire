@@ -36,6 +36,10 @@ public class Bullet : MonoBehaviour
             col.isTrigger = false;
         }
     }
+    private void Update()
+    {
+        lastVelocity = rb.velocity;
+    }
     private void FixedUpdate()
     {
         if (bounced)
