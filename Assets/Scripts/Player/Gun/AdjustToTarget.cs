@@ -9,25 +9,24 @@ public class AdjustToTarget : MonoBehaviour
     //float baseZoomValue = 5f;
     [SerializeField] float maxDistance = 10f;
     [SerializeField] GameObject player;
-    public GameObject target;
-
+    [SerializeField] ActiveTarget target;
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        target = player.GetComponent<ActiveTarget>();
     }
     private void Update()
     {
-        if (target == null)
+        if (target.target != null)
+        {
+            transform.position = target.target.position + (player.transform.position - target.target.position) / 2;
+            if (Vector2.Distance(player.transform.position, target.target.position) >= maxDistance)
+                player.GetComponent<TargetStandard>().RemoveTarget();
+        }
+        else
         {
             if ((Vector2)transform.localPosition != new Vector2(0, 0))
                 transform.localPosition = new Vector2(0, 0);
             return;
-        }
-        else
-        {
-            transform.position = target.transform.position + (player.transform.position - target.transform.position) / 2;
-            if (Vector2.Distance(player.transform.position, target.transform.position) >= maxDistance)
-                player.GetComponent<TargetStandard>().RemoveTarget();
         }
     }
 }

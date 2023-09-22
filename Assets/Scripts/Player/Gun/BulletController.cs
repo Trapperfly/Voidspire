@@ -18,7 +18,7 @@ public class BulletController : MonoBehaviour
     public float punch;
     public bool trigger;
     public float weightScalar;
-    public GameObject target;
+    public Transform target;
     private void Awake()
     {
         

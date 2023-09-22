@@ -8,6 +8,8 @@ TagManager:
   - BulletHolder
   - Target
   - Targetable
+  - AIBulletHolder
+  - AIBullet
   layers:
   - Default
   - TransparentFX
@@ -23,7 +25,7 @@ TagManager:
   - Destructible
   - Resource
   - PickupRadius
-  - 
+  - EnemyBullet
   - 
   - 
   - 

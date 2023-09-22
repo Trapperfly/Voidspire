@@ -4,9 +4,27 @@ using UnityEngine;
 
 public class GunMaster : MonoBehaviour
 {
-    public GunController[] gunArray;
+    public GunStats[] gunArray;
+    public bool hasFired;
+    bool hasFiredLog;
+    float currTime;
+
     private void Awake()
     {
-        gunArray = GetComponentsInChildren<GunController>();
+        gunArray = GetComponentsInChildren<GunStats>();
+    }
+    private void FixedUpdate()
+    {
+        if (hasFired && !hasFiredLog)
+        {
+            currTime = Time.time;
+            hasFiredLog = true;
+        }
+        if (currTime <= Time.time - 5)
+        {
+            hasFiredLog = false;
+            hasFired = false;
+        }
+
     }
 }

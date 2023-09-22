@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Damagable : MonoBehaviour
 {
-    [SerializeField] float startHealth = 0;
-    [SerializeField] float currentHealth;
-
-
+    public float startHealth = 0;
+    public float currentHealth;
+    public bool damageTaken;
     private void Awake()
     {
         float size = (transform.localScale.x + transform.localScale.y) / 2;
@@ -18,24 +17,29 @@ public class Damagable : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Bullet"))
-        {
-            currentHealth -= collision.collider.GetComponent<Bullet>()._localDamage;
-            HealthCheck();
-        }
+            if (collision.collider.CompareTag("Bullet"))
+            {
+                currentHealth -= collision.collider.GetComponent<Bullet>()._localDamage;
+                HealthCheck();
+            }
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Bullet"))
-        {
-            currentHealth -= collision.GetComponent<Bullet>()._localDamage;
-            HealthCheck();
-        }
+        
+            if (collision.CompareTag("Bullet"))
+            {
+                currentHealth -= collision.GetComponent<Bullet>()._localDamage;
+                HealthCheck();
+            }
+            if (collision.CompareTag("AIBullet"))
+            {
+                currentHealth -= collision.GetComponent<AIBullet>().damage;
+                HealthCheck();
+            }
     }
-
-    void HealthCheck()
+    public void HealthCheck()
     {
+        damageTaken = true;
         if (currentHealth <= 0)
         {
             if (GetComponent<Destructable>() != null)

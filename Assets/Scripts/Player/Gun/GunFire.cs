@@ -10,6 +10,7 @@ public class GunFire : MonoBehaviour
     [SerializeField] BulletController bc;
     [SerializeField] AdjustToTarget target;
     [SerializeField] Transform bulletSpawnPoint;
+    [SerializeField] GunMaster gunMaster;
 
     float fireRateA;
     float spreadA;
@@ -117,6 +118,7 @@ public class GunFire : MonoBehaviour
         bullet.transform.localScale *= stat.bulletSize;
         bullet.GetComponent<Rigidbody2D>().AddForce(Speed(stat.speed) * stat.weightScalar * bullet.transform.up, ForceMode2D.Impulse);
         gunTimer = 0;
+        gunMaster.hasFired = true;
         yield return null;
     }
     float Speed(float baseSpeed)

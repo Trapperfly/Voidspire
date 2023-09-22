@@ -64,7 +64,7 @@ public class GunController : MonoBehaviour
     int gunTimer = 0;
 
     [Header("Testing")]
-    [SerializeField] AdjustToTarget target;
+    [SerializeField] ActiveTarget target;
     bool inBurst = false;
     [SerializeField] float weightScalar = 0.0001f;
     [SerializeField] TMP_Text text;
@@ -243,12 +243,6 @@ public class GunController : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator SetTargetValues()
-    {
-        if (target.target != null)
-            bc.target = target.target;
-        yield return null;
-    }
 
     float Speed(float baseSpeed)
     {

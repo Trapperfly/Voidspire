@@ -7,7 +7,8 @@ public class TargetStandard : MonoBehaviour
     [Header("Targeting")]
     [SerializeField] GunMaster guns;
     [SerializeField] GameObject targetTransformPrefab;
-    AdjustToTarget target;
+    [SerializeField] BulletController bc;
+    ActiveTarget target;
     GameObject targetInstance;
     float targetHoldTimer;
     bool targetingDone = false;
@@ -15,7 +16,8 @@ public class TargetStandard : MonoBehaviour
     [SerializeField] LayerMask targetMask;
     private void Awake()
     {
-        target = GetComponentInChildren<AdjustToTarget>();
+        bc = GameObject.FindGameObjectWithTag("BulletHolder").GetComponent<BulletController>();
+        target = GetComponent<ActiveTarget>();
     }
     private void FixedUpdate()
     {
@@ -71,7 +73,7 @@ public class TargetStandard : MonoBehaviour
             Debug.Log("Hit targetable");
             targetInstance = Instantiate    //If hit nothing, make a vector 2 and use that as target
             (targetTransformPrefab, hit.transform.position, new Quaternion(), hit.transform);
-            target.target = hit.gameObject;   //If hit something hittable, make that the target
+            target.target = hit.transform;   //If hit something hittable, make that the target
         }
         else
         {
@@ -84,9 +86,15 @@ public class TargetStandard : MonoBehaviour
                 Camera.main.ScreenToWorldPoint(Input.mousePosition).y,
                 0), new Quaternion()
             );
-            target.target = targetInstance;
+            target.target = targetInstance.transform;
         }
-        StartCoroutine(guns.gunArray[0].SetTargetValues());
+        StartCoroutine(SetTargetValues());
+    }
+    public IEnumerator SetTargetValues()
+    {
+        if (target.target != null)
+            bc.target = target.target;
+        yield return null;
     }
     public void RemoveTarget()
     {
