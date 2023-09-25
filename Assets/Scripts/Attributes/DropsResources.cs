@@ -7,6 +7,7 @@ public class DropsResources : MonoBehaviour
     SpawnResourceOnDestroy resourceSpawner;
     [HideInInspector] public bool noDrop = true;
     [SerializeField] float value;
+    [SerializeField] float size;
     [SerializeField] bool valueFromSize;
     private void Awake()
     {
@@ -21,8 +22,8 @@ public class DropsResources : MonoBehaviour
         else
         {
             if (valueFromSize)
-                resourceSpawner.SpawnResources(transform.localScale.x, transform.position);
-            else resourceSpawner.SpawnResources(value, transform.position);
+                resourceSpawner.SpawnResources(transform.localScale.x, transform.position, transform.localScale.x);
+            else resourceSpawner.SpawnResources(value, transform.position, size);
         }
     }
 }

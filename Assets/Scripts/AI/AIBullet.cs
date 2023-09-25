@@ -5,4 +5,9 @@ using UnityEngine;
 public class AIBullet : MonoBehaviour
 {
     public float damage;
+    public float currTime;
+    private void Awake()
+    {
+        currTime = Time.time;
+    }
 }

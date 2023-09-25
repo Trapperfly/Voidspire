@@ -215,14 +215,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  rotSpeed: 0.01
+  rotSpeed: 0.018
+  exploreModifier: 1
   fleeModifier: 2
   combatModifier: 1.5
   repairModifier: 0.2
   repairSpeed: 0.01
-  detectionRange: 2
-  combatDetectionRange: 5
-  combatTarget: {fileID: 0}
+  detectionRange: 3
+  combatDetectionRange: 6
   dirs: []
   target: {fileID: 4114461018743490042}
   avoidMask:
@@ -230,7 +230,7 @@ MonoBehaviour:
     m_Bits: 3648
   targetMask:
     serializedVersion: 2
-    m_Bits: 3648
+    m_Bits: 1600
   lowHealth: 0
   inCombat: 0
 --- !u!114 &4114461018743490042
@@ -259,7 +259,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noDrop: 1
-  value: 10
+  value: 4
+  size: 0.3
   valueFromSize: 0
 --- !u!114 &3521665006040731554
 MonoBehaviour:
@@ -275,6 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startHealth: 10
   currentHealth: 0
+  damageTaken: 0
 --- !u!114 &5596287114082821822
 MonoBehaviour:
   m_ObjectHideFlags: 0

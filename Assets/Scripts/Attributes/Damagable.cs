@@ -7,11 +7,13 @@ public class Damagable : MonoBehaviour
     public float startHealth = 0;
     public float currentHealth;
     public bool damageTaken;
-    private void Awake()
+    private void Start()
     {
-        float size = (transform.localScale.x + transform.localScale.y) / 2;
         if (startHealth == 0)
-            startHealth = Mathf.Pow(size + 1, 3);
+        {
+            float size = (transform.localScale.x + transform.localScale.y) / 2;
+            startHealth = Mathf.Pow(size * 2 + 1f, 2);
+        }
         currentHealth = startHealth;
     }
 

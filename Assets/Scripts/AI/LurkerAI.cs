@@ -6,13 +6,16 @@ public class LurkerAI : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float rotSpeed;
+    float currentModifier = 1f;
+    [SerializeField] float exploreModifier;
     [SerializeField] float fleeModifier;
     [SerializeField] float combatModifier;
     [SerializeField] float repairModifier;
     [SerializeField] float repairSpeed;
+    bool repairing;
     [SerializeField] float detectionRange;
     [SerializeField] float combatDetectionRange;
-    [SerializeField] Transform combatTarget;
+    Transform combatTarget;
     public List<Vector2> dirs = new List<Vector2>();
 
     [SerializeField] ActiveTarget target;
@@ -47,11 +50,18 @@ public class LurkerAI : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (lowHealth && Vector2.Distance(transform.position, player.position) > 10f) RepairMode();
-        else if (lowHealth) FleeMode();
-        else if (inCombat) CombatMode();
-        else ExplorationMode();
+        if (lowHealth && Vector2.Distance(transform.position, player.position) > 10f)
+        {
+            currentModifier = repairModifier;
+            repairing = true;
+        }
+        else if (lowHealth) currentModifier = fleeModifier;
+        else if (inCombat) currentModifier = combatModifier;
+        else currentModifier = exploreModifier;
 
+        AIStep();
+        
+        //Low health check
         if (!lowHealth)
         {
             if (healthModule.currentHealth <= healthModule.startHealth / 5)
@@ -59,6 +69,8 @@ public class LurkerAI : MonoBehaviour
                 lowHealth = true;
             }
         }
+
+        //Get target when hit
         if (healthModule.damageTaken)
         {
             if (!inCombat && !lowHealth)
@@ -66,18 +78,22 @@ public class LurkerAI : MonoBehaviour
                 Collider2D[] potentialTargets = Physics2D.OverlapCircleAll(transform.position, combatDetectionRange, targetMask);
                 foreach (Collider2D target in potentialTargets)
                 {
-                    if (target.CompareTag("Player") && player.GetComponent<GunMaster>().hasFired == true)
-                        combatTarget = target.transform;
+                    if (target != col)
+                    {
+                        if (combatTarget == null || !combatTarget.CompareTag("Player"))
+                        {
+                            if (target.CompareTag("Player") && player.GetComponent<GunMaster>().hasFired == true)
+                                combatTarget = target.transform;
+                            else combatTarget = target.transform;
+                        }
+                    }
                 }
                 target.target = combatTarget;
             }
             healthModule.damageTaken = false;
             inCombat = true;
-            currTime = Time.time;
         }
-
-
-        if (currTime <= Time.time - 10f || lowHealth)
+        if (lowHealth || combatTarget == null)
         {
             inCombat = false;
             combatTarget = null;
@@ -85,6 +101,8 @@ public class LurkerAI : MonoBehaviour
         }
         lastFrameHealth = healthModule.currentHealth;
     }
+
+    //Draw debug rays for vectors in CheckProximity
     private void Update()
     {
         foreach  (Vector2 line in dirs)
@@ -93,12 +111,15 @@ public class LurkerAI : MonoBehaviour
         }
     }
 
+    //Checks for objects in proximity when navigating
     IEnumerator CheckProximity()
     {
         while (true)
         {
+            //Clear targets from last iteration
             dirs.Clear();
             new WaitForSeconds(0.5f);
+            //Check for colliders in a radius.
             Collider2D[] objects = Physics2D.OverlapCircleAll(transform.position, detectionRange, avoidMask);
             if (objects != null)
             {
@@ -106,19 +127,23 @@ public class LurkerAI : MonoBehaviour
                 {
                     if (avoid != col)
                     {
+                        //Calculates negative distance vectors from the objects, and add these to a list
                         _distance = Vector2.Distance(transform.position, avoid.ClosestPoint(transform.position));
+                        //Uses distance in the multiplication to add strength when object is close
                         dirs.Add(-((avoid.ClosestPoint(transform.position) - (Vector2)transform.position) * (detectionRange + 1f - _distance)));
                         Debug.DrawLine(transform.position, avoid.ClosestPoint(transform.position));
                     }
                 }
             }
-            Vector2 newDirection = new Vector2(0,0);
+            Vector2 newDirection = new (0,0);
+            //Add the vectors together to get the optimal direction to avoid most things
             if (dirs.Count > 0)
                 foreach (Vector2 affectingVector in dirs)
                 {
                     newDirection += affectingVector;
                 }
             dir = newDirection;
+            //Creates a vector to be used as a target for the AI to move to
             if (dirs.Count > 0)
                 targetPos = (Vector2)transform.position + (dir * 10);
             else if (!lowHealth) targetPos = player.position;
@@ -126,56 +151,25 @@ public class LurkerAI : MonoBehaviour
             yield return null;
         }
     }
-    IEnumerator RandomNewTarget()
+    void AIStep()
     {
-        while(true)
+        Vector2 actualDir = targetPos - rb.position;
+        float rotateAmount = Vector3.Cross(actualDir.normalized, transform.up).z;
+        rb.AddTorque(-rotSpeed * currentModifier * rotateAmount * (detectionRange + 1f - _distance), ForceMode2D.Force);
+        rb.AddForce(speed * currentModifier * transform.up, ForceMode2D.Force);
+        if (repairing)
         {
-            new WaitForSeconds(5f);
-            yield return null;
+            if (healthModule.currentHealth < healthModule.startHealth)
+            {
+                healthModule.currentHealth += repairSpeed;
+                if (healthModule.currentHealth > healthModule.startHealth)
+                    healthModule.currentHealth = healthModule.startHealth;
+            }
+            else
+            {
+                repairing = false;
+                lowHealth = false;
+            }
         }
-    }
-    void FleeMode()
-    {
-        Vector2 actualDir = targetPos - rb.position;
-        float rotateAmount = Vector3.Cross(actualDir.normalized, transform.up).z;
-        rb.AddTorque(-rotSpeed * fleeModifier * rotateAmount * (detectionRange + 1f - _distance), ForceMode2D.Force);
-        //rb.angularVelocity = -rotSpeed * (detectionRange + 1f - _distance) * rotateAmount;
-        rb.AddForce(speed * fleeModifier * transform.up, ForceMode2D.Force);
-        //rb.velocity = speed * transform.up;
-    }
-    void CombatMode ()
-    {
-        Vector2 actualDir = targetPos - rb.position;
-        float rotateAmount = Vector3.Cross(actualDir.normalized, transform.up).z;
-        rb.AddTorque(-rotSpeed * combatModifier * rotateAmount * (detectionRange + 1f - _distance), ForceMode2D.Force);
-        //rb.angularVelocity = -rotSpeed * (detectionRange + 1f - _distance) * rotateAmount;
-        rb.AddForce(speed * combatModifier * transform.up, ForceMode2D.Force);
-        //rb.velocity = speed * transform.up;
-    }
-    void ExplorationMode ()
-    {
-        Vector2 actualDir = targetPos - rb.position;
-        float rotateAmount = Vector3.Cross(actualDir.normalized, transform.up).z;
-        rb.AddTorque(-rotSpeed * rotateAmount * (detectionRange + 1f - _distance), ForceMode2D.Force);
-        //rb.angularVelocity = -rotSpeed * (detectionRange + 1f - _distance) * rotateAmount;
-        rb.AddForce(speed * transform.up, ForceMode2D.Force);
-        //rb.velocity = speed * transform.up;
-    }
-    void RepairMode ()
-    {
-        Vector2 actualDir = targetPos - rb.position;
-        float rotateAmount = Vector3.Cross(actualDir.normalized, transform.up).z;
-        rb.AddTorque(-rotSpeed * repairModifier * rotateAmount * (detectionRange + 1f - _distance), ForceMode2D.Force);
-        //rb.angularVelocity = -rotSpeed * (detectionRange + 1f - _distance) * rotateAmount;
-        rb.AddForce(speed * repairModifier * transform.up, ForceMode2D.Force);
-        //rb.velocity = speed * transform.up;
-
-        if (healthModule.currentHealth < healthModule.startHealth)
-        {
-            healthModule.currentHealth += repairSpeed;
-            if (healthModule.currentHealth > healthModule.startHealth)
-                healthModule.currentHealth = healthModule.startHealth;
-        }
-        else lowHealth = false;
     }
 }

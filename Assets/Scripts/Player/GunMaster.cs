@@ -5,7 +5,7 @@ using UnityEngine;
 public class GunMaster : MonoBehaviour
 {
     public GunStats[] gunArray;
-    public bool hasFired;
+    public bool hasFired = false;
     bool hasFiredLog;
     float currTime;
 
