@@ -9280,7 +9280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &718341393
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9812,7 +9812,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &766152757
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10019,7 +10019,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2034660161339117062, guid: cf3732b812138bf47b2230789d33d779, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3521665006040731554, guid: cf3732b812138bf47b2230789d33d779, type: 3}
       propertyPath: startHealth
@@ -18252,7 +18252,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1193204443
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19613,7 +19613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1401067218
 BoxCollider2D:
   m_ObjectHideFlags: 0
