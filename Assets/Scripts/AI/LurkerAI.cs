@@ -6,6 +6,7 @@ public class LurkerAI : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float rotSpeed;
+    [SerializeField] float strafeSpeed;
     float currentModifier = 1f;
     [SerializeField] float exploreModifier;
     [SerializeField] float fleeModifier;
@@ -34,19 +35,33 @@ public class LurkerAI : MonoBehaviour
 
     public bool lowHealth;
     public bool inCombat;
+    public bool sceptic;
+    public bool seenPlayer;
 
     float _distance;
+
+    Vector2 spawnPoint;
+    [SerializeField] float awayFromTargetRadius = 10;
+
+    [SerializeField] ParticleSystem ps;
 
     private void Awake()
     {
         transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         StartCoroutine(nameof(CheckProximity));
+
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         healthModule = GetComponent<Damagable>();
         lastFrameHealth = healthModule.currentHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         targetPos = player.position;
+        spawnPoint = transform.position;
+        StartCoroutine(nameof(GetNewTargetPosOverTime));
+    }
+    private void Start()
+    {
+        dir = transform.up;
     }
     private void FixedUpdate()
     {
@@ -67,6 +82,7 @@ public class LurkerAI : MonoBehaviour
             if (healthModule.currentHealth <= healthModule.startHealth / 5)
             {
                 lowHealth = true;
+                StartCoroutine(nameof(GetNewTargetPos));
             }
         }
 
@@ -92,13 +108,19 @@ public class LurkerAI : MonoBehaviour
             }
             healthModule.damageTaken = false;
             inCombat = true;
+            StartCoroutine(nameof(GetNewTargetPos));
         }
-        if (lowHealth || combatTarget == null)
+        if (inCombat)
         {
-            inCombat = false;
-            combatTarget = null;
-            target.target = null;
+            if (lowHealth || combatTarget == null)
+            {
+                inCombat = false;
+                combatTarget = null;
+                target.target = null;
+                StartCoroutine(nameof(GetNewTargetPos));
+            }
         }
+        
         lastFrameHealth = healthModule.currentHealth;
     }
 
@@ -109,6 +131,17 @@ public class LurkerAI : MonoBehaviour
         {
             Debug.DrawRay(transform.position, line.normalized);
         }
+        ps.transform.rotation = Quaternion.RotateTowards(ps.transform.rotation, Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, -dir.normalized)), 100);
+        var pEmission = ps.emission;
+        if (dir != new Vector2(0, 0))
+        {
+            pEmission.rateOverTime = (detectionRange - _distance) * 20f;
+        }
+        else if (!ps.isPaused)
+        {
+            pEmission.rateOverTime = 0;
+        }
+
     }
 
     //Checks for objects in proximity when navigating
@@ -123,12 +156,16 @@ public class LurkerAI : MonoBehaviour
             Collider2D[] objects = Physics2D.OverlapCircleAll(transform.position, detectionRange, avoidMask);
             if (objects != null)
             {
+                _distance = detectionRange;
                 foreach (Collider2D avoid in objects)
                 {
                     if (avoid != col)
                     {
+                        if (!seenPlayer && avoid.gameObject.layer == 6) //Layer 6 is Player
+                            seenPlayer = true;
                         //Calculates negative distance vectors from the objects, and add these to a list
-                        _distance = Vector2.Distance(transform.position, avoid.ClosestPoint(transform.position));
+                        if (Vector2.Distance(transform.position, avoid.ClosestPoint(transform.position)) < _distance)
+                            _distance = Vector2.Distance(transform.position, avoid.ClosestPoint(transform.position));
                         //Uses distance in the multiplication to add strength when object is close
                         dirs.Add(-((avoid.ClosestPoint(transform.position) - (Vector2)transform.position) * (detectionRange + 1f - _distance)));
                         Debug.DrawLine(transform.position, avoid.ClosestPoint(transform.position));
@@ -144,19 +181,43 @@ public class LurkerAI : MonoBehaviour
                 }
             dir = newDirection;
             //Creates a vector to be used as a target for the AI to move to
-            if (dirs.Count > 0)
-                targetPos = (Vector2)transform.position + (dir * 10);
-            else if (!lowHealth) targetPos = player.position;
             Debug.DrawRay(transform.position, dir);
             yield return null;
         }
+    }
+
+    IEnumerator GetNewTargetPosOverTime()
+    {
+        while (true)
+        {
+            StartCoroutine(nameof(GetNewTargetPos));
+            yield return new WaitForSeconds(6f);
+        }
+    }
+    IEnumerator GetNewTargetPos()
+    {
+        if (lowHealth)
+        {
+            targetPos = (Vector2)transform.up * awayFromTargetRadius * 10;
+        }
+        else if (inCombat)
+        {
+            targetPos = (Vector2)combatTarget.position + Random.insideUnitCircle * (awayFromTargetRadius / 2);
+        }
+        else if (seenPlayer)
+        {
+            targetPos = (Vector2)player.position + Random.insideUnitCircle * awayFromTargetRadius;
+        }
+        else targetPos = spawnPoint + Random.insideUnitCircle * awayFromTargetRadius;
+        yield return null;
     }
     void AIStep()
     {
         Vector2 actualDir = targetPos - rb.position;
         float rotateAmount = Vector3.Cross(actualDir.normalized, transform.up).z;
-        rb.AddTorque(-rotSpeed * currentModifier * rotateAmount * (detectionRange + 1f - _distance), ForceMode2D.Force);
+        rb.AddTorque(-rotSpeed * currentModifier * rotateAmount, ForceMode2D.Force);
         rb.AddForce(speed * currentModifier * transform.up, ForceMode2D.Force);
+        rb.AddForce(((detectionRange + 1f - _distance) / 2) * currentModifier * strafeSpeed * dir.normalized, ForceMode2D.Force);
         if (repairing)
         {
             if (healthModule.currentHealth < healthModule.startHealth)
@@ -169,7 +230,15 @@ public class LurkerAI : MonoBehaviour
             {
                 repairing = false;
                 lowHealth = false;
+                StartCoroutine(nameof(GetNewTargetPos));
             }
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(targetPos, 0.3f);
     }
 }

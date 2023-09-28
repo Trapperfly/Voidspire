@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnEnemies : MonoBehaviour
 {
-    [SerializeField] float spawnRateInSeconds = 5f;
+    [SerializeField] float secondsTillNextSpawnAttempt = 5f;
     [SerializeField] int maxAmount;
     int amount = 0;
     [SerializeField] GameObject lurkerPrefab;
@@ -36,7 +36,7 @@ public class SpawnEnemies : MonoBehaviour
                     Instantiate(lurkerPrefab, spawnLocation + Random.insideUnitSphere, Quaternion.Euler(0, 0, (Random.value * 360) - 180), transform);
                 }
             }
-            yield return new WaitForSeconds(spawnRateInSeconds);
+            yield return new WaitForSeconds(secondsTillNextSpawnAttempt);
         }
     }
 
