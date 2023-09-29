@@ -50,3 +50,6 @@ TagManager:
   - name: Ship
     uniqueID: 3066066323
     locked: 0
+  - name: AI ship
+    uniqueID: 2105901445
+    locked: 0

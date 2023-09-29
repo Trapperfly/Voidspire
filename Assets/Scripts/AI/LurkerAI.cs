@@ -202,7 +202,8 @@ public class LurkerAI : MonoBehaviour
         }
         else if (inCombat)
         {
-            targetPos = (Vector2)combatTarget.position + Random.insideUnitCircle * (awayFromTargetRadius / 2);
+            if (combatTarget != null)
+                targetPos = (Vector2)combatTarget.position + Random.insideUnitCircle * (awayFromTargetRadius / 2);
         }
         else if (seenPlayer)
         {
@@ -235,10 +236,12 @@ public class LurkerAI : MonoBehaviour
         }
     }
 
+    /*
     void OnDrawGizmos()
     {
         // Draw a yellow sphere at the transform's position
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(targetPos, 0.3f);
     }
+    */
 }

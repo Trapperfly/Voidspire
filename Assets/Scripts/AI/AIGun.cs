@@ -25,7 +25,7 @@ public class AIGun : MonoBehaviour
         GameObject bullet = Instantiate(stat.AIBulletPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bh);
         Physics2D.IgnoreCollision(GetComponentInParent<Collider2D>(), bullet.GetComponent<Collider2D>());
         bullet.GetComponent<AIBullet>().damage = stat.damage;
-        bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * stat.speed, ForceMode2D.Impulse);
+        bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.up * stat.speed, ForceMode2D.Impulse);
         gunTimer = 0f;
     }
 
