@@ -5,12 +5,12 @@ using UnityEngine;
 public class GunFire : MonoBehaviour
 {
     GunStats stat;
-    GunController control;
     Transform bulletHolder;
     [SerializeField] BulletController bc;
     [SerializeField] AdjustToTarget target;
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] GunMaster gunMaster;
+    [SerializeField] GunPoint gunPoint;
 
     float fireRateA;
     float spreadA;
@@ -25,7 +25,7 @@ public class GunFire : MonoBehaviour
     private void Awake()
     {
         stat = GetComponent<GunStats>();
-        control = GetComponent<GunController>();
+        gunPoint = GetComponent<GunPoint>();
         bulletHolder = GameObject.FindGameObjectWithTag("BulletHolder").transform;
         fireRateA = stat.fireRate;
         spreadA = stat.spread;

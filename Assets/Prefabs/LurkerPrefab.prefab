@@ -239,9 +239,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c631ff76429e5ac4dbeff717f5d45d91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  rotSpeed: 0.018
-  strafeSpeed: 0.35
+  speed: 1.3
+  rotSpeed: 0.03
+  strafeSpeed: 0.4
   exploreModifier: 1
   fleeModifier: 2
   combatModifier: 1.5
