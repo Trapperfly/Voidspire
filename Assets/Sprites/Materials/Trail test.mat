@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Trail test
-  m_Shader: {fileID: -6465566751694194690, guid: d111835a791522d43956f0e13e4c5876, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 49e5abd1cf5e0c94cadf79bb6508e541, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 564141c9c46f5e7479b5c196818a9b28, type: 3}
+        m_Texture: {fileID: 2800000, guid: 60074327cc7ca9f438b6dc4a5c2fdc56, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -60,6 +60,9 @@ Material:
     - _Breathe: 1
     - _BreatheSpeed: 1.7
     - _BreatheStrength: 0.09
+    - _Distort: 1
+    - _DistortSpeed: 3
+    - _DistortStrenght: 2
     - _EnableExternalAlpha: 0
     - _Pixelation: 16
     - _QueueControl: 0
