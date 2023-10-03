@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 10307, guid: 0000000000000000f000000000000000, type: 0}
+        m_Texture: {fileID: 2800000, guid: 564141c9c46f5e7479b5c196818a9b28, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -57,14 +57,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Breathe: 0
-    - _BreatheSpeed: 0.01
-    - _BreatheStrength: 0.05
+    - _Breathe: 1
+    - _BreatheSpeed: 1.7
+    - _BreatheStrength: 0.09
     - _EnableExternalAlpha: 0
-    - _Pixelation: 5
+    - _Pixelation: 16
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SizeOffset: 0
+    - _SizeOffset: 1.2
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
