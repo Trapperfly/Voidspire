@@ -104,7 +104,7 @@ public class LurkerAI : MonoBehaviour
                         }
                     }
                 }
-                target.target = combatTarget;
+                if (combatTarget != null) StartCoroutine(target.InitTargetValues(combatTarget, combatTarget.GetComponent<Rigidbody2D>()));
             }
             healthModule.damageTaken = false;
             inCombat = true;
@@ -116,7 +116,7 @@ public class LurkerAI : MonoBehaviour
             {
                 inCombat = false;
                 combatTarget = null;
-                target.target = null;
+                StartCoroutine(target.ClearTarget());
                 StartCoroutine(nameof(GetNewTargetPos));
             }
         }

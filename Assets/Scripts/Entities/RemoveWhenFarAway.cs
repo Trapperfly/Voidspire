@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class RemoveWhenFarAway : MonoBehaviour
 {
-    Vector3 playerPos;
+    Transform player;
     public float maxDistance;
     void Awake()
     {
-        playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(nameof(DistanceCheckAndDestroy));
     }
     IEnumerator DistanceCheckAndDestroy()
@@ -16,7 +16,7 @@ public class RemoveWhenFarAway : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(0.5f);
-            if (Vector2.Distance(transform.position, playerPos) >= maxDistance)
+            if (Vector2.Distance(transform.position, player.position) >= maxDistance)
             {
                 Destroy(gameObject);
             }

@@ -53,6 +53,11 @@ public class GunRandomizer : MonoBehaviour
         SetValues();
     }
 
+    public void SetBulletValuesFunc()
+    {
+        StartCoroutine(SetBulletValues());
+    }
+
     public IEnumerator SetBulletValues()
     {
         bc.damage = stat.damage;

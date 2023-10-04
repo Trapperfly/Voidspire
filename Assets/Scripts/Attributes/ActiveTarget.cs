@@ -5,4 +5,25 @@ using UnityEngine;
 public class ActiveTarget : MonoBehaviour
 {
     public Transform target = null;
+    public Rigidbody2D targetRB = null;
+
+    public IEnumerator InitTargetValues(Transform tt)
+    {
+        StartCoroutine(InitTargetValues(tt, null));
+        yield return null;
+    }
+    public IEnumerator InitTargetValues(Transform tt, Rigidbody2D rb)
+    {
+        target = tt;
+        if (rb != null) targetRB = rb;
+        yield return null;
+    }
+    
+
+    public IEnumerator ClearTarget()
+    {
+        target = null;
+        targetRB = null;
+        yield return null;
+    }
 }

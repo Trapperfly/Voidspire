@@ -10,13 +10,18 @@ public class GunPoint : MonoBehaviour
     [SerializeField] bool limitRot;
     [SerializeField] Vector2 limitRotValues;
     [SerializeField] float rotSpeed;
+    [SerializeField] bool advancedTargeting;
     ActiveTarget target;
+    AIGunStats aiGun;
+    GunStats gun;
     Vector3 position;
     Transform parent;
     float maxRotX;
     float maxRotY;
     private void Awake()
     {
+        if (GetComponent<AIGunStats>() != null) aiGun = GetComponent<AIGunStats>();
+        if (GetComponent<GunStats>() != null) gun = GetComponent<GunStats>();
         target = GetComponentInParent<ActiveTarget>();
         parent = transform.parent;
     }
@@ -28,7 +33,30 @@ public class GunPoint : MonoBehaviour
         }
         else
         {
-            if (targetBased && target.target != null)
+            if (advancedTargeting && target.target != null && target.targetRB != null)
+            {
+                if (gun != null)
+                {
+                    position = (Vector2)target.target.position + (target.targetRB.velocity * (Vector2.Distance(transform.position, target.target.transform.position) / gun.speed));
+
+                    //float t = Vector2.Distance(transform.position, target.target.position) / gun.speed;
+                    //position = (Vector2)target.target.position + target.targetRB.velocity * t;
+
+                    //var velocityBasedPos = (Vector2)target.target.position + target.targetRB.velocity;
+                    //var speedIncluded = Vector2.LerpUnclamped(target.target.position, velocityBasedPos, 
+                    //    (target.targetRB.velocity.magnitude * Vector2.Distance(transform.position, velocityBasedPos)) / gun.speed);
+                    //var speedIncluded = Vector2.LerpUnclamped(target.target.position, velocityBasedPos,(target.targetRB.velocity.magnitude + (Vector2.Distance(transform.position, velocityBasedPos) - Vector2.Distance(target.target.position, velocityBasedPos))) / gun.speed);
+                    //position = speedIncluded;
+                    //Debug.DrawLine(transform.position, speedIncluded);
+                } 
+                else if (aiGun != null)
+                {
+                    var velocityBasedPos = (Vector2)target.target.position + target.targetRB.velocity;
+                    var speedIncluded = Vector2.LerpUnclamped(target.target.position, velocityBasedPos, target.targetRB.velocity.magnitude / aiGun.speed);
+                    position = speedIncluded;
+                }
+            }
+            else if (targetBased && target.target != null)
             {
                 position = target.target.position;
             }

@@ -116,7 +116,7 @@ public class GunFire : MonoBehaviour
         GameObject bullet = Instantiate(stat.bulletPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
         bullet.GetComponent<Bullet>().bc = bc;
         bullet.transform.localScale *= stat.bulletSize;
-        bullet.GetComponent<Rigidbody2D>().AddForce(Speed(stat.speed) * stat.weightScalar * bullet.transform.up, ForceMode2D.Impulse);
+        bullet.GetComponent<Rigidbody2D>().velocity = transform.up * Speed(stat.speed);
         gunTimer = 0;
         gunMaster.hasFired = true;
         yield return null;

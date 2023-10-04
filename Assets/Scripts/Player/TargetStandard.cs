@@ -73,7 +73,7 @@ public class TargetStandard : MonoBehaviour
             Debug.Log("Hit targetable");
             targetInstance = Instantiate    //If hit nothing, make a vector 2 and use that as target
             (targetTransformPrefab, hit.transform.position, new Quaternion(), hit.transform);
-            target.target = hit.transform;   //If hit something hittable, make that the target
+            StartCoroutine(target.InitTargetValues(hit.transform, hit.GetComponent<Rigidbody2D>())); //If hit something hittable, make that the target
         }
         else
         {
@@ -86,7 +86,7 @@ public class TargetStandard : MonoBehaviour
                 Camera.main.ScreenToWorldPoint(Input.mousePosition).y,
                 0), new Quaternion()
             );
-            target.target = targetInstance.transform;
+            StartCoroutine(target.InitTargetValues(targetInstance.transform));
         }
         StartCoroutine(SetTargetValues());
     }
@@ -101,9 +101,9 @@ public class TargetStandard : MonoBehaviour
         if (targetInstance != null)
         {
             Destroy(targetInstance);
-            target.target = null;
+            StartCoroutine(target.ClearTarget());
         }
         else if (target.target != null)
-            target.target = null;
+            StartCoroutine(target.ClearTarget());
     }
 }
