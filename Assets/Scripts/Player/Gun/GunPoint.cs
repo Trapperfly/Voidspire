@@ -14,6 +14,7 @@ public class GunPoint : MonoBehaviour
     ActiveTarget target;
     AIGunStats aiGun;
     GunStats gun;
+    Transform bsp;
     Vector3 position;
     Transform parent;
     float maxRotX;
@@ -22,6 +23,10 @@ public class GunPoint : MonoBehaviour
     {
         if (GetComponent<AIGunStats>() != null) aiGun = GetComponent<AIGunStats>();
         if (GetComponent<GunStats>() != null) gun = GetComponent<GunStats>();
+        foreach (Transform child in transform)
+        {
+            if (child.name == "BulletSpawnPoint") bsp = child.transform;
+        }
         target = GetComponentInParent<ActiveTarget>();
         parent = transform.parent;
     }
@@ -29,7 +34,7 @@ public class GunPoint : MonoBehaviour
     {
         if (target.target == null && !mouseBased)
         {
-            transform.up = parent.up;
+            position = transform.up;
         }
         else
         {
@@ -37,7 +42,7 @@ public class GunPoint : MonoBehaviour
             {
                 if (gun != null)
                 {
-                    position = (Vector2)target.target.position + (target.targetRB.velocity * (Vector2.Distance(transform.position, target.target.transform.position) / gun.speed));
+                    position = (Vector2)target.target.position + (target.targetRB.velocity * (Vector2.Distance(bsp.position, target.target.transform.position) / gun.speed));
 
                     //float t = Vector2.Distance(transform.position, target.target.position) / gun.speed;
                     //position = (Vector2)target.target.position + target.targetRB.velocity * t;
@@ -47,13 +52,11 @@ public class GunPoint : MonoBehaviour
                     //    (target.targetRB.velocity.magnitude * Vector2.Distance(transform.position, velocityBasedPos)) / gun.speed);
                     //var speedIncluded = Vector2.LerpUnclamped(target.target.position, velocityBasedPos,(target.targetRB.velocity.magnitude + (Vector2.Distance(transform.position, velocityBasedPos) - Vector2.Distance(target.target.position, velocityBasedPos))) / gun.speed);
                     //position = speedIncluded;
-                    //Debug.DrawLine(transform.position, speedIncluded);
+                    Debug.DrawLine(bsp.position, position);
                 } 
                 else if (aiGun != null)
                 {
-                    var velocityBasedPos = (Vector2)target.target.position + target.targetRB.velocity;
-                    var speedIncluded = Vector2.LerpUnclamped(target.target.position, velocityBasedPos, target.targetRB.velocity.magnitude / aiGun.speed);
-                    position = speedIncluded;
+                    position = (Vector2)target.target.position + (target.targetRB.velocity * (Vector2.Distance(bsp.position, target.target.transform.position) / gun.speed));
                 }
             }
             else if (targetBased && target.target != null)

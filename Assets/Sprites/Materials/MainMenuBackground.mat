@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Testing
+  m_Name: MainMenuBackground
   m_Shader: {fileID: -6465566751694194690, guid: d111835a791522d43956f0e13e4c5876, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -29,10 +29,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _InputSpriteSheet:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _InputTexture:
-        m_Texture: {fileID: 2800000, guid: 583fae685ea67584296f321c65cfa118, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -62,20 +58,19 @@ Material:
     m_Ints: []
     m_Floats:
     - _Breathe: 1
-    - _BreatheSpeed: 3
-    - _BreatheStrength: 0.14
+    - _BreatheSpeed: 2.3
+    - _BreatheStrength: 0.64
     - _EnableExternalAlpha: 0
-    - _MaxPixelation: -0.14
     - _Pixelation: 32
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SizeOffset: 1.2
+    - _SizeOffset: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &6308586690203494125
+--- !u!114 &6958055075144527637
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
