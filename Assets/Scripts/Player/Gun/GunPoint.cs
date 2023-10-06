@@ -34,7 +34,7 @@ public class GunPoint : MonoBehaviour
     {
         if (target.target == null && !mouseBased)
         {
-            position = transform.up;
+            position = parent.transform.up;
         }
         else
         {
