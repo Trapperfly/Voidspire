@@ -8,10 +8,11 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour
 {
     bool savedRun;
-    [SerializeField] Scene startScene;
     GameObject MainCanvas;
     [SerializeField] Button[] mainButtons;
-    // Start is called before the first frame update
+    [SerializeField] Transform ShipSelectionCanvas;
+    [SerializeField] Transform MainMenuCanvas;
+
     void Awake()
     {
         //find saved run and swap savedRun to true
@@ -19,15 +20,10 @@ public class MainMenuController : MonoBehaviour
         if (!savedRun) mainButtons[0].interactable = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void NewGame()
     {
-        SceneManager.LoadScene(startScene.name);
+        MainMenuCanvas.gameObject.SetActive(false);
+        ShipSelectionCanvas.gameObject.SetActive(true);
     }
 
     public void ExitGame()
