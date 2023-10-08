@@ -687,7 +687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72358d26e6c2b7c4389439ed0a524ea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flipSpeedInSeconds: 2
+  flipSpeedInSeconds: 0.5
   shipPrefabs:
   - {fileID: 6071637829253512030, guid: b09c164305bc14c40a3ff02c091f6123, type: 3}
   - {fileID: 5860587541286392317, guid: 67305fd6caffba746b3849329deb3a8c, type: 3}
