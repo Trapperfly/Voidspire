@@ -694,6 +694,7 @@ MonoBehaviour:
   - {fileID: 7373920791649702355, guid: 8c75f7398c5d8f146a83b72c588f6dde, type: 3}
   - {fileID: 1792212464469005878, guid: 03832a9fc8f37214d8b22714ab8a9bc5, type: 3}
   - {fileID: 4086226817905846663, guid: 5bc10b5b17f9345488981a73e97f1fcc, type: 3}
+  - {fileID: 8524767120637957564, guid: 06f9d234f05380d48b70ca089bb2d418, type: 3}
   ShipSelectionCanvas: {fileID: 1128937644}
   MainMenuCanvas: {fileID: 1209582733}
   startScene: {fileID: 102900000, guid: 7dd5c01c6334d3a4bb9086e664659793, type: 3}
