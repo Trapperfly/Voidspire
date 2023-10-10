@@ -57,16 +57,24 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Effect: 0
-    - _EffectSpeed: 0
-    - _EffectStartOffset: 0
-    - _EffectStrength: 0
+    - _AddNoise: 0
+    - _Effect: 1
+    - _EffectHardness: -0.11
+    - _EffectSpeed: 30
+    - _EffectStartOffset: 20.11
+    - _EffectStrength: 6.38
+    - _EmissionSize: 0.9
     - _EnableExternalAlpha: 0
+    - _FadeOut: 0
+    - _FadeOutSpeed: 0.0001
     - _Pixelation: 32
     - _ShrinkSpeed: 5
     - _Skrink: 1
     m_Colors:
+    - _BaseColor: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectColor: {r: 0.745283, g: 0.2214756, b: 0.2214756, a: 0}
+    - _EmissionColor: {r: 1, g: 0, b: 0, a: 0}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
