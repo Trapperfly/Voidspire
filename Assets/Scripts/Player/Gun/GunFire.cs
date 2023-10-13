@@ -6,7 +6,7 @@ public class GunFire : MonoBehaviour
 {
     GunStats stat;
     Transform bulletHolder;
-    [SerializeField] BulletController bc;
+    [SerializeField] GunController gc;
     [SerializeField] AdjustToTarget target;
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] GunMaster gunMaster;
@@ -26,7 +26,7 @@ public class GunFire : MonoBehaviour
     {
         stat = GetComponent<GunStats>();
         gunPoint = GetComponent<GunPoint>();
-        bulletHolder = GameObject.FindGameObjectWithTag("BulletHolder").transform;
+        bulletHolder = gc.bc.transform;
         fireRateA = stat.fireRate;
         spreadA = stat.spread;
     }
@@ -114,7 +114,7 @@ public class GunFire : MonoBehaviour
     public IEnumerator Shoot()
     {
         GameObject bullet = Instantiate(stat.bulletPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
-        bullet.GetComponent<Bullet>().bc = bc;
+        bullet.GetComponent<Bullet>().bc = gc.bc;
         bullet.transform.localScale *= stat.bulletSize;
         bullet.GetComponent<Rigidbody2D>().velocity = transform.up * Speed(stat.speed);
         gunTimer = 0;

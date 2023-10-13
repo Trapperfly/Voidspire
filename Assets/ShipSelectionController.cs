@@ -8,7 +8,8 @@ public class ShipSelectionController : MonoBehaviour
 {
     [SerializeField] float flipSpeedInSeconds;
     [SerializeField] List<GameObject> shipPrefabs;
-    
+
+    [SerializeField] ShipManager manager;
     [SerializeField] Transform ShipSelectionCanvas;
     [SerializeField] Transform MainMenuCanvas;
     [SerializeField] Object startScene;
@@ -24,14 +25,19 @@ public class ShipSelectionController : MonoBehaviour
 
     private void Awake()
     {
+        selectedShip = manager.selectedShip;
         if (!initFinished) InitShips();
     }
 
     void InitShips()
     {
-        ShipBack = Instantiate(shipPrefabs[^1], shipRotunda.position - new Vector3(shipOffset, 0, 0), new Quaternion(0, 0, 0, 0), shipRotunda);
-        SelectedShip = Instantiate(shipPrefabs[0], shipRotunda.position, new Quaternion(0, 0, 0, 0), shipRotunda);
-        ShipFor = Instantiate(shipPrefabs[1], shipRotunda.position + new Vector3(shipOffset, 0, 0), new Quaternion(0, 0, 0, 0), shipRotunda);
+        int initShip = selectedShip - 1;
+        if (initShip < 0) initShip = shipPrefabs.Count - 1;
+        ShipBack = Instantiate(shipPrefabs[initShip], shipRotunda.position - new Vector3(shipOffset, 0, 0), new Quaternion(0, 0, 0, 0), shipRotunda);
+        SelectedShip = Instantiate(shipPrefabs[selectedShip], shipRotunda.position, new Quaternion(0, 0, 0, 0), shipRotunda);
+        initShip = selectedShip + 1;
+        if (initShip > shipPrefabs.Count - 1) initShip = 0;
+        ShipFor = Instantiate(shipPrefabs[initShip], shipRotunda.position + new Vector3(shipOffset, 0, 0), new Quaternion(0, 0, 0, 0), shipRotunda);
         initFinished = true;
     }
 
@@ -139,6 +145,7 @@ public class ShipSelectionController : MonoBehaviour
     public void StartGame()
     {
         //Set selected ship to global settings for the scene to use
+        manager.selectedShip = selectedShip;
         SceneManager.LoadScene(startScene.name);
     }
 }

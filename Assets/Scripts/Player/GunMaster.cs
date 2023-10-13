@@ -12,6 +12,7 @@ public class GunMaster : MonoBehaviour
     private void Awake()
     {
         gunArray = GetComponentsInChildren<GunStats>();
+
     }
     private void FixedUpdate()
     {

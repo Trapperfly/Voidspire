@@ -6,8 +6,10 @@ using System.Text;
 
 public class GunRandomizer : MonoBehaviour
 {
-    [SerializeField] GunStats stat;
-    [SerializeField] BulletController bc;
+    //HEAVILY NEEDS A REWORK WHEN WEAPONS ARE DROPPED
+    //Based on the testing phase of weapon implementation
+    [SerializeField] GunMaster gm;
+    [SerializeField] Transform bcMaster;
     [SerializeField] TMP_InputField input;
     [SerializeField] Transform textHolder;
     public int currentSeed = 0;
@@ -47,19 +49,26 @@ public class GunRandomizer : MonoBehaviour
     [SerializeField] Vector2 R_burst;                 //On gun
     [SerializeField] Vector2 R_burstDelay;          //On gun
     [SerializeField] Vector2 R_punch;               //On bullet
-    private void Awake()
+    private void Start()
     {
-        StartCoroutine(SetBulletValues());
-        SetValues();
+        foreach (var stat in gm.gunArray)
+        {
+            StartCoroutine(SetBulletValues(stat));
+            SetValues(stat);
+        }
     }
 
     public void SetBulletValuesFunc()
     {
-        StartCoroutine(SetBulletValues());
+        foreach (var stat in gm.gunArray)
+        {
+            StartCoroutine(SetBulletValues(stat));
+        }
     }
 
-    public IEnumerator SetBulletValues()
+    public IEnumerator SetBulletValues(GunStats stat)
     {
+        BulletController bc = stat.gameObject.GetComponent<GunController>().bc;
         bc.damage = stat.damage;
         bc.damageChange = stat.damageChange;
         bc.sizeChange = stat.bulletSizeChange;
@@ -82,6 +91,13 @@ public class GunRandomizer : MonoBehaviour
     }
 
     public void RandomizeGun()
+    {
+        foreach (GunStats stat in gm.gunArray)
+        {
+            Randomize(stat);
+        }
+    }
+    void Randomize(GunStats stat)
     {
         if (input.text == string.Empty)
         {
@@ -298,10 +314,11 @@ public class GunRandomizer : MonoBehaviour
                 break;
         }
         stat.punch = Random.Range(R_punch.x, R_punch.y);
-        SetValues();
-        StartCoroutine(SetBulletValues());
+        SetValues(stat);
+        StartCoroutine(SetBulletValues(stat));
     }
-    void SetValues()
+
+    void SetValues(GunStats stat)
     {
         StringBuilder _vString = new();
         for (int value = 0; value < textHolder.childCount; value++)

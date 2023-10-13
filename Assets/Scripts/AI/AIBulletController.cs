@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AIBulletController : MonoBehaviour
 {
-    bool wtf;
     private void FixedUpdate()
     {
         foreach (Transform child in transform)

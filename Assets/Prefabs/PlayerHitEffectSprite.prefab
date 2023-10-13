@@ -98,6 +98,91 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 0.5
+  fadeOut: 1
+  fadeOutOverLifetimeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0000005066395
+      value: 1.0000011
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -3.045869
+      outSlope: -3.045869
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10240977
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  size: 0.5
+  changeSizeOverLifetime: 1
+  sizeOverLifetimeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0000005066395
+      value: 0.0000010728836
+      inSlope: 44.16868
+      outSlope: 44.16868
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.099851824
+    - serializedVersion: 3
+      time: 0.02418153
+      value: 0.9726404
+      inSlope: 0.37420437
+      outSlope: 0.37420437
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.25785354
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1.5863905
+      outSlope: -1.5863905
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.15386014
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  randomSize: 1
+  randomSizeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.4999962
+      inSlope: 0.5000038
+      outSlope: 0.5000038
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.5000038
+      outSlope: 0.5000038
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   BaseColor:
     serializedVersion: 2
     rgba: 0

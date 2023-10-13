@@ -5,13 +5,20 @@ using UnityEngine.Sprites;
 
 public class HitEffectController : MonoBehaviour
 {
+    [Header("General")]
     [SerializeField] float lifeTime;
+    [Header("Fade out")]
     [SerializeField] bool fadeOut;
+    [SerializeField] AnimationCurve fadeOutOverLifetimeCurve;
+    [Header("Size")]
     [SerializeField] float size;
-    [SerializeField] bool changeSizeOVerLifetime;
-    [SerializeField] AnimationCurve sizeOverLifetime;
+    [SerializeField] bool changeSizeOverLifetime;
+    [SerializeField] AnimationCurve sizeOverLifetimeCurve;
+    [SerializeField] bool randomSize;
+    [SerializeField] AnimationCurve randomSizeCurve;
     float effectValue;
     Material mat;
+    [Header("Colors")]
     [SerializeField] Color32 BaseColor;
     [SerializeField] Color32 EffectColor;
     [SerializeField] Color32 EmissionColor;
@@ -19,9 +26,13 @@ public class HitEffectController : MonoBehaviour
 
     private void Awake()
     {
-        transform.localScale *= size;
         mat = GetComponent<SpriteRenderer>().material;
+        if (randomSize) size *= CurveRandom(randomSizeCurve);
+        effectPercent = 1;
         effectValue = 60 * lifeTime;
+        if (fadeOut) mat.SetFloat("_Diffuse", CurveOverTime(fadeOutOverLifetimeCurve));
+        if (changeSizeOverLifetime) transform.localScale = new Vector3(size, size, size) * CurveOverTime(sizeOverLifetimeCurve);
+        else transform.localScale = new Vector3(size, size, size);
         mat.SetColor("_BaseColor", BaseColor);
         mat.SetColor("_EffectColor", EffectColor);
         mat.SetColor("_EmissionColor", EmissionColor);
@@ -29,15 +40,9 @@ public class HitEffectController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (fadeOut)
-        {
-            effectPercent = effectValue / (60 * lifeTime);
-            mat.SetFloat("_Diffuse", effectPercent);
-        }
-        if (changeSizeOVerLifetime)
-        {
-            transform.localScale = new Vector3(size, size, 0) * CurveOverTime(sizeOverLifetime);
-        }
+        if (fadeOut || changeSizeOverLifetime) effectPercent = effectValue / (60 * lifeTime);
+        if (fadeOut) mat.SetFloat("_Diffuse", CurveOverTime(fadeOutOverLifetimeCurve));
+        if (changeSizeOverLifetime) transform.localScale = new Vector3(size, size, size) * CurveOverTime(sizeOverLifetimeCurve);
         effectValue--;
         if (effectValue <= 0) Destroy(gameObject);
     }
@@ -45,5 +50,10 @@ public class HitEffectController : MonoBehaviour
     float CurveOverTime(AnimationCurve curve)
     {
         return curve.Evaluate(1f - effectPercent);
+    }
+
+    float CurveRandom(AnimationCurve curve)
+    {
+        return curve.Evaluate(Random.value);
     }
 }

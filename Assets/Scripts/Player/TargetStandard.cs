@@ -7,7 +7,7 @@ public class TargetStandard : MonoBehaviour
     [Header("Targeting")]
     [SerializeField] GunMaster guns;
     [SerializeField] GameObject targetTransformPrefab;
-    [SerializeField] BulletController bc;
+    [SerializeField] Transform holder;
     ActiveTarget target;
     GameObject targetInstance;
     float targetHoldTimer;
@@ -16,7 +16,6 @@ public class TargetStandard : MonoBehaviour
     [SerializeField] LayerMask targetMask;
     private void Awake()
     {
-        bc = GameObject.FindGameObjectWithTag("BulletHolder").GetComponent<BulletController>();
         target = GetComponent<ActiveTarget>();
     }
     private void FixedUpdate()
@@ -92,8 +91,13 @@ public class TargetStandard : MonoBehaviour
     }
     public IEnumerator SetTargetValues()
     {
-        if (target.target != null)
-            bc.target = target.target;
+        foreach (Transform bulletController in holder)
+        {
+            BulletController bc = bulletController.GetComponent<BulletController>();
+            if (target.target != null)
+                bc.target = target.target;
+        }
+
         yield return null;
     }
     public void RemoveTarget()
