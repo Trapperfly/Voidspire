@@ -26,6 +26,9 @@ public class GunFire : MonoBehaviour
     {
         stat = GetComponent<GunStats>();
         gunPoint = GetComponent<GunPoint>();
+    }
+    private void Start()
+    {
         bulletHolder = gc.bc.transform;
         fireRateA = stat.fireRate;
         spreadA = stat.spread;

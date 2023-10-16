@@ -6,11 +6,7 @@ using TMPro;
 public class CountBullets : MonoBehaviour
 {
     [SerializeField] TMP_Text text;
-    Transform bulletHolder;
-    private void Awake()
-    {
-        bulletHolder = GameObject.FindGameObjectWithTag("BulletHolder").transform;
-    }
+    [SerializeField] Transform bulletHolder;
     private void Update()
     {
         UpdateText();
@@ -18,6 +14,11 @@ public class CountBullets : MonoBehaviour
 
     void UpdateText()
     {
-        text.text = bulletHolder.childCount.ToString();
+        int bulletCount = 0;
+        foreach (Transform child in transform)
+        {
+            bulletCount += child.childCount;
+        }
+        text.text = bulletCount.ToString();
     }
 }

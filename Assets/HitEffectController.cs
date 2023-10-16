@@ -36,6 +36,7 @@ public class HitEffectController : MonoBehaviour
         mat.SetColor("_BaseColor", BaseColor);
         mat.SetColor("_EffectColor", EffectColor);
         mat.SetColor("_EmissionColor", EmissionColor);
+        mat.SetFloat("_EffectStartOffset", Random.value * 100);
     }
 
     private void FixedUpdate()
