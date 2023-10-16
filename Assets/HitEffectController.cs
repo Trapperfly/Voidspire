@@ -19,9 +19,10 @@ public class HitEffectController : MonoBehaviour
     float effectValue;
     Material mat;
     [Header("Colors")]
+    [SerializeField] Color32 BackColor;
     [SerializeField] Color32 BaseColor;
-    [SerializeField] Color32 EffectColor;
-    [SerializeField] Color32 EmissionColor;
+    [SerializeField] Color32 MidColor;
+    [SerializeField] Color32 TipColor;
     float effectPercent;
 
     private void Awake()
@@ -33,9 +34,10 @@ public class HitEffectController : MonoBehaviour
         if (fadeOut) mat.SetFloat("_Diffuse", CurveOverTime(fadeOutOverLifetimeCurve));
         if (changeSizeOverLifetime) transform.localScale = new Vector3(size, size, size) * CurveOverTime(sizeOverLifetimeCurve);
         else transform.localScale = new Vector3(size, size, size);
+        mat.SetColor("_BaseColor", BackColor);
         mat.SetColor("_BaseColor", BaseColor);
-        mat.SetColor("_EffectColor", EffectColor);
-        mat.SetColor("_EmissionColor", EmissionColor);
+        mat.SetColor("_MidColor", MidColor);
+        mat.SetColor("_TipColor", TipColor);
         mat.SetFloat("_EffectStartOffset", Random.value * 100);
     }
 

@@ -58,9 +58,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _AddNoise: 0
+    - _BaseColorStrength: 1
     - _Diffuse: 1
     - _Effect: 1
-    - _EffectHardness: -0
+    - _EffectHardness: 1
     - _EffectSpeed: 2
     - _EffectStartOffset: 20
     - _EffectStrength: 15
@@ -68,19 +69,26 @@ Material:
     - _EnableExternalAlpha: 0
     - _FadeOut: 0
     - _FadeOutSpeed: 0.0001
+    - _MidColorStrength: 1
     - _Pixelation: 32
     - _ShrinkSpeed: 5
     - _Skrink: 1
     - _StartOpacity: 1
+    - _TipSize: 0.9
+    - _TipStrength: 10
+    - _UseBackgroundColor: 0
     - _UseBaseColor: 0
     - _UseBaseOpacity: 0
     m_Colors:
+    - _BackgroundColor: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EffectColor: {r: 0.4056604, g: 0.05549129, b: 0.3939881, a: 0}
     - _EmissionColor: {r: 2.693989, g: 0, b: 0.88157326, a: 0}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _MidColor: {r: 0, g: 0, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TipColor: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2959500543833102381
 MonoBehaviour:
