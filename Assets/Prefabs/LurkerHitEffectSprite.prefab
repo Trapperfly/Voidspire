@@ -98,6 +98,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 3
+  effectSpeed: 4
+  changeEffectSpeedOverLifetime: 1
+  effectSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0000005066395
+      value: 1.0000011
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.72017395
+      inSlope: -0.15235664
+      outSlope: -0.15235664
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.15060253
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  effectStrength: 20
+  changeEffectStrengthOverLifetime: 1
+  effectStrengthCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0000005066395
+      value: 1.0000011
+      inSlope: -0.50765127
+      outSlope: -0.50765127
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.2259032
+    - serializedVersion: 3
+      time: 1
+      value: 0.7798157
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   fadeOut: 1
   fadeOutOverLifetimeCurve:
     serializedVersion: 2
@@ -123,7 +175,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  size: 0.5
+  size: 0.4
   changeSizeOverLifetime: 1
   sizeOverLifetimeCurve:
     serializedVersion: 2
@@ -183,12 +235,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  BaseColor:
+  BackColor:
     serializedVersion: 2
     rgba: 0
-  EffectColor:
+  BaseColor:
     serializedVersion: 2
-    rgba: 13110394
-  EmissionColor:
+    rgba: 4597544
+  MidColor:
     serializedVersion: 2
-    rgba: 13395158
+    rgba: 15468190
+  TipColor:
+    serializedVersion: 2
+    rgba: 11934183

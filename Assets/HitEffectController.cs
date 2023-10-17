@@ -7,6 +7,13 @@ public class HitEffectController : MonoBehaviour
 {
     [Header("General")]
     [SerializeField] float lifeTime;
+    [Header("Effect")]
+    [SerializeField] float effectSpeed;
+    [SerializeField] bool changeEffectSpeedOverLifetime;
+    [SerializeField] AnimationCurve effectSpeedCurve;
+    [SerializeField] float effectStrength;
+    [SerializeField] bool changeEffectStrengthOverLifetime;
+    [SerializeField] AnimationCurve effectStrengthCurve;
     [Header("Fade out")]
     [SerializeField] bool fadeOut;
     [SerializeField] AnimationCurve fadeOutOverLifetimeCurve;
@@ -16,13 +23,14 @@ public class HitEffectController : MonoBehaviour
     [SerializeField] AnimationCurve sizeOverLifetimeCurve;
     [SerializeField] bool randomSize;
     [SerializeField] AnimationCurve randomSizeCurve;
-    float effectValue;
-    Material mat;
+
     [Header("Colors")]
     [SerializeField] Color32 BackColor;
     [SerializeField] Color32 BaseColor;
     [SerializeField] Color32 MidColor;
     [SerializeField] Color32 TipColor;
+    float effectValue;
+    Material mat;
     float effectPercent;
 
     private void Awake()
@@ -34,7 +42,12 @@ public class HitEffectController : MonoBehaviour
         if (fadeOut) mat.SetFloat("_Diffuse", CurveOverTime(fadeOutOverLifetimeCurve));
         if (changeSizeOverLifetime) transform.localScale = new Vector3(size, size, size) * CurveOverTime(sizeOverLifetimeCurve);
         else transform.localScale = new Vector3(size, size, size);
-        mat.SetColor("_BaseColor", BackColor);
+
+        if (changeEffectSpeedOverLifetime) mat.SetFloat("_EffectSpeed", effectSpeed * CurveOverTime(effectSpeedCurve));
+        else mat.SetFloat("_EffectSpeed", effectSpeed);
+        if (changeEffectStrengthOverLifetime) mat.SetFloat("_EffectStrength", effectStrength * CurveOverTime(effectStrengthCurve));
+        else mat.SetFloat("_EffectStrength", effectStrength);
+        mat.SetColor("_BackColor", BackColor);
         mat.SetColor("_BaseColor", BaseColor);
         mat.SetColor("_MidColor", MidColor);
         mat.SetColor("_TipColor", TipColor);
@@ -43,9 +56,12 @@ public class HitEffectController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (fadeOut || changeSizeOverLifetime) effectPercent = effectValue / (60 * lifeTime);
+        effectPercent = effectValue / (60 * lifeTime);
         if (fadeOut) mat.SetFloat("_Diffuse", CurveOverTime(fadeOutOverLifetimeCurve));
         if (changeSizeOverLifetime) transform.localScale = new Vector3(size, size, size) * CurveOverTime(sizeOverLifetimeCurve);
+        if (changeEffectSpeedOverLifetime) mat.SetFloat("_EffectSpeed", effectSpeed * CurveOverTime(effectSpeedCurve));
+        if (changeEffectStrengthOverLifetime) mat.SetFloat("_EffectStrength", effectStrength * CurveOverTime(effectStrengthCurve));
+
         effectValue--;
         if (effectValue <= 0) Destroy(gameObject);
     }
