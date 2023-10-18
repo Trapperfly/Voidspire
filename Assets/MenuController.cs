@@ -6,9 +6,11 @@ public class MenuController : MonoBehaviour
 {
     bool gamePaused;
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject map;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) PauseGame();
+        if (Input.GetKeyDown(KeyCode.M)) MapMode();
     }
 
     public void PauseGame()
@@ -20,6 +22,12 @@ public class MenuController : MonoBehaviour
             pauseMenu.SetActive(true);
         }
         else ResumeGame();
+    }
+
+    public void MapMode()
+    {
+        if (map.activeSelf) map.SetActive(false);
+        else map.SetActive(true);
     }
 
     public void ResumeGame()

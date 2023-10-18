@@ -15,7 +15,7 @@ public class CountBullets : MonoBehaviour
     void UpdateText()
     {
         int bulletCount = 0;
-        foreach (Transform child in transform)
+        foreach (Transform child in bulletHolder.transform)
         {
             bulletCount += child.childCount;
         }

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: -8973844629681964601}
   - component: {fileID: 3434563164811518689}
   - component: {fileID: 3706284460330487220}
+  - component: {fileID: 835577107926591018}
   m_Layer: 11
   m_Name: Debris
   m_TagString: Targetable
@@ -293,6 +294,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 30
+--- !u!114 &835577107926591018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672731457504470230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f57ac5988f5624199380036c360b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapEntityType: 2
 --- !u!1 &6926790410159141659
 GameObject:
   m_ObjectHideFlags: 0

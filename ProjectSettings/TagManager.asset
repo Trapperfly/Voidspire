@@ -11,6 +11,8 @@ TagManager:
   - AIBulletHolder
   - AIBullet
   - HitEffectMaster
+  - MapManager
+  - MapPivot
   layers:
   - Default
   - TransparentFX

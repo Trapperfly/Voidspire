@@ -220,6 +220,7 @@ GameObject:
   - component: {fileID: 5596287114082821822}
   - component: {fileID: 1416936459467957179}
   - component: {fileID: 4782621508272337743}
+  - component: {fileID: -3483118909395293609}
   m_Layer: 9
   m_Name: LurkerPrefab
   m_TagString: Untagged
@@ -460,6 +461,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf0c60e22310504e9a2935a666d8211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-3483118909395293609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034660161339117062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f57ac5988f5624199380036c360b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapEntityType: 1
+  map: {fileID: 0}
 --- !u!1 &2789921237262020949
 GameObject:
   m_ObjectHideFlags: 0
