@@ -61,15 +61,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Breathe: 1
-    - _BreatheSpeed: 3
-    - _BreatheStrength: 0.14
+    - _BaseOffset: 0.28
+    - _Breathe: 0
+    - _BreatheSpeed: 3.6
+    - _BreatheStrength: 0.09
+    - _BreathingOffset: 1.31
     - _EnableExternalAlpha: 0
     - _MaxPixelation: -0.14
     - _Pixelation: 32
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SizeOffset: 1.2
+    - _SizeOffset: 1.05
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
