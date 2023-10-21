@@ -156,6 +156,6 @@ public class ShipSelectionController : MonoBehaviour
         if (selectedShip != 0)
         {
 
-        }else SceneManager.LoadScene(startScene.name);
+        }else SceneManager.LoadScene(1);
     }
 }

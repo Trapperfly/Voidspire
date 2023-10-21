@@ -55,13 +55,13 @@ public class MenuController : MonoBehaviour
 
     IEnumerator QuitOut()
     {
-        SceneManager.LoadScene(mainMenuScene.name);
+        SceneManager.LoadScene(0);
         yield return null;
     }
 
     public void Restart()
     {
-        SceneManager.LoadScene(startScene.name);
+        SceneManager.LoadScene(1);
         Time.timeScale = 1;
     }
 }

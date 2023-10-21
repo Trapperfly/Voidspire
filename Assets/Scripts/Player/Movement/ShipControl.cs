@@ -48,7 +48,10 @@ public class ShipControl : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && !ftlActive) ChargeFTL();
         else if (ftlCharge > 0) ftlCharge -= 3;
         else if (ftlCharge < 0) ftlCharge = 0;
+    }
 
+    private void Update()
+    {
         if (ftlActive && Input.GetKeyDown(KeyCode.Space) || ftlActive && Input.GetKey(KeyCode.S)) StopFTL();
     }
 
