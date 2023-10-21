@@ -34,10 +34,15 @@ public class ShipSelectionController : MonoBehaviour
         int initShip = selectedShip - 1;
         if (initShip < 0) initShip = shipPrefabs.Count - 1;
         ShipBack = Instantiate(shipPrefabs[initShip], shipRotunda.position - new Vector3(shipOffset, 0, 0), new Quaternion(0, 0, 0, 0), shipRotunda);
+        if (initShip != 0) ShipBack.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.05f);
+
         SelectedShip = Instantiate(shipPrefabs[selectedShip], shipRotunda.position, new Quaternion(0, 0, 0, 0), shipRotunda);
+        if (selectedShip != 0) SelectedShip.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.05f);
+
         initShip = selectedShip + 1;
         if (initShip > shipPrefabs.Count - 1) initShip = 0;
         ShipFor = Instantiate(shipPrefabs[initShip], shipRotunda.position + new Vector3(shipOffset, 0, 0), new Quaternion(0, 0, 0, 0), shipRotunda);
+        if (initShip != 0) ShipFor.GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.05f);
         initFinished = true;
     }
 
@@ -65,6 +70,7 @@ public class ShipSelectionController : MonoBehaviour
             }
             direction = -1;
             ShipTempSlot = Instantiate(shipPrefabs[prepareShip], shipRotunda.position + new Vector3(shipOffset * 2, 0, 0), new Quaternion(0, 0, 0, 0), shipRotunda);
+            if (prepareShip != 0) ShipTempSlot.GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.05f);
         }
         else
         {
@@ -78,6 +84,7 @@ public class ShipSelectionController : MonoBehaviour
             } 
             direction = 1;
             ShipTempSlot = Instantiate(shipPrefabs[prepareShip], shipRotunda.position - new Vector3(shipOffset * 2, 0, 0), new Quaternion(0, 0, 0, 0), shipRotunda);
+            if (prepareShip != 0) ShipTempSlot.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.05f);
         }
         //Perform flip
         for (int i = 0; i < flipSpeedInSeconds * 60; i++)
@@ -146,6 +153,9 @@ public class ShipSelectionController : MonoBehaviour
     {
         //Set selected ship to global settings for the scene to use
         manager.selectedShip = selectedShip;
-        SceneManager.LoadScene(startScene.name);
+        if (selectedShip != 0)
+        {
+
+        }else SceneManager.LoadScene(startScene.name);
     }
 }

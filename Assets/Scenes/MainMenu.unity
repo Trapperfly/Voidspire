@@ -709,12 +709,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 180772805}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 883.5028, y: 673.0978, z: 1.3975639}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1128937644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &208703361
 GameObject:
@@ -2564,7 +2564,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1128937641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2648,6 +2648,7 @@ RectTransform:
   - {fileID: 701362867}
   - {fileID: 647746935}
   - {fileID: 1946056690}
+  - {fileID: 180772807}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2673,7 +2674,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1209582730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2732,7 +2733,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 17
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -4361,11 +4362,11 @@ RectTransform:
   - {fileID: 412276768}
   m_Father: {fileID: 1128937644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 880.22, y: -425}
-  m_SizeDelta: {x: 159.554, y: 30}
-  m_Pivot: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 15.105011, y: -425}
+  m_SizeDelta: {x: 487.4, y: 64.5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1946056691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4477,7 +4478,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1950661881
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4678,7 +4679,6 @@ SceneRoots:
   - {fileID: 1209582733}
   - {fileID: 1828190428}
   - {fileID: 1128937644}
-  - {fileID: 180772807}
   - {fileID: 1019991093}
   - {fileID: 1293780755}
   - {fileID: 1432136211}

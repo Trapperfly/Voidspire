@@ -23,6 +23,7 @@ public class ShipControl : MonoBehaviour
     [SerializeField] GUISlidersSet sliderRef;
     ShipRbController sRb;
     Rigidbody2D rb;
+    Collider2D col;
 
     int ftlCharge;
     bool ftlActive;
@@ -35,6 +36,7 @@ public class ShipControl : MonoBehaviour
         fuelMeter.fillAmount = fuel / fuelMax;
         ftl = GetComponent<FTLDrive>();
         sRb = GetComponent<ShipRbController>();
+        col = GetComponent<Collider2D>();
         rb = sRb.rb;
     }
 
@@ -48,8 +50,6 @@ public class ShipControl : MonoBehaviour
         else if (ftlCharge < 0) ftlCharge = 0;
 
         if (ftlActive && Input.GetKeyDown(KeyCode.Space) || ftlActive && Input.GetKey(KeyCode.S)) StopFTL();
-
-
     }
 
     void UseFuel(float modifier)
@@ -73,11 +73,13 @@ public class ShipControl : MonoBehaviour
 
     void ActivateFTL()
     {
+        col.enabled = false;
         ftlActive = true;
     }
 
     void StopFTL()
     {
+        col.enabled = true;
         duration = 0;
         rb.drag = 1000;
         ftlActive = false;

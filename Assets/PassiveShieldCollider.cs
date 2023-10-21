@@ -10,7 +10,7 @@ public class PassiveShieldCollider : MonoBehaviour
         if (collision.collider.CompareTag("Bullet"))
         {
             master.shieldCurrent -= collision.collider.GetComponent<Bullet>()._localDamage;
-            master.HealthCheck();
+            master.ShieldCheck();
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,12 +19,12 @@ public class PassiveShieldCollider : MonoBehaviour
         if (collision.CompareTag("Bullet"))
         {
             master.shieldCurrent -= collision.GetComponent<Bullet>()._localDamage;
-            master.HealthCheck();
+            master.ShieldCheck();
         }
         if (collision.CompareTag("AIBullet"))
         {
             master.shieldCurrent -= collision.GetComponent<AIBullet>().damage;
-            master.HealthCheck();
+            master.ShieldCheck();
         }
     }
 }

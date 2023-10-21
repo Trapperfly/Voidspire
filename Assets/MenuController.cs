@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
     bool gamePaused;
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject map;
+    [SerializeField] Object startScene;
+    [SerializeField] Object mainMenuScene;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) PauseGame();
@@ -52,7 +55,13 @@ public class MenuController : MonoBehaviour
 
     IEnumerator QuitOut()
     {
-        Application.Quit();
+        SceneManager.LoadScene(mainMenuScene.name);
         yield return null;
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(startScene.name);
+        Time.timeScale = 1;
     }
 }
