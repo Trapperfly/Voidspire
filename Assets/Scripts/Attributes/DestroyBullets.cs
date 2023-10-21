@@ -5,6 +5,7 @@ using UnityEngine;
 public class DestroyBullets : MonoBehaviour
 {
     HitEffectMaster hitMaster;
+    public Transform sprites;
     private void Awake()
     {
         hitMaster = GameObject.FindGameObjectWithTag("HitEffectMaster").GetComponent<HitEffectMaster>();
@@ -19,12 +20,12 @@ public class DestroyBullets : MonoBehaviour
             {
                 if (bulletTR != null)
                 {
-                    hitMaster.SpawnHitEffect(gameObject, bullet.transform.position, collision.collider.tag);
+                    hitMaster.SpawnHitEffect(sprites, bullet.transform.position, collision.collider.tag);
                     StartCoroutine(DestroyTrailedBullet(bullet.gameObject, bulletTR));
                 }
                 else 
                 {
-                    hitMaster.SpawnHitEffect(gameObject, bullet.transform.position, collision.collider.tag);
+                    hitMaster.SpawnHitEffect(sprites, bullet.transform.position, collision.collider.tag);
                     Destroy(bullet.gameObject);
                 }
 
@@ -41,12 +42,12 @@ public class DestroyBullets : MonoBehaviour
             {
                 if (bulletTR != null)
                 {
-                    hitMaster.SpawnHitEffect(gameObject, bullet.transform.position, collision.tag);
+                    hitMaster.SpawnHitEffect(sprites, bullet.transform.position, collision.tag);
                     StartCoroutine(DestroyTrailedBullet(bullet.gameObject, bulletTR));
                 }
                 else
                 {
-                    hitMaster.SpawnHitEffect(gameObject, bullet.transform.position, collision.tag);
+                    hitMaster.SpawnHitEffect(sprites, bullet.transform.position, collision.tag);
                     Destroy(bullet.gameObject); 
                 }
             }
@@ -57,12 +58,12 @@ public class DestroyBullets : MonoBehaviour
             TrailRenderer bulletTR = bullet.GetComponentInChildren<TrailRenderer>();
             if (bulletTR != null)
             {
-                hitMaster.SpawnHitEffect(gameObject, bullet.transform.position, collision.tag);
+                hitMaster.SpawnHitEffect(sprites, bullet.transform.position, collision.tag);
                 StartCoroutine(DestroyTrailedBullet(bullet.gameObject, bulletTR));
             }
             else
             {
-                hitMaster.SpawnHitEffect(gameObject, bullet.transform.position, collision.tag);
+                hitMaster.SpawnHitEffect(sprites, bullet.transform.position, collision.tag);
                 Destroy(bullet.gameObject);
             }
         }

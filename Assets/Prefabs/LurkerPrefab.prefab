@@ -461,6 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf0c60e22310504e9a2935a666d8211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprites: {fileID: 2765312029593040169}
 --- !u!114 &-3483118909395293609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,7 +475,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapEntityType: 1
-  map: {fileID: 0}
 --- !u!1 &2789921237262020949
 GameObject:
   m_ObjectHideFlags: 0
