@@ -18,7 +18,10 @@ public class ShipControl : MonoBehaviour
     public float fuel;
     public float fuelMax;
     public float fuelDrain;
+    float fuelPercent;
+    float lastFrameMaxFuel;
     public Image fuelMeter;
+    public Transform fuelBar;
 
     [SerializeField] GUISlidersSet sliderRef;
     ShipRbController sRb;
@@ -28,12 +31,14 @@ public class ShipControl : MonoBehaviour
     int ftlCharge;
     bool ftlActive;
     FTLDrive ftl;
+    bool ftlEnding;
     int duration;
 
     private void Awake()
     {
         fuel = fuelMax;
-        fuelMeter.fillAmount = fuel / fuelMax;
+        fuelPercent = fuel / fuelMax;
+        fuelMeter.fillAmount = fuelPercent;
         ftl = GetComponent<FTLDrive>();
         sRb = GetComponent<ShipRbController>();
         col = GetComponent<Collider2D>();
@@ -48,11 +53,16 @@ public class ShipControl : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && !ftlActive) ChargeFTL();
         else if (ftlCharge > 0) ftlCharge -= 3;
         else if (ftlCharge < 0) ftlCharge = 0;
+
+        if (ftlEnding) StopFTL();
     }
 
     private void Update()
     {
-        if (ftlActive && Input.GetKeyDown(KeyCode.Space) || ftlActive && Input.GetKey(KeyCode.S)) StopFTL();
+        if (ftlActive && Input.GetKeyDown(KeyCode.Space) || ftlActive && Input.GetKey(KeyCode.S))
+            ftlEnding = true;
+        if (lastFrameMaxFuel != fuelMax) UpdateSize();
+        lastFrameMaxFuel = fuelMax;
     }
 
     void UseFuel(float modifier)
@@ -62,7 +72,23 @@ public class ShipControl : MonoBehaviour
             if (ftl.fuelDrain != -1) fuel -= ftl.fuelDrain * modifier;
         }
         else if (fuelDrain != -1) fuel -= fuelDrain * modifier;
-        fuelMeter.fillAmount = fuel / fuelMax;
+        UpdateFuel();
+    }
+    void UpdateFuel()
+    {
+        if (fuel > fuelMax) fuel = fuelMax;
+        fuelPercent = fuel / fuelMax;
+        fuelMeter.fillAmount = fuelPercent;
+    }
+    void UpdateSize()
+    {
+        foreach (RectTransform child in fuelBar)
+        {
+            float _backModifier = 0;
+            if (child == fuelBar.GetChild(0)) _backModifier = 0.05f;
+            child.sizeDelta = new Vector2((fuelMax / 30000) + _backModifier, child.sizeDelta.y);
+        }
+        UpdateFuel();
     }
     void ChargeFTL()
     {
@@ -84,8 +110,9 @@ public class ShipControl : MonoBehaviour
     {
         col.enabled = true;
         duration = 0;
-        rb.drag = 1000;
         ftlActive = false;
+        rb.drag = 1000;
+        ftlEnding = false;
     }
 
     void FTL()

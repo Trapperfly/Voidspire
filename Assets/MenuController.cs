@@ -35,8 +35,8 @@ public class MenuController : MonoBehaviour
 
     public void ResumeGame()
     {
-        pauseMenu.SetActive(false);
         Time.timeScale = 1f;
+        pauseMenu.SetActive(false);
         gamePaused = false;
     }
 
@@ -55,6 +55,7 @@ public class MenuController : MonoBehaviour
 
     IEnumerator QuitOut()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
         yield return null;
     }

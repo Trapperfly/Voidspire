@@ -19,6 +19,6 @@ public class CountBullets : MonoBehaviour
         {
             bulletCount += child.childCount;
         }
-        text.text = bulletCount.ToString();
+        text.text = bulletCount.ToString() + " Projectiles";
     }
 }
