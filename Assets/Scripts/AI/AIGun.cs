@@ -7,6 +7,7 @@ public class AIGun : MonoBehaviour
     [SerializeField] LurkerAI aiLurker;
     [SerializeField] AIGunStats stat;
     [SerializeField] Transform bulletSpawnPoint;
+    [SerializeField] bool autoFire;
     Transform bh;
     float gunTimer;
 
@@ -16,11 +17,14 @@ public class AIGun : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (aiLurker.inCombat && gunTimer >= 60 / stat.fireRate) Fire();
-        gunTimer++;
+        if (autoFire)
+        {
+            if (aiLurker.inCombat && gunTimer >= 60 / stat.fireRate) Fire();
+            gunTimer++;
+        }
     }
 
-    void Fire()
+    public void Fire()
     {
         GameObject bullet = Instantiate(stat.AIBulletPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bh);
         Physics2D.IgnoreCollision(GetComponentInParent<Collider2D>(), bullet.GetComponent<Collider2D>());

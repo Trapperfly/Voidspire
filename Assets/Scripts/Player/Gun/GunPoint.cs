@@ -11,7 +11,8 @@ public class GunPoint : MonoBehaviour
     [SerializeField] Vector2 limitRotValues;
     [SerializeField] float rotSpeed;
     [SerializeField] bool advancedTargeting;
-    bool doRotate = true;
+    [SerializeField] bool notAGun;
+    public bool doRotate = true;
     ActiveTarget target;
     AIGunStats aiGun;
     GunStats gun;
@@ -22,21 +23,37 @@ public class GunPoint : MonoBehaviour
     float maxRotY;
     private void Awake()
     {
-        if (GetComponent<AIGunStats>() != null) aiGun = GetComponent<AIGunStats>();
-        if (GetComponent<GunStats>() != null) gun = GetComponent<GunStats>();
-        foreach (Transform child in transform)
+        if (!notAGun)
         {
-            if (child.name == "BulletSpawnPoint") bsp = child.transform;
+            if (GetComponent<AIGunStats>() != null) aiGun = GetComponent<AIGunStats>();
+            if (GetComponent<GunStats>() != null) gun = GetComponent<GunStats>();
+            foreach (Transform child in transform)
+            {
+                if (child.name == "BulletSpawnPoint") bsp = child.transform;
+            }
+            target = GetComponentInParent<ActiveTarget>();
+            parent = transform.parent;
         }
-        target = GetComponentInParent<ActiveTarget>();
-        parent = transform.parent;
+        else
+        {
+            if (GetComponent<AIGunStats>() != null) aiGun = GetComponent<AIGunStats>();
+            if (GetComponent<GunStats>() != null) gun = GetComponent<GunStats>();
+            foreach (Transform child in transform)
+            {
+                if (child.name == "BulletSpawnPoint") bsp = child.transform;
+            }
+            target = GetComponent<ActiveTarget>();
+        }
     }
     private void FixedUpdate()
     {
         if (target.target == null && !mouseBased)
         {
-            position = transform.parent.position + transform.parent.transform.up * 10;
-            Debug.DrawLine(transform.position, position);
+            if (!notAGun)
+            {
+                position = transform.parent.position + transform.parent.transform.up * 10;
+                Debug.DrawLine(transform.position, position);
+            }
         }
         else
         {
@@ -46,7 +63,7 @@ public class GunPoint : MonoBehaviour
                 {
                     position = (Vector2)target.target.position 
                         + (target.targetRB.velocity 
-                        * (Vector2.Distance(bsp.position, target.target.transform.position) 
+                        * (Vector2.Distance(bsp.position, target.target.position) 
                         / gun.speed));
                     Debug.DrawLine(bsp.position, position);
                 }
@@ -54,8 +71,8 @@ public class GunPoint : MonoBehaviour
                 {
                     position = (Vector2)target.target.position 
                         + (target.targetRB.velocity 
-                        * (Vector2.Distance(bsp.position, target.target.transform.position) 
-                        / gun.speed));
+                        * (Vector2.Distance(bsp.position, target.target.position) 
+                        / aiGun.speed));
                 }
             }
             else if (targetBased && target.target != null)

@@ -23,6 +23,10 @@ public class HitEffectController : MonoBehaviour
     [SerializeField] AnimationCurve sizeOverLifetimeCurve;
     [SerializeField] bool randomSize;
     [SerializeField] AnimationCurve randomSizeCurve;
+    [Header("Noise")]
+    [SerializeField] bool addNoise;
+    [SerializeField] float noiseStrength;
+    [SerializeField] float noiseDetail;
 
     [Header("Colors")]
     [SerializeField] Color32 BackColor;
@@ -47,11 +51,16 @@ public class HitEffectController : MonoBehaviour
         else mat.SetFloat("_EffectSpeed", effectSpeed);
         if (changeEffectStrengthOverLifetime) mat.SetFloat("_EffectStrength", effectStrength * CurveOverTime(effectStrengthCurve));
         else mat.SetFloat("_EffectStrength", effectStrength);
+        mat.SetFloat("_EffectStartOffset", Random.Range(10, 100));
         mat.SetColor("_BackColor", BackColor);
         mat.SetColor("_BaseColor", BaseColor);
         mat.SetColor("_MidColor", MidColor);
         mat.SetColor("_TipColor", TipColor);
         mat.SetFloat("_EffectStartOffset", Random.value * 100);
+
+        if (addNoise) mat.SetFloat("_NoisedDiffuse", 1);
+        mat.SetFloat("_NoiseStrength", noiseStrength);
+        mat.SetFloat("_NoiseDetail", noiseDetail);
     }
 
     private void FixedUpdate()

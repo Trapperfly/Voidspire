@@ -5,6 +5,7 @@ using UnityEngine;
 public class ArbalestAI : MonoBehaviour
 {
     [SerializeField] float speed;
+    [SerializeField] bool rotate = true;
     [SerializeField] float rotSpeed;
     [SerializeField] float strafeSpeed;
     float currentModifier = 1f;
@@ -18,6 +19,7 @@ public class ArbalestAI : MonoBehaviour
     [SerializeField] float combatDetectionRange;
 
     [SerializeField] Vector2 newTargetTime;
+    [SerializeField] Vector2 newCombatTargetTime;
     Transform combatTarget;
     public List<Vector2> dirs = new List<Vector2>();
 
@@ -27,6 +29,8 @@ public class ArbalestAI : MonoBehaviour
     Vector2 targetPos;
     [SerializeField] LayerMask avoidMask;
     [SerializeField] LayerMask targetMask;
+    GunPoint point;
+    AIGun fire;
     Rigidbody2D rb;
     Collider2D col;
     Transform player;
@@ -41,6 +45,8 @@ public class ArbalestAI : MonoBehaviour
     public bool seenPlayer;
     public bool idle;
 
+    bool firing;
+
     float _distance;
 
     Vector2 spawnPoint;
@@ -49,11 +55,19 @@ public class ArbalestAI : MonoBehaviour
     [SerializeField] ParticleSystem ps;
     [SerializeField] ParticleSystem thrustersPS;
 
+    [Header("Combat")]
+    [SerializeField] float combatDrag;
+    [SerializeField] float combatAngularDrag;
+    float savedDrag;
+    float savedAngularDrag;
+
     private void Awake()
     {
         transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         StartCoroutine(nameof(CheckProximity));
 
+        fire = GetComponent<AIGun>();
+        point = GetComponent<GunPoint>();
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         healthModule = GetComponent<Damagable>();
@@ -66,6 +80,8 @@ public class ArbalestAI : MonoBehaviour
     private void Start()
     {
         dir = transform.up;
+        savedDrag = rb.drag;
+        savedAngularDrag = rb.angularDrag;
     }
     private void FixedUpdate()
     {
@@ -111,14 +127,14 @@ public class ArbalestAI : MonoBehaviour
                 if (combatTarget != null) StartCoroutine(target.InitTargetValues(combatTarget, combatTarget.GetComponent<Rigidbody2D>()));
             }
             healthModule.damageTaken = false;
-            inCombat = true;
+            ToggleCombat(true);
             StartCoroutine(nameof(GetNewTargetPos));
         }
         if (inCombat)
         {
             if (lowHealth || combatTarget == null)
             {
-                inCombat = false;
+                ToggleCombat(false);
                 combatTarget = null;
                 StartCoroutine(target.ClearTarget());
                 StartCoroutine(nameof(GetNewTargetPos));
@@ -216,14 +232,41 @@ public class ArbalestAI : MonoBehaviour
         }
     }
 
+    IEnumerator CombatFireLoop()
+    {
+        firing = true;
+        yield return null;
+        while (inCombat)
+        {
+            yield return new WaitForSeconds(Random.Range(newCombatTargetTime.x, newCombatTargetTime.y));
+            if (Vector2.Distance(transform.position, target.target.position) < combatDetectionRange) StartCoroutine(CombatStopAndFire());
+            yield return null;
+        }
+    }
+    IEnumerator CombatStopAndFire()
+    {
+        idle = true;
+        rotate = false;
+        point.doRotate = true;
+        yield return null;
+        float timer = Random.Range(newCombatTargetTime.x, newCombatTargetTime.y);
+        yield return new WaitForSeconds(timer / 4);
+        fire.Fire();
+        yield return new WaitForSeconds(timer / 8);
+        rotate = true;
+        point.doRotate = false;
+        idle = false;
+        yield return null;
+    }
     IEnumerator GetNewTargetPosOverTime()
     {
         while (true)
         {
             //Check if idle
-            if (!inCombat && !lowHealth && Random.Range(1, 3) == 1)
+            if (!inCombat && !lowHealth && Random.Range(1, 4) == 1)
                 idle = true;
-            else idle = false;
+            else if (!inCombat && idle)
+                idle = false;
             StartCoroutine(nameof(GetNewTargetPos));
             yield return new WaitForSeconds(Random.Range(newTargetTime.x / currentModifier, newTargetTime.y / currentModifier));
         }
@@ -250,9 +293,9 @@ public class ArbalestAI : MonoBehaviour
     {
         Vector2 actualDir = targetPos - rb.position;
         float rotateAmount = Vector3.Cross(actualDir.normalized, transform.up).z;
-        rb.AddTorque(-rotSpeed * currentModifier * rotateAmount, ForceMode2D.Force);
+        if (rotate) rb.AddTorque(-rotSpeed * currentModifier * rotateAmount, ForceMode2D.Force);
         var tEmis = thrustersPS.emission;
-        if (idle && !inCombat && !lowHealth)
+        if (idle && !lowHealth)
         {
             if (tEmis.enabled)
                 tEmis.enabled = false;
@@ -281,6 +324,21 @@ public class ArbalestAI : MonoBehaviour
         }
     }
 
+    void ToggleCombat(bool a)
+    {
+        if (a)
+        {
+            rb.drag = combatDrag;
+            rb.angularDrag = combatAngularDrag;
+            if (!firing) StartCoroutine(CombatFireLoop());
+        }
+        else
+        {
+            rb.drag = savedDrag;
+            rb.angularDrag = savedAngularDrag;
+        }
+        inCombat = a;
+    }
     /*
     void OnDrawGizmos()
     {
@@ -289,4 +347,8 @@ public class ArbalestAI : MonoBehaviour
         Gizmos.DrawSphere(targetPos, 0.3f);
     }
     */
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+    }
 }

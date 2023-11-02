@@ -58,17 +58,16 @@ public class DestroyBullets : MonoBehaviour
             TrailRenderer bulletTR = bullet.GetComponentInChildren<TrailRenderer>();
             if (bulletTR != null)
             {
-                hitMaster.SpawnHitEffect(sprites, bullet.transform.position, collision.tag);
-                StartCoroutine(DestroyTrailedBullet(bullet.gameObject, bulletTR));
+                hitMaster.SpawnHitEffect(sprites, bullet.transform.position, bullet.type.ToString());
+                if (!bullet.indestructible) StartCoroutine(DestroyTrailedBullet(bullet.gameObject, bulletTR));
             }
             else
             {
-                hitMaster.SpawnHitEffect(sprites, bullet.transform.position, collision.tag);
-                Destroy(bullet.gameObject);
+                hitMaster.SpawnHitEffect(sprites, bullet.transform.position, bullet.type.ToString());
+                if (!bullet.indestructible) Destroy(bullet.gameObject);
             }
         }
     }
-
 
     IEnumerator DestroyTrailedBullet(GameObject bullet, TrailRenderer tr)
     {

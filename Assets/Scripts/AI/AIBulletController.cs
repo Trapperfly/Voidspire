@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AIBulletController : MonoBehaviour
 {
+    [SerializeField] float lifetime;
     private void FixedUpdate()
     {
         foreach (Transform child in transform)
@@ -15,7 +16,7 @@ public class AIBulletController : MonoBehaviour
             }
             else
             {
-                if (_aiBullet.currTime <= Time.time - 4f)
+                if (_aiBullet.currTime <= Time.time - lifetime)
                 {
                     Destroy(_aiBullet.gameObject);
                 }

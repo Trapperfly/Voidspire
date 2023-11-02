@@ -15,6 +15,7 @@ public class ActiveTarget : MonoBehaviour
     public IEnumerator InitTargetValues(Transform tt, Rigidbody2D rb)
     {
         target = tt;
+        Debug.Log(rb);
         if (rb != null) targetRB = rb;
         yield return null;
     }
