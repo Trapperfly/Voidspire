@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum BulletType
+public enum BulletType
 {
     Bullet,     //Standard bullet, some punch, nothing special, free fire rate
     Laser,      //Innately fast, no punch, free fire rate

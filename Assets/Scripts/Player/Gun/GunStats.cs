@@ -5,7 +5,7 @@ using UnityEngine;
 public class GunStats : MonoBehaviour
 {
     [Header("Type of weapon")]
-    [SerializeField] BulletType bulletType;
+    public BulletType bulletType;
     [SerializeField] Prefix prefix;
     [SerializeField] Modifier modifier;
     [SerializeField] Quality quality;
@@ -49,8 +49,10 @@ public class GunStats : MonoBehaviour
     [Header("Prefabs")]
     public GameObject bulletPrefab;
     public GameObject laserPrefab;
+    public GameObject laserPsPrefab;
     public GameObject wavePrefab;
 
     [Header("Testing")]
     public float weightScalar = 0.0001f;
+    public float laserRange;
 }

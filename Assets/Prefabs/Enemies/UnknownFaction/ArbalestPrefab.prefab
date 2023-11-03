@@ -5135,6 +5135,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 1
+  addParticleEffect: 0
+  psPrefab: {fileID: 0}
+  psLifetime: 0
 --- !u!114 &8699744451935812313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5177,7 +5180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9869c56a8260a274c99b72dbd42e3fbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 10
+  startHealth: 20
   currentHealth: 0
   damageTaken: 0
 --- !u!114 &4095773391793159098
@@ -5262,7 +5265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f351010398652a4a9d89617ec3b1e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0.5
+  damage: 2
   speed: 4
   fireRate: 0
   spread: 0

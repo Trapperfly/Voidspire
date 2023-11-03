@@ -12,6 +12,9 @@ public class GunFire : MonoBehaviour
     [SerializeField] GunMaster gunMaster;
     [SerializeField] GunPoint gunPoint;
 
+    [SerializeField] LayerMask laserRayHitMask;
+    bool laserActive;
+
     float fireRateA;
     float spreadA;
     bool inBurst = false;
@@ -56,7 +59,7 @@ public class GunFire : MonoBehaviour
                 {
                     for (int i = stat.amount + extraShot; i > 0; i--)
                     {
-                        StartCoroutine(Shoot());
+                        Shoot();
                         charge = 0;
                         chargeAvailable = false;
                     }
@@ -104,7 +107,7 @@ public class GunFire : MonoBehaviour
         {
             for (int i = stat.amount + extraShot; i > 0; i--)
             {
-                StartCoroutine(Shoot());
+                Shoot();
                 charge = 0;
                 chargeAvailable = false;
             }
@@ -114,7 +117,48 @@ public class GunFire : MonoBehaviour
         inBurst = false;
         extraShot = 0;
     }
-    public IEnumerator Shoot()
+
+    void Shoot()
+    {
+        switch (stat.bulletType)
+        {
+            case BulletType.Bullet:
+                StartCoroutine(ShootBullet());
+                break;
+            case BulletType.Laser:
+                if (!laserActive) StartCoroutine(ShootLaser());
+                break;
+            case BulletType.Wave:
+                break;
+            case BulletType.Rocket:
+                break;
+            case BulletType.Needle:
+                break;
+            case BulletType.Railgun:
+                break;
+            case BulletType.Mine:
+                break;
+            case BulletType.Hammer:
+                break;
+            case BulletType.Cluster:
+                break;
+            case BulletType.Arrow:
+                break;
+            case BulletType.Mirage:
+                break;
+            case BulletType.Grand:
+                break;
+            case BulletType.Void:
+                break;
+            case BulletType.Beam:
+                break;
+            case BulletType.Blade:
+                break;
+            default:
+                break;
+        }
+    }
+    public IEnumerator ShootBullet()
     {
         GameObject bullet = Instantiate(stat.bulletPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
         bullet.GetComponent<Bullet>().bc = gc.bc;
@@ -123,6 +167,50 @@ public class GunFire : MonoBehaviour
         gunTimer = 0;
         gunMaster.hasFired = true;
         yield return null;
+    }
+
+    public IEnumerator ShootLaser()
+    {
+        laserActive = true;
+        LineRenderer laser = Instantiate(stat.laserPrefab, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation, bulletSpawnPoint).GetComponent<LineRenderer>();
+        ParticleSystem laserHitPs = Instantiate(stat.laserPsPrefab).GetComponent<ParticleSystem>();
+        var emis = laserHitPs.emission;
+        while (Input.GetMouseButton(0))
+        {
+            //Calculate laser and hit
+            RaycastHit2D hit = Physics2D.Raycast(bulletSpawnPoint.position, bulletSpawnPoint.up, stat.laserRange, laserRayHitMask);
+            Damagable dm = null;
+            if (hit && hit.collider.GetComponent<Damagable>())
+                dm = hit.collider.GetComponent<Damagable>();
+            if (hit && dm) 
+                dm.TakeDamage(stat.damage * Time.deltaTime * fireRateA);
+            
+
+            //Viusal effects
+            if (!hit)
+            {
+                laser.SetPosition(1, new Vector2(0, 1) * stat.laserRange);
+                emis.enabled = false;
+            }
+            else
+            {
+                laser.SetPosition(1, bulletSpawnPoint.InverseTransformPoint(hit.point));
+                laserHitPs.transform.position = hit.point;
+                laserHitPs.transform.LookAt(bulletSpawnPoint);
+                emis.enabled = true;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+        Destroy(laser.gameObject);
+        emis.enabled = false;
+        Destroy(laserHitPs.gameObject, 0.5f);
+        laserActive = false;
+    }
+
+    private void Update()
+    {
+        Debug.DrawRay(bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.up);
     }
     float Speed(float baseSpeed)
     {

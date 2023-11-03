@@ -21,8 +21,7 @@ public class Damagable : MonoBehaviour
     {
             if (collision.collider.CompareTag("Bullet"))
             {
-                currentHealth -= collision.collider.GetComponent<Bullet>()._localDamage;
-                HealthCheck();
+                TakeDamage(collision.collider.GetComponent<Bullet>()._localDamage);
             }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,15 +29,20 @@ public class Damagable : MonoBehaviour
         
             if (collision.CompareTag("Bullet"))
             {
-                currentHealth -= collision.GetComponent<Bullet>()._localDamage;
-                HealthCheck();
+                TakeDamage(collision.GetComponent<Bullet>()._localDamage);
             }
             if (collision.CompareTag("AIBullet"))
             {
-                currentHealth -= collision.GetComponent<AIBullet>().damage;
-                HealthCheck();
+                TakeDamage(collision.GetComponent<AIBullet>().damage);
             }
     }
+
+    public void TakeDamage(float value)
+    {
+        currentHealth -= value;
+        HealthCheck();
+    }
+
     public void HealthCheck()
     {
         damageTaken = true;
