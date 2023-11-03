@@ -33,6 +33,7 @@ public class HitEffectController : MonoBehaviour
     [SerializeField] Color32 BaseColor;
     [SerializeField] Color32 MidColor;
     [SerializeField] Color32 TipColor;
+    [SerializeField] float tipSize;
     float effectValue;
     Material mat;
     float effectPercent;
@@ -56,6 +57,7 @@ public class HitEffectController : MonoBehaviour
         mat.SetColor("_BaseColor", BaseColor);
         mat.SetColor("_MidColor", MidColor);
         mat.SetColor("_TipColor", TipColor);
+        mat.SetFloat("_TipSize", tipSize);
         mat.SetFloat("_EffectStartOffset", Random.value * 100);
 
         if (addNoise) mat.SetFloat("_NoisedDiffuse", 1);

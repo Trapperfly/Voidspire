@@ -309,6 +309,11 @@ public class GunRandomizer : MonoBehaviour
                 stat.pierce = 0;
                 break;
             case (4):
+                stat.bounce = 0; 
+                stat.homing = false;
+                stat.homingStrength = 0;
+                stat.pierce = 0;
+                stat.chargeUp = 0;
                 break;
             default:
                 break;
@@ -365,17 +370,8 @@ public class GunRandomizer : MonoBehaviour
                 case 11:
                     switch (bulletBonus)
                     {
-                        case 0:
-                            _vString.Append("Bullet bonus: Damage change: " + stat.damageChange.ToString("F2"));
-                            break;
-                        case 1:
-                            _vString.Append("Bullet bonus: Size change: " + stat.bulletSizeChange.ToString("F2"));
-                            break;
-                        case 2:
-                            _vString.Append("Bullet bonus: Speed change: " + stat.speedChange.ToString("F2"));
-                            break;
                         default:
-                            _vString.Append("Bullet bonus: None");
+                            _vString.Append("Bullet bonus is deprecated, to be removed");
                             break;
                     }
                     break;

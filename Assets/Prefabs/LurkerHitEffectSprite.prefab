@@ -235,6 +235,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  addNoise: 0
+  noiseStrength: 0
+  noiseDetail: 0
   BackColor:
     serializedVersion: 2
     rgba: 0
@@ -247,3 +250,4 @@ MonoBehaviour:
   TipColor:
     serializedVersion: 2
     rgba: 11934183
+  tipSize: 0.82

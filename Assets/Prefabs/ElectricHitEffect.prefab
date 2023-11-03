@@ -241,3 +241,4 @@ MonoBehaviour:
   TipColor:
     serializedVersion: 2
     rgba: 16738816
+  tipSize: 0.6

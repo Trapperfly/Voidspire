@@ -239,7 +239,10 @@ public class ArbalestAI : MonoBehaviour
         while (inCombat)
         {
             yield return new WaitForSeconds(Random.Range(newCombatTargetTime.x, newCombatTargetTime.y));
-            if (Vector2.Distance(transform.position, target.target.position) < combatDetectionRange) StartCoroutine(CombatStopAndFire());
+            if (target.target)
+            {
+                if (Vector2.Distance(transform.position, target.target.position) < combatDetectionRange) StartCoroutine(CombatStopAndFire());
+            }
             yield return null;
         }
     }

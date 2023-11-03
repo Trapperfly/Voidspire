@@ -5443,6 +5443,7 @@ MonoBehaviour:
   aiLurker: {fileID: 7032400325573297199}
   stat: {fileID: 7741720425679687411}
   bulletSpawnPoint: {fileID: 6824648274095818587}
+  autoFire: 1
 --- !u!114 &7741720425679687411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5478,6 +5479,8 @@ MonoBehaviour:
   limitRotValues: {x: 0, y: 0}
   rotSpeed: 2
   advancedTargeting: 0
+  notAGun: 0
+  doRotate: 1
 --- !u!1 &3796725667998810519
 GameObject:
   m_ObjectHideFlags: 0

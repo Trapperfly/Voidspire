@@ -36,10 +36,6 @@ public class Bullet : MonoBehaviour
             col.isTrigger = false;
         }
     }
-    private void Update()
-    {
-        lastVelocity = rb.velocity;
-    }
     private void FixedUpdate()
     {
         if (bounced)
@@ -47,19 +43,6 @@ public class Bullet : MonoBehaviour
             _localBounce--;
             col.isTrigger = false;
             bounced = false;
-        }
-        if (bc.sizeChange != 0)
-        {
-            float _sizeChangeValue = bc.sizeChange / 100;
-            transform.localScale += new Vector3(_sizeChangeValue, _sizeChangeValue, 0);
-        }
-        if (bc.damageChange != 0)
-        {
-            _localDamage += bc.damageChange / 100;
-        }
-        if (bc.speedChange != 0)
-        {
-            rb.AddForce(bc.speedChange * bc.weightScalar * transform.up, ForceMode2D.Force);
         }
         lastVelocity = rb.velocity;     //Logs last velocity to be used in bounce
     }
@@ -69,5 +52,9 @@ public class Bullet : MonoBehaviour
         yield return new WaitForSeconds(time * bc.homingStrength / 25);
         _localHoming = true;
         yield return new WaitForFixedUpdate();
+    }
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

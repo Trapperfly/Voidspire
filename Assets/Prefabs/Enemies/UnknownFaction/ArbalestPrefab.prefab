@@ -5100,7 +5100,7 @@ MonoBehaviour:
   combatModifier: 10
   repairModifier: 0.1
   repairSpeed: 0.01
-  detectionRange: 3
+  detectionRange: 2
   combatDetectionRange: 8
   newTargetTime: {x: 5, y: 10}
   newCombatTargetTime: {x: 3, y: 4}
