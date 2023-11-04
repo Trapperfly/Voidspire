@@ -50,6 +50,8 @@ public class GunStats : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject laserPrefab;
     public GameObject laserPsPrefab;
+    public GameObject railgunPrefab;
+    public GameObject railgunPsPrefab;
     public GameObject wavePrefab;
 
     [Header("Testing")]

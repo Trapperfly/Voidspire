@@ -5168,6 +5168,7 @@ MonoBehaviour:
   value: 4
   size: 0.3
   valueFromSize: 0
+  lootExplosionStrength: 0.1
 --- !u!114 &5340644641591241321
 MonoBehaviour:
   m_ObjectHideFlags: 0

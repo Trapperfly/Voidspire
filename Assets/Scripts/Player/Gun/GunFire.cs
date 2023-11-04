@@ -135,6 +135,7 @@ public class GunFire : MonoBehaviour
             case BulletType.Needle:
                 break;
             case BulletType.Railgun:
+                StartCoroutine(ShootRailgun());
                 break;
             case BulletType.Mine:
                 break;
@@ -175,6 +176,8 @@ public class GunFire : MonoBehaviour
         LineRenderer laser = Instantiate(stat.laserPrefab, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation, bulletSpawnPoint).GetComponent<LineRenderer>();
         ParticleSystem laserHitPs = Instantiate(stat.laserPsPrefab).GetComponent<ParticleSystem>();
         var emis = laserHitPs.emission;
+        gunMaster.hasFired = true;
+        gunTimer = 0;
         while (Input.GetMouseButton(0))
         {
             //Calculate laser and hit
@@ -208,6 +211,52 @@ public class GunFire : MonoBehaviour
         laserActive = false;
     }
 
+    IEnumerator ShootRailgun()
+    {
+        bulletSpawnPoint.rotation = Spread(bulletSpawnPoint.rotation);
+        LineRenderer hitscan = 
+            Instantiate
+            (
+                stat.railgunPrefab, 
+                bulletSpawnPoint.TransformPoint(bulletSpawnPoint.transform.position), 
+                new Quaternion(0,0,0,0), 
+                bulletHolder
+            )
+            .GetComponent<LineRenderer>();
+        ParticleSystem hitscanHitPs = Instantiate(stat.railgunPsPrefab).GetComponent<ParticleSystem>();
+
+        RaycastHit2D hit = Physics2D.Raycast(bulletSpawnPoint.position, bulletSpawnPoint.up, stat.longevity, laserRayHitMask);
+        Debug.DrawRay(bulletSpawnPoint.position, bulletSpawnPoint.up);
+        Damagable dm = null;
+        if (hit && hit.collider.GetComponent<Damagable>())
+            dm = hit.collider.GetComponent<Damagable>();
+        if (hit && dm)
+            dm.TakeDamage(stat.damage);
+
+
+        //Viusal effects
+        if (!hit)
+        {
+            hitscan.SetPosition(0, bulletSpawnPoint.transform.position);
+            hitscan.SetPosition(1, bulletSpawnPoint.transform.position + (bulletSpawnPoint.up * stat.longevity));
+        }
+        else
+        {
+            hitscan.SetPosition(0, bulletSpawnPoint.transform.position);
+            hitscan.SetPosition(1, hit.point);
+            hitscanHitPs.transform.position = hit.point;
+            hitscanHitPs.transform.LookAt(bulletSpawnPoint);
+            hitscanHitPs.Play();
+        }
+        yield return null;
+        gunTimer = 0;
+        gunMaster.hasFired = true;
+        bulletSpawnPoint.rotation = transform.rotation;
+        yield return null;
+        Destroy(hitscan.gameObject, 0.1f);
+        Destroy(hitscanHitPs.gameObject, 0.5f);
+        yield return null;
+    }
     private void Update()
     {
         Debug.DrawRay(bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.up);

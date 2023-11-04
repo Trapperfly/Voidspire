@@ -13,7 +13,7 @@ public class GUISlidersSet : MonoBehaviour
     public Slider turnSpeedSlider;
     public Slider maxTurnSpeedSlider;
     public Slider turnBrakeSlider;
-    [SerializeField] ShipControl statsRef;
+    [SerializeField] EngineStats statsRef;
 
     private void Awake()
     {

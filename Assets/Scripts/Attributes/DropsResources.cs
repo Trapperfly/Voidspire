@@ -9,6 +9,7 @@ public class DropsResources : MonoBehaviour
     [SerializeField] float value;
     [SerializeField] float size;
     [SerializeField] bool valueFromSize;
+    [SerializeField] float lootExplosionStrength;
     private void Awake()
     {
         resourceSpawner = GameObject.Find("SpawnResourceHandler").GetComponent<SpawnResourceOnDestroy>();
@@ -22,8 +23,8 @@ public class DropsResources : MonoBehaviour
         else
         {
             if (valueFromSize)
-                resourceSpawner.SpawnResources(transform.localScale.x, transform.position, transform.localScale.x);
-            else resourceSpawner.SpawnResources(value, transform.position, size);
+                resourceSpawner.SpawnResources(transform.localScale.x, transform.localScale.x, transform.position, transform.localScale.x);
+            else resourceSpawner.SpawnResources(value, lootExplosionStrength, transform.position, size);
         }
     }
 }

@@ -9,7 +9,7 @@ public class SpawnResourceOnDestroy : MonoBehaviour
     public int amountScalar = 10;
     int amount;
     public int resourceWorth;
-    public void SpawnResources(float value, Vector2 position, float size)
+    public void SpawnResources(float value, float explosionStrength, Vector2 position, float size)
     {
         amount = Mathf.Clamp((int)(value * amountScalar), 1, 1000);
 
@@ -24,7 +24,7 @@ public class SpawnResourceOnDestroy : MonoBehaviour
             _resource.GetComponentInChildren<SpriteRenderer>().color = new Color(1, Mathf.Clamp(1f - ((value * 0.1f) * Random.Range(0f, 3f)), 0f, 1f), 0);
             _resource.transform.GetChild(0).transform.localScale = new(Random.Range(_sv * 0.75f, _sv * 0.75f), Random.Range(_sv * 0.75f, _sv * 0.75f));
             _ResourceValues.worth = Mathf.Clamp((int)value, 1, 1000);
-            _resourceRb.AddExplosionForce(size / 5, position, size, 0, ForceMode2D.Impulse);
+            _resourceRb.AddExplosionForce(explosionStrength, position, size, 0, ForceMode2D.Impulse);
         }
     }
 

@@ -6,18 +6,7 @@ using UnityEngine.UI;
 public class ShipControl : MonoBehaviour
 {
     [Header("Ship control")]
-    public float speed;
-    public float maxSpeed;
-    public float turnSpeed;
-    public float turnSpeedStored;
-    public float maxTurnSpeed;
-    public float turnSpeedBoostUpTo = 40f;
-    public float turnBrakingSpeed;
-    public bool braking;
-    public float brakingSpeed;
-    public float fuel;
-    public float fuelMax;
-    public float fuelDrain;
+
     float fuelPercent;
     float lastFrameMaxFuel;
     public Image fuelMeter;
@@ -27,6 +16,7 @@ public class ShipControl : MonoBehaviour
     ShipRbController sRb;
     Rigidbody2D rb;
     Collider2D col;
+    EngineStats stat;
 
     int ftlCharge;
     bool ftlActive;
@@ -34,10 +24,11 @@ public class ShipControl : MonoBehaviour
     bool ftlEnding;
     int duration;
 
-    private void Awake()
+    private void Start()
     {
-        fuel = fuelMax;
-        fuelPercent = fuel / fuelMax;
+        stat = GetComponent<EngineStats>();
+        stat.fuel = stat.fuelMax;
+        fuelPercent = stat.fuel / stat.fuelMax;
         fuelMeter.fillAmount = fuelPercent;
         ftl = GetComponent<FTLDrive>();
         sRb = GetComponent<ShipRbController>();
@@ -61,23 +52,23 @@ public class ShipControl : MonoBehaviour
     {
         if (ftlActive && Input.GetKeyDown(KeyCode.Space) || ftlActive && Input.GetKey(KeyCode.S))
             ftlEnding = true;
-        if (lastFrameMaxFuel != fuelMax) UpdateSize();
-        lastFrameMaxFuel = fuelMax;
+        if (lastFrameMaxFuel != stat.fuelMax) UpdateSize();
+        lastFrameMaxFuel = stat.fuelMax;
     }
 
     void UseFuel(float modifier)
     {
         if (ftlActive)
         {
-            if (ftl.fuelDrain != -1) fuel -= ftl.fuelDrain * modifier;
+            if (ftl.fuelDrain != -1) stat.fuel -= ftl.fuelDrain * modifier;
         }
-        else if (fuelDrain != -1) fuel -= fuelDrain * modifier;
+        else if (stat.fuelDrain != -1) stat.fuel -= stat.fuelDrain * modifier;
         UpdateFuel();
     }
     void UpdateFuel()
     {
-        if (fuel > fuelMax) fuel = fuelMax;
-        fuelPercent = fuel / fuelMax;
+        if (stat.fuel > stat.fuelMax) stat.fuel = stat.fuelMax;
+        fuelPercent = stat.fuel / stat.fuelMax;
         fuelMeter.fillAmount = fuelPercent;
     }
     void UpdateSize()
@@ -86,7 +77,7 @@ public class ShipControl : MonoBehaviour
         {
             float _backModifier = 0;
             if (child == fuelBar.GetChild(0)) _backModifier = 0.05f;
-            child.sizeDelta = new Vector2((fuelMax / 30000) + _backModifier, child.sizeDelta.y);
+            child.sizeDelta = new Vector2((stat.fuelMax / 30000) + _backModifier, child.sizeDelta.y);
         }
         UpdateFuel();
     }
@@ -123,11 +114,11 @@ public class ShipControl : MonoBehaviour
         rb.angularDrag = sliderRef.maxTurnSpeedSlider.value * (1 + ftl.rotSpeed) * 2;
         if (Input.GetKey(KeyCode.A))
         {
-            rb.AddTorque(turnSpeed * ftl.rotSpeed, ForceMode2D.Force); //Add that force
+            rb.AddTorque(stat.turnSpeed * ftl.rotSpeed, ForceMode2D.Force); //Add that force
         }
         if (Input.GetKey(KeyCode.D))
         {
-            rb.AddTorque(-turnSpeed * ftl.rotSpeed, ForceMode2D.Force);
+            rb.AddTorque(-stat.turnSpeed * ftl.rotSpeed, ForceMode2D.Force);
         }
         duration++;
         if (duration > ftl.maxDuration * 60  && ftl.maxDuration != -1) StopFTL();
@@ -138,17 +129,17 @@ public class ShipControl : MonoBehaviour
         //Input and movement
         if (Input.GetKey(KeyCode.W)) //Move forward with force
         {
-            rb.AddForce(transform.up * speed, ForceMode2D.Force);
-            float drag = speed / maxSpeed;
+            rb.AddForce(transform.up * stat.speed, ForceMode2D.Force);
+            float drag = stat.speed / stat.maxSpeed;
             rb.drag = drag / (drag * Time.fixedDeltaTime + 1);  //Adjust drag while accelerating
-            UseFuel(speed);
+            UseFuel(stat.speed);
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            rb.AddForce(-transform.up * (speed / 2), ForceMode2D.Force);
-            float drag = (speed * 2) / maxSpeed;
+            rb.AddForce(-transform.up * (stat.speed / 2), ForceMode2D.Force);
+            float drag = (stat.speed * 2) / stat.maxSpeed;
             rb.drag = drag / (drag * Time.fixedDeltaTime + 1);
-            UseFuel(speed / 2);
+            UseFuel(stat.speed / 2);
         }
         else
         {
@@ -159,31 +150,31 @@ public class ShipControl : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             float angularVelocityNormalized = Mathf.Sqrt(Mathf.Pow(rb.angularVelocity, 2)); //Make sure the angular velocity is positive and assign that to a float
-            if (angularVelocityNormalized <= turnSpeedBoostUpTo)    //Add more force at the start of rotation
+            if (angularVelocityNormalized <= stat.turnSpeedBoostUpTo)    //Add more force at the start of rotation
             {
-                float multiplier = 1 + (turnSpeedBoostUpTo - angularVelocityNormalized) / turnSpeedBoostUpTo;
-                if (turnSpeed <= turnSpeedStored * 2)
-                    turnSpeed = turnSpeedStored * multiplier;
+                float multiplier = 1 + (stat.turnSpeedBoostUpTo - angularVelocityNormalized) / stat.turnSpeedBoostUpTo;
+                if (stat.turnSpeed <= stat.turnSpeedStored * 2)
+                    stat.turnSpeed = stat.turnSpeedStored * multiplier;
             }
-            rb.AddTorque(turnSpeed, ForceMode2D.Force); //Add that force
+            rb.AddTorque(stat.turnSpeed, ForceMode2D.Force); //Add that force
             rb.angularDrag = sliderRef.maxTurnSpeedSlider.value;
-            UseFuel(turnSpeed);
+            UseFuel(stat.turnSpeed);
         }
         if (Input.GetKey(KeyCode.D))
         {
             float angularVelocityNormalized = Mathf.Sqrt(Mathf.Pow(rb.angularVelocity, 2)); //Ditto
-            if (angularVelocityNormalized <= turnSpeedBoostUpTo)
+            if (angularVelocityNormalized <= stat.turnSpeedBoostUpTo)
             {
-                float multiplier = 1 + (turnSpeedBoostUpTo - angularVelocityNormalized) / turnSpeedBoostUpTo;
-                if (turnSpeed <= turnSpeedStored * 2)
-                    turnSpeed = turnSpeedStored * multiplier;
+                float multiplier = 1 + (stat.turnSpeedBoostUpTo - angularVelocityNormalized) / stat.turnSpeedBoostUpTo;
+                if (stat.turnSpeed <= stat.turnSpeedStored * 2)
+                    stat.turnSpeed = stat.turnSpeedStored * multiplier;
             }
-            rb.AddTorque(-turnSpeed, ForceMode2D.Force);
+            rb.AddTorque(-stat.turnSpeed, ForceMode2D.Force);
             rb.angularDrag = sliderRef.maxTurnSpeedSlider.value;
-            UseFuel(turnSpeed);
+            UseFuel(stat.turnSpeed);
         }
         if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))   //Reset turnspeed to slider value
-            turnSpeed = sliderRef.turnSpeedSlider.value;
+            stat.turnSpeed = sliderRef.turnSpeedSlider.value;
         if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && sliderRef.turnBrakeSlider.value != 0) //Reset angular drag to slider value
             rb.angularDrag = sliderRef.turnBrakeSlider.value;
     }
