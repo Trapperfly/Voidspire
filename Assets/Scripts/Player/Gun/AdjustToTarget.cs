@@ -16,7 +16,7 @@ public class AdjustToTarget : MonoBehaviour
     }
     private void Update()
     {
-        if (target.target != null)
+        if (target.target)
         {
             transform.position = target.target.position + (player.transform.position - target.target.position) / 2;
             if (Vector2.Distance(player.transform.position, target.target.position) >= maxDistance)

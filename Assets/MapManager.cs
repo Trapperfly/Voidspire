@@ -2,6 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MapEntityType
+{
+    Enemy,
+    Neutral,
+    Ally,
+    Distress,
+    Anomaly,
+    Conflict,
+    Construct,
+    Quest
+} 
+
 public class MapManager : MonoBehaviour
 {
     [SerializeField] GameObject player;
@@ -57,34 +69,36 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public void AddEntity(GameObject entity, string entityType, Vector3 position)
+    public void AddEntity(GameObject entity, MapEntityType entityType, Vector3 position)
     {
         entities.Add(entity);
         GameObject _ = null;
+
+
         switch (entityType)
         {
-            case "Enemy":
+            case MapEntityType.Enemy:
                 _ = Instantiate(enemy, position, new Quaternion(), entityHandler);
                 break;
-            case "Neutral":
+            case MapEntityType.Neutral:
                 _ = Instantiate(neutral, position, new Quaternion(), entityHandler);
                 break;
-            case "Ally":
+            case MapEntityType.Ally:
                 _ = Instantiate(ally, position, new Quaternion(), entityHandler);
                 break;
-            case "Distress":
+            case MapEntityType.Distress:
                 _ = Instantiate(distress, position, new Quaternion(), entityHandler);
                 break;
-            case "Anomaly":
+            case MapEntityType.Anomaly:
                 _ = Instantiate(anomaly, position, new Quaternion(), entityHandler);
                 break;
-            case "Conflict":
+            case MapEntityType.Conflict:
                 _ = Instantiate(conflict, position, new Quaternion(), entityHandler);
                 break;
-            case "Construct":
+            case MapEntityType.Construct:
                 _ = Instantiate(construct, position, new Quaternion(), entityHandler);
                 break;
-            case "Quest":
+            case MapEntityType.Quest:
                 _ = Instantiate(quest, position, new Quaternion(), entityHandler);
                 break;
             default:

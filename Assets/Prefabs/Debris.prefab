@@ -297,6 +297,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0
+  addParticleEffect: 0
+  psPrefab: {fileID: 0}
+  psLifetime: 0
 --- !u!114 &3434563164811518689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,6 +316,7 @@ MonoBehaviour:
   value: 0
   size: 0
   valueFromSize: 1
+  lootExplosionStrength: 0
 --- !u!114 &3706284460330487220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71f57ac5988f5624199380036c360b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapEntityType: 2
+  mapEntityType: 1
 --- !u!1 &6726956779904962045
 GameObject:
   m_ObjectHideFlags: 0

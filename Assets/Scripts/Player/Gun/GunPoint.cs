@@ -12,6 +12,7 @@ public class GunPoint : MonoBehaviour
     [SerializeField] float rotSpeed;
     [SerializeField] bool advancedTargeting;
     [SerializeField] bool notAGun;
+    [SerializeField] bool noFireWhenOutOfReach;
     public bool doRotate = true;
     ActiveTarget target;
     AIGunStats aiGun;
@@ -95,9 +96,39 @@ public class GunPoint : MonoBehaviour
             float unclampedAngle = Vector2.SignedAngle(Vector2.up, direction);
             float angle = Extension.ClampAngle(unclampedAngle, maxRotX, maxRotY);
             if (limitRot)
+            {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, angle), rotSpeed);
+                float normal = parent.eulerAngles.z;
+                while (normal > 180) normal -= 360;
+                while (unclampedAngle > 180) unclampedAngle -= 360;
+                //Debug.Log("normal is " + normal);
+
+                if (noFireWhenOutOfReach && (unclampedAngle - normal <= limitRotValues.x || unclampedAngle - normal >= limitRotValues.y))
+                {
+                    gun.active = false;
+                    //Debug.Log("Kake");
+                }
+                else gun.active = true;
+            }
+                
             else transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, unclampedAngle), rotSpeed);
+
+            //float normal = parent.eulerAngles.z;
+            //while (normal > 180) normal -= 360;
+            //while (unclampedAngle > 180) unclampedAngle -= 360;
+            ////Debug.Log("normal is " + normal);
+
+            //if (noFireWhenOutOfReach && (unclampedAngle - normal <= limitRotValues.x || unclampedAngle - normal >= limitRotValues.y))
+            //{
+            //    gun.active = false;
+            //    Debug.Log("Kake");
+            //}
+            //else gun.active = true;
+            //Debug.Log("uncl - parent " + (unclampedAngle - normal));
+            //Debug.Log("transform is " + (transform.localRotation.eulerAngles.z));
+
         }
+        
         /*
         Debug.DrawRay(transform.position, new Vector2(Mathf.Cos((angle + 90) * Mathf.Deg2Rad), Mathf.Sin((angle + 90) * Mathf.Deg2Rad)).normalized);
         Debug.DrawRay(transform.position, new Vector2(Mathf.Cos((_gun.rotationAngle.x + 90 + Vector2.SignedAngle(Vector2.up, player.up)) * Mathf.Deg2Rad), Mathf.Sin((_gun.rotationAngle.x + 90 + Vector2.SignedAngle(Vector2.up, player.up)) * Mathf.Deg2Rad)).normalized);

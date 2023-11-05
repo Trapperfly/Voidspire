@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GunStats : MonoBehaviour
 {
+    public bool active;
+
     [Header("Type of weapon")]
     public BulletType bulletType;
     [SerializeField] Prefix prefix;
@@ -52,6 +54,7 @@ public class GunStats : MonoBehaviour
     public GameObject laserPsPrefab;
     public GameObject railgunPrefab;
     public GameObject railgunPsPrefab;
+    public GameObject railgunLinePsPrefab;
     public GameObject wavePrefab;
 
     [Header("Testing")]

@@ -8,6 +8,7 @@ public class SpawnEnemies : MonoBehaviour
     [SerializeField] int maxAmount;
     int amount = 0;
     [SerializeField] GameObject lurkerPrefab;
+    [SerializeField] GameObject arbalestPrefab;
     [SerializeField] const int oneSpawnPercent = 20;
     [SerializeField] const int twoSpawnPercent = 10;
     [SerializeField] const int fiveSpawnPercent = 5;
@@ -20,7 +21,7 @@ public class SpawnEnemies : MonoBehaviour
     {
         while (true)
         {
-            if (transform.childCount <= maxAmount)
+            if (maxAmount == -1 || transform.childCount <= maxAmount)
             {
                 amount = Random.Range(1, 101) switch
                 {
@@ -33,7 +34,25 @@ public class SpawnEnemies : MonoBehaviour
                 Vector3 spawnLocation = Camera.main.ViewportToWorldPoint(RandomOutsideView());
                 for (int i = amount; i > 0; i--)
                 {
-                    Instantiate(lurkerPrefab, spawnLocation + Random.insideUnitSphere, Quaternion.Euler(0, 0, (Random.value * 360) - 180), transform);
+                    if (Random.Range(0,2) == 0)
+                        Instantiate
+                        (
+                            lurkerPrefab,
+                            spawnLocation + Random.insideUnitSphere,
+                            Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                            transform
+                        );
+                    else
+                    {
+                        Instantiate
+                        (
+                            arbalestPrefab,
+                            spawnLocation + Random.insideUnitSphere,
+                            Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                            transform
+                        );
+                        i--;
+                    }
                 }
             }
             yield return new WaitForSeconds(secondsTillNextSpawnAttempt);
