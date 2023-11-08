@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ExtensionMethods;
 
 public class ArbalestAI : MonoBehaviour
 {
@@ -85,7 +86,8 @@ public class ArbalestAI : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (lowHealth && Vector2.Distance(transform.position, player.position) > 10f)
+        float distCheckToPlayer = Extension.Distance(transform.position, player.position);
+        if (lowHealth && distCheckToPlayer * distCheckToPlayer > 10f)
         {
             currentModifier = repairModifier;
             repairing = true;
@@ -215,9 +217,10 @@ public class ArbalestAI : MonoBehaviour
                     {
                         if (!seenPlayer && avoid.gameObject.layer == 6) //Layer 6 is Player
                             seenPlayer = true;
-                        if (Vector2.Distance(transform.position, avoid.ClosestPoint(transform.position)) < _distance)
+                        float distCheckProx = Extension.Distance((Vector2)transform.position, avoid.ClosestPoint(transform.position));
+                        if (distCheckProx * distCheckProx < _distance)
                         {
-                            _distance = Vector2.Distance(transform.position, avoid.ClosestPoint(transform.position));
+                            _distance = Vector2.Distance((Vector2)transform.position, avoid.ClosestPoint(transform.position));
                             newDirection = -(avoid.ClosestPoint(transform.position) - (Vector2)transform.position);
                         }
                         Debug.DrawRay(transform.position, dir);
@@ -241,7 +244,8 @@ public class ArbalestAI : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(newCombatTargetTime.x, newCombatTargetTime.y));
             if (target.target)
             {
-                if (Vector2.Distance(transform.position, target.target.position) < combatDetectionRange) StartCoroutine(CombatStopAndFire());
+                float distCheckAttack = Extension.Distance(transform.position, target.target.position);
+                if (distCheckAttack * distCheckAttack < combatDetectionRange) StartCoroutine(CombatStopAndFire());
             }
             yield return null;
         }

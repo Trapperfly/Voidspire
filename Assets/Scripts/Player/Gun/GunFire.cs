@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ExtensionMethods;
 
 public class GunFire : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class GunFire : MonoBehaviour
     [SerializeField] GunMaster gunMaster;
     [SerializeField] GunPoint gunPoint;
 
-    [SerializeField] LayerMask laserRayHitMask;
-    bool laserActive;
+    [SerializeField] LayerMask rayHitMask;
+    bool beamActive;
 
     float fireRateA;
     float spreadA;
@@ -126,7 +127,6 @@ public class GunFire : MonoBehaviour
                 StartCoroutine(ShootBullet());
                 break;
             case BulletType.Laser:
-                if (!laserActive) StartCoroutine(ShootLaser());
                 break;
             case BulletType.Wave:
                 break;
@@ -152,6 +152,7 @@ public class GunFire : MonoBehaviour
             case BulletType.Void:
                 break;
             case BulletType.Beam:
+                if (!beamActive) StartCoroutine(ShootBeam());
                 break;
             case BulletType.Blade:
                 break;
@@ -170,18 +171,18 @@ public class GunFire : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator ShootLaser()
+    public IEnumerator ShootBeam()
     {
-        laserActive = true;
-        LineRenderer laser = Instantiate(stat.laserPrefab, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation, bulletSpawnPoint).GetComponent<LineRenderer>();
-        ParticleSystem laserHitPs = Instantiate(stat.laserPsPrefab).GetComponent<ParticleSystem>();
-        var emis = laserHitPs.emission;
+        beamActive = true;
+        LineRenderer beam = Instantiate(stat.beamPrefab, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation, bulletSpawnPoint).GetComponent<LineRenderer>();
+        ParticleSystem beamHitPs = Instantiate(stat.beamPsPrefab).GetComponent<ParticleSystem>();
+        var emis = beamHitPs.emission;
         gunMaster.hasFired = true;
         gunTimer = 0;
-        while (Input.GetMouseButton(0))
+        while (Input.GetMouseButton(0) && stat.active)
         {
-            //Calculate laser and hit
-            RaycastHit2D hit = Physics2D.Raycast(bulletSpawnPoint.position, bulletSpawnPoint.up, stat.laserRange, laserRayHitMask);
+            //Calculate baser and hit
+            RaycastHit2D hit = Physics2D.Raycast(bulletSpawnPoint.position, bulletSpawnPoint.up, stat.longevity * stat.speed / 5, rayHitMask);
             Damagable dm = null;
             if (hit && hit.collider.GetComponent<Damagable>())
                 dm = hit.collider.GetComponent<Damagable>();
@@ -192,23 +193,23 @@ public class GunFire : MonoBehaviour
             //Viusal effects
             if (!hit)
             {
-                laser.SetPosition(1, new Vector2(0, 1) * stat.laserRange);
+                beam.SetPosition(1, new Vector2(0, 1) * stat.longevity * stat.speed / 5);
                 emis.enabled = false;
             }
             else
             {
-                laser.SetPosition(1, bulletSpawnPoint.InverseTransformPoint(hit.point));
-                laserHitPs.transform.position = hit.point;
-                laserHitPs.transform.LookAt(bulletSpawnPoint);
+                beam.SetPosition(1, bulletSpawnPoint.InverseTransformPoint(hit.point));
+                beamHitPs.transform.position = hit.point;
+                beamHitPs.transform.LookAt(bulletSpawnPoint);
                 emis.enabled = true;
             }
 
             yield return new WaitForEndOfFrame();
         }
-        Destroy(laser.gameObject);
+        Destroy(beam.gameObject);
         emis.enabled = false;
-        Destroy(laserHitPs.gameObject, 0.5f);
-        laserActive = false;
+        Destroy(beamHitPs.gameObject, 0.5f);
+        beamActive = false;
     }
 
     IEnumerator ShootRailgun()
@@ -235,7 +236,7 @@ public class GunFire : MonoBehaviour
         ParticleSystem.ShapeModule shape = hitscanLinePs.shape;
         ParticleSystem.Burst burst = hitscanLinePs.emission.GetBurst(0);
 
-        RaycastHit2D hit = Physics2D.Raycast(bulletSpawnPoint.position, bulletSpawnPoint.up, stat.longevity * stat.speed / 5, laserRayHitMask);
+        RaycastHit2D hit = Physics2D.Raycast(bulletSpawnPoint.position, bulletSpawnPoint.up, stat.longevity * stat.speed / 5, rayHitMask);
         Debug.DrawRay(bulletSpawnPoint.position, bulletSpawnPoint.up);
         Damagable dm = null;
         if (hit && hit.collider.GetComponent<Damagable>())
@@ -263,8 +264,8 @@ public class GunFire : MonoBehaviour
         Destroy(hitscan.gameObject);
 
         hitscanLinePs.transform.position = hitscan.GetPosition(1) + (hitscan.GetPosition(0) - hitscan.GetPosition(1)) / 2;
-        float length = Vector2.Distance(hitscan.GetPosition(0), hitscan.GetPosition(1)) / 2;
-        shape.radius = length;
+        float length = Vector2.Distance(hitscan.GetPosition(0), hitscan.GetPosition(1));
+        shape.radius = length / 2;
         ParticleSystem.Burst newBurst = new(0, length * 100);
         hitscanLinePs.emission.SetBurst(0, newBurst);
         hitscanLinePs.Play();

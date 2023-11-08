@@ -63,5 +63,17 @@ namespace ExtensionMethods
             float floor = Mathf.FloorToInt((angle - start) / 360) * 360;
             return Mathf.Clamp(angle, min + floor, max + floor);
         }
+
+        public static float Distance(Vector2 a, Vector2 b)
+        {
+            float distance = (a - b).sqrMagnitude;
+            return distance;
+        }
+
+        public static float Distance(Vector3 a, Vector3 b)
+        {
+            float distance = (a - b).sqrMagnitude;
+            return distance;
+        }
     }
 }

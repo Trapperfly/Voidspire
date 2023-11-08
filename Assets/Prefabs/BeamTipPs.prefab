@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6730133015671505011}
   - component: {fileID: 8043687284799291171}
   m_Layer: 0
-  m_Name: LaserTipPs
+  m_Name: BeamTipPs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

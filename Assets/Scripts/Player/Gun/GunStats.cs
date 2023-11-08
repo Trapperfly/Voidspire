@@ -50,8 +50,8 @@ public class GunStats : MonoBehaviour
 
     [Header("Prefabs")]
     public GameObject bulletPrefab;
-    public GameObject laserPrefab;
-    public GameObject laserPsPrefab;
+    public GameObject beamPrefab;
+    public GameObject beamPsPrefab;
     public GameObject railgunPrefab;
     public GameObject railgunPsPrefab;
     public GameObject railgunLinePsPrefab;
@@ -59,5 +59,4 @@ public class GunStats : MonoBehaviour
 
     [Header("Testing")]
     public float weightScalar = 0.0001f;
-    public float laserRange;
 }
