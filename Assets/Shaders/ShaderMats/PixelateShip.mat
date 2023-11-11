@@ -61,5 +61,5 @@ Material:
     - _BreathingOffset: 1
     - _Pixelation: 32
     m_Colors:
-    - _SpriteOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _SpriteOffset: {r: 3.83, g: 0.65, b: 0, a: 0}
   m_BuildTextureStacks: []
