@@ -57,20 +57,20 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BaseOffset: 0.77
+    - _BaseOffset: 1
     - _Breathe: 1
     - _BreatheSpeed: 14.1
     - _BreatheStrength: 0.35
     - _BreathingOffset: 1.26
     - _EnableExternalAlpha: 0
     - _MinimumShieldOpacity: 0.22
-    - _Pixelation: 6.4
+    - _Pixelation: 32
     - _ShieldBreakEdge: -0.05
     - _ShieldHealth: 1
     - _ShieldMidOpacity: 1
     - _ShieldOpacity: 4
     m_Colors:
-    - _BreakageColor: {r: 0.6338024, g: 5.3403134, b: 0, a: 0}
+    - _BreakageColor: {r: 1.3452336, g: 0, b: 1.3156886, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
