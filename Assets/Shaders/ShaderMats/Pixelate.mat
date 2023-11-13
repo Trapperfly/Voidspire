@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PixelateShip
+  m_Name: Pixelate
   m_Shader: {fileID: -6465566751694194690, guid: b518d654d66ef6148a3b8321213ca7cf, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -60,6 +60,9 @@ Material:
     - _BreatheStrength: 0.05
     - _BreathingOffset: 1
     - _Pixelation: 32
+    - _TargetPPU: 32
     m_Colors:
+    - _PixelationMultipliers: {r: 1, g: 1, b: 0, a: 0}
+    - _PixelationOffset: {r: 0, g: 0, b: 0, a: 0}
     - _SpriteOffset: {r: 3.83, g: 0.65, b: 0, a: 0}
   m_BuildTextureStacks: []
