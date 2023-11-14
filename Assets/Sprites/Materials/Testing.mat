@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Testing
-  m_Shader: {fileID: -6465566751694194690, guid: d111835a791522d43956f0e13e4c5876, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 1b33c9306b0995e43997609bcd24d2b6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2397100df9d9eb9448fac3483e5808f9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -45,6 +45,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PixelationSub_4462f72071a64eeeb03794c8eb487359_Texture_2448791008_Texture2D:
+        m_Texture: {fileID: 2800000, guid: ca10ae357d8d7bb498bba1bd589ab95a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PixelationSub_bbdee6f678bd41e7a1061af9828cdaf1_Texture_2448791008_Texture2D:
+        m_Texture: {fileID: 2800000, guid: ca10ae357d8d7bb498bba1bd589ab95a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PixelationSub_fb6df1a7594748938cd388260f1c3e3b_Texture_2448791008_Texture2D:
+        m_Texture: {fileID: 2800000, guid: ca10ae357d8d7bb498bba1bd589ab95a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -61,21 +73,49 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BaseColorStrength: 2
     - _BaseOffset: 1
     - _Breathe: 0
     - _BreatheSpeed: 3.6
     - _BreatheStrength: 0.09
     - _BreathingOffset: 1.31
+    - _Diffuse: 1
+    - _Distort: 1
+    - _DistortSpeed: 1
+    - _DistortStrenght: 0.5
+    - _EdgeFade: 0
+    - _EffectHardness: 1
+    - _EffectSpeed: 100
+    - _EffectStartOffset: 20
+    - _EffectStrength: 30
     - _EnableExternalAlpha: 0
     - _MaxPixelation: -0.14
+    - _MidColorStrength: 1
+    - _NoiseDetail: 0.13
+    - _NoiseStrength: 0.51
+    - _NoisedDiffuse: 0
+    - _OffsetSpeed: 18.84
+    - _Opacity: 1
     - _Pixelation: 32
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SizeOffset: 1.05
+    - _TargetPPU: 32
+    - _TipSize: 0.9
+    - _TipStrength: 100
+    - _UseBackgroundColor: 0
     m_Colors:
+    - _BackgroundColor: {r: 0, g: 1, b: 0.07986305, a: 0}
+    - _BaseColor: {r: 1, g: 0, b: 0.6841278, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _MidColor: {r: 0.36112398, g: 1, b: 0, a: 0}
+    - _Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _PixelationMultipliers: {r: 1, g: 1, b: 0, a: 0}
+    - _PixelationOffset: {r: 0, g: 0, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TipColor: {r: 1, g: 1, b: 1, a: 0}
+    - _TrailColor: {r: 0.8581923, g: 0.0990566, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6308586690203494125
 MonoBehaviour:
