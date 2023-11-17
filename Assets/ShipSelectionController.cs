@@ -15,7 +15,6 @@ public class ShipSelectionController : MonoBehaviour
     [SerializeField] Object startScene;
     [SerializeField] Transform shipRotunda;
     [SerializeField] float shipOffset = 1f;
-    [SerializeField] Transform camera;
     bool ready = true;
     int selectedShip = 0;
     GameObject SelectedShip;
@@ -23,6 +22,8 @@ public class ShipSelectionController : MonoBehaviour
     GameObject ShipFor;
     GameObject ShipTempSlot;
     bool initFinished;
+
+    [SerializeField] Vector3 shipPos;
 
     private void Awake()
     {
@@ -37,7 +38,7 @@ public class ShipSelectionController : MonoBehaviour
     {
         int initShip = selectedShip - 1;
         if (initShip < 0) initShip = shipPrefabs.Count - 1;
-        ShipBack = Instantiate(shipPrefabs[initShip], shipRotunda.position - new Vector3(camera.position.x + shipOffset, camera.position.y, 0), new Quaternion(0, 0, 0, 0), shipRotunda);
+        ShipBack = Instantiate(shipPrefabs[initShip], shipRotunda.position - new Vector3(shipRotunda.position.x + shipOffset, shipRotunda.position.y, 0), new Quaternion(0, 0, 0, 0), shipRotunda);
         if (initShip != 0) ShipBack.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.05f);
 
         SelectedShip = Instantiate(shipPrefabs[selectedShip], shipRotunda.position, new Quaternion(0, 0, 0, 0), shipRotunda);
@@ -45,7 +46,7 @@ public class ShipSelectionController : MonoBehaviour
 
         initShip = selectedShip + 1;
         if (initShip > shipPrefabs.Count - 1) initShip = 0;
-        ShipFor = Instantiate(shipPrefabs[initShip], shipRotunda.position + new Vector3(camera.position.x + shipOffset, camera.position.y, 0), new Quaternion(0, 0, 0, 0), shipRotunda);
+        ShipFor = Instantiate(shipPrefabs[initShip], shipRotunda.position + new Vector3(shipRotunda.position.x + shipOffset, shipRotunda.position.y, 0), new Quaternion(0, 0, 0, 0), shipRotunda);
         if (initShip != 0) ShipFor.GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.05f);
         initFinished = true;
     }
@@ -73,7 +74,14 @@ public class ShipSelectionController : MonoBehaviour
                 Debug.Log("Altered to " + prepareShip);
             }
             direction = -1;
-            ShipTempSlot = Instantiate(shipPrefabs[prepareShip], shipRotunda.position + new Vector3(camera.position.x + (shipOffset * 2), camera.position.y, 0), new Quaternion(0, 0, 0, 0), shipRotunda);
+            ShipTempSlot = 
+                Instantiate
+                (
+                    shipPrefabs[prepareShip],
+                    new Vector3(shipRotunda.position.x + (shipOffset * 2),
+                    shipRotunda.position.y, 0),
+                    new Quaternion(0, 0, 0, 0),
+                    shipRotunda);
             if (prepareShip != 0) ShipTempSlot.GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.05f);
         }
         else
@@ -87,16 +95,23 @@ public class ShipSelectionController : MonoBehaviour
                 Debug.Log("Altered to " + prepareShip);
             } 
             direction = 1;
-            ShipTempSlot = Instantiate(shipPrefabs[prepareShip], shipRotunda.position - new Vector3(camera.position.x + (shipOffset * 2), camera.position.y, 0), new Quaternion(0, 0, 0, 0), shipRotunda);
+            ShipTempSlot = 
+                Instantiate
+                (
+                    shipPrefabs[prepareShip],
+                    new Vector3(shipRotunda.position.x - (shipOffset * 2),
+                    shipRotunda.position.y, 0),
+                    new Quaternion(0, 0, 0, 0),
+                    shipRotunda);
             if (prepareShip != 0) ShipTempSlot.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.05f);
         }
         //Perform flip
         for (int i = 0; i < flipSpeedInSeconds * 60; i++)
         {
-            SelectedShip.transform.position += new Vector3(camera.position.x + (shipOffset / (flipSpeedInSeconds * 60) * direction), 0, 0);
-            ShipFor.transform.position += new Vector3(camera.position.x + (shipOffset / (flipSpeedInSeconds * 60) * direction), 0, 0);
-            ShipBack.transform.position += new Vector3(camera.position.x + (shipOffset / (flipSpeedInSeconds * 60) * direction), 0, 0);
-            ShipTempSlot.transform.position += new Vector3(camera.position.x + (shipOffset / (flipSpeedInSeconds * 60) * direction), 0, 0);
+            SelectedShip.transform.position += new Vector3(shipRotunda.position.x + (shipOffset / (flipSpeedInSeconds * 60) * direction), 0, 0);
+            ShipFor.transform.position += new Vector3(shipRotunda.position.x + (shipOffset / (flipSpeedInSeconds * 60) * direction), 0, 0);
+            ShipBack.transform.position += new Vector3(shipRotunda.position.x + (shipOffset / (flipSpeedInSeconds * 60) * direction), 0, 0);
+            ShipTempSlot.transform.position += new Vector3(shipRotunda.position.x + (shipOffset / (flipSpeedInSeconds * 60) * direction), 0, 0);
             yield return new WaitForFixedUpdate();
         }
         //Force ships to right location
@@ -118,9 +133,9 @@ public class ShipSelectionController : MonoBehaviour
             selectedShip += 1;
             if (selectedShip > shipPrefabs.Count - 1) selectedShip = 0;
 
-            SelectedShip.transform.position = new Vector3(camera.position.x, 0, 0);
-            ShipFor.transform.position = new Vector3(camera.position.x + shipOffset, camera.position.y, 0);
-            ShipBack.transform.position = new Vector3(camera.position.x - shipOffset, camera.position.y, 0);
+            SelectedShip.transform.position = new Vector3(shipRotunda.position.x, shipRotunda.position.y, 0);
+            ShipFor.transform.position = new Vector3(shipRotunda.position.x + shipOffset, shipRotunda.position.y, 0);
+            ShipBack.transform.position = new Vector3(shipRotunda.position.x - shipOffset, shipRotunda.position.y, 0);
             yield return null;
         }
         else
@@ -133,13 +148,40 @@ public class ShipSelectionController : MonoBehaviour
             selectedShip -= 1;
             if (selectedShip < 0) selectedShip = shipPrefabs.Count-1;
 
-            SelectedShip.transform.position = new Vector3(camera.position.x, camera.position.y, 0);
-            ShipFor.transform.position = new Vector3(camera.position.x + shipOffset, camera.position.y, 0);
-            ShipBack.transform.position = new Vector3(camera.position.x - shipOffset, camera.position.y, 0);
+            SelectedShip.transform.position = new Vector3(shipRotunda.position.x, shipRotunda.position.y, 0);
+            ShipFor.transform.position = new Vector3(shipRotunda.position.x + shipOffset, shipRotunda.position.y, 0);
+            ShipBack.transform.position = new Vector3(shipRotunda.position.x - shipOffset, shipRotunda.position.y, 0);
             yield return null;
         }
         ready = true;
         yield return null;
+    }
+
+    public void StartMoveShips()
+    {
+        StartCoroutine(nameof(MoveShips));
+    }
+    IEnumerator MoveShips()
+    {
+        SimpleMove moveShipBack = ShipBack.GetComponent<SimpleMove>();
+        if (!moveShipBack.active)
+        {
+            if (!moveShipBack.back) moveShipBack.positions[1] = ShipBack.transform.position + new Vector3(0, 8, 0);
+            moveShipBack.StartMove(0,1);
+        }
+        SimpleMove moveSelectedShip = SelectedShip.GetComponent<SimpleMove>();
+        if (!moveSelectedShip.active)
+        {
+            if (!moveSelectedShip.back) moveSelectedShip.positions[1] = SelectedShip.transform.position + shipPos;
+            moveSelectedShip.StartMove(0, 1);
+        }
+        SimpleMove moveShipFor = ShipFor.GetComponent<SimpleMove>();
+        if (!moveShipFor.active)
+        {
+            if (!moveShipFor.back) moveShipFor.positions[1] = ShipFor.transform.position + new Vector3(0, 8, 0);
+            moveShipFor.StartMove(0, 1);
+        }
+        yield return new WaitForEndOfFrame();
     }
 
     void UpdatePreviewedShip()
