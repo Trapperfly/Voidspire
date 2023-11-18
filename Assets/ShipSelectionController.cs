@@ -108,10 +108,11 @@ public class ShipSelectionController : MonoBehaviour
         //Perform flip
         for (int i = 0; i < flipSpeedInSeconds * 60; i++)
         {
-            SelectedShip.transform.position += new Vector3(shipRotunda.position.x + (shipOffset / (flipSpeedInSeconds * 60) * direction), 0, 0);
-            ShipFor.transform.position += new Vector3(shipRotunda.position.x + (shipOffset / (flipSpeedInSeconds * 60) * direction), 0, 0);
-            ShipBack.transform.position += new Vector3(shipRotunda.position.x + (shipOffset / (flipSpeedInSeconds * 60) * direction), 0, 0);
-            ShipTempSlot.transform.position += new Vector3(shipRotunda.position.x + (shipOffset / (flipSpeedInSeconds * 60) * direction), 0, 0);
+            SelectedShip.transform.localPosition += new Vector3(shipOffset / (flipSpeedInSeconds * 60) * direction, 0, 0);
+            //if (Mathf.Abs(SelectedShip.transform.localPosition.x) > shipOffset) SelectedShip.transform.localPosition = new Vector3(shipOffset * direction, 0, 0);
+            ShipFor.transform.localPosition += new Vector3(shipOffset / (flipSpeedInSeconds * 60) * direction, 0, 0);
+            ShipBack.transform.localPosition += new Vector3(shipOffset / (flipSpeedInSeconds * 60) * direction, 0, 0);
+            ShipTempSlot.transform.localPosition += new Vector3(shipOffset / (flipSpeedInSeconds * 60) * direction, 0, 0);
             yield return new WaitForFixedUpdate();
         }
         //Force ships to right location
