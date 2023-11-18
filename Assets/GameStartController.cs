@@ -10,8 +10,9 @@ public class GameStartController : MonoBehaviour
     public Button[] buttons;
     float currTime;
 
-    public void SetToAnim()
+    public void SetToAnim(float time)
     {
+        animTime = time + 0.1f;
         inAnim = true;
     }
 

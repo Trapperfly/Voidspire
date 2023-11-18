@@ -5096,10 +5096,10 @@ MonoBehaviour:
   rotSpeed: 0.06
   strafeSpeed: 0.5
   exploreModifier: 1
-  fleeModifier: 2
+  fleeModifier: 4
   combatModifier: 10
   repairModifier: 0.1
-  repairSpeed: 0.01
+  repairSpeed: 0.05
   detectionRange: 2
   combatDetectionRange: 8
   newTargetTime: {x: 5, y: 10}
@@ -5253,6 +5253,7 @@ MonoBehaviour:
   rotSpeed: 3
   advancedTargeting: 1
   notAGun: 1
+  noFireWhenOutOfReach: 0
   doRotate: 0
 --- !u!114 &949212495855852716
 MonoBehaviour:
@@ -5409,6 +5410,7 @@ MonoBehaviour:
   rotSpeed: 2
   advancedTargeting: 0
   notAGun: 0
+  noFireWhenOutOfReach: 0
   doRotate: 1
 --- !u!1 &4045126282966095957
 GameObject:

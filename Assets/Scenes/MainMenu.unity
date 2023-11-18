@@ -313,7 +313,7 @@ MonoBehaviour:
   resetOnDisable: 0
   positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: -1, z: 0}
   duration: 1
   moveSpeedCurve:
     serializedVersion: 2
@@ -404,9 +404,9 @@ MonoBehaviour:
   - {fileID: 2046983578}
   - {fileID: 122984825}
   positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: -5, y: 0, z: 0}
-  - {x: 5, y: 0, z: 0}
+  - {x: 0, y: -1, z: 0}
+  - {x: -5, y: -1, z: 0}
+  - {x: 5, y: -1, z: 0}
   - {x: 5, y: 2, z: 0}
   duration: 1
   moveSpeedCurve:
@@ -1542,7 +1542,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293951951}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80feaad054abc264ea0c2e259050038d, type: 3}
   m_Name: 
@@ -1626,12 +1626,12 @@ MonoBehaviour:
       - m_Target: {fileID: 351290810}
         m_TargetAssemblyTypeName: GameStartController, Assembly-CSharp
         m_MethodName: SetToAnim
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1804,6 +1804,8 @@ MonoBehaviour:
   - {fileID: 623745979}
   - {fileID: 356937875}
   - {fileID: 1336985726}
+  - {fileID: 1460081780}
+  - {fileID: 1625610848}
 --- !u!1 &356937873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1915,29 +1917,17 @@ MonoBehaviour:
       - m_Target: {fileID: 351290810}
         m_TargetAssemblyTypeName: GameStartController, Assembly-CSharp
         m_MethodName: SetToAnim
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 614718439}
         m_TargetAssemblyTypeName: SimpleMassMove, Assembly-CSharp
-        m_MethodName: StartMove
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SimpleMove, Assembly-CSharp
         m_MethodName: StartMove
         m_Mode: 1
         m_Arguments:
@@ -1972,18 +1962,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 69066408}
-        m_TargetAssemblyTypeName: SimpleMove, Assembly-CSharp
-        m_MethodName: StartMove
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 1316602955}
         m_TargetAssemblyTypeName: SimpleFade, Assembly-CSharp
         m_MethodName: StartFade
@@ -1999,6 +1977,18 @@ MonoBehaviour:
       - m_Target: {fileID: 614718438}
         m_TargetAssemblyTypeName: SimpleSelection, Assembly-CSharp
         m_MethodName: ReturnAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 69066408}
+        m_TargetAssemblyTypeName: SimpleMove, Assembly-CSharp
+        m_MethodName: StartMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3376,7 +3366,7 @@ MonoBehaviour:
   resetOnDisable: 0
   positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: -1, z: 0}
   duration: 1
   moveSpeedCurve:
     serializedVersion: 2
@@ -3467,9 +3457,9 @@ MonoBehaviour:
   - {fileID: 735055222}
   - {fileID: 1853679314}
   positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: -5, y: 0, z: 0}
-  - {x: 5, y: 0, z: 0}
+  - {x: 0, y: -1, z: 0}
+  - {x: -5, y: -1, z: 0}
+  - {x: 5, y: -1, z: 0}
   - {x: 0, y: 2, z: 0}
   duration: 1
   moveSpeedCurve:
@@ -3633,12 +3623,12 @@ MonoBehaviour:
       - m_Target: {fileID: 351290810}
         m_TargetAssemblyTypeName: GameStartController, Assembly-CSharp
         m_MethodName: SetToAnim
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -5364,12 +5354,12 @@ MonoBehaviour:
       - m_Target: {fileID: 351290810}
         m_TargetAssemblyTypeName: GameStartController, Assembly-CSharp
         m_MethodName: SetToAnim
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -5514,7 +5504,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 982426332}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80feaad054abc264ea0c2e259050038d, type: 3}
   m_Name: 
@@ -6224,7 +6214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1128937641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6551,7 +6541,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1209582730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6983,7 +6973,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316602953}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80feaad054abc264ea0c2e259050038d, type: 3}
   m_Name: 
@@ -7067,12 +7057,12 @@ MonoBehaviour:
       - m_Target: {fileID: 351290810}
         m_TargetAssemblyTypeName: GameStartController, Assembly-CSharp
         m_MethodName: SetToAnim
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -7415,12 +7405,12 @@ MonoBehaviour:
       - m_Target: {fileID: 351290810}
         m_TargetAssemblyTypeName: GameStartController, Assembly-CSharp
         m_MethodName: SetToAnim
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -8375,6 +8365,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 351290810}
+        m_TargetAssemblyTypeName: GameStartController, Assembly-CSharp
+        m_MethodName: SetToAnim
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0.5
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1460081781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8942,6 +8944,18 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: -1
           m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 351290810}
+        m_TargetAssemblyTypeName: GameStartController, Assembly-CSharp
+        m_MethodName: SetToAnim
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0.5
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2

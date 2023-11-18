@@ -20,7 +20,6 @@ public class SimpleMove : MonoBehaviour
     private void Awake()
     {
         if (currentposIsStartpos) positions[0] = transform.position;
-
         progress = currTime / duration;
         if (startAtStartPos) transform.position = Vector2.Lerp(positions[0], positions[1], CurveOverTime(moveSpeedCurve));
         if (startWhenAwake) StartMove(0,1);
@@ -32,7 +31,12 @@ public class SimpleMove : MonoBehaviour
     public void StartMove(int from, int to)
     {
         if (!active && back) StartCoroutine(Move(-1, from, to));
-        else if (!active) StartCoroutine(Move(1, from, to));
+        else if (!active)
+        {
+            if (currentposIsStartpos) positions[0] = transform.position;
+            StartCoroutine(Move(1, from, to));
+        }
+
     }
 
     IEnumerator Move(int direction, int from, int to)

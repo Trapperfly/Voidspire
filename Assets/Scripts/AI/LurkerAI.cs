@@ -71,12 +71,25 @@ public class LurkerAI : MonoBehaviour
     private void FixedUpdate()
     {
         float distCheckToPlayer = Extension.Distance(transform.position, player.position);
-        if (lowHealth && distCheckToPlayer * distCheckToPlayer > 10f)
+        if (lowHealth && distCheckToPlayer > 30f)
         {
             currentModifier = repairModifier;
             repairing = true;
         }
-        else if (lowHealth) currentModifier = fleeModifier;
+        else if (lowHealth && distCheckToPlayer < 30f)
+        {
+            if (healthModule.currentHealth <= healthModule.startHealth / 5)
+            {
+                currentModifier = fleeModifier;
+                repairing = false;
+            }
+            else
+            {
+                currentModifier = fleeModifier;
+                repairing = false;
+                lowHealth = false;
+            }
+        }
         else if (inCombat) currentModifier = combatModifier;
         else currentModifier = exploreModifier;
 

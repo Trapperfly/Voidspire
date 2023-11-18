@@ -87,12 +87,25 @@ public class ArbalestAI : MonoBehaviour
     private void FixedUpdate()
     {
         float distCheckToPlayer = Extension.Distance(transform.position, player.position);
-        if (lowHealth && distCheckToPlayer * distCheckToPlayer > 10f)
+        if (lowHealth && distCheckToPlayer > 30f)
         {
             currentModifier = repairModifier;
             repairing = true;
         }
-        else if (lowHealth) currentModifier = fleeModifier;
+        else if (lowHealth && distCheckToPlayer < 30f)
+        {
+            if (healthModule.currentHealth <= healthModule.startHealth / 5)
+            {
+                currentModifier = fleeModifier;
+                repairing = false;
+            }
+            else
+            {
+                currentModifier = fleeModifier;
+                repairing = false;
+                lowHealth = false;
+            }
+        }
         else if (inCombat) currentModifier = combatModifier;
         else currentModifier = exploreModifier;
 
@@ -137,8 +150,6 @@ public class ArbalestAI : MonoBehaviour
             if (lowHealth || combatTarget == null)
             {
                 ToggleCombat(false);
-                combatTarget = null;
-                StartCoroutine(target.ClearTarget());
                 StartCoroutine(nameof(GetNewTargetPos));
             }
         }
@@ -238,6 +249,7 @@ public class ArbalestAI : MonoBehaviour
     IEnumerator CombatFireLoop()
     {
         firing = true;
+        idle = false;
         yield return null;
         while (inCombat)
         {
@@ -245,7 +257,7 @@ public class ArbalestAI : MonoBehaviour
             if (target.target)
             {
                 float distCheckAttack = Extension.Distance(transform.position, target.target.position);
-                if (distCheckAttack * distCheckAttack < combatDetectionRange) StartCoroutine(CombatStopAndFire());
+                if (distCheckAttack < combatDetectionRange) StartCoroutine(CombatStopAndFire());
             }
             yield return null;
         }
@@ -343,6 +355,8 @@ public class ArbalestAI : MonoBehaviour
         {
             rb.drag = savedDrag;
             rb.angularDrag = savedAngularDrag;
+            combatTarget = null;
+            StartCoroutine(target.ClearTarget());
         }
         inCombat = a;
     }
