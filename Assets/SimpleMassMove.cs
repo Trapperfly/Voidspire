@@ -24,8 +24,8 @@ public class SimpleMassMove : MonoBehaviour
         progress = currTime / duration;
         foreach (var obj in objects)
         {
-            if (currentposIsStartpos) positions[System.Array.IndexOf(objects, obj)] = obj.transform.position;
-            if (startAtStartPos) obj.transform.position = Vector2.Lerp(positions[System.Array.IndexOf(objects, obj)], positions[3], CurveOverTime(moveSpeedCurve));
+            if (currentposIsStartpos) positions[System.Array.IndexOf(objects, obj)] = obj.transform.localPosition;
+            if (startAtStartPos) obj.transform.localPosition = Vector2.Lerp(positions[System.Array.IndexOf(objects, obj)], positions[3], CurveOverTime(moveSpeedCurve));
             if (startWhenAwake) StartMove(obj, 3);
         }
     }
@@ -48,8 +48,8 @@ public class SimpleMassMove : MonoBehaviour
     {
         currTime += direction * Time.deltaTime;
         progress = currTime / duration;
-        if (direction == 1) go.transform.position = Vector2.Lerp(positions[System.Array.IndexOf(objects, go)], positions[3], CurveOverTime(moveSpeedCurve));
-        else go.transform.position = Vector2.Lerp(positions[System.Array.IndexOf(objects, go)], positions[3], CurveOverTime(moveBackSpeedCurve));
+        if (direction == 1) go.transform.localPosition = Vector2.Lerp(positions[System.Array.IndexOf(objects, go)], positions[3], CurveOverTime(moveSpeedCurve));
+        else go.transform.localPosition = Vector2.Lerp(positions[System.Array.IndexOf(objects, go)], positions[3], CurveOverTime(moveBackSpeedCurve));
         yield return new WaitForEndOfFrame();
         if (progress >= 1)
         {
@@ -69,7 +69,7 @@ public class SimpleMassMove : MonoBehaviour
         StopAllCoroutines();
         if (resetOnDisable) foreach (var obj in objects)
             {
-                obj.transform.position = positions[System.Array.IndexOf(objects, obj)];
+                obj.transform.localPosition = positions[System.Array.IndexOf(objects, obj)];
             }
 
     }

@@ -348,6 +348,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80feaad054abc264ea0c2e259050038d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  awake: 1
+  enable: 0
+  times: 1
   fadeCurve:
     serializedVersion: 2
     m_Curve:
@@ -391,7 +394,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   duration: 3.8
-  targetImage: {fileID: 1189652207}
+  targetImages:
+  - {fileID: 1189652207}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1199231308
 GameObject:
   m_ObjectHideFlags: 0

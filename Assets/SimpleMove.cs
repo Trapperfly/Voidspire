@@ -7,6 +7,7 @@ public class SimpleMove : MonoBehaviour
     [SerializeField] bool startWhenAwake;
     [SerializeField] bool startAtStartPos;
     [SerializeField] bool currentposIsStartpos;
+    [SerializeField] bool startOnEnable;
     [SerializeField] bool resetOnDisable;
     public Vector3[] positions;
     [SerializeField] float duration;
@@ -19,9 +20,9 @@ public class SimpleMove : MonoBehaviour
 
     private void Awake()
     {
-        if (currentposIsStartpos) positions[0] = transform.position;
+        if (currentposIsStartpos) positions[0] = transform.localPosition;
         progress = currTime / duration;
-        if (startAtStartPos) transform.position = Vector2.Lerp(positions[0], positions[1], CurveOverTime(moveSpeedCurve));
+        if (startAtStartPos) transform.localPosition = Vector2.Lerp(positions[0], positions[1], CurveOverTime(moveSpeedCurve));
         if (startWhenAwake) StartMove(0,1);
     }
     public void StartMove()
@@ -33,7 +34,7 @@ public class SimpleMove : MonoBehaviour
         if (!active && back) StartCoroutine(Move(-1, from, to));
         else if (!active)
         {
-            if (currentposIsStartpos) positions[0] = transform.position;
+            if (currentposIsStartpos) positions[0] = transform.localPosition;
             StartCoroutine(Move(1, from, to));
         }
 
@@ -44,8 +45,8 @@ public class SimpleMove : MonoBehaviour
         active = true;
         currTime += direction * Time.deltaTime;
         progress = currTime / duration;
-        if (direction == 1) transform.position = Vector2.Lerp(positions[from], positions[to], CurveOverTime(moveSpeedCurve));
-        else transform.position = Vector2.Lerp(positions[from], positions[to], CurveOverTime(moveBackSpeedCurve));
+        if (direction == 1) transform.localPosition = Vector2.Lerp(positions[from], positions[to], CurveOverTime(moveSpeedCurve));
+        else transform.localPosition = Vector2.Lerp(positions[from], positions[to], CurveOverTime(moveBackSpeedCurve));
         yield return new WaitForEndOfFrame();
         if (progress >= 1)
         {
@@ -60,11 +61,19 @@ public class SimpleMove : MonoBehaviour
         else StartCoroutine(Move(direction, from, to));
     }
 
+    private void OnEnable()
+    {
+        if (startOnEnable) StartMove(0, 1);
+    }
     private void OnDisable()
     {
         StopAllCoroutines();
         if (resetOnDisable)
-            transform.position = positions[0];
+        {
+            transform.localPosition = positions[0];
+            currTime = 0;
+            back = false;
+        }
     }
 
     float CurveOverTime(AnimationCurve curve)
