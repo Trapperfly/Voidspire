@@ -60,6 +60,8 @@ Material:
     - _BreatheStrength: 0.05
     - _BreathingOffset: 1
     - _Pixelation: 32
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _TargetPPU: 32
     m_Colors:
     - _PixelationMultipliers: {r: 1, g: 1, b: 0, a: 0}
