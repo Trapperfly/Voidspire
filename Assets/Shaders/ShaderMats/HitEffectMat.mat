@@ -67,14 +67,14 @@ Material:
     - _Diffuse: 1
     - _Effect: 1
     - _EffectHardness: 1
-    - _EffectSpeed: 4
+    - _EffectSpeed: 7.9
     - _EffectStartOffset: 20
-    - _EffectStrength: 20
+    - _EffectStrength: 15.16
     - _EmissionSize: 0.9
     - _EnableExternalAlpha: 0
     - _FadeOut: 0
     - _FadeOutSpeed: 0.0001
-    - _MidColorStrength: 1
+    - _MidColorStrength: 1.12
     - _NoiseDetail: 20
     - _NoiseStrength: 0.822
     - _NoisedDiffuse: 0
@@ -83,7 +83,7 @@ Material:
     - _Skrink: 1
     - _StartOpacity: 1
     - _TipSize: 0.611
-    - _TipStrength: 10
+    - _TipStrength: 12.7
     - _UseBackgroundColor: 1
     - _UseBaseColor: 0
     - _UseBaseOpacity: 0
