@@ -8,12 +8,14 @@ public class MenuController : MonoBehaviour
     bool gamePaused;
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject map;
+    [SerializeField] GameObject inventory;
     [SerializeField] Object startScene;
     [SerializeField] Object mainMenuScene;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) PauseGame();
         if (Input.GetKeyDown(KeyCode.M)) MapMode();
+        if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)) Inventory();
     }
 
     public void PauseGame()
@@ -31,6 +33,21 @@ public class MenuController : MonoBehaviour
     {
         if (map.activeSelf) map.SetActive(false);
         else map.SetActive(true);
+    }
+
+    public void Inventory()
+    {
+        if (inventory.activeSelf)
+        {
+            Time.timeScale = 1f;
+            inventory.SetActive(false);
+        }
+        else
+        {
+            Time.timeScale = 0f;
+            inventory.SetActive(true);
+        }
+
     }
 
     public void ResumeGame()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ExtensionMethods;
 
-public class LurkerAI : MonoBehaviour
+public class LurkerAI : GlobalRefs
 {
     [SerializeField] float speed;
     [SerializeField] float rotSpeed;
@@ -30,7 +30,6 @@ public class LurkerAI : MonoBehaviour
     [SerializeField] LayerMask targetMask;
     Rigidbody2D rb;
     Collider2D col;
-    Transform player;
     Damagable healthModule;
     float lastFrameHealth;
 
@@ -59,8 +58,7 @@ public class LurkerAI : MonoBehaviour
         col = GetComponent<Collider2D>();
         healthModule = GetComponent<Damagable>();
         lastFrameHealth = healthModule.currentHealth;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        targetPos = player.position;
+        targetPos = Instance.player.transform.position;
         spawnPoint = transform.position;
         StartCoroutine(nameof(GetNewTargetPosOverTime));
     }
@@ -70,7 +68,7 @@ public class LurkerAI : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        float distCheckToPlayer = Extension.Distance(transform.position, player.position);
+        float distCheckToPlayer = Extension.Distance(transform.position, Instance.player.transform.position);
         if (lowHealth && distCheckToPlayer > 30f)
         {
             currentModifier = repairModifier;
@@ -117,7 +115,7 @@ public class LurkerAI : MonoBehaviour
                     {
                         if (combatTarget == null || !combatTarget.CompareTag("Player"))
                         {
-                            if (target.CompareTag("Player") && player.GetComponent<GunMaster>().hasFired == true)
+                            if (target.CompareTag("Player") && Instance.player.GetComponent<GunMaster>().hasFired == true)
                                 combatTarget = target.transform;
                             else combatTarget = target.transform;
                         }
@@ -257,7 +255,7 @@ public class LurkerAI : MonoBehaviour
         }
         else if (seenPlayer)
         {
-            targetPos = (Vector2)player.position + Random.insideUnitCircle * awayFromTargetRadius;
+            targetPos = (Vector2)Instance.player.transform.position + Random.insideUnitCircle * awayFromTargetRadius;
         }
         else targetPos = spawnPoint + Random.insideUnitCircle * awayFromTargetRadius;
         yield return null;
