@@ -107,7 +107,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.061502814, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -172,10 +172,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3227819605683819644}
   - component: {fileID: 3227819605683819645}
-  - component: {fileID: -523864133122155411}
+  - component: {fileID: 550548959946609248}
   m_Layer: 12
-  m_Name: Resource
-  m_TagString: Resource
+  m_Name: PlaceHolderWeapon
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -223,7 +223,7 @@ Rigidbody2D:
   m_SleepingMode: 2
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-523864133122155411
+--- !u!114 &550548959946609248
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3227819605683819642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81c02c9457fd94145a9cddaca6daae9e, type: 3}
+  m_Script: {fileID: 11500000, guid: 77d6c0acc318a7b4dad8efc299640ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worth: 0
+  item: {fileID: 11400000, guid: e39162a946d9eef4185ae1089acd1f76, type: 2}

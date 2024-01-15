@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ExtensionMethods;
 
-public class LurkerAI : GlobalRefs
+public class LurkerAI : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float rotSpeed;
@@ -49,7 +49,7 @@ public class LurkerAI : GlobalRefs
     [SerializeField] ParticleSystem ps;
     [SerializeField] ParticleSystem thrustersPS;
 
-    private void Awake()
+    private void Start()
     {
         transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         StartCoroutine(nameof(CheckProximity));
@@ -58,17 +58,14 @@ public class LurkerAI : GlobalRefs
         col = GetComponent<Collider2D>();
         healthModule = GetComponent<Damagable>();
         lastFrameHealth = healthModule.currentHealth;
-        targetPos = Instance.player.transform.position;
+        targetPos = GlobalRefs.Instance.player.transform.position;
         spawnPoint = transform.position;
         StartCoroutine(nameof(GetNewTargetPosOverTime));
-    }
-    private void Start()
-    {
         dir = transform.up;
     }
     private void FixedUpdate()
     {
-        float distCheckToPlayer = Extension.Distance(transform.position, Instance.player.transform.position);
+        float distCheckToPlayer = Extension.Distance(transform.position, GlobalRefs.Instance.player.transform.position);
         if (lowHealth && distCheckToPlayer > 30f)
         {
             currentModifier = repairModifier;
@@ -115,7 +112,7 @@ public class LurkerAI : GlobalRefs
                     {
                         if (combatTarget == null || !combatTarget.CompareTag("Player"))
                         {
-                            if (target.CompareTag("Player") && Instance.player.GetComponent<GunMaster>().hasFired == true)
+                            if (target.CompareTag("Player") && GlobalRefs.Instance.player.GetComponent<GunMaster>().hasFired == true)
                                 combatTarget = target.transform;
                             else combatTarget = target.transform;
                         }
@@ -255,7 +252,7 @@ public class LurkerAI : GlobalRefs
         }
         else if (seenPlayer)
         {
-            targetPos = (Vector2)Instance.player.transform.position + Random.insideUnitCircle * awayFromTargetRadius;
+            targetPos = (Vector2)GlobalRefs.Instance.player.transform.position + Random.insideUnitCircle * awayFromTargetRadius;
         }
         else targetPos = spawnPoint + Random.insideUnitCircle * awayFromTargetRadius;
         yield return null;

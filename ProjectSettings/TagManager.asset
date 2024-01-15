@@ -13,6 +13,8 @@ TagManager:
   - HitEffectMaster
   - MapManager
   - MapPivot
+  - Resource
+  - Weapon
   layers:
   - Default
   - TransparentFX
@@ -26,7 +28,7 @@ TagManager:
   - Enemy
   - Ally
   - Destructible
-  - Resource
+  - Pickup
   - PickupRadius
   - EnemyBullet
   - 

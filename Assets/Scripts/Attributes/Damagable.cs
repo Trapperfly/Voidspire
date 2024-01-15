@@ -50,8 +50,8 @@ public class Damagable : MonoBehaviour
         {
             if (GetComponent<Destructable>() != null)
             {
-                if (GetComponent<DropsResources>() != null)
-                    GetComponent<DropsResources>().noDrop = false;
+                if (GetComponent<DropsLoot>() != null)
+                    GetComponent<DropsLoot>().noDrop = false;
                 GetComponent<Destructable>().StartCoroutine(nameof(Destructable.DestroyMe));
             }
         }

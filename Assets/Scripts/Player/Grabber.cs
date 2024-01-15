@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grabber : MonoBehaviour
+public class Grabber : Events
 {
     bool reachedTarget = false;
     bool failed = false;
@@ -13,6 +13,8 @@ public class Grabber : MonoBehaviour
     GameObject player;
     GameObject wallet;
     LineRenderer line;
+
+    bool openspace = true;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -89,12 +91,34 @@ public class Grabber : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         if (transform.childCount != 0)
-            wallet.GetComponent<StartPickup>().wallet += transform.GetComponentInChildren<Resource>().worth;
-        DestroyMe();
+        {
+            if (transform.GetChild(0).gameObject.CompareTag("Resource")) OnPickUpResource();
+            else if (transform.GetChild(0).gameObject.CompareTag("Weapon")) OnPickUpWeapon(); //Add to inventory
+        }
+
+        if (openspace) DestroyMe();
+        else
+        {
+            Transform child = transform.GetChild(0);
+            child.parent = child.GetComponent<ItemInfo>().parent;
+            child.GetComponentInChildren<Collider2D>().enabled = true;
+            DestroyMe();
+        }
         yield return null;
     }
     void DestroyMe()
     {
         Destroy(gameObject);
+    }
+
+    public override void OnPickUpResource()
+    {
+        base.OnPickUpResource();
+        wallet.GetComponent<StartPickup>().wallet += transform.GetComponentInChildren<Resource>().worth;
+    }
+    public override void OnPickUpWeapon()
+    {
+        base.OnPickUpWeapon();
+        openspace = GetComponentInChildren<ItemInfo>().Pickup();
     }
 }

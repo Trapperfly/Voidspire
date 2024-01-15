@@ -312,11 +312,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b01373d50bfd746ab35a4e5aa55ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceSpawner: {fileID: 0}
   noDrop: 1
   value: 0
   size: 0
   valueFromSize: 1
   lootExplosionStrength: 0
+  weaponDropChance: 0.01
 --- !u!114 &3706284460330487220
 MonoBehaviour:
   m_ObjectHideFlags: 0

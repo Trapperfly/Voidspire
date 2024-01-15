@@ -29,7 +29,7 @@ public class StartPickup : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "ResourceSprite")
+        if (collision.gameObject.layer == 12)
         {
             pickup = collision.gameObject;
             queue.Add(pickup);
@@ -37,7 +37,7 @@ public class StartPickup : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "ResourceSprite")
+        if (collision.gameObject.layer == 12)
         {
             pickup = collision.gameObject;
             queue.Remove(pickup);
