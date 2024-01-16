@@ -46,7 +46,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - MapMarkers
   - 
   m_SortingLayers:
   - name: Default
