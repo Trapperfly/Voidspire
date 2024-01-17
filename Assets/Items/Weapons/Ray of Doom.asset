@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d20cfd6a0a59dbb4d8548afb895d8d5e, type: 3}
-  m_Name: New Item
+  m_Name: Ray of Doom
   m_EditorClassIdentifier: 
   name: Ray of Doom
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 81a8c6b391a0dac418474cefcb6bd735, type: 3}
   isDefault: 0
