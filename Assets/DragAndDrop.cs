@@ -29,6 +29,8 @@ public class DragAndDrop : MonoBehaviour,
     public float time = 0.2f;
     public void OnBeginDrag(PointerEventData eventData)
     {
+        slot0 = eventData.pointerDrag.GetComponent<InventorySlot>();
+        Debug.Log(slot0);
         line = new GameObject().AddComponent<RectTransform>();
         line.gameObject.layer = 2;
         //line = gameObject.AddComponent<RectTransform>();
@@ -60,11 +62,13 @@ public class DragAndDrop : MonoBehaviour,
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log(eventData.pointerEnter);
+        Debug.Log(eventData.pointerEnter.GetComponentInParent<InventorySlot>());
         Debug.Log(line);
         Debug.Log(isHovering);
         if (eventData.pointerEnter.CompareTag("ItemPanel")) // && allowed
         {
+            slot1 = eventData.pointerEnter.GetComponentInParent<InventorySlot>();
+            SwapSpaces();
             line.GetComponent<ShrinkAndExpire>().startPos = startPos;
             line.GetComponent<ShrinkAndExpire>().endPos = endPos;
             line.GetComponent<ShrinkAndExpire>().enabled = true;
@@ -86,5 +90,11 @@ public class DragAndDrop : MonoBehaviour,
     {
         isHovering = false;
         Debug.Log("not hovering");
+    }
+
+    public void SwapSpaces()
+    {
+        Debug.Log("Swapping " + slot0 + " and " + slot1);
+        Inventory.Instance.Swap(slot0, slot1);
     }
 }

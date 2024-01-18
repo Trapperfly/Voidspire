@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -25,7 +26,9 @@ public class Inventory : MonoBehaviour
 
     public int inventorySpace;
 
-    public List<Item> items = new List<Item>();
+    public int id = 1;
+
+    public List<Item> items = new();
 
     public bool Add (Item item)
     {
@@ -36,10 +39,12 @@ public class Inventory : MonoBehaviour
                 Debug.Log("Not enough inventory space");
                 return false;
             }
+            item.id = id;
+            id++;
+            Debug.Log(item.id);
             items.Add(item);
 
-            if (onItemChangedCallback != null)
-                onItemChangedCallback.Invoke();
+            onItemChangedCallback?.Invoke();
         }
         return true;
     }
@@ -47,5 +52,18 @@ public class Inventory : MonoBehaviour
     public void Remove (Item item)
     {
         items.Remove(item);
+    }
+
+    public void Swap(InventorySlot slot0, InventorySlot slot1)
+    {
+        Item itemTemp = slot1.item;
+
+        if (slot0.item != null) { slot1.item = slot0.item; }
+        else { slot1.item = null; }
+
+        if (slot1.item != null) { slot0.item = itemTemp; }
+        else { slot0.item = null; }
+
+        onItemChangedCallback?.Invoke();
     }
 }
