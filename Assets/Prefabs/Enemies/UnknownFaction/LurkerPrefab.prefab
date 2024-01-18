@@ -5451,7 +5451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   speed: 0.3
-  fireRate: 4
+  fireRate: 2
   spread: 15
   AIBulletPrefab: {fileID: 5787769136944929484, guid: be492268a8ab0e1409dada0356ef3237, type: 3}
 --- !u!114 &4412543238381484517
