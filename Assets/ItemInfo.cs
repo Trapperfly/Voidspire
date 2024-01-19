@@ -7,7 +7,7 @@ public class ItemInfo : MonoBehaviour
 {
     public Transform parent;
     public Weapon newWeapon;
-    private void Awake()
+    private void Start()
     {
         parent = transform.parent;
         newWeapon = RandomizeEquipment.Instance.RandomizeGun();

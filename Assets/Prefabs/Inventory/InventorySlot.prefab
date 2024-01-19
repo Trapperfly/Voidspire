@@ -277,8 +277,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ee1f8c0dbdf3847a3097ac8323c016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0, b: 0, a: 0}
+  baseColor: {r: 0.7647059, g: 0.7647059, b: 0.7647059, a: 1}
   icon: {fileID: 8249145333132959961}
+  frame: {fileID: 5169143230011797464}
   item: {fileID: 0}
 --- !u!114 &3133939725238532837
 MonoBehaviour:

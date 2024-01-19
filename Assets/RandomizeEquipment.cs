@@ -11,10 +11,14 @@ public class RandomizeEquipment : MonoBehaviour
     [SerializeField] Sprite[] cargoSprites;
     [SerializeField] Sprite[] ftlSprites;
     [SerializeField] Sprite[] stlSprites;
+
+    public Color[] typeColor;
     [Space]
     [SerializeField] string[] nameFirst;
     [SerializeField] string[] nameMid;
     [SerializeField] string[] nameLast;
+
+    
 
     #region Singleton
     public static RandomizeEquipment Instance;
@@ -49,6 +53,8 @@ public class RandomizeEquipment : MonoBehaviour
         weapon.name = weapon.itemName;
         weapon.id = Inventory.Instance.id;
         weapon.icon = gunSprites[R(0, gunSprites.Length)];
+        weapon.color = typeColor[2];
+        weapon.equipType = EquipmentTypes.Weapon;
         return weapon;
     }
 }

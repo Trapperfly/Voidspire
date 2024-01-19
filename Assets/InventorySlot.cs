@@ -3,23 +3,51 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    public Color color;
+    public Color baseColor;
 
     public Image icon;
+
+    public Image frame;
 
     public Item item;
 
     public void Refresh()
     {
-        if (item != null)
+        if (this is EquipmentSlot)
         {
-            icon.sprite = item.icon;
-            icon.enabled = true;
-        } else
-        {
-            icon.sprite = null;
-            icon.enabled = false;
+            if (item != null)
+            {
+                icon.sprite = item.icon;
+                icon.enabled = true;
+                EquipmentSlot equipSlot = this as EquipmentSlot;
+                frame.color = RandomizeEquipment.Instance.typeColor[(int)equipSlot.allowed];
+            }
+            else
+            {
+                item = null;
+                icon.sprite = null;
+                icon.enabled = false;
+                EquipmentSlot equipSlot = this as EquipmentSlot;
+                frame.color = RandomizeEquipment.Instance.typeColor[(int)equipSlot.allowed];
+            }
         }
+        else
+        {
+            if (item != null)
+            {
+                icon.sprite = item.icon;
+                icon.enabled = true;
+                frame.color = item.color;
+            }
+            else
+            {
+                item = null;
+                icon.sprite = null;
+                icon.enabled = false;
+                frame.color = baseColor;
+            }
+        }
+        
 
     }
 
@@ -28,6 +56,7 @@ public class InventorySlot : MonoBehaviour
         item = newItem;
         icon.sprite = item.icon;
         icon.enabled = true;
+        frame.color = item.color;
     }
 
     public void ClearSlot()
@@ -35,5 +64,6 @@ public class InventorySlot : MonoBehaviour
         item = null;
         icon.sprite = null;
         icon.enabled = false;
+        frame.color = baseColor;
     }
 }

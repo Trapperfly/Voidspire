@@ -16,13 +16,14 @@ public class Equipment : Item
 }
 public enum EquipmentTypes
 {
+    None,
     All,
     Weapon,
     Shield,
     STL,
     FTL,
     Hull,
-    Targeting,
+    Scanner,
     Cargo,
     Collector,
     Relic,

@@ -10,7 +10,11 @@ public class InventoryUI : MonoBehaviour
 
     public Transform slotsParent;
 
-    InventorySlot[] slots = new InventorySlot[20];
+    public Transform eqipmentSlotsParent;
+
+    InventorySlot[] slots;
+
+    EquipmentSlot[] equipmentSlots;
 
     public TMP_Text text;
 
@@ -20,6 +24,7 @@ public class InventoryUI : MonoBehaviour
         inventory.onItemChangedCallback += UpdateUI;
 
         slots = slotsParent.GetComponentsInChildren<InventorySlot>();
+        equipmentSlots = eqipmentSlotsParent.GetComponentsInChildren<EquipmentSlot>();
         UpdateUI();
     }
 
@@ -60,6 +65,10 @@ public class InventoryUI : MonoBehaviour
                 }
             }
             slots[i].Refresh();
+        }
+        for (int i = 0; i < equipmentSlots.Length; i++)
+        {
+            equipmentSlots[i].Refresh();
         }
         text.text = new string(inventory.items.Count + " / " + slots.Length);
     }
