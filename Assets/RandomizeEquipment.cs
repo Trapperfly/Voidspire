@@ -93,7 +93,7 @@ public class RandomizeEquipment : MonoBehaviour
         weapon.color = typeColor[(int)EquipmentTypes.Weapon];
         weapon.equipType = EquipmentTypes.Weapon;
 
-        weapon.weaponType = (WeaponType)iR(0,2);
+        weapon.weaponType = (WeaponType)iR(0,3);
         weapon.damage = fR(damage);
         weapon.bulletSize = fR(bulletSize);
         weapon.fireRate = fR(fireRate);

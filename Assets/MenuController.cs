@@ -11,17 +11,24 @@ public class MenuController : MonoBehaviour
     [SerializeField] GameObject inventory;
     [SerializeField] Object startScene;
     [SerializeField] Object mainMenuScene;
+
+    bool inventoryActive;
+    bool mapActive;
+    bool escActive;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) PauseGame();
-        if (Input.GetKeyDown(KeyCode.M)) MapMode();
-        if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)) Inventory();
+        if (inventoryActive && Input.GetKeyDown(KeyCode.Escape)) Inventory();
+        else if (mapActive && Input.GetKeyDown(KeyCode.Escape)) MapMode();
+        else if (Input.GetKeyDown(KeyCode.Escape)) PauseGame();
+        if (!escActive && !inventoryActive && Input.GetKeyDown(KeyCode.M)) MapMode();
+        if (!escActive && !mapActive && Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)) Inventory();
     }
 
     public void PauseGame()
     {
         if (!gamePaused)
         {
+            escActive = true;
             gamePaused = true;
             Time.timeScale = 0f;
             pauseMenu.SetActive(true);
@@ -31,8 +38,8 @@ public class MenuController : MonoBehaviour
 
     public void MapMode()
     {
-        if (map.activeSelf) map.SetActive(false);
-        else map.SetActive(true);
+        if (map.activeSelf) { map.SetActive(false); mapActive = false; }
+        else { map.SetActive(true); mapActive = true; }
     }
 
     public void Inventory()
@@ -41,11 +48,13 @@ public class MenuController : MonoBehaviour
         {
             Time.timeScale = 1f;
             inventory.SetActive(false);
+            inventoryActive = false;
         }
         else
         {
             Time.timeScale = 0f;
             inventory.SetActive(true);
+            inventoryActive = true;
         }
 
     }
@@ -55,6 +64,7 @@ public class MenuController : MonoBehaviour
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
         gamePaused = false;
+        escActive = false;
     }
 
     public void ExitGame()
