@@ -7,7 +7,8 @@ public class GunFire : MonoBehaviour
 {
     GunStats stat;
     Transform bulletHolder;
-    [SerializeField] GunController gc;
+    GunController gc;
+    public Weapon w;
     [SerializeField] AdjustToTarget target;
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] GunMaster gunMaster;
@@ -28,37 +29,63 @@ public class GunFire : MonoBehaviour
 
     private void Awake()
     {
+        GunController.Instance.onGunLoadComplete += CustomStart;
         stat = GetComponent<GunStats>();
         gunPoint = GetComponent<GunPoint>();
     }
     private void Start()
     {
-        bulletHolder = gc.bc.transform;
-        fireRateA = stat.fireRate;
-        spreadA = stat.spread;
+        //gc = GunController.Instance;
+        //Debug.Log(gc);
+        //w = gc.weapons[stat.gunNumber].item as Weapon;
+        //bulletHolder = gc.bc[stat.gunNumber].transform;
+        //fireRateA = w.fireRate;
+        //spreadA = w.spread;
+    }
+
+    private void CustomStart()
+    {
+        Debug.Log("CustomStartActivated");
+        gc = GunController.Instance;
+        Debug.Log(gc);
+        SetNewWeapon();
+        bulletHolder = gc.bc[stat.gunNumber].transform;
+        fireRateA = w.fireRate;
+        spreadA = w.spread;
+        GunController.Instance.onGunLoadComplete -= CustomStart;
+        GunController.Instance.onGunLoadComplete += SetNewWeapon;
+    }
+
+    public void SetNewWeapon()
+    {
+        w = gc.weapons[stat.gunNumber].item as Weapon;
+        SpriteRenderer wSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        if (w) { wSprite.sprite = w.icon; wSprite.enabled = true; gunPoint.rotSpeed = w.rotationSpeed; }
+        else { wSprite.enabled = false; wSprite.sprite = null; }
+        stat.active = w != null;
     }
     private void FixedUpdate()
     {
-        if (stat.active && Input.GetKey(KeyCode.Mouse0) && gunTimer >= Mathf.Clamp(60 / fireRateA, 1, 600))
+        if (stat.aimed && stat.active && Input.GetKey(KeyCode.Mouse0) && gunTimer >= Mathf.Clamp(60 / fireRateA, 1, 600))
         {
-            if (stat.fireRateChange != 0 && stat.fireRateChangeTimer != 0)
+            if (w.fireRateChange != 0 && w.fireRateChangeTimer != 0)
             {
-                fireRateScalar += (1 / fireRateA) / stat.fireRateChangeTimer;
+                fireRateScalar += (1 / fireRateA) / w.fireRateChangeTimer;
             }
-            if (stat.spreadChange != 0 && stat.spreadChangeTimer != 0)
+            if (w.spreadChange != 0 && w.spreadChangeTimer != 0)
             {
-                spreadScalar += (1 / fireRateA) / stat.spreadChangeTimer;
+                spreadScalar += (1 / fireRateA) / w.spreadChangeTimer;
             }
             FindExtraShotChance(fireRateA);
-            if (stat.chargeUp == 0 || charge > stat.chargeUp * 60)
+            if (w.chargeUp == 0 || charge > w.chargeUp * 60)
             {
-                if (stat.burst != 0 && !inBurst)
+                if (w.burst != 0 && !inBurst)
                 {
-                    StartCoroutine(Burst(stat.burst, stat.burstDelay));
+                    StartCoroutine(Burst(w.burst, w.burstDelay));
                 }
                 else if (!inBurst)
                 {
-                    for (int i = stat.amount + extraShot; i > 0; i--)
+                    for (int i = w.amount + extraShot; i > 0; i--)
                     {
                         Shoot();
                         charge = 0;
@@ -67,7 +94,7 @@ public class GunFire : MonoBehaviour
                     extraShot = 0;
                 }
             }
-            else if (stat.chargeUp != 0 && chargeAvailable == true)
+            else if (w.chargeUp != 0 && chargeAvailable == true)
             {
                 charge++;
             }
@@ -81,32 +108,36 @@ public class GunFire : MonoBehaviour
             chargeAvailable = true;
             if (fireRateScalar > 0)
             {
-                fireRateScalar -= (1f / (60f)) / stat.fireRateChangeTimer * 2;
+                fireRateScalar -= (1f / (60f)) / w.fireRateChangeTimer * 2;
             }
             if (spreadScalar > 0)
             {
-                spreadScalar -= (1f / (60f)) / stat.spreadChangeTimer * 2;
+                spreadScalar -= (1f / (60f)) / w.spreadChangeTimer * 2;
             }
         }
-        fireRateA = Mathf.Lerp(stat.fireRate, stat.fireRate + stat.fireRateChange, fireRateScalar);
-        if (fireRateScalar < 0 || fireRateScalar > 1)
-            fireRateScalar = Mathf.Clamp(fireRateScalar, 0, 1);
-        if (fireRateA != stat.fireRate && fireRateScalar == 0)
-            fireRateA = stat.fireRate;
+        if (stat.active)
+        {
+            fireRateA = Mathf.Lerp(w.fireRate, w.fireRate + w.fireRateChange, fireRateScalar);
+            if (fireRateScalar < 0 || fireRateScalar > 1)
+                fireRateScalar = Mathf.Clamp(fireRateScalar, 0, 1);
+            if (fireRateA != w.fireRate && fireRateScalar == 0)
+                fireRateA = w.fireRate;
 
-        spreadA = Mathf.Lerp(stat.spread, stat.spread + stat.spreadChange, spreadScalar);
-        if (spreadScalar < 0 || spreadScalar > 1)
-            spreadScalar = Mathf.Clamp(spreadScalar, 0, 1);
-        if (spreadA != stat.spread && spreadScalar == 0)
-            spreadA = stat.spread;
-        gunTimer++;
+            spreadA = Mathf.Lerp(w.spread, w.spread + w.spreadChange, spreadScalar);
+            if (spreadScalar < 0 || spreadScalar > 1)
+                spreadScalar = Mathf.Clamp(spreadScalar, 0, 1);
+            if (spreadA != w.spread && spreadScalar == 0)
+                spreadA = w.spread;
+            gunTimer++;
+        }
+        else { spreadA = 0; fireRateA = 0; gunTimer = 0; }
     }
     IEnumerator Burst(int times, float delay)
     {
         inBurst = true;
         for (int b = times; b > 0; b--)
         {
-            for (int i = stat.amount + extraShot; i > 0; i--)
+            for (int i = w.amount + extraShot; i > 0; i--)
             {
                 Shoot();
                 charge = 0;
@@ -121,40 +152,40 @@ public class GunFire : MonoBehaviour
 
     void Shoot()
     {
-        switch (stat.bulletType)
+        switch (w.weaponType)
         {
-            case BulletType.Bullet:
+            case WeaponType.Bullet:
                 StartCoroutine(ShootBullet());
                 break;
-            case BulletType.Laser:
+            case WeaponType.Laser:
                 break;
-            case BulletType.Wave:
+            case WeaponType.Wave:
                 break;
-            case BulletType.Rocket:
+            case WeaponType.Rocket:
                 break;
-            case BulletType.Needle:
+            case WeaponType.Needle:
                 break;
-            case BulletType.Railgun:
+            case WeaponType.Railgun:
                 StartCoroutine(ShootRailgun());
                 break;
-            case BulletType.Mine:
+            case WeaponType.Mine:
                 break;
-            case BulletType.Hammer:
+            case WeaponType.Hammer:
                 break;
-            case BulletType.Cluster:
+            case WeaponType.Cluster:
                 break;
-            case BulletType.Arrow:
+            case WeaponType.Arrow:
                 break;
-            case BulletType.Mirage:
+            case WeaponType.Mirage:
                 break;
-            case BulletType.Grand:
+            case WeaponType.Grand:
                 break;
-            case BulletType.Void:
+            case WeaponType.Void:
                 break;
-            case BulletType.Beam:
+            case WeaponType.Beam:
                 if (!beamActive) StartCoroutine(ShootBeam());
                 break;
-            case BulletType.Blade:
+            case WeaponType.Blade:
                 break;
             default:
                 break;
@@ -162,10 +193,12 @@ public class GunFire : MonoBehaviour
     }
     public IEnumerator ShootBullet()
     {
-        GameObject bullet = Instantiate(stat.bulletPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
-        bullet.GetComponent<Bullet>().bc = gc.bc;
-        bullet.transform.localScale *= stat.bulletSize;
-        bullet.GetComponent<Rigidbody2D>().velocity = transform.up * Speed(stat.speed);
+        Debug.Log("Trying to shoot bullet");
+        GameObject bullet = Instantiate(gc.bulletPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
+        Debug.Log(Spread(transform.rotation));
+        bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
+        bullet.transform.localScale *= w.bulletSize;
+        bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * Speed(w.speed);
         gunTimer = 0;
         gunMaster.hasFired = true;
         yield return null;
@@ -174,26 +207,26 @@ public class GunFire : MonoBehaviour
     public IEnumerator ShootBeam()
     {
         beamActive = true;
-        LineRenderer beam = Instantiate(stat.beamPrefab, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation, bulletSpawnPoint).GetComponent<LineRenderer>();
-        ParticleSystem beamHitPs = Instantiate(stat.beamPsPrefab).GetComponent<ParticleSystem>();
+        LineRenderer beam = Instantiate(gc.beamPrefab, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation, bulletSpawnPoint).GetComponent<LineRenderer>();
+        ParticleSystem beamHitPs = Instantiate(gc.beamPsPrefab).GetComponent<ParticleSystem>();
         var emis = beamHitPs.emission;
         gunMaster.hasFired = true;
         gunTimer = 0;
         while (Input.GetMouseButton(0) && stat.active)
         {
             //Calculate baser and hit
-            RaycastHit2D hit = Physics2D.Raycast(bulletSpawnPoint.position, bulletSpawnPoint.up, stat.longevity * stat.speed / 5, rayHitMask);
+            RaycastHit2D hit = Physics2D.Raycast(bulletSpawnPoint.position, bulletSpawnPoint.up, w.longevity * w.speed / 5, rayHitMask);
             Damagable dm = null;
             if (hit && hit.collider.GetComponent<Damagable>())
                 dm = hit.collider.GetComponent<Damagable>();
             if (hit && dm) 
-                dm.TakeDamage(stat.damage * Time.deltaTime * fireRateA);
+                dm.TakeDamage(w.damage * Time.deltaTime * fireRateA);
             
 
             //Viusal effects
             if (!hit)
             {
-                beam.SetPosition(1, new Vector2(0, 1) * stat.longevity * stat.speed / 5);
+                beam.SetPosition(1, new Vector2(0, 1) * w.longevity * w.speed / 5);
                 emis.enabled = false;
             }
             else
@@ -218,7 +251,7 @@ public class GunFire : MonoBehaviour
         LineRenderer hitscan = 
             Instantiate
             (
-                stat.railgunPrefab, 
+                gc.railgunPrefab, 
                 bulletSpawnPoint.TransformPoint(bulletSpawnPoint.transform.position), 
                 new Quaternion(0,0,0,0), 
                 bulletHolder
@@ -227,7 +260,7 @@ public class GunFire : MonoBehaviour
         ParticleSystem hitscanLinePs =
             Instantiate
             (
-                stat.railgunLinePsPrefab,
+                gc.railgunLinePsPrefab,
                 bulletSpawnPoint.position,
                 bulletSpawnPoint.rotation,
                 null
@@ -236,24 +269,24 @@ public class GunFire : MonoBehaviour
         ParticleSystem.ShapeModule shape = hitscanLinePs.shape;
         ParticleSystem.Burst burst = hitscanLinePs.emission.GetBurst(0);
 
-        RaycastHit2D hit = Physics2D.Raycast(bulletSpawnPoint.position, bulletSpawnPoint.up, stat.longevity * stat.speed / 5, rayHitMask);
+        RaycastHit2D hit = Physics2D.Raycast(bulletSpawnPoint.position, bulletSpawnPoint.up, w.longevity * w.speed / 5, rayHitMask);
         Debug.DrawRay(bulletSpawnPoint.position, bulletSpawnPoint.up);
         Damagable dm = null;
         if (hit && hit.collider.GetComponent<Damagable>())
             dm = hit.collider.GetComponent<Damagable>();
         if (hit && dm)
-            dm.TakeDamage(stat.damage);
+            dm.TakeDamage(w.damage);
 
 
         //Viusal effects
         if (!hit)
         {
             hitscan.SetPosition(0, bulletSpawnPoint.transform.position);
-            hitscan.SetPosition(1, bulletSpawnPoint.transform.position + (stat.longevity * stat.speed * bulletSpawnPoint.up / 5));
+            hitscan.SetPosition(1, bulletSpawnPoint.transform.position + (w.longevity * w.speed * bulletSpawnPoint.up / 5));
         }
         else
         {
-            ParticleSystem hitscanHitPs = Instantiate(stat.railgunPsPrefab).GetComponent<ParticleSystem>();
+            ParticleSystem hitscanHitPs = Instantiate(gc.railgunPsPrefab).GetComponent<ParticleSystem>();
             hitscan.SetPosition(0, bulletSpawnPoint.transform.position);
             hitscan.SetPosition(1, hit.point);
             hitscanHitPs.transform.position = hit.point;
@@ -284,7 +317,7 @@ public class GunFire : MonoBehaviour
     float Speed(float baseSpeed)
     {
         float spreadSpeed = baseSpeed;
-        if (stat.amount > 1)
+        if (w.amount > 1)
         {
             if (Random.value >= .5f)
                 spreadSpeed *= 1 + CurveWeightedRandom(stat.speedCurve);

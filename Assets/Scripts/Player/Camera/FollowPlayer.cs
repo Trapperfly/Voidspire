@@ -9,9 +9,11 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] float followSpeed;
     [SerializeField] float updateSpeed;
     GameObject targetPosition;
+    float zPos;
 
     private void Awake()
     {
+        zPos = transform.position.z;
         targetPosition = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -30,8 +32,8 @@ public class FollowPlayer : MonoBehaviour
             else
             {
                 Vector2 currentPosition = transform.position;
-                Vector2 target = Extension.AsVector2(targetPosition.transform.position);
-                transform.position = Vector2.Lerp(currentPosition, target, followSpeed);
+                Vector3 target = new Vector3(targetPosition.transform.position.x, targetPosition.transform.position.y, zPos);
+                transform.position = Vector3.Lerp(new Vector3(currentPosition.x, currentPosition.y, zPos), target, followSpeed);
                 yield return new WaitForSeconds(updateSpeed);
             }
         }

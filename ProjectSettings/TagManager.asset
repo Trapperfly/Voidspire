@@ -17,6 +17,7 @@ TagManager:
   - Weapon
   - Inventory
   - ItemPanel
+  - GunOnShip
   layers:
   - Default
   - TransparentFX

@@ -9,13 +9,14 @@ public class GunPoint : MonoBehaviour
     [SerializeField] bool targetBased;
     [SerializeField] bool limitRot;
     [SerializeField] Vector2 limitRotValues;
-    [SerializeField] float rotSpeed;
+    public float rotSpeed;
     [SerializeField] bool advancedTargeting;
     [SerializeField] bool notAGun;
     [SerializeField] bool noFireWhenOutOfReach;
     public bool doRotate = true;
     ActiveTarget target;
     AIGunStats aiGun;
+    GunFire gunFire;
     GunStats gun;
     Transform bsp;
     Vector3 position;
@@ -65,7 +66,7 @@ public class GunPoint : MonoBehaviour
                     position = (Vector2)target.target.position 
                         + (target.targetRB.velocity 
                         * (Vector2.Distance(bsp.position, target.target.position) 
-                        / gun.speed));
+                        / gunFire.w.speed));
                     Debug.DrawLine(bsp.position, position);
                 }
                 else if (aiGun != null)
@@ -105,10 +106,10 @@ public class GunPoint : MonoBehaviour
 
                 if (noFireWhenOutOfReach && (unclampedAngle - normal <= limitRotValues.x || unclampedAngle - normal >= limitRotValues.y))
                 {
-                    gun.active = false;
+                    gun.aimed = false;
                     //Debug.Log("Kake");
                 }
-                else gun.active = true;
+                else gun.aimed = true;
             }
                 
             else transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, unclampedAngle), rotSpeed);

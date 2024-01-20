@@ -26,7 +26,7 @@ public class Inventory : MonoBehaviour
 
     public int inventorySpace;
 
-    public int id = 1;
+    public int id = 100;
 
     public List<Item> items = new();
     public List<Item> equipment = new();
@@ -68,12 +68,14 @@ public class Inventory : MonoBehaviour
         if (slot0 is EquipmentSlot) { s0Equip = true; }
         if (slot1 is EquipmentSlot) { s1Equip = true; }
 
-        if (slot0.item != null) { s0Filled = true; }
-        if (slot1.item != null) { s1Filled = true; }
+        if (slot0.item != null && slot0 is not TrashSlot) { s0Filled = true; }
+        if (slot1.item != null && slot1 is not TrashSlot) { s1Filled = true; }
 
         if (s0Filled) 
-        { 
-            slot1.item = slot0.item;
+        {
+            if (slot1 is TrashSlot) { if (s0Equip) { equipment.Remove(slot0.item); } else items.Remove(slot0.item); slot0.item = null; }
+            else { slot1.item = slot0.item; }
+
             if (s1Equip && !s0Equip) { items.Remove(slot0.item); equipment.Add(slot0.item); }
             else if (!s1Equip && s0Equip) { equipment.Remove(slot0.item); items.Add(slot0.item); }
             
@@ -81,8 +83,10 @@ public class Inventory : MonoBehaviour
         else { Debug.Log("Slot 0 was empty, so slot 1 is set to null"); slot1.item = null; }
 
         if (s1Filled) 
-        { 
-            slot0.item = itemTemp;
+        {
+            if (slot0 is TrashSlot) { if (s1Equip) { equipment.Remove(slot1.item); } else items.Remove(slot1.item); slot1.item = null; }
+            else { slot0.item = itemTemp; }
+
             if (s0Equip && !s1Equip) { items.Remove(itemTemp); equipment.Add(itemTemp); }
             else if (!s0Equip && s1Equip) { equipment.Remove(itemTemp); items.Add(itemTemp); }
         }

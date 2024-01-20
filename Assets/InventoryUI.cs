@@ -3,29 +3,57 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using static Inventory;
 
 public class InventoryUI : MonoBehaviour
 {
+
+    public delegate void OnInventoryLoad();
+    public OnItemChanged onInventoryLoadCallback;
+
     Inventory inventory;
 
     public Transform slotsParent;
 
     public Transform eqipmentSlotsParent;
 
-    InventorySlot[] slots;
+    public InventorySlot[] slots;
 
-    EquipmentSlot[] equipmentSlots;
+    public EquipmentSlot[] equipmentSlots;
 
     public TMP_Text text;
 
+    #region Singleton
+    public static InventoryUI Instance;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+        slots = slotsParent.GetComponentsInChildren<InventorySlot>();
+        equipmentSlots = eqipmentSlotsParent.GetComponentsInChildren<EquipmentSlot>();
+    }
+    #endregion
     private void Start()
     {
         inventory = Inventory.Instance;
         inventory.onItemChangedCallback += UpdateUI;
-
-        slots = slotsParent.GetComponentsInChildren<InventorySlot>();
-        equipmentSlots = eqipmentSlotsParent.GetComponentsInChildren<EquipmentSlot>();
+        CheckStartingEquipment();
         UpdateUI();
+    }
+
+    public void CheckStartingEquipment()
+    {
+        foreach (var slot in equipmentSlots)
+        {
+            if (slot.item) inventory.equipment.Add(slot.item);
+        }
     }
 
     private void UpdateUI()
@@ -52,7 +80,8 @@ public class InventoryUI : MonoBehaviour
             {
                 for (int j = 0; j < inventory.items.Count; j++)
                 {
-                    if (loggedItems.Contains(inventory.items[j].id))
+                    if (!inventory.items[j]) { Debug.Log("Special case: deleted item i guess. If not deleted, then this is issue"); }
+                    else if (loggedItems.Contains(inventory.items[j].id))
                     {
                         Debug.Log("It contained the thing");
                     }

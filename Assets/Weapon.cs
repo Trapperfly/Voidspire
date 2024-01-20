@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "New Equipment", menuName = "Inventory/Equipment/Weapon")]
 public class Weapon : Equipment
 {
+    public WeaponType weaponType;
     public float damage;              //On bullet
-    public float damageChange;        //On bullet
     public float bulletSize;          //On gun
-    public float bulletSizeChange;    //On bullet
     public float fireRate;            //On gun
     public float fireRateChange;   //On gun
     public float fireRateChangeTimer; //On gun
@@ -16,14 +16,12 @@ public class Weapon : Equipment
     public float spreadChange;        //On gun
     public float spreadChangeTimer;
     public float speed;               //On gun
-    public float speedChange;         //On bullet
     public float longevity;           //On bullet
     [Header("Specials")]
     public bool homing;               //On bullet
     public float homingStrength;      //On bullet
     public int pierce;                //On bullet
     public int bounce;                //On bullet
-    //[SerializeField] bool bounceToTarget;
     [Header("Misc")]
     public float chargeUp;            //On gun
     public int burst;                 //On gun
@@ -37,4 +35,23 @@ public class Weapon : Equipment
     [Header("Gun attributes")]
     public Vector2 rotationAngle;
     public float rotationSpeed;
+}
+
+public enum WeaponType
+{
+    Bullet,
+    Beam,
+    Railgun,
+    Laser,
+    Wave,
+    Rocket,
+    Needle,
+    Mine,
+    Hammer,
+    Cluster,
+    Arrow,
+    Mirage,
+    Grand,
+    Void,
+    Blade
 }

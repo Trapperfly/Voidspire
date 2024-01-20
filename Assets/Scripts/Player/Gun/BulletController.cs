@@ -5,31 +5,39 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     public float damage;
-    public float damageChange;
-    public float sizeChange;
     public float speed;
-    public float speedChange;
     public float bulletLongevity;
     public int pierce;
     public int bounce;
-    public bool bounceToTarget;
     public bool homing;
     public float homingStrength;
     public float punch;
-    public bool trigger;
+    //public bool trigger;
     public float weightScalar;
     public Transform target;
-    private void Awake()
+
+    public void Copy(Weapon weapon)
     {
-        
+        if (weapon == null) { }
+        else
+        {
+            weightScalar = GunController.Instance.weightScalar;
+            damage = weapon.damage;
+            speed = weapon.speed;
+            bulletLongevity = weapon.longevity;
+            pierce = weapon.pierce;
+            bounce = weapon.bounce;
+            homing = weapon.homing;
+            homingStrength = weapon.homingStrength;
+            punch = weapon.punch;
+        }
     }
 
     private void FixedUpdate()
     {
         foreach (Transform child in transform)
         {
-            Bullet _bullet = child.GetComponent<Bullet>();
-            if (_bullet == null)
+            if (!child.TryGetComponent<Bullet>(out var _bullet))
             {
                 Debug.Log("Bullet is null, Help!");
             }
