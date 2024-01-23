@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Equipment", menuName = "Inventory/Equipment")]
@@ -8,6 +9,11 @@ public class Equipment : Item
     public EquipmentTypes equipType;
 
     public Quality quality;
+
+    public string statsText;
+    public string statsValues;
+
+    public int statLength;
 
     public override void Use()
     {

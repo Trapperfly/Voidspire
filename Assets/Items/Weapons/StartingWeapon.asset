@@ -12,21 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3391917e8223d0d478c012486da74a30, type: 3}
   m_Name: StartingWeapon
   m_EditorClassIdentifier: 
-  itemName: StartingWeapon
+  itemName: Starting Weapon
   description: 
   icon: {fileID: 21300000, guid: 4c5c55c2b4831f64c84d1d547a93b373, type: 3}
   isDefault: 0
   id: 0
+  value: 0
   color: {r: 1, g: 0, b: 0, a: 1}
   equipType: 2
   quality: 0
+  statsText: Its stats are obscured...
+  statsValues: 
+  statLength: 1
   weaponType: 0
   damage: 1
   bulletSize: 1
   fireRate: 10
   fireRateChange: 0
   fireRateChangeTimer: 0
-  amount: 2
+  amount: 1
   spread: 10
   spreadChange: 0
   spreadChangeTimer: 0

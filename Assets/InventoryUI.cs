@@ -13,6 +13,8 @@ public class InventoryUI : MonoBehaviour
 
     Inventory inventory;
 
+    public Transform inventoryGraphicsParent;
+
     public Transform slotsParent;
 
     public Transform eqipmentSlotsParent;

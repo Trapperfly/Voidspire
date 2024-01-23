@@ -10,6 +10,7 @@ public class Item : ScriptableObject
     public Sprite icon;
     public bool isDefault;
     public int id;
+    public int value;
     public Color color;
 
     public virtual void Use()

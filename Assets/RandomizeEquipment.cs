@@ -1,9 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RandomizeEquipment : MonoBehaviour
 {
+    bool fireRateBonus;
+    bool accuracyBonus;
+    bool isHoming;
+    bool isBounce;
+    bool isPierce;
+    bool isBurst;
+    bool isCharge;
+
     [Header("Arrays")]
     [SerializeField] Sprite[] hullSprites;
     [SerializeField] Sprite[] shieldSprites;
@@ -13,6 +22,8 @@ public class RandomizeEquipment : MonoBehaviour
 
     public Color[] typeColor;
     [Space]
+
+    public Transform textBoxParent;
 
     #region WeaponRandomizing
     [SerializeField] Sprite[] gunSprites;
@@ -77,7 +88,7 @@ public class RandomizeEquipment : MonoBehaviour
     {
         return (int)Random.Range((float)minMax.x, minMax.y);
     }
-
+    #region RandomizeGun
     public Weapon RandomizeGun()
     {
         Weapon weapon = ScriptableObject.CreateInstance<Weapon>();
@@ -115,8 +126,125 @@ public class RandomizeEquipment : MonoBehaviour
         weapon.punch = fR(punch);
         weapon.rotationSpeed = fR(rotationSpeed);
 
+        #region Weapon type stats text
+        string statsNames = "Something is wong";
+        string statsValues = "WTF";
+        switch (weapon.weaponType)
+        {
+            case WeaponType.Bullet:
+                statsNames = "";
+                statsNames += "Damage:\n"; weapon.statLength++;
+                if (isBurst) { statsNames += "\n" + "Burst:\n" + "Burst delay:\n"; weapon.statLength++; }
+                if (isCharge) { statsNames += "\n" + "Charge up:\n"; weapon.statLength++; }
+                statsNames += "Fire rate:\n"; weapon.statLength++;
+                if (isPierce) { statsNames += "\n" + "Piercing:\n"; weapon.statLength++; }
+                if (isBounce) { statsNames += "\n" + "Bounces:\n"; weapon.statLength++; }
+                statsNames += "Bullet size:\n"; weapon.statLength++;
+                statsNames += "Projectiles:\n"; weapon.statLength++;
+                if (isHoming) { statsNames += "\n" + "Homing:\n" + "Strength:\n"; weapon.statLength++; }
+                statsNames += "Spread:\n"; weapon.statLength++;
+                statsNames += "Speed:\n"; weapon.statLength++;
+                statsNames += "Projectile life:\n"; weapon.statLength++;
+                statsNames += "Punch:\n"; weapon.statLength++;
+                statsNames += "Rotation speed:\n"; weapon.statLength++;
+
+                statsValues = "";
+                statsValues += weapon.damage.ToString("F2") + "\n";
+                if (isBurst) statsValues += "\n" + weapon.burst + "\n" + weapon.burstDelay.ToString("F3") + "\n";
+                if (isCharge) statsValues += "\n" + weapon.chargeUp.ToString("F2") + "\n";
+                if (fireRateBonus) { statsValues += weapon.fireRate.ToString("F2") + " -> " + (weapon.fireRate + weapon.fireRateChange).ToString("F2") + "\n"; }
+                else { statsValues += weapon.fireRate.ToString("F2") + "\n"; }
+                if (isPierce) statsValues += "\n" + weapon.pierce + "\n";
+                if (isBounce) statsValues += "\n" + weapon.bounce + "\n";
+                statsValues += weapon.bulletSize.ToString("F2") + "\n";
+                statsValues += weapon.amount + "\n";
+                if (isHoming) statsValues += "\n" + weapon.homing + "\n" + weapon.homingStrength.ToString("F2") + "\n";
+                if (accuracyBonus) { statsValues += weapon.spread.ToString("F2") + " -> " + (weapon.spread + weapon.spreadChange).ToString("F2") + "\n"; }
+                else { statsValues += weapon.spread.ToString("F2") + "\n"; }
+                statsValues += weapon.speed.ToString("F2") + "\n";
+                statsValues += weapon.longevity.ToString("F2") + "\n";
+                statsValues += weapon.punch.ToString("F2") + "\n";
+                statsValues += weapon.rotationSpeed.ToString("F2") + "\n";
+                break;
+            case WeaponType.Beam:
+                statsNames = "";
+                statsNames += "DPS:\n"; weapon.statLength++;
+                //if (isPierce) statsNames += "\n" + "Piercing:\n";
+                statsNames += "Range:\n"; weapon.statLength++;
+                statsNames += "Rotation speed:\n"; weapon.statLength++;
+
+                statsValues = "";
+                if (fireRateBonus) { statsValues += ((weapon.damage + weapon.fireRate) * weapon.amount).ToString("F2") + 
+                        " -> "
+                        + (weapon.damage * (weapon.fireRate + weapon.fireRateChange) * weapon.amount).ToString("F2") + "\n"; }
+                else { statsValues += (weapon.damage * weapon.fireRate * weapon.amount).ToString("F2") + "\n"; }
+                //if (isPierce) statsValues += "\n" + weapon.pierce + "\n";
+                statsValues += (weapon.speed * weapon.longevity).ToString("F2") + "\n";
+                statsValues += weapon.rotationSpeed.ToString("F2") + "\n";
+                break;
+            case WeaponType.Railgun:
+                statsNames = "";
+                statsNames += "Damage:\n"; weapon.statLength++;
+                if (isBurst) { statsNames += "\n" + "Burst:\n" + "Burst delay:\n"; weapon.statLength++; }
+                if (isCharge) { statsNames += "\n" + "Charge up:\n"; weapon.statLength++; }
+                statsNames += "Fire rate:\n"; weapon.statLength++;
+                //if (isPierce) statsNames += "\n" + "Piercing:\n";
+                statsNames += "Projectiles:\n"; weapon.statLength++;
+                statsNames += "Spread:\n"; weapon.statLength++;
+                statsNames += "Range:\n"; weapon.statLength++;
+                //statsNames += "Punch:\n";
+                statsNames += "Rotation speed:\n"; weapon.statLength++;
+
+                statsValues = "";
+                statsValues += weapon.damage.ToString("F2") + "\n";
+                if (isBurst) statsValues += "\n" + weapon.burst + "\n" + weapon.burstDelay.ToString("F3") + "\n";
+                if (isCharge) statsValues += "\n" + weapon.chargeUp.ToString("F2") + "\n";
+                if (fireRateBonus) { statsValues += weapon.fireRate.ToString("F2") + " -> " + (weapon.fireRate + weapon.fireRateChange).ToString("F2") + "\n"; }
+                else { statsValues += weapon.fireRate.ToString("F2") + "\n"; }
+                //if (isPierce) statsValues += "\n" + weapon.pierce + "\n";
+                statsValues += weapon.amount + "\n";
+                if (accuracyBonus) { statsValues += weapon.spread.ToString("F2") + " -> " + (weapon.spread + weapon.spreadChange).ToString("F2") + "\n"; }
+                else { statsValues += weapon.spread.ToString("F2") + "\n"; }
+                statsValues += (weapon.speed * weapon.longevity).ToString("F2") + "\n";
+                //statsValues += weapon.punch + "\n";
+                statsValues += weapon.rotationSpeed.ToString("F2") + "\n";
+                break;
+            case WeaponType.Laser:
+                break;
+            case WeaponType.Wave:
+                break;
+            case WeaponType.Rocket:
+                break;
+            case WeaponType.Needle:
+                break;
+            case WeaponType.Mine:
+                break;
+            case WeaponType.Hammer:
+                break;
+            case WeaponType.Cluster:
+                break;
+            case WeaponType.Arrow:
+                break;
+            case WeaponType.Mirage:
+                break;
+            case WeaponType.Grand:
+                break;
+            case WeaponType.Void:
+                break;
+            case WeaponType.Blade:
+                break;
+            default:
+                break;
+        }
+        #endregion
+
+        weapon.statsText = statsNames;
+        Debug.Log(weapon.statsText);
+        weapon.statsValues = statsValues;
+
         return weapon;
     }
+    #endregion
 
     float CurveWeightedRandom(AnimationCurve curve)
     {

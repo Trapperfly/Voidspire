@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -27,6 +28,10 @@ public class DragAndDrop : MonoBehaviour,
     RectTransform line;
 
     public float time = 0.2f;
+
+    public GameObject infoBox;
+    public bool infoBoxActive;
+    GameObject activeInfoBox;
     public void OnBeginDrag(PointerEventData eventData)
     {
         slot0 = eventData.pointerDrag.GetComponent<InventorySlot>();
@@ -100,12 +105,41 @@ public class DragAndDrop : MonoBehaviour,
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+        Debug.Log(eventData.pointerEnter.transform.parent.parent.ToString());
+        Debug.Log(GetComponent<InventorySlot>().item);
         isHovering = true;
+        if (GetComponent<InventorySlot>().item)
+        {
+            activeInfoBox = 
+                Instantiate(infoBox, 
+                (Vector2)transform.position + new Vector2(55, 55), 
+                new Quaternion(), 
+                InventoryUI.Instance.inventoryGraphicsParent);
+            Equipment sItem = GetComponent<InventorySlot>().item as Equipment;
+            Image backPanel = activeInfoBox.transform.GetChild(0).GetComponent<Image>();
+            Image frontPanel = activeInfoBox.transform.GetChild(1).GetComponent<Image>();
+
+            frontPanel.rectTransform.sizeDelta =
+                new Vector2(frontPanel.rectTransform.sizeDelta.x, frontPanel.rectTransform.sizeDelta.y + (26 * sItem.statLength));
+            backPanel.rectTransform.sizeDelta = 
+                new Vector2(backPanel.rectTransform.sizeDelta.x, backPanel.rectTransform.sizeDelta.y + (26 * sItem.statLength));
+
+            backPanel.color = sItem.color;
+            TMP_Text[] texts = activeInfoBox.GetComponentsInChildren<TMP_Text>();
+            texts[0].text = sItem.itemName;
+            texts[1].text = (sItem as Weapon).weaponType.ToString() + " - Weapon";
+            texts[2].text = sItem.statsText;
+            texts[3].text = sItem.statsValues;
+            infoBoxActive = true;
+        }
         Debug.Log("hovering");
     }
     public void OnPointerExit(PointerEventData eventData)
     {
         isHovering = false;
+        Destroy(activeInfoBox);
+        activeInfoBox = null;
+        infoBoxActive = false;
         Debug.Log("not hovering");
     }
 
@@ -126,5 +160,11 @@ public class DragAndDrop : MonoBehaviour,
             StartCoroutine(line.GetComponent<ShrinkAndExpire>().Shrink());
             line = null;
         }
+    }
+
+    private void OnDisable()
+    {
+        Destroy(activeInfoBox);
+        activeInfoBox= null;
     }
 }

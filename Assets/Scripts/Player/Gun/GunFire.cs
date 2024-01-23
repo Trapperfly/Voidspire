@@ -195,7 +195,6 @@ public class GunFire : MonoBehaviour
     {
         Debug.Log("Trying to shoot bullet");
         GameObject bullet = Instantiate(gc.bulletPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
-        Debug.Log(Spread(transform.rotation));
         bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
         bullet.transform.localScale *= w.bulletSize;
         bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * Speed(w.speed);
