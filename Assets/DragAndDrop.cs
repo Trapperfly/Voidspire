@@ -10,7 +10,7 @@ public class DragAndDrop : MonoBehaviour,
     IPointerDownHandler, 
     IPointerUpHandler,
     IBeginDragHandler, 
-    //IEndDragHandler, 
+    IEndDragHandler,
     IDragHandler, 
     IPointerEnterHandler, 
     IPointerExitHandler
@@ -31,9 +31,16 @@ public class DragAndDrop : MonoBehaviour,
 
     public GameObject infoBox;
     public bool infoBoxActive;
-    GameObject activeInfoBox;
+    public GameObject activeInfoBox;
+
+    DragAndDropMaster dnd;
+    private void Start()
+    {
+        dnd = DragAndDropMaster.Instance;
+    }
     public void OnBeginDrag(PointerEventData eventData)
     {
+        dnd.slot = transform;
         slot0 = eventData.pointerDrag.GetComponent<InventorySlot>();
         Debug.Log(slot0);
         line = new GameObject().AddComponent<RectTransform>();
@@ -57,6 +64,9 @@ public class DragAndDrop : MonoBehaviour,
             line.transform.rotation = Quaternion.AngleAxis(angle-90, Vector3.forward);
         }
     }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -70,10 +80,18 @@ public class DragAndDrop : MonoBehaviour,
         Debug.Log(eventData.pointerEnter.GetComponentInParent<InventorySlot>());
         Debug.Log(line);
         Debug.Log(isHovering);
+        dnd.slot = null;
+        Destroy(activeInfoBox);
+        activeInfoBox = null;
+        Destroy(dnd.savedInfoBox);
+        dnd.savedInfoBox = null;
         if (eventData.pointerEnter.CompareTag("ItemPanel")) // && allowed
         {
             slot1 = eventData.pointerEnter.GetComponentInParent<InventorySlot>();
-            bool dragged = (!slot0 || !slot1) ? false : true;
+
+            Destroy(eventData.pointerEnter.GetComponentInParent<DragAndDrop>().activeInfoBox);
+
+            bool dragged = slot0 && slot1;
             if (dragged && slot1 is EquipmentSlot && slot0.item is Equipment)
             {
                 EquipmentSlot s1 = slot1 as EquipmentSlot;
@@ -82,6 +100,7 @@ public class DragAndDrop : MonoBehaviour,
                 if (s1.allowed == e0.equipType || (int)s1.allowed == 1)
                 {
                     DoSwapAndShrink();
+                    eventData.pointerEnter.GetComponentInParent<DragAndDrop>().DisplayInfoBox(eventData.pointerEnter.transform.parent.parent);
                     return;
                 }
                 else { StartCoroutine(line.GetComponent<ShrinkAndExpire>().Expire()); line = null; return; }
@@ -94,6 +113,7 @@ public class DragAndDrop : MonoBehaviour,
                 if (s0.allowed == e1.equipType || (int)s0.allowed == 1)
                 {
                     DoSwapAndShrink();
+                    eventData.pointerEnter.GetComponentInParent<DragAndDrop>().DisplayInfoBox(eventData.pointerEnter.transform.parent.parent);
                     return;
                 }
                 else { StartCoroutine(line.GetComponent<ShrinkAndExpire>().Expire()); line = null; return; }
@@ -105,41 +125,37 @@ public class DragAndDrop : MonoBehaviour,
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (eventData.dragging && GetComponent<InventorySlot>().item && dnd.slot)
+        {
+            Debug.Log("Displaying ol box");
+            DisplayOldInfoBox(dnd.slot);
+        }
         Debug.Log(eventData.pointerEnter.transform.parent.parent.ToString());
         Debug.Log(GetComponent<InventorySlot>().item);
         isHovering = true;
         if (GetComponent<InventorySlot>().item)
         {
-            activeInfoBox = 
-                Instantiate(infoBox, 
-                (Vector2)transform.position + new Vector2(55, 55), 
-                new Quaternion(), 
-                InventoryUI.Instance.inventoryGraphicsParent);
-            Equipment sItem = GetComponent<InventorySlot>().item as Equipment;
-            Image backPanel = activeInfoBox.transform.GetChild(0).GetComponent<Image>();
-            Image frontPanel = activeInfoBox.transform.GetChild(1).GetComponent<Image>();
-
-            frontPanel.rectTransform.sizeDelta =
-                new Vector2(frontPanel.rectTransform.sizeDelta.x, frontPanel.rectTransform.sizeDelta.y + (26 * sItem.statLength));
-            backPanel.rectTransform.sizeDelta = 
-                new Vector2(backPanel.rectTransform.sizeDelta.x, backPanel.rectTransform.sizeDelta.y + (26 * sItem.statLength));
-
-            backPanel.color = sItem.color;
-            TMP_Text[] texts = activeInfoBox.GetComponentsInChildren<TMP_Text>();
-            texts[0].text = sItem.itemName;
-            texts[1].text = (sItem as Weapon).weaponType.ToString() + " - Weapon";
-            texts[2].text = sItem.statsText;
-            texts[3].text = sItem.statsValues;
-            infoBoxActive = true;
+            DisplayInfoBox(transform);
         }
         Debug.Log("hovering");
     }
     public void OnPointerExit(PointerEventData eventData)
     {
         isHovering = false;
-        Destroy(activeInfoBox);
-        activeInfoBox = null;
-        infoBoxActive = false;
+        if (eventData.dragging)
+        {
+            Destroy(activeInfoBox);
+            Destroy(dnd.savedInfoBox);
+            dnd.savedInfoBox = null;
+            activeInfoBox = null;
+            infoBoxActive = false;
+        }
+        else
+        {
+            Destroy(activeInfoBox);
+            activeInfoBox = null;
+            infoBoxActive = false;
+        }
         Debug.Log("not hovering");
     }
 
@@ -165,6 +181,58 @@ public class DragAndDrop : MonoBehaviour,
     private void OnDisable()
     {
         Destroy(activeInfoBox);
-        activeInfoBox= null;
+        Destroy(dnd.savedInfoBox);
+        dnd.savedInfoBox = null;
+        activeInfoBox = null;
+        dnd.slot = null;
+    }
+
+    private void DisplayInfoBox(Transform slot)
+    {
+        activeInfoBox =
+                Instantiate(infoBox,
+                (Vector2)slot.transform.position + new Vector2(55, 55),
+                new Quaternion(),
+                InventoryUI.Instance.inventoryGraphicsParent);
+        Equipment sItem = slot.GetComponent<InventorySlot>().item as Equipment;
+        Image backPanel = activeInfoBox.transform.GetChild(0).GetComponent<Image>();
+        Image frontPanel = activeInfoBox.transform.GetChild(1).GetComponent<Image>();
+
+        frontPanel.rectTransform.sizeDelta =
+            new Vector2(frontPanel.rectTransform.sizeDelta.x, frontPanel.rectTransform.sizeDelta.y + (26 * sItem.statLength));
+        backPanel.rectTransform.sizeDelta =
+            new Vector2(backPanel.rectTransform.sizeDelta.x, backPanel.rectTransform.sizeDelta.y + (26 * sItem.statLength));
+
+        backPanel.color = sItem.color;
+        TMP_Text[] texts = activeInfoBox.GetComponentsInChildren<TMP_Text>();
+        texts[0].text = sItem.itemName;
+        texts[1].text = (sItem as Weapon).weaponType.ToString() + " - Weapon";
+        texts[2].text = sItem.statsText;
+        texts[3].text = sItem.statsValues;
+        infoBoxActive = true;
+    }
+
+    private void DisplayOldInfoBox(Transform slot)
+    {
+        dnd.savedInfoBox =
+                Instantiate(infoBox,
+                (Vector2)slot.transform.position + new Vector2(55, 55),
+                new Quaternion(),
+                InventoryUI.Instance.inventoryGraphicsParent);
+        Equipment sItem = slot.GetComponent<InventorySlot>().item as Equipment;
+        Image backPanel = dnd.savedInfoBox.transform.GetChild(0).GetComponent<Image>();
+        Image frontPanel = dnd.savedInfoBox.transform.GetChild(1).GetComponent<Image>();
+
+        frontPanel.rectTransform.sizeDelta =
+            new Vector2(frontPanel.rectTransform.sizeDelta.x, frontPanel.rectTransform.sizeDelta.y + (26 * sItem.statLength));
+        backPanel.rectTransform.sizeDelta =
+            new Vector2(backPanel.rectTransform.sizeDelta.x, backPanel.rectTransform.sizeDelta.y + (26 * sItem.statLength));
+
+        backPanel.color = sItem.color;
+        TMP_Text[] texts = dnd.savedInfoBox.GetComponentsInChildren<TMP_Text>();
+        texts[0].text = sItem.itemName;
+        texts[1].text = (sItem as Weapon).weaponType.ToString() + " - Weapon";
+        texts[2].text = sItem.statsText;
+        texts[3].text = sItem.statsValues;
     }
 }
