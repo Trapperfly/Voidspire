@@ -4705,7 +4705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3227819605683819642, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3227819605683819644, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21474,7 +21474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3227819605683819642, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3227819605683819644, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: m_LocalPosition.x
@@ -36311,6 +36311,7 @@ MonoBehaviour:
   time: 0.2
   infoBox: {fileID: 0}
   infoBoxActive: 0
+  activeInfoBox: {fileID: 0}
 --- !u!114 &1695384587705028929
 MonoBehaviour:
   m_ObjectHideFlags: 0
