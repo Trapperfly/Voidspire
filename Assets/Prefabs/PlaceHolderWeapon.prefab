@@ -235,5 +235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d6c0acc318a7b4dad8efc299640ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: cf508d5558133c04e90b8ba5c746dcc3, type: 2}
+  type: 2
   parent: {fileID: 0}
+  newEquipment: {fileID: 0}

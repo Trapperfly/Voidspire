@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static System.Net.WebRequestMethods;
 
 public class DragAndDrop : MonoBehaviour, 
     IPointerDownHandler, 
@@ -206,7 +207,7 @@ public class DragAndDrop : MonoBehaviour,
         backPanel.color = sItem.color;
         TMP_Text[] texts = activeInfoBox.GetComponentsInChildren<TMP_Text>();
         texts[0].text = sItem.itemName;
-        texts[1].text = (sItem as Weapon).weaponType.ToString() + " - Weapon";
+        SetItemDescriptionText(texts[1], sItem);
         texts[2].text = sItem.statsText;
         texts[3].text = sItem.statsValues;
         infoBoxActive = true;
@@ -231,8 +232,48 @@ public class DragAndDrop : MonoBehaviour,
         backPanel.color = sItem.color;
         TMP_Text[] texts = dnd.savedInfoBox.GetComponentsInChildren<TMP_Text>();
         texts[0].text = sItem.itemName;
-        texts[1].text = (sItem as Weapon).weaponType.ToString() + " - Weapon";
+        SetItemDescriptionText(texts[1], sItem);
         texts[2].text = sItem.statsText;
         texts[3].text = sItem.statsValues;
+    }
+    void SetItemDescriptionText(TMP_Text textasset,Equipment equipment)
+    {
+        switch (equipment.equipType)
+        {
+            case EquipmentTypes.None:
+                break;
+            case EquipmentTypes.All:
+                break;
+            case EquipmentTypes.Weapon:
+                textasset.text = (equipment as Weapon).weaponType.ToString() + " - Weapon";
+                break;
+            case EquipmentTypes.Shield:
+                textasset.text = (equipment as Shield).shieldType.ToString() + " - Shield";
+                break;
+            case EquipmentTypes.STL:
+                textasset.text = (equipment as STLEngine).stlType.ToString() + " - STL";
+                break;
+            case EquipmentTypes.FTL:
+                textasset.text = (equipment as FTLEngine).ftlType.ToString() + " - FTL";
+                break;
+            case EquipmentTypes.Hull:
+                textasset.text = (equipment as Hull).hullType.ToString() + " - Hull";
+                break;
+            case EquipmentTypes.Scanner:
+                textasset.text = " - Scanner";
+                break;
+            case EquipmentTypes.Cargo:
+                textasset.text = " - Cargo";
+                break;
+            case EquipmentTypes.Collector:
+                textasset.text = (equipment as Collector).collectorType.ToString() + " - Collector";
+                break;
+            case EquipmentTypes.Relic:
+                break;
+            case EquipmentTypes.Default:
+                break;
+            default:
+                break;
+        }
     }
 }

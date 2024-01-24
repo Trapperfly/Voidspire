@@ -8,6 +8,5 @@ public class FTLDrive : MonoBehaviour
     public float maxSpeed;
     public float rotSpeed;
     public float chargeTime;
-    public float fuelDrain;
     public float maxDuration;
 }

@@ -7,7 +7,7 @@ public class GunFire : MonoBehaviour
 {
     GunStats stat;
     Transform bulletHolder;
-    GunController gc;
+    EquipmentController gc;
     public Weapon w;
     [SerializeField] AdjustToTarget target;
     [SerializeField] Transform bulletSpawnPoint;
@@ -29,7 +29,7 @@ public class GunFire : MonoBehaviour
 
     private void Awake()
     {
-        GunController.Instance.onGunLoadComplete += CustomStart;
+        EquipmentController.Instance.onGunLoadComplete += CustomStart;
         stat = GetComponent<GunStats>();
         gunPoint = GetComponent<GunPoint>();
     }
@@ -46,19 +46,19 @@ public class GunFire : MonoBehaviour
     private void CustomStart()
     {
         Debug.Log("CustomStartActivated");
-        gc = GunController.Instance;
+        gc = EquipmentController.Instance;
         Debug.Log(gc);
         SetNewWeapon();
         bulletHolder = gc.bc[stat.gunNumber].transform;
         fireRateA = w.fireRate;
         spreadA = w.spread;
-        GunController.Instance.onGunLoadComplete -= CustomStart;
-        GunController.Instance.onGunLoadComplete += SetNewWeapon;
+        EquipmentController.Instance.onGunLoadComplete -= CustomStart;
+        EquipmentController.Instance.onGunLoadComplete += SetNewWeapon;
     }
 
     public void SetNewWeapon()
     {
-        w = gc.weapons[stat.gunNumber].item as Weapon;
+        w = gc.weaponSlots[stat.gunNumber].item as Weapon;
         SpriteRenderer wSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
         if (w) { wSprite.sprite = w.icon; wSprite.enabled = true; gunPoint.rotSpeed = w.rotationSpeed; }
         else { wSprite.enabled = false; wSprite.sprite = null; }

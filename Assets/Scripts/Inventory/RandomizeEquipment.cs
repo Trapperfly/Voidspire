@@ -83,7 +83,6 @@ public class RandomizeEquipment : MonoBehaviour
     {
         return (int)Random.Range((float)min, (float)max);
     }
-
     public int iR(Vector2 minMax)
     {
         return (int)Random.Range((float)minMax.x, minMax.y);

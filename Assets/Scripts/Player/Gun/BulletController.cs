@@ -21,7 +21,7 @@ public class BulletController : MonoBehaviour
         if (weapon == null) { }
         else
         {
-            weightScalar = GunController.Instance.weightScalar;
+            weightScalar = EquipmentController.Instance.weightScalar;
             damage = weapon.damage;
             speed = weapon.speed;
             bulletLongevity = weapon.longevity;
