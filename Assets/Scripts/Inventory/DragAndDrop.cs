@@ -27,6 +27,7 @@ public class DragAndDrop : MonoBehaviour,
     bool allowed;
 
     RectTransform line;
+    List<RectTransform> rects = new();
 
     public float time = 0.2f;
 
@@ -35,9 +36,12 @@ public class DragAndDrop : MonoBehaviour,
     public GameObject activeInfoBox;
 
     DragAndDropMaster dnd;
+
+    Canvas canvas;
     private void Start()
     {
         dnd = DragAndDropMaster.Instance;
+        canvas = transform.root.GetComponent<Canvas>();
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -45,6 +49,7 @@ public class DragAndDrop : MonoBehaviour,
         slot0 = eventData.pointerDrag.GetComponent<InventorySlot>();
         Debug.Log(slot0);
         line = new GameObject().AddComponent<RectTransform>();
+        rects.Add(line);
         line.gameObject.layer = 2;
         //line = gameObject.AddComponent<RectTransform>();
         line.SetParent(GameObject.FindGameObjectWithTag("Inventory").transform);
@@ -58,7 +63,8 @@ public class DragAndDrop : MonoBehaviour,
         {
             endPos = eventData.position;
             line.position = Vector2.Lerp(startPos, endPos, 0.5f);
-            line.localScale = new Vector2(0.1f, Vector2.Distance(startPos, endPos) / 100);
+            Debug.Log("Screen resolution is " + 1920f/Screen.width + "x" + 1080f/Screen.height);
+            line.localScale = new Vector2(0.1f, Vector2.Distance(startPos, endPos) / canvas.scaleFactor / 100f);
 
             var dir = endPos - (Vector2)line.transform.position;
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -126,7 +132,7 @@ public class DragAndDrop : MonoBehaviour,
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (eventData.dragging && GetComponent<InventorySlot>().item && dnd.slot)
+        if (eventData.dragging && GetComponent<InventorySlot>().item && dnd.slot && dnd.slot.GetComponent<InventorySlot>().item)
         {
             Debug.Log("Displaying ol box");
             DisplayOldInfoBox(dnd.slot);
@@ -171,16 +177,25 @@ public class DragAndDrop : MonoBehaviour,
         SwapSpaces();
         if (line)
         {
-            line.GetComponent<ShrinkAndExpire>().startPos = startPos;
-            line.GetComponent<ShrinkAndExpire>().endPos = endPos;
-            line.GetComponent<ShrinkAndExpire>().enabled = true;
-            StartCoroutine(line.GetComponent<ShrinkAndExpire>().Shrink());
+            ShrinkAndExpire ls = line.GetComponent<ShrinkAndExpire>();
+            ls.startPos = startPos;
+            ls.endPos = endPos;
+            ls.canvasScale = canvas.scaleFactor;
+            ls.enabled = true;
+            StartCoroutine(ls.Shrink());
             line = null;
         }
     }
 
     private void OnDisable()
     {
+        if (line)
+        {
+            rects.Remove(line);
+            Destroy(line.gameObject);
+            line = null;
+        }
+        if (rects.Count > 0 ) { foreach (RectTransform rect in rects) { if (rect) { Destroy(rect.gameObject); } } }
         Destroy(activeInfoBox);
         Destroy(dnd.savedInfoBox);
         dnd.savedInfoBox = null;

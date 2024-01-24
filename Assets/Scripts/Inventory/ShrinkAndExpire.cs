@@ -7,6 +7,7 @@ public class ShrinkAndExpire : MonoBehaviour
 {
     public Vector2 startPos;
     public Vector2 endPos;
+    public float canvasScale;
     private void Update()
     {
         
@@ -19,7 +20,7 @@ public class ShrinkAndExpire : MonoBehaviour
         {
             newStartPos = Vector2.Lerp(startPos, endPos, time);
             transform.position = Vector2.Lerp(newStartPos, endPos, 0.5f);
-            transform.localScale = new Vector2(0.1f, Vector2.Distance(newStartPos, endPos) / 100);
+            transform.localScale = new Vector2(0.1f, Vector2.Distance(newStartPos, endPos) / canvasScale / 100);
             time += 5 * Time.unscaledDeltaTime;
             yield return new WaitForEndOfFrame();
         }

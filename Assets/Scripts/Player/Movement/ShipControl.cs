@@ -164,11 +164,11 @@ public class ShipControl : MonoBehaviour
         rb.angularDrag = sliderRef.maxTurnSpeedSlider.value * (1 + ftl.rotSpeed) * 2;
         if (Input.GetKey(KeyCode.A))
         {
-            rb.AddTorque(stl.turnSpeed * ftl.rotSpeed, ForceMode2D.Force); //Add that force
+            rb.AddTorque(ftl.rotSpeed, ForceMode2D.Force); //Add that force
         }
         if (Input.GetKey(KeyCode.D))
         {
-            rb.AddTorque(-stl.turnSpeed * ftl.rotSpeed, ForceMode2D.Force);
+            rb.AddTorque(-ftl.rotSpeed, ForceMode2D.Force);
         }
         duration++;
         if (duration > ftl.maxDuration * 60  && ftl.maxDuration != -1) StopFTL();

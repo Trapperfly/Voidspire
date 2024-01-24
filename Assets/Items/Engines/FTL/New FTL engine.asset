@@ -27,7 +27,7 @@ MonoBehaviour:
   ftlType: 5
   acceleration: 100
   maxSpeed: 40
-  rotSpeed: 0.1
+  rotSpeed: 0.2
   chargeTime: 2
   fuelMax: 30000
   fuelDrain: 1
