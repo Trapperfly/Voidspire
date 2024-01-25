@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 3227819605683819645}
   - component: {fileID: 550548959946609248}
   m_Layer: 12
-  m_Name: PlaceHolderWeapon
+  m_Name: PlaceHolderNewEquipment
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -235,6 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d6c0acc318a7b4dad8efc299640ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 0
+  random: 1
   parent: {fileID: 0}
   newEquipment: {fileID: 0}

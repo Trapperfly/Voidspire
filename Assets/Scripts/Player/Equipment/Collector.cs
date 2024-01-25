@@ -14,8 +14,8 @@ public class Collector : Equipment
 public enum CollectorTypes
 {
     Grabber,
-    Tractor,
     Harpoon,
+    Tractor,
     Drone,
     Default
 }

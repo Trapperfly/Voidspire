@@ -9,21 +9,21 @@ using UnityEngine.UIElements;
 public class SpawnResourceOnDestroy : MonoBehaviour
 {
     [SerializeField] GameObject resourcePrefab;
-    [SerializeField] GameObject weaponPlaceholderPrefab;
+    [SerializeField] GameObject equipmentPlaceholderPrefab;
     public int amountScalar = 10;
     int amount;
     public int resourceWorth;
 
     
-    public void SpawnLoot(float value, float explosionStrength, Vector2 position, float size, float weaponDropChance)
+    public void SpawnLoot(float value, float explosionStrength, Vector2 position, float size, float equipmentDropChance)
     {
         amount = Mathf.Clamp((int)(value * amountScalar), 1, 1000);
 
         for (int i = 0; i < amount; i++)
         {
-            if (Random.value < weaponDropChance)
+            if (Random.value < equipmentDropChance)
             {
-                WeaponDrop(explosionStrength, position, size);
+                EquipmentDrop(explosionStrength, position, size);
             }
             else ResourceDrop(value, explosionStrength, position, size);
         }
@@ -43,13 +43,13 @@ public class SpawnResourceOnDestroy : MonoBehaviour
         _resourceRb.AddExplosionForce(explosionStrength, position, size, 0, ForceMode2D.Impulse);
     }
 
-    void WeaponDrop(float explosionStrength, Vector2 position, float size)
+    void EquipmentDrop(float explosionStrength, Vector2 position, float size)
     {
         Quaternion _rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
-        GameObject _weapon = Instantiate(weaponPlaceholderPrefab, RandomVector2InsideCircle(position, size), _rotation, transform);
-        Rigidbody2D _weaponRb = _weapon.GetComponent<Rigidbody2D>();
+        GameObject _equipment = Instantiate(equipmentPlaceholderPrefab, RandomVector2InsideCircle(position, size), _rotation, transform);
+        Rigidbody2D _equipmentRb = _equipment.GetComponent<Rigidbody2D>();
 
-        _weaponRb.AddExplosionForce(explosionStrength, position, size, 0, ForceMode2D.Impulse);
+        _equipmentRb.AddExplosionForce(explosionStrength, position, size, 0, ForceMode2D.Impulse);
     }
 
     Vector2 RandomVector2InsideCircle(Vector2 middle, float radius)

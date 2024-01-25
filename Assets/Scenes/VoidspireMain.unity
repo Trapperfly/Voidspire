@@ -1376,6 +1376,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: random
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3227819605683819642, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: m_Name
       value: PlaceHolderWeapon (6)
@@ -2405,7 +2413,6 @@ MonoBehaviour:
   shieldSprites: []
   cargoSprites: []
   ftlSprites: []
-  stlSprites: []
   typeColor:
   - {r: 0.40392157, g: 0.40392157, b: 0.40392157, a: 1}
   - {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
@@ -2430,19 +2437,18 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7c8bbefa424ce464f941555d2c37bb8f, type: 3}
   - {fileID: 21300000, guid: 74305fc70a9757c4182399fe88e083c2, type: 3}
   - {fileID: 21300000, guid: 7f7f57b89904f324a9e6aaeb701e5494, type: 3}
-  nameFirst:
-  - Destroyer
-  - Ray
-  - Ode
-  - Anihilator
-  nameMid:
-  - Of
-  nameLast:
-  - Worlds
-  - Planets
-  - Doom
-  - Gloom
-  - Bonk
+  wNameFirst:
+  - Proto
+  - G
+  - 92
+  wNameMid:
+  - '"Boom"'
+  - '"Sla"'
+  - '"Bok"'
+  wNameLast:
+  - Type
+  - Blaster
+  - Enigma
   damage: {x: 0.8, y: 1.2}
   bulletSize: {x: 1, y: 1}
   fireRate: {x: 8, y: 12}
@@ -2495,6 +2501,42 @@ MonoBehaviour:
   burstDelay: {x: 0.04, y: 0.1}
   punch: {x: 2, y: 5}
   rotationSpeed: {x: 2, y: 4}
+  stlSprites:
+  - {fileID: 21300000, guid: 2397100df9d9eb9448fac3483e5808f9, type: 3}
+  - {fileID: 21300000, guid: a1bb1b6a99b2d9149a50f18c586ed1af, type: 3}
+  - {fileID: 21300000, guid: 5ed29374b6c0df749bd39aff7b6932d2, type: 3}
+  - {fileID: 21300000, guid: a3eee38bdf6f0ac4b8e8b160f74d524d, type: 3}
+  stlNameFirst:
+  - Photon
+  - '"Speedster"'
+  - Awesome
+  stlNameLast:
+  - Propulsor
+  - Jet
+  - Pulse
+  moveSpeed: {x: 1, y: 8}
+  maxSpeed: {x: 4, y: 10}
+  turnSpeed: {x: 0.2, y: 2}
+  maxTurnSpeed: {x: 1, y: 5}
+  turnSpeedUpTo: {x: 10, y: 100}
+  turnBrakingSpeed: {x: 2, y: 10}
+  brakingSpeed: {x: 0.2, y: 0.6}
+  colSprites:
+  - {fileID: 21300000, guid: 71476355b99d2744bb22c5630f739003, type: 3}
+  - {fileID: 21300000, guid: 18c0f3b4f338daf45b592c74217fe1ea, type: 3}
+  - {fileID: 21300000, guid: 0c537911acd3d35458dd6f0f045de249, type: 3}
+  colNameFirst:
+  - Stuff
+  - Item
+  - Valuable
+  colNameLast:
+  - Grabber
+  - Collector
+  - Bringer
+  speedTo: {x: 0.5, y: 2}
+  speedFrom: {x: 0.5, y: 2}
+  colAmount: {x: 1, y: 4}
+  range: {x: 3, y: 6}
 --- !u!4 &202474985
 Transform:
   m_ObjectHideFlags: 0
@@ -4635,6 +4677,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: random
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3227819605683819642, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: m_Name
       value: PlaceHolderWeapon (1)
@@ -12830,6 +12880,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: random
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3227819605683819642, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: m_Name
       value: PlaceHolderWeapon (7)
@@ -12979,6 +13037,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6063762914699560620, guid: 60af3784c65ed0f4580a2679ed3d3ed8, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 8df1d8ad9b19ba048be263a43d14e93d, type: 2}
     - target: {fileID: 6063762914699560620, guid: 60af3784c65ed0f4580a2679ed3d3ed8, type: 3}
       propertyPath: allowed
       value: 9
@@ -15339,6 +15401,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: random
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3227819605683819642, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: m_Name
       value: PlaceHolderWeapon (3)
@@ -21530,6 +21600,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: random
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3227819605683819642, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: m_Name
       value: PlaceHolderWeapon
@@ -22363,6 +22441,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: random
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3227819605683819642, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: m_Name
       value: PlaceHolderWeapon (10)
@@ -24056,6 +24142,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: random
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3227819605683819642, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: m_Name
       value: PlaceHolderWeapon (9)
@@ -25900,6 +25994,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: random
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3227819605683819642, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: m_Name
       value: PlaceHolderWeapon (4)
@@ -26217,7 +26319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourcePrefab: {fileID: 3227819605683819642, guid: e9edc0aa745f13d4c838dfbcda311b6c, type: 3}
-  weaponPlaceholderPrefab: {fileID: 3227819605683819642, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+  equipmentPlaceholderPrefab: {fileID: 3227819605683819642, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
   amountScalar: 4
   resourceWorth: 0
 --- !u!4 &1693637928
@@ -27756,6 +27858,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: random
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3227819605683819642, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: m_Name
       value: PlaceHolderWeapon (8)
@@ -29908,6 +30018,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: random
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3227819605683819642, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: m_Name
       value: PlaceHolderWeapon (2)
@@ -31619,6 +31737,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: random
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3227819605683819642, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: m_Name
       value: PlaceHolderWeapon (5)
@@ -38192,20 +38318,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3367ca6c7f905b14099ea8b552479073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSpeedTo: 0.1
-  pickupSpeedBack: 0.1
-  pickupAmount: 1
   wallet: 0
   pickupRange: 2.5
   grabberPrefab: {fileID: 344384499959036425, guid: 82bcefffd83c7fe42a8d92dcf7995294, type: 3}
   queue: []
   grabberHandler: {fileID: 225653213}
   resourceHandler: {fileID: 1693637927}
-  pickupSpeedToSlider: {fileID: 1402502270}
-  pickupSpeedBackSlider: {fileID: 464331141}
-  pickupAmountSlider: {fileID: 1683839}
-  pickupRangeSlider: {fileID: 1391765814}
-  resourceAmountSlider: {fileID: 2076718624}
 --- !u!4 &8139112438774058235
 Transform:
   m_ObjectHideFlags: 0

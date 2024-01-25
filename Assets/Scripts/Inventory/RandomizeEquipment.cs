@@ -10,7 +10,6 @@ public class RandomizeEquipment : MonoBehaviour
     [SerializeField] Sprite[] shieldSprites;
     [SerializeField] Sprite[] cargoSprites;
     [SerializeField] Sprite[] ftlSprites;
-    [SerializeField] Sprite[] stlSprites;
 
     public Color[] typeColor;
     [Space]
@@ -18,10 +17,11 @@ public class RandomizeEquipment : MonoBehaviour
     public Transform textBoxParent;
 
     #region WeaponRandomizing
+    [Header("Weapon")]
     [SerializeField] Sprite[] gunSprites;
-    [SerializeField] string[] nameFirst;
-    [SerializeField] string[] nameMid;
-    [SerializeField] string[] nameLast;
+    [SerializeField] string[] wNameFirst;
+    [SerializeField] string[] wNameMid;
+    [SerializeField] string[] wNameLast;
     [Header("WeaponStats")]
     [SerializeField] Vector2 damage;              //On bullet
     //[SerializeField] AnimationCurve damageChance;
@@ -47,6 +47,29 @@ public class RandomizeEquipment : MonoBehaviour
     [SerializeField] Vector2 punch;               //On bullet
     [SerializeField] Vector2 rotationSpeed;
     #endregion
+
+    [Header("STL Engine")]
+    [SerializeField] Sprite[] stlSprites;
+    [SerializeField] string[] stlNameFirst;
+    [SerializeField] string[] stlNameLast;
+
+    [SerializeField] Vector2 moveSpeed;
+    [SerializeField] Vector2 maxSpeed;
+    [SerializeField] Vector2 turnSpeed;
+    [SerializeField] Vector2 maxTurnSpeed;
+    [SerializeField] Vector2 turnSpeedUpTo;
+    [SerializeField] Vector2 turnBrakingSpeed;
+    [SerializeField] Vector2 brakingSpeed;
+
+    [Header("Collector")]
+    [SerializeField] Sprite[] colSprites;
+    [SerializeField] string[] colNameFirst;
+    [SerializeField] string[] colNameLast;
+
+    [SerializeField] Vector2 speedTo;
+    [SerializeField] Vector2 speedFrom;
+    [SerializeField] Vector2 colAmount;
+    [SerializeField] Vector2 range;
 
     #region Singleton
     public static RandomizeEquipment Instance;
@@ -78,11 +101,11 @@ public class RandomizeEquipment : MonoBehaviour
 
         Weapon weapon = ScriptableObject.CreateInstance<Weapon>();
         weapon.itemName = new string
-            (nameFirst[iR(0, nameFirst.Length - 1)]
+            (wNameFirst[iR(0, wNameFirst.Length - 1)]
             + " "
-            + nameMid[iR(0, nameMid.Length - 1)] 
+            + wNameMid[iR(0, wNameMid.Length - 1)] 
             + " " 
-            + nameLast[iR(0, nameLast.Length - 1)]);
+            + wNameLast[iR(0, wNameLast.Length - 1)]);
         weapon.name = weapon.itemName;
         weapon.id = Inventory.Instance.id;
         weapon.icon = gunSprites[iR(0, gunSprites.Length - 1)];
@@ -336,6 +359,120 @@ public class RandomizeEquipment : MonoBehaviour
         return weapon;
     }
     #endregion
+
+    #region RandomizeSTLEngine()
+    public STLEngine RandomizeSTLEngine()
+    {
+        STLEngine stl = ScriptableObject.CreateInstance<STLEngine>();
+        stl.itemName = new string
+            (stlNameFirst[iR(0, stlNameFirst.Length - 1)]
+            + " "
+            + stlNameLast[iR(0, stlNameLast.Length - 1)]);
+        stl.name = stl.itemName;
+        stl.id = Inventory.Instance.id;
+        stl.icon = stlSprites[iR(0, stlSprites.Length - 1)];
+        stl.color = typeColor[(int)EquipmentTypes.STL];
+        stl.equipType = EquipmentTypes.STL;
+
+        stl.stlType = (STLTypes)iR(0, 1);
+
+        stl.speed = fR(moveSpeed);
+        stl.maxSpeed = fR(maxSpeed);
+        stl.turnSpeed = fR(turnSpeed);
+        stl.turnSpeedStored = stl.turnSpeed;
+        stl.maxTurnSpeed = fR(maxTurnSpeed);
+        stl.turnSpeedBoostUpTo = fR(turnSpeedUpTo);
+        stl.turnBrakingSpeed = fR(turnBrakingSpeed);
+        stl.brakingSpeed = fR(brakingSpeed);
+
+        string statsNames = "Something is wong";
+        string statsValues = "WTF";
+        statsNames = "";
+        statsNames += "Speed:\n"; stl.statLength++;
+        statsNames += "Max speed: \n"; stl.statLength++;
+        statsNames += "Brake: \n"; stl.statLength++;
+        statsNames += "Turn speed: \n"; stl.statLength++;
+        statsNames += "Max turn speed: \n"; stl.statLength++;
+        statsNames += "Turn speed boost: \n"; stl.statLength++;
+        statsNames += "Rotation brake: \n"; stl.statLength++;
+        
+        stl.statsText = statsNames;
+
+        statsValues = "";
+        statsValues += stl.speed.ToString("F2") + "\n";
+        statsValues += stl.maxSpeed.ToString("F2") + "\n";
+        statsValues += stl.brakingSpeed.ToString("F2") + "\n";
+        statsValues += stl.turnSpeed.ToString("F2") + "\n";
+        statsValues += stl.maxTurnSpeed.ToString("F2") + "\n";
+        statsValues += stl.turnSpeedBoostUpTo.ToString("F2") + "\n";
+        statsValues += stl.turnBrakingSpeed.ToString("F2") + "\n";
+
+        stl.statsValues = statsValues;
+
+        return stl;
+    }
+    #endregion
+
+    public Collector RandomizeCollector()
+    {
+        Collector col = ScriptableObject.CreateInstance<Collector>();
+        col.itemName = new string(
+             colNameFirst[iR(0, colNameFirst.Length - 1)]
+            + " "
+            + colNameLast[iR(0, colNameLast.Length - 1)]);
+        col.name = col.itemName;
+        col.id = Inventory.Instance.id;
+        col.icon = colSprites[iR(0, colSprites.Length - 1)];
+        col.color = typeColor[(int)EquipmentTypes.Collector];
+        col.equipType = EquipmentTypes.Collector;
+
+        col.collectorType = (CollectorTypes)iR(0, 1);
+
+        switch (col.collectorType)
+        {
+            case CollectorTypes.Grabber:
+                col.collectorSpeedTo = fR(speedTo);
+                col.collectorSpeedFrom = fR(speedFrom);
+                col.amount = iR(colAmount) * 2;
+                col.range = fR(range) * 2;
+                break;
+            case CollectorTypes.Harpoon:
+                col.collectorSpeedTo = Mathf.Clamp(fR(speedTo) / 10, 0.1f, 100);
+                col.collectorSpeedFrom = fR(speedFrom) * 3;
+                col.amount = iR(colAmount);
+                col.range = fR(range) * 0.8f;
+                break;
+            case CollectorTypes.Tractor:
+                break;
+            case CollectorTypes.Drone:
+                break;
+            case CollectorTypes.Default:
+                break;
+            default:
+                break;
+        }
+        
+
+        string statsNames = "Something is wong";
+        string statsValues = "WTF";
+        statsNames = "";
+        statsNames += "Speed to:\n"; col.statLength++;
+        statsNames += "Speed from: \n"; col.statLength++;
+        statsNames += "Amount: \n"; col.statLength++;
+        statsNames += "Range: \n"; col.statLength++;
+
+        col.statsText = statsNames;
+
+        statsValues = "";
+        statsValues += col.collectorSpeedTo.ToString("F2") + "\n";
+        statsValues += col.collectorSpeedFrom.ToString("F2") + "\n";
+        statsValues += col.amount.ToString("F0") + "\n";
+        statsValues += col.range.ToString("F2") + "\n";
+
+        col.statsValues = statsValues;
+
+        return col;
+    }
 
     #region Methods
     public float fR(float min, float max)
