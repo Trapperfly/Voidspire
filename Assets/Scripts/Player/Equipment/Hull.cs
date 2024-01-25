@@ -5,6 +5,7 @@ using UnityEngine;
 public class Hull : Equipment
 {
     public HullTypes hullType;
+    public float hullCurrentHealth;
     public float hullHealth;
     public float hullDamageNegation;
     public float hullWeight;
@@ -12,15 +13,15 @@ public class Hull : Equipment
 }
 public enum HullTypes
 {
+    Default,
+    HeavyClass,
+    LightClass,
     NebularProtection,
     NucularProtection,
     IONICProtection,
     Stealth,
-    HeavyClass,
-    LightClass,
     Barrier,
     ImpactInduction,
     Reactive,
-    Sleek,
-    Default
+    Sleek
 }

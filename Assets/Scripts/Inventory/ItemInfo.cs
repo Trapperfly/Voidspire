@@ -39,6 +39,8 @@ public class ItemInfo : MonoBehaviour
                 case EquipmentTypes.FTL:
                     break;
                 case EquipmentTypes.Hull:
+                    newEquipment = RandomizeEquipment.Instance.RandomizeHull() as Hull;
+                    accepted = true;
                     break;
                 case EquipmentTypes.Scanner:
                     break;

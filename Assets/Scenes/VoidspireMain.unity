@@ -2409,10 +2409,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c57b168fba2db29448df3663175ad4c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hullSprites: []
-  shieldSprites: []
-  cargoSprites: []
-  ftlSprites: []
   typeColor:
   - {r: 0.40392157, g: 0.40392157, b: 0.40392157, a: 1}
   - {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
@@ -2537,6 +2533,22 @@ MonoBehaviour:
   speedFrom: {x: 0.5, y: 2}
   colAmount: {x: 1, y: 4}
   range: {x: 3, y: 6}
+  hullSprites:
+  - {fileID: 21300000, guid: b3b49d8fc3d260944a6cad26d8509880, type: 3}
+  - {fileID: 21300000, guid: edee09c3387f0504d8336f928bf93c47, type: 3}
+  - {fileID: 21300000, guid: 6bfad3aeb1100e743abddc1c92c6380d, type: 3}
+  hullNameFirst:
+  - Protective
+  - Fabulous
+  - Walling
+  hullNameLast:
+  - Casing
+  - Hull
+  - Metal
+  hullCurrent: {x: 0, y: 50}
+  hullMax: {x: 20, y: 40}
+  hullDamageNeg: {x: 0, y: 15}
+  hullWeight: {x: 0.8, y: 1.2}
 --- !u!4 &202474985
 Transform:
   m_ObjectHideFlags: 0
@@ -11926,6 +11938,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6063762914699560620, guid: 60af3784c65ed0f4580a2679ed3d3ed8, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: d145d51fca84e4a42bbd9f13bd476620, type: 2}
     - target: {fileID: 6063762914699560620, guid: 60af3784c65ed0f4580a2679ed3d3ed8, type: 3}
       propertyPath: allowed
       value: 6
@@ -38564,7 +38580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556d2adc0de5f0243a80b8a2db9cc241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
   currentHealth: 0
   healthNodes: 0
   healthNodesMax: 0

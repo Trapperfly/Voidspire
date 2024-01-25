@@ -5,12 +5,6 @@ using UnityEngine;
 
 public class RandomizeEquipment : MonoBehaviour
 {
-    [Header("Arrays")]
-    [SerializeField] Sprite[] hullSprites;
-    [SerializeField] Sprite[] shieldSprites;
-    [SerializeField] Sprite[] cargoSprites;
-    [SerializeField] Sprite[] ftlSprites;
-
     public Color[] typeColor;
     [Space]
 
@@ -70,6 +64,16 @@ public class RandomizeEquipment : MonoBehaviour
     [SerializeField] Vector2 speedFrom;
     [SerializeField] Vector2 colAmount;
     [SerializeField] Vector2 range;
+
+    [Header("Hull")]
+    [SerializeField] Sprite[] hullSprites;
+    [SerializeField] string[] hullNameFirst;
+    [SerializeField] string[] hullNameLast;
+
+    [SerializeField] Vector2 hullCurrent;
+    [SerializeField] Vector2 hullMax;
+    [SerializeField] Vector2 hullDamageNeg;
+    [SerializeField] Vector2 hullWeight;
 
     #region Singleton
     public static RandomizeEquipment Instance;
@@ -249,7 +253,7 @@ public class RandomizeEquipment : MonoBehaviour
                 statsNames = "";
                 statsNames += "Damage:\n"; weapon.statLength++;
                 if (isBurst) { statsNames += "Burst:\n" + "Burst delay:\n"; weapon.statLength++; weapon.statLength++; }
-                if (isCharge) { statsNames += "Charge up:\n" + "Burst:\n" + "Burst delay:\n"; weapon.statLength++; weapon.statLength++; weapon.statLength++; }
+                if (isCharge) { statsNames += "Charge up:\n" + "Burst:\n" + "Burst delay:\n"; weapon.statLength++; weapon.statLength++; }
                 else statsNames += "Fire rate:\n"; weapon.statLength++;
                 if (isPierce) { statsNames += "Piercing:\n"; weapon.statLength++; }
                 if (isBounce) { statsNames += "Bounces:\n"; weapon.statLength++; }
@@ -300,7 +304,7 @@ public class RandomizeEquipment : MonoBehaviour
                 statsNames = "";
                 statsNames += "Damage:\n"; weapon.statLength++;
                 if (isBurst) { statsNames += "Burst:\n" + "Burst delay:\n"; weapon.statLength++; weapon.statLength++; }
-                if (isCharge) { statsNames += "Charge up:\n" + "Burst:\n" + "Burst delay:\n"; weapon.statLength++; weapon.statLength++; weapon.statLength++; }
+                if (isCharge) { statsNames += "Charge up:\n" + "Burst:\n" + "Burst delay:\n"; weapon.statLength++; weapon.statLength++;}
                 else statsNames += "Fire rate:\n"; weapon.statLength++;
                 //if (isPierce) statsNames += "\n" + "Piercing:\n";
                 statsNames += "Projectiles:\n"; weapon.statLength++;
@@ -313,7 +317,7 @@ public class RandomizeEquipment : MonoBehaviour
                 statsValues += weapon.damage.ToString("F2") + "\n";
                 if (isBurst) statsValues += weapon.burst + "\n" + weapon.burstDelay.ToString("F3") + "\n";
                 if (isCharge) statsValues += weapon.chargeUp.ToString("F2") + "\n" + weapon.burst + "\n" + weapon.burstDelay.ToString("F3") + "\n";
-                else if (fireRateBonus) { statsValues += weapon.fireRate.ToString("F2") + " -> " + (weapon.fireRate + weapon.fireRateChange).ToString("F2") + "\n"; }
+                else if (fireRateBonus) { statsValues += weapon.fireRate.ToString("F2") + " -> " + Mathf.Clamp(weapon.spread + weapon.spreadChange, 0, 100).ToString("F2") + "\n"; }
                 else { statsValues += weapon.fireRate.ToString("F2") + "\n"; }
                 //if (isPierce) statsValues += "\n" + weapon.pierce + "\n";
                 statsValues += weapon.amount + "\n";
@@ -360,7 +364,7 @@ public class RandomizeEquipment : MonoBehaviour
     }
     #endregion
 
-    #region RandomizeSTLEngine()
+    #region RandomizeSTLEngine
     public STLEngine RandomizeSTLEngine()
     {
         STLEngine stl = ScriptableObject.CreateInstance<STLEngine>();
@@ -413,6 +417,7 @@ public class RandomizeEquipment : MonoBehaviour
     }
     #endregion
 
+    #region RandomizeCollector
     public Collector RandomizeCollector()
     {
         Collector col = ScriptableObject.CreateInstance<Collector>();
@@ -473,6 +478,86 @@ public class RandomizeEquipment : MonoBehaviour
 
         return col;
     }
+    #endregion
+
+    #region RandomizeHull
+    public Hull RandomizeHull()
+    {
+        Hull hull = ScriptableObject.CreateInstance<Hull>();
+        hull.itemName = new string(
+             hullNameFirst[iR(0, hullNameFirst.Length - 1)]
+            + " "
+            + hullNameLast[iR(0, hullNameLast.Length - 1)]);
+        hull.name = hull.itemName;
+        hull.id = Inventory.Instance.id;
+        hull.icon = hullSprites[iR(0, hullSprites.Length - 1)];
+        hull.color = typeColor[(int)EquipmentTypes.Hull];
+        hull.equipType = EquipmentTypes.Hull;
+
+        hull.hullType = (HullTypes)iR(0, 2);
+
+        switch (hull.hullType)
+        {
+            case HullTypes.Default:
+                hull.hullHealth = fR(hullMax);
+                hull.hullCurrentHealth = hull.hullHealth - (hull.hullHealth * (fR(hullCurrent) / 100));
+                hull.hullDamageNegation = fR(hullDamageNeg);
+                hull.hullWeight = fR(hullWeight);
+                break;
+            case HullTypes.HeavyClass:
+                hull.hullHealth = fR(hullMax) * 2;
+                hull.hullCurrentHealth = hull.hullHealth - (hull.hullHealth * (fR(hullCurrent) / 100));
+                hull.hullDamageNegation = fR(hullDamageNeg) * 2;
+                hull.hullWeight = fR(hullWeight) * 2;
+                break;
+            case HullTypes.LightClass:
+                hull.hullHealth = fR(hullMax) * 0.5f;
+                hull.hullCurrentHealth = hull.hullHealth - (hull.hullHealth * (fR(hullCurrent) / 100));
+                hull.hullDamageNegation = fR(hullDamageNeg) * 0.5f;
+                hull.hullWeight = fR(hullWeight) * 0.5f;
+                break;
+            case HullTypes.NebularProtection:
+                break;
+            case HullTypes.NucularProtection:
+                break;
+            case HullTypes.IONICProtection:
+                break;
+            case HullTypes.Stealth:
+                break;
+            case HullTypes.Barrier:
+                break;
+            case HullTypes.ImpactInduction:
+                break;
+            case HullTypes.Reactive:
+                break;
+            case HullTypes.Sleek:
+                break;
+            default:
+                break;
+        }
+
+
+        string statsNames = "Something is wong";
+        string statsValues = "WTF";
+        statsNames = "";
+        statsNames += "Current health:\n"; hull.statLength++;
+        statsNames += "Max health: \n"; hull.statLength++;
+        statsNames += "Damage negation: \n"; hull.statLength++;
+        statsNames += "Weight: \n"; hull.statLength++;
+
+        hull.statsText = statsNames;
+
+        statsValues = "";
+        statsValues += hull.hullCurrentHealth.ToString("F1") + "\n";
+        statsValues += hull.hullHealth.ToString("F1") + "\n";
+        statsValues += (hull.hullDamageNegation).ToString("F0") + "%\n";
+        statsValues += (hull.hullWeight * 100).ToString("F0") + "\n";
+
+        hull.statsValues = statsValues;
+
+        return hull;
+    }
+    #endregion
 
     #region Methods
     public float fR(float min, float max)
