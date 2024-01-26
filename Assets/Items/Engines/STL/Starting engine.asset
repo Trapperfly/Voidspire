@@ -19,6 +19,7 @@ MonoBehaviour:
   id: 0
   value: 0
   color: {r: 0.7254902, g: 0.6627451, b: 0.29803923, a: 1}
+  level: 0
   equipType: 4
   quality: 0
   statsText: Its stats are obscured...
@@ -27,10 +28,9 @@ MonoBehaviour:
   stlType: 6
   speed: 3
   maxSpeed: 5
-  turnSpeed: 0.625
+  turnSpeed: 0.2
   turnSpeedStored: 0.625
-  maxTurnSpeed: 2.12
-  turnSpeedBoostUpTo: 40
+  maxTurnSpeed: 1.6
+  turnSpeedBoostUpTo: 1
   turnBrakingSpeed: 2.01
-  braking: 0
   brakingSpeed: 0.39

@@ -5,22 +5,18 @@ using UnityEngine.UI;
 
 public class PassiveShield : MonoBehaviour
 {
-    public bool shieldActive = true;
-    [HideInInspector] public bool shieldActiveForColliders = true;
-    public float shieldCapacity;
+    public bool shieldActive = false;
+    [HideInInspector] public bool shieldActiveForColliders = false;
     public float shieldCurrent;
     float shieldPercent;
-    public float shieldRechargeDelay;
     public int rechargeTimer;
-    public float shieldRechargeSpeed;
-    public float shieldBreakTime;
-    public float shieldRestoreTime;
+
+    int storedID;
+    float animTime;
 
     public Collider2D col;
     Material mat;
-    public Color32 shieldColor;
     [ColorUsage(true, true)]
-    public Color32 breakageColor;
 
     public float offset;
 
@@ -29,47 +25,67 @@ public class PassiveShield : MonoBehaviour
     Image shieldBarImage;
 
     float lastFrameCurrentShield;
-    float lastFrameMaxShield;
+
+    EquipmentController equipment;
+    Shield shield;
+    bool noShield;
     private void Awake()
     {
+        EquipmentController.Instance.onEquipmentLoadComplete += CustomStart;
         mat = transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().material;
-        mat.SetColor("_ShieldColor", shieldColor);
-        mat.SetColor("_BreakageColor", breakageColor);
-        mat.SetFloat("_ShieldHealth", shieldPercent);
-        mat.SetFloat("_BreathingOffset", offset);
+    }
+
+    private void CustomStart()
+    {
+        Debug.Log("CustomStartActivated");
+        equipment = EquipmentController.Instance;
         shieldBarImage = shieldBar.GetChild(2).GetComponent<Image>();
-        shieldCurrent = shieldCapacity;
+        shieldActive = true;
+        shieldActiveForColliders = true;
+        SetNewStats();
         UpdateSize();
-        UpdateShield();
+
+        EquipmentController.Instance.onEquipmentLoadComplete -= CustomStart;
+        EquipmentController.Instance.onEquipmentLoadComplete += SetNewStats;
+    }
+    private void SetNewStats()
+    {
+        if (shield) { animTime = shield.shieldBreakAnimTime; storedID = shield.id; }
+        shield = equipment.shieldSlots[0].item as Shield;
+        if (shield) animTime = shield.shieldBreakAnimTime;
+        if (!shield) { noShield = true; shieldCurrent = 0; }
+        else
+        {
+            if (shield.id != storedID) { shieldCurrent = 0; }
+            noShield = false;
+        }
+        UpdateSize();
+        ShieldCheck();
     }
 
     private void FixedUpdate()
     {
-        //timer for refilling shield
-        if (shieldCurrent < shieldCapacity)
+        if (noShield) { }
+        else
         {
-            rechargeTimer++;
-            if (rechargeTimer >= shieldRechargeDelay * 60)
+            if (shieldCurrent < shield.shieldHealth)
             {
-                if (!shieldActive) StartCoroutine(RestoreShield());
-                if (shieldActive) shieldCurrent += shieldRechargeSpeed / 60;
+                rechargeTimer++;
+                if (rechargeTimer >= shield.shieldRechargeDelay * 60)
+                {
+                    if (!shieldActive) StartCoroutine(RestoreShield());
+                    if (shieldActive) { shieldCurrent += shield.shieldRechargeSpeed / 60; UpdateShield(); }
+                }
             }
+            else if (shieldCurrent > shield.shieldHealth) { shieldCurrent = shield.shieldHealth; }
         }
-        else if (shieldCurrent > shieldCapacity) shieldCurrent = shieldCapacity;
-    }
-
-    private void Update()
-    {
-        if (lastFrameMaxShield != shieldCapacity) UpdateSize();
-        if (lastFrameCurrentShield != shieldCurrent) UpdateShield();
-        lastFrameMaxShield = shieldCapacity;
-        lastFrameCurrentShield = shieldCurrent;
+        //timer for refilling shield
     }
 
     void UpdateShield()
     {
-        if (shieldCurrent > shieldCapacity) shieldCurrent = shieldCapacity;
-        shieldPercent = shieldCurrent / shieldCapacity;
+        if (shieldCurrent > shield.shieldHealth) shieldCurrent = shield.shieldHealth;
+        shieldPercent = shieldCurrent / shield.shieldHealth;
         shieldBarImage.fillAmount = shieldPercent;
         mat.SetFloat("_ShieldHealth", shieldPercent);
     }
@@ -80,36 +96,46 @@ public class PassiveShield : MonoBehaviour
         {
             float _backModifier = 0;
             if (child == shieldBar.GetChild(0)) _backModifier = 0.05f;
-            child.sizeDelta = new Vector2((shieldCapacity / 5) + _backModifier, child.sizeDelta.y);
+            if (!noShield) child.sizeDelta = new Vector2((shield.shieldHealth / 5) + _backModifier, child.sizeDelta.y);
+            else child.sizeDelta = new Vector2(0 + _backModifier, child.sizeDelta.y);
         }
-        UpdateShield();
+        if (!noShield)
+        {
+            mat.SetColor("_ShieldColor", shield.shieldColor);
+            mat.SetColor("_BreakageColor", shield.breakColor);
+            mat.SetFloat("_ShieldHealth", shieldPercent);
+            mat.SetFloat("_BreathingOffset", offset);
+            UpdateShield();
+        }
+        else if (shieldActive) { }
     }
 
     public void ShieldCheck()
     {
         Debug.Log("Checking if broken");
         //check if shield is broken
-        rechargeTimer = 0;
+        UpdateShield();
         if (shieldActive && shieldCurrent <= 0)
         {
-            shieldCurrent = 0;
+            Debug.Log("Breaking shield because of damage taken");
             StartCoroutine(BreakShield());
         }
     }
 
     IEnumerator BreakShield()
     {
+        shieldCurrent = 0;
         shieldActive = false;
         rechargeTimer = 0;
         col.enabled = false;
         int timer = 0;
-        while (timer < 60f * shieldBreakTime)
+        shieldActiveForColliders = false;
+        while (timer < 60f * animTime)
         {
             rechargeTimer = 0;
-            spritesToBeHidden.transform.localScale = Vector3.Lerp(spritesToBeHidden.transform.localScale, new Vector3(0, 0, 0), timer / (60f * shieldBreakTime));
+            spritesToBeHidden.transform.localScale = Vector3.Lerp(spritesToBeHidden.transform.localScale, new Vector3(0, 0, 0), timer / (60f * animTime));
             timer++;
             yield return new WaitForFixedUpdate();
-            shieldActiveForColliders = false;
         }
         spritesToBeHidden.transform.localScale = new Vector3(0, 0, 0);
         spritesToBeHidden.SetActive(false);
@@ -121,12 +147,12 @@ public class PassiveShield : MonoBehaviour
         spritesToBeHidden.SetActive(true);
         shieldActive = true;
         int timer = 0;
-        while (timer < 60f * shieldRestoreTime)
+        shieldActiveForColliders = true;
+        while (timer < 60f * shield.shieldRestoreAnimTime)
         {
-            spritesToBeHidden.transform.localScale = Vector3.Lerp(spritesToBeHidden.transform.localScale, new Vector3(1,1,1), timer / (60f * shieldRestoreTime));
+            spritesToBeHidden.transform.localScale = Vector3.Lerp(spritesToBeHidden.transform.localScale, new Vector3(1,1,1), timer / (60f * shield.shieldRestoreAnimTime));
             timer++;
             yield return new WaitForFixedUpdate();
-            shieldActiveForColliders = true;
         }
         spritesToBeHidden.transform.localScale = new Vector3(1, 1, 1);
         col.enabled = true;

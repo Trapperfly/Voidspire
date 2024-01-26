@@ -9,6 +9,7 @@ public class FTLEngine : Equipment
     public float maxSpeed;
     public float rotSpeed;
     public float chargeTime;
+    public float fuelCurrent;
     public float fuelMax;
     public float fuelDrain;
     public float maxDuration;
@@ -18,7 +19,7 @@ public enum FTLTypes
     Ready,
     Burst,
     Flight,
-    Crash,
     Scout,
+    Crash,
     Default
 }

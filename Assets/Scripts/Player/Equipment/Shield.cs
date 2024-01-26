@@ -10,15 +10,17 @@ public class Shield : Equipment
     public float shieldRechargeDelay;
     public float shieldBreakAnimTime;
     public float shieldRestoreAnimTime;
+    public Color shieldColor;
+    public Color breakColor;
 }
 public enum ShieldType
 {
     Hardlight,
     Energy,
+    Phaze,
     Obliterator,
     Portal,
     Forcefield,
     Mirror,
-    Phaze,
     Default
 }

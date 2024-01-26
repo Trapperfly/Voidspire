@@ -48,7 +48,6 @@ public class PlayerHealth : MonoBehaviour
             GetComponent<Rigidbody2D>().mass = hull.hullWeight;
         }
         UpdateSize();
-
     }
 
     void UpdateHealth()
@@ -67,7 +66,7 @@ public class PlayerHealth : MonoBehaviour
             float _backModifier = 0;
             if (child == healthBar.GetChild(0)) _backModifier = 0.05f;
             if (noHull) child.sizeDelta = new Vector2(0 + _backModifier, child.sizeDelta.y);
-            else child.sizeDelta = new Vector2((hull.hullHealth / 10) + _backModifier, child.sizeDelta.y);
+            else child.sizeDelta = new Vector2((hull.hullHealth / 5) + _backModifier, child.sizeDelta.y);
         }
         if (!noHull) UpdateHealth();
     }

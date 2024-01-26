@@ -51,9 +51,22 @@ public class RandomizeEquipment : MonoBehaviour
     [SerializeField] Vector2 maxSpeed;
     [SerializeField] Vector2 turnSpeed;
     [SerializeField] Vector2 maxTurnSpeed;
-    [SerializeField] Vector2 turnSpeedUpTo;
     [SerializeField] Vector2 turnBrakingSpeed;
     [SerializeField] Vector2 brakingSpeed;
+
+    [Header("FTL Engine")]
+    [SerializeField] Sprite[] ftlSprites;
+    [SerializeField] string[] ftlNameFirst;
+    [SerializeField] string[] ftlNameLast;
+
+    [SerializeField] Vector2 acceleration;
+    [SerializeField] Vector2 ftlMaxSpeed;
+    [SerializeField] Vector2 rotSpeed;
+    [SerializeField] Vector2 chargeTime;
+    [SerializeField] Vector2 fuelCurrent;
+    [SerializeField] Vector2 fuelMax;
+    [SerializeField] Vector2 fuelDrain;
+    [SerializeField] Vector2 maxDuration;
 
     [Header("Collector")]
     [SerializeField] Sprite[] colSprites;
@@ -64,6 +77,17 @@ public class RandomizeEquipment : MonoBehaviour
     [SerializeField] Vector2 speedFrom;
     [SerializeField] Vector2 colAmount;
     [SerializeField] Vector2 range;
+
+    [Header("Shield")]
+    [SerializeField] Sprite[] shieldSprites;
+    [SerializeField] string[] shieldNameFirst;
+    [SerializeField] string[] shieldNameLast;
+
+    [SerializeField] Vector2 shieldHealth;
+    [SerializeField] Vector2 shieldRechargeSpeed;
+    [SerializeField] Vector2 shieldRechargeDelay;
+    [SerializeField] Vector2 breakAnim;
+    [SerializeField] Vector2 restoreAnim;
 
     [Header("Hull")]
     [SerializeField] Sprite[] hullSprites;
@@ -383,9 +407,7 @@ public class RandomizeEquipment : MonoBehaviour
         stl.speed = fR(moveSpeed);
         stl.maxSpeed = fR(maxSpeed);
         stl.turnSpeed = fR(turnSpeed);
-        stl.turnSpeedStored = stl.turnSpeed;
         stl.maxTurnSpeed = fR(maxTurnSpeed);
-        stl.turnSpeedBoostUpTo = fR(turnSpeedUpTo);
         stl.turnBrakingSpeed = fR(turnBrakingSpeed);
         stl.brakingSpeed = fR(brakingSpeed);
 
@@ -397,7 +419,6 @@ public class RandomizeEquipment : MonoBehaviour
         statsNames += "Brake: \n"; stl.statLength++;
         statsNames += "Turn speed: \n"; stl.statLength++;
         statsNames += "Max turn speed: \n"; stl.statLength++;
-        statsNames += "Turn speed boost: \n"; stl.statLength++;
         statsNames += "Rotation brake: \n"; stl.statLength++;
         
         stl.statsText = statsNames;
@@ -408,12 +429,107 @@ public class RandomizeEquipment : MonoBehaviour
         statsValues += stl.brakingSpeed.ToString("F2") + "\n";
         statsValues += stl.turnSpeed.ToString("F2") + "\n";
         statsValues += stl.maxTurnSpeed.ToString("F2") + "\n";
-        statsValues += stl.turnSpeedBoostUpTo.ToString("F2") + "\n";
         statsValues += stl.turnBrakingSpeed.ToString("F2") + "\n";
 
         stl.statsValues = statsValues;
 
         return stl;
+    }
+    #endregion
+
+    #region RandomizeFTLEngine
+    public FTLEngine RandomizeFTLEngine()
+    {
+        FTLEngine ftl = ScriptableObject.CreateInstance<FTLEngine>();
+        ftl.itemName = new string
+            (ftlNameFirst[iR(0, ftlNameFirst.Length - 1)]
+            + " "
+            + ftlNameLast[iR(0, ftlNameLast.Length - 1)]);
+        ftl.name = ftl.itemName;
+        ftl.id = Inventory.Instance.id;
+        ftl.icon = ftlSprites[iR(0, ftlSprites.Length - 1)];
+        ftl.color = typeColor[(int)EquipmentTypes.FTL];
+        ftl.equipType = EquipmentTypes.FTL;
+
+        ftl.ftlType = (FTLTypes)iR(0, 3);
+
+        switch (ftl.ftlType)
+        {
+            case FTLTypes.Ready: //Short charge time, shorter duration, more fuel drain
+                ftl.acceleration = fR(acceleration);
+                ftl.maxSpeed = fR(ftlMaxSpeed);
+                ftl.rotSpeed = fR(rotSpeed);
+                ftl.chargeTime = fR(chargeTime) * 0.5f;
+                ftl.fuelMax = fR(fuelMax);
+                ftl.fuelCurrent = ftl.fuelMax - (ftl.fuelMax * (fR(fuelCurrent) / 100));
+                ftl.fuelDrain = fR(fuelDrain) * 1.5f;
+                ftl.maxDuration = fR(maxDuration) * 0.5f;
+                break;
+            case FTLTypes.Burst: //High acceleration, higher max speed
+                ftl.acceleration = fR(acceleration) * 3;
+                ftl.maxSpeed = fR(ftlMaxSpeed) * 3;
+                ftl.rotSpeed = fR(rotSpeed);
+                ftl.chargeTime = fR(chargeTime) * 0.8f;
+                ftl.fuelMax = fR(fuelMax);
+                ftl.fuelCurrent = ftl.fuelMax - (ftl.fuelMax * (fR(fuelCurrent) / 100));
+                ftl.fuelDrain = fR(fuelDrain) * 2;
+                ftl.maxDuration = fR(maxDuration) * 0.3f;
+                break;
+            case FTLTypes.Flight: //Long charge time, high max speed and acceleration, lower fuel drain
+                ftl.acceleration = fR(acceleration);
+                ftl.maxSpeed = fR(ftlMaxSpeed);
+                ftl.rotSpeed = fR(rotSpeed) * 0.5f;
+                ftl.chargeTime = fR(chargeTime) * 2;
+                ftl.fuelMax = fR(fuelMax) * 2;
+                ftl.fuelCurrent = ftl.fuelMax - (ftl.fuelMax * (fR(fuelCurrent) / 100));
+                ftl.fuelDrain = fR(fuelDrain) * 0.5f;
+                ftl.maxDuration = fR(maxDuration) * 3;
+                break;
+            case FTLTypes.Scout: //Medium all round, but high rot speed and duration
+                ftl.acceleration = fR(acceleration);
+                ftl.maxSpeed = fR(ftlMaxSpeed);
+                ftl.rotSpeed = fR(rotSpeed) * 10;
+                ftl.chargeTime = fR(chargeTime) * 0.75f;
+                ftl.fuelMax = fR(fuelMax);
+                ftl.fuelCurrent = ftl.fuelMax - (ftl.fuelMax * (fR(fuelCurrent) / 100));
+                ftl.fuelDrain = fR(fuelDrain) * 1.5f;
+                ftl.maxDuration = fR(maxDuration);
+                break;
+            case FTLTypes.Crash:
+                break;
+            case FTLTypes.Default:
+                break;
+            default:
+                break;
+        }
+
+        string statsNames = "Something is wong";
+        string statsValues = "WTF";
+        statsNames = "";
+        statsNames += "Acceleration:\n"; ftl.statLength++;
+        statsNames += "Max speed: \n"; ftl.statLength++;
+        statsNames += "Rotation speed: \n"; ftl.statLength++;
+        statsNames += "Charge time: \n"; ftl.statLength++;
+        statsNames += "Current fuel: \n"; ftl.statLength++;
+        statsNames += "Max fuel: \n"; ftl.statLength++;
+        statsNames += "Fuel drain: \n"; ftl.statLength++;
+        statsNames += "Max duration: \n"; ftl.statLength++;
+
+        ftl.statsText = statsNames;
+
+        statsValues = "";
+        statsValues += ftl.acceleration.ToString("F0") + "\n";
+        statsValues += ftl.maxSpeed.ToString("F0") + "\n";
+        statsValues += ftl.rotSpeed.ToString("F2") + "\n";
+        statsValues += ftl.chargeTime.ToString("F2") + "\n";
+        statsValues += ftl.fuelCurrent.ToString("F0") + "\n";
+        statsValues += ftl.fuelMax.ToString("F0") + "\n";
+        statsValues += ftl.fuelDrain.ToString("F2") + "\n";
+        statsValues += ftl.maxDuration.ToString("F0") + "\n";
+
+        ftl.statsValues = statsValues;
+
+        return ftl;
     }
     #endregion
 
@@ -477,6 +593,89 @@ public class RandomizeEquipment : MonoBehaviour
         col.statsValues = statsValues;
 
         return col;
+    }
+    #endregion
+
+    #region RandomizeShield
+    public Shield RandomizeShield()
+    {
+        Shield shield = ScriptableObject.CreateInstance<Shield>();
+        shield.itemName = new string(
+             shieldNameFirst[iR(0, shieldNameFirst.Length - 1)]
+            + " "
+            + shieldNameLast[iR(0, shieldNameLast.Length - 1)]);
+        shield.name = shield.itemName;
+        shield.id = Inventory.Instance.id;
+        shield.icon = shieldSprites[iR(0, shieldSprites.Length - 1)];
+        shield.color = typeColor[(int)EquipmentTypes.Shield];
+        shield.equipType = EquipmentTypes.Shield;
+
+        shield.shieldType = (ShieldType)iR(0, 2);
+
+        switch (shield.shieldType)
+        {
+            case ShieldType.Hardlight:
+                shield.shieldHealth = fR(shieldHealth) * 2;
+                shield.shieldRechargeSpeed = fR(shieldRechargeSpeed);
+                shield.shieldRechargeDelay = fR(shieldRechargeDelay) * 2;
+                shield.shieldBreakAnimTime = fR(breakAnim);
+                shield.shieldRestoreAnimTime = fR(restoreAnim);
+                shield.shieldColor = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.6f, 1);
+                shield.shieldColor.a = 1f;
+                shield.breakColor = shield.shieldColor * 2f;
+                break;
+            case ShieldType.Energy:
+                shield.shieldHealth = fR(shieldHealth);
+                shield.shieldRechargeSpeed = fR(shieldRechargeSpeed) * 1.25f;
+                shield.shieldRechargeDelay = fR(shieldRechargeDelay);
+                shield.shieldBreakAnimTime = fR(breakAnim);
+                shield.shieldRestoreAnimTime = fR(restoreAnim);
+                shield.shieldColor = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.6f, 1);
+                shield.shieldColor.a = 1f;
+                shield.breakColor = shield.shieldColor * 2f;
+                break;
+            case ShieldType.Phaze:
+                shield.shieldHealth = fR(shieldHealth) * 0.5f;
+                shield.shieldRechargeSpeed = fR(shieldRechargeSpeed) * 2;
+                shield.shieldRechargeDelay = fR(shieldRechargeDelay)* 0.5f;
+                shield.shieldBreakAnimTime = fR(breakAnim);
+                shield.shieldRestoreAnimTime = fR(restoreAnim);
+                shield.shieldColor = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.6f, 1);
+                shield.shieldColor.a = 1f;
+                shield.breakColor = shield.shieldColor * 2f;
+                break;
+            case ShieldType.Obliterator:
+                break;
+            case ShieldType.Portal:
+                break;
+            case ShieldType.Forcefield:
+                break;
+            case ShieldType.Mirror:
+                break;
+            case ShieldType.Default:
+                break;
+            default:
+                break;
+        }
+        Debug.Log(shield.shieldColor);
+
+        string statsNames = "Something is wong";
+        string statsValues = "WTF";
+        statsNames = "";
+        statsNames += "Max shield:\n"; shield.statLength++;
+        statsNames += "Recharge rate: \n"; shield.statLength++;
+        statsNames += "Recharge delay: \n"; shield.statLength++;
+
+        shield.statsText = statsNames;
+
+        statsValues = "";
+        statsValues += shield.shieldHealth.ToString("F2") + "\n";
+        statsValues += shield.shieldRechargeSpeed.ToString("F2") + "\n";
+        statsValues += shield.shieldRechargeDelay.ToString("F1") + "\n";
+
+        shield.statsValues = statsValues;
+
+        return shield;
     }
     #endregion
 

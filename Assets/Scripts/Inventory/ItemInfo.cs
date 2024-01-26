@@ -31,12 +31,16 @@ public class ItemInfo : MonoBehaviour
                     accepted = true;
                     break;
                 case EquipmentTypes.Shield:
+                    newEquipment = RandomizeEquipment.Instance.RandomizeShield() as Shield;
+                    accepted = true;
                     break;
                 case EquipmentTypes.STL:
                     newEquipment = RandomizeEquipment.Instance.RandomizeSTLEngine() as STLEngine;
                     accepted = true;
                     break;
                 case EquipmentTypes.FTL:
+                    newEquipment = RandomizeEquipment.Instance.RandomizeFTLEngine() as FTLEngine;
+                    accepted = true;
                     break;
                 case EquipmentTypes.Hull:
                     newEquipment = RandomizeEquipment.Instance.RandomizeHull() as Hull;
