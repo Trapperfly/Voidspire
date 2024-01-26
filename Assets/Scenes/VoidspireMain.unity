@@ -2509,9 +2509,8 @@ MonoBehaviour:
   - Pulse
   moveSpeed: {x: 2, y: 6}
   maxSpeed: {x: 4, y: 10}
-  turnSpeed: {x: 0.1, y: 0.4}
+  turnSpeed: {x: 0.2, y: 0.5}
   maxTurnSpeed: {x: 2, y: 5}
-  turnSpeedUpTo: {x: 10, y: 100}
   turnBrakingSpeed: {x: 4, y: 8}
   brakingSpeed: {x: 0.2, y: 1}
   ftlSprites:
@@ -37203,7 +37202,6 @@ MonoBehaviour:
   ftlEquipped: 0
   fuelMeter: {fileID: 1907956463}
   fuelBar: {fileID: 1298604008}
-  sliderRef: {fileID: 739132602}
   stl: {fileID: 0}
   ftl: {fileID: 0}
 --- !u!114 &2490531367815358817

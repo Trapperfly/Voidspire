@@ -61,7 +61,7 @@ public class PassiveShield : MonoBehaviour
             noShield = false;
         }
         UpdateSize();
-        newShieldCheck = true;
+        if (shield.id == storedID) newShieldCheck = true;
         ShieldCheck();
     }
 
