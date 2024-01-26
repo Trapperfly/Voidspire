@@ -117,6 +117,7 @@ public class PassiveShield : MonoBehaviour
         Debug.Log("Checking if broken");
         if (newShieldCheck) { }
         else { rechargeTimer = 0; }
+        newShieldCheck = false;
         //check if shield is broken
         UpdateShield();
         if (shieldActive && shieldCurrent <= 0)
