@@ -29,6 +29,7 @@ public class PassiveShield : MonoBehaviour
     EquipmentController equipment;
     Shield shield;
     bool noShield;
+    bool newShieldCheck;
     private void Awake()
     {
         EquipmentController.Instance.onEquipmentLoadComplete += CustomStart;
@@ -60,6 +61,7 @@ public class PassiveShield : MonoBehaviour
             noShield = false;
         }
         UpdateSize();
+        newShieldCheck = true;
         ShieldCheck();
     }
 
@@ -113,6 +115,8 @@ public class PassiveShield : MonoBehaviour
     public void ShieldCheck()
     {
         Debug.Log("Checking if broken");
+        if (newShieldCheck) { }
+        else { rechargeTimer = 0; }
         //check if shield is broken
         UpdateShield();
         if (shieldActive && shieldCurrent <= 0)
