@@ -106,7 +106,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!noHull)
         {
-            float incomingDamage = damage - (damage * hull.hullDamageNegation);
+            float incomingDamage = damage - (damage * (hull.hullDamageNegation / 100));
             hull.hullCurrentHealth -= incomingDamage;
         }
         HealthCheck();
