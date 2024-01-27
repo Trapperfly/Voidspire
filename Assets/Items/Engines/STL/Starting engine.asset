@@ -28,7 +28,7 @@ MonoBehaviour:
   stlType: 6
   speed: 3
   maxSpeed: 5
-  turnSpeed: 0.3
+  turnSpeed: 0.5
   turnSpeedStored: 0.3
   maxTurnSpeed: 1.6
   turnSpeedBoostUpTo: 0

@@ -555,7 +555,7 @@ public class RandomizeEquipment : MonoBehaviour
                 col.collectorSpeedTo = fR(speedTo);
                 col.collectorSpeedFrom = fR(speedFrom);
                 col.amount = iR(colAmount) * 2;
-                col.range = fR(range) * 2;
+                col.range = fR(range) * 1.5f;
                 break;
             case CollectorTypes.Harpoon:
                 col.collectorSpeedTo = Mathf.Clamp(fR(speedTo) / 10, 0.1f, 100);
@@ -707,13 +707,13 @@ public class RandomizeEquipment : MonoBehaviour
                 hull.hullHealth = fR(hullMax) * 2;
                 hull.hullCurrentHealth = hull.hullHealth - (hull.hullHealth * (fR(hullCurrent) / 100));
                 hull.hullDamageNegation = fR(hullDamageNeg) * 2;
-                hull.hullWeight = fR(hullWeight) * 2;
+                hull.hullWeight = fR(hullWeight) * 1.5f;
                 break;
             case HullTypes.LightClass:
                 hull.hullHealth = fR(hullMax) * 0.5f;
                 hull.hullCurrentHealth = hull.hullHealth - (hull.hullHealth * (fR(hullCurrent) / 100));
                 hull.hullDamageNegation = fR(hullDamageNeg) * 0.5f;
-                hull.hullWeight = fR(hullWeight) * 0.5f;
+                hull.hullWeight = fR(hullWeight) * 0.8f;
                 break;
             case HullTypes.NebularProtection:
                 break;

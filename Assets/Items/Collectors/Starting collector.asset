@@ -26,8 +26,8 @@ MonoBehaviour:
   statsValues: 
   statLength: 1
   collectorType: 4
-  collectorSpeedTo: 0.2
-  collectorSpeedFrom: 0.2
+  collectorSpeedTo: 1
+  collectorSpeedFrom: 1
   recharge: 0
-  range: 5
+  range: 1.5
   amount: 2
