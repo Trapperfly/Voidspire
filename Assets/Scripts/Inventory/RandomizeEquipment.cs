@@ -478,7 +478,7 @@ public class RandomizeEquipment : MonoBehaviour
             case FTLTypes.Flight: //Long charge time, high max speed and acceleration, lower fuel drain
                 ftl.acceleration = fR(acceleration);
                 ftl.maxSpeed = fR(ftlMaxSpeed);
-                ftl.rotSpeed = fR(rotSpeed) * 0.5f;
+                ftl.rotSpeed = fR(rotSpeed) * 0;
                 ftl.chargeTime = fR(chargeTime) * 2;
                 ftl.fuelMax = fR(fuelMax) * 2;
                 ftl.fuelCurrent = ftl.fuelMax - (ftl.fuelMax * (fR(fuelCurrent) / 100));

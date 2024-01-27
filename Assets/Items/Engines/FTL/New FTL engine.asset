@@ -19,6 +19,7 @@ MonoBehaviour:
   id: 0
   value: 0
   color: {r: 1, g: 0.85882354, b: 0, a: 1}
+  level: 0
   equipType: 5
   quality: 0
   statsText: Its stats are obscured...
@@ -29,6 +30,7 @@ MonoBehaviour:
   maxSpeed: 40
   rotSpeed: 0.2
   chargeTime: 2
+  fuelCurrent: 24971
   fuelMax: 30000
   fuelDrain: 1
   maxDuration: -1

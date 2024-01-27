@@ -179,7 +179,7 @@ public class ShipControl : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            rb.AddForce(-transform.up * (stl.speed / 2), ForceMode2D.Force);
+            rb.AddForce(-transform.up * (stl.speed * 0.8f), ForceMode2D.Force);
             float drag = (stl.speed * 2) / stl.maxSpeed;
             rb.drag = drag / (drag * Time.fixedDeltaTime + 1);
         }

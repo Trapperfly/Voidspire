@@ -5,6 +5,7 @@ using ExtensionMethods;
 
 public class GunFire : MonoBehaviour
 {
+    Rigidbody2D pRB;
     GunStats stat;
     Transform bulletHolder;
     EquipmentController gc;
@@ -29,6 +30,7 @@ public class GunFire : MonoBehaviour
 
     private void Awake()
     {
+        pRB = GlobalRefs.Instance.player.GetComponent<Rigidbody2D>();
         EquipmentController.Instance.onGunLoadComplete += CustomStart;
         stat = GetComponent<GunStats>();
         gunPoint = GetComponent<GunPoint>();
@@ -197,7 +199,7 @@ public class GunFire : MonoBehaviour
         GameObject bullet = Instantiate(gc.bulletPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
         bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
         bullet.transform.localScale *= w.bulletSize;
-        bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * Speed(w.speed);
+        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
         yield return null;

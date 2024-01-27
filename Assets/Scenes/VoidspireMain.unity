@@ -2529,7 +2529,7 @@ MonoBehaviour:
   chargeTime: {x: 1.5, y: 2.5}
   fuelCurrent: {x: 4, y: 75}
   fuelMax: {x: 20000, y: 40000}
-  fuelDrain: {x: 0.8, y: 1.2}
+  fuelDrain: {x: 0.8, y: 2}
   maxDuration: {x: 20, y: 30}
   colSprites:
   - {fileID: 21300000, guid: 71476355b99d2744bb22c5630f739003, type: 3}
@@ -17331,7 +17331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseBased: 1
-  targetBased: 1
+  targetBased: 0
   limitRot: 1
   limitRotValues: {x: -122, y: 9}
   rotSpeed: 5
@@ -37492,7 +37492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseBased: 1
-  targetBased: 1
+  targetBased: 0
   limitRot: 1
   limitRotValues: {x: -9, y: 122}
   rotSpeed: 5
