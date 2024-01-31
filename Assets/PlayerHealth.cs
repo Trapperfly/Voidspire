@@ -26,7 +26,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void CustomStart()
     {
-        Debug.Log("CustomStartActivated");
+        //Debug.Log("CustomStartActivated");
         equipment = EquipmentController.Instance;
         healthBarImage = healthBar.GetChild(2).GetComponent<Image>();
         SetNewStats();
@@ -54,8 +54,6 @@ public class PlayerHealth : MonoBehaviour
     {
         if (hull.hullCurrentHealth > hull.hullHealth) hull.hullCurrentHealth = hull.hullHealth;
         healthPercent = hull.hullCurrentHealth / hull.hullHealth;
-        Debug.Log(healthPercent);
-        Debug.Log(healthBarImage.fillAmount);
         healthBarImage.fillAmount = healthPercent;
     }
 

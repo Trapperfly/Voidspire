@@ -416,8 +416,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceSpawner: {fileID: 0}
   noDrop: 1
-  value: 4
-  size: 0.3
+  value: 1
+  size: 1
   valueFromSize: 0
   lootExplosionStrength: 0.1
   weaponDropChance: 0.1

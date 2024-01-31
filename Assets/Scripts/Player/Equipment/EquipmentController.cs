@@ -146,14 +146,14 @@ public class EquipmentController : MonoBehaviour
     #region Loading weapons and attachments
     public void LoadBulletHolders()
     {
-        Debug.Log("Loading bc");
+        //Debug.Log("Loading bc");
         int j = 0;
         for (int i = 0; i < equipmentSlots.Count; i++)
         {
-            Debug.Log("Checking slot");
+            //Debug.Log("Checking slot");
             if (equipmentSlots[i].allowed == EquipmentTypes.Weapon)
             {
-                Debug.Log("Accepted slot, inserting bullet controller");
+                //Debug.Log("Accepted slot, inserting bullet controller");
                 bc[j] = Instantiate(bulletHolderPrefab, bulletHolderMaster).GetComponent<BulletController>();
                 j++;
             }
@@ -183,7 +183,7 @@ public class EquipmentController : MonoBehaviour
 
     public void LoadGuns()
     {
-        Debug.Log("Loading guns");
+        //Debug.Log("Loading guns");
         GameObject[] gunsGO = GameObject.FindGameObjectsWithTag("GunOnShip");
         for (int i = 0; i < gunsGO.Length; i++)
         {

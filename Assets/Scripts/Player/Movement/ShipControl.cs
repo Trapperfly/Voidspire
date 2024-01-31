@@ -42,7 +42,7 @@ public class ShipControl : MonoBehaviour
     //}
     private void CustomStart()
     {
-        Debug.Log("CustomStartActivated");
+        //Debug.Log("CustomStartActivated");
         equipment = EquipmentController.Instance;
         SetNewStats();
         if (ftlEquipped)
@@ -63,13 +63,13 @@ public class ShipControl : MonoBehaviour
     private void SetNewStats()
     {
         stl = equipment.stlSlots[0].item as STLEngine;
-        Debug.Log(stl);
+        //Debug.Log(stl);
         stlEquipped = stl != null;
         if (stl) {  } //Change some visuals
         else {  }
 
         ftl = equipment.ftlSlots[0].item as FTLEngine;
-        Debug.Log("ftl is " + ftl);
+        //Debug.Log("ftl is " + ftl);
         ftlEquipped = ftl != null;
         if (ftl) { UpdateSize(); } //Change some visuals
         else { if (ftlActive) ftlEnding = true; UpdateSize(); }

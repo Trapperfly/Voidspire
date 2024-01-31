@@ -16,7 +16,6 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(Input.mouseScrollDelta);
         zoom -= Input.mouseScrollDelta.y;
         if (zoom < 3) { zoom = 3; } else if (zoom > 10) { zoom = 10; }
         settings.OrthographicSize = Mathf.Lerp(settings.OrthographicSize, zoom, 0.03f);

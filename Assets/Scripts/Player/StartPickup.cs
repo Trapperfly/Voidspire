@@ -25,7 +25,7 @@ public class StartPickup : MonoBehaviour
 
     private void CustomStart()
     {
-        Debug.Log("CustomStartActivated");
+        //Debug.Log("CustomStartActivated");
         equipment = EquipmentController.Instance;
         SetNewStats();
 
@@ -36,9 +36,9 @@ public class StartPickup : MonoBehaviour
     private void SetNewStats()
     {
         collector = equipment.collectorSlots[0].item as Collector;
-        Debug.Log(collector);
+        //Debug.Log(collector);
         GetComponent<CircleCollider2D>().radius = collector.range;
-        Debug.Log(collector);
+        //Debug.Log(collector);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

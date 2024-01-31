@@ -38,7 +38,7 @@ public class PassiveShield : MonoBehaviour
 
     private void CustomStart()
     {
-        Debug.Log("CustomStartActivated");
+        //Debug.Log("CustomStartActivated");
         equipment = EquipmentController.Instance;
         shieldBarImage = shieldBar.GetChild(2).GetComponent<Image>();
         shieldActive = true;
@@ -114,7 +114,7 @@ public class PassiveShield : MonoBehaviour
 
     public void ShieldCheck()
     {
-        Debug.Log("Checking if broken");
+        //Debug.Log("Checking if broken");
         if (newShieldCheck) { }
         else { rechargeTimer = 0; }
         newShieldCheck = false;
@@ -122,7 +122,7 @@ public class PassiveShield : MonoBehaviour
         UpdateShield();
         if (shieldActive && shieldCurrent <= 0)
         {
-            Debug.Log("Breaking shield because of damage taken");
+            //Debug.Log("Breaking shield because of damage taken");
             StartCoroutine(BreakShield());
         }
     }

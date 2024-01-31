@@ -47,7 +47,7 @@ public class DragAndDrop : MonoBehaviour,
     {
         dnd.slot = transform;
         slot0 = eventData.pointerDrag.GetComponent<InventorySlot>();
-        Debug.Log(slot0);
+        //Debug.Log(slot0);
         line = new GameObject().AddComponent<RectTransform>();
         rects.Add(line);
         line.gameObject.layer = 2;
@@ -63,7 +63,7 @@ public class DragAndDrop : MonoBehaviour,
         {
             endPos = eventData.position;
             line.position = Vector2.Lerp(startPos, endPos, 0.5f);
-            Debug.Log("Screen resolution is " + 1920f/Screen.width + "x" + 1080f/Screen.height);
+            //Debug.Log("Screen resolution is " + 1920f/Screen.width + "x" + 1080f/Screen.height);
             line.localScale = new Vector2(0.1f, Vector2.Distance(startPos, endPos) / canvas.scaleFactor / 100f);
 
             var dir = endPos - (Vector2)line.transform.position;
@@ -84,9 +84,9 @@ public class DragAndDrop : MonoBehaviour,
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log(eventData.pointerEnter.GetComponentInParent<InventorySlot>());
-        Debug.Log(line);
-        Debug.Log(isHovering);
+        //Debug.Log(eventData.pointerEnter.GetComponentInParent<InventorySlot>());
+        //Debug.Log(line);
+        //Debug.Log(isHovering);
         dnd.slot = null;
         Destroy(activeInfoBox);
         activeInfoBox = null;
@@ -134,17 +134,17 @@ public class DragAndDrop : MonoBehaviour,
     {
         if (eventData.dragging && GetComponent<InventorySlot>().item && dnd.slot && dnd.slot.GetComponent<InventorySlot>().item)
         {
-            Debug.Log("Displaying ol box");
+            //Debug.Log("Displaying ol box");
             DisplayOldInfoBox(dnd.slot);
         }
-        Debug.Log(eventData.pointerEnter.transform.parent.parent.ToString());
-        Debug.Log(GetComponent<InventorySlot>().item);
+        //Debug.Log(eventData.pointerEnter.transform.parent.parent.ToString());
+        //Debug.Log(GetComponent<InventorySlot>().item);
         isHovering = true;
         if (GetComponent<InventorySlot>().item)
         {
             DisplayInfoBox(transform);
         }
-        Debug.Log("hovering");
+        //Debug.Log("hovering");
     }
     public void OnPointerExit(PointerEventData eventData)
     {
@@ -163,12 +163,12 @@ public class DragAndDrop : MonoBehaviour,
             activeInfoBox = null;
             infoBoxActive = false;
         }
-        Debug.Log("not hovering");
+        //Debug.Log("not hovering");
     }
 
     public void SwapSpaces()
     {
-        Debug.Log("Swapping " + slot0 + " and " + slot1);
+        //Debug.Log("Swapping " + slot0 + " and " + slot1);
         Inventory.Instance.Swap(slot0, slot1);
     }
 

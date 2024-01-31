@@ -47,9 +47,9 @@ public class GunFire : MonoBehaviour
 
     private void CustomStart()
     {
-        Debug.Log("CustomStartActivated");
+        //Debug.Log("CustomStartActivated");
         gc = EquipmentController.Instance;
-        Debug.Log(gc);
+        //Debug.Log(gc);
         SetNewWeapon();
         bulletHolder = gc.bc[stat.gunNumber].transform;
         fireRateA = w.fireRate;
@@ -195,7 +195,7 @@ public class GunFire : MonoBehaviour
     }
     public IEnumerator ShootBullet()
     {
-        Debug.Log("Trying to shoot bullet");
+        //Debug.Log("Trying to shoot bullet");
         GameObject bullet = Instantiate(gc.bulletPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
         bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
         bullet.transform.localScale *= w.bulletSize;
