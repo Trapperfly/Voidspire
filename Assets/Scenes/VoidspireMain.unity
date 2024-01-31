@@ -25604,7 +25604,7 @@ MonoBehaviour:
   unlitMat: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   testingSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   chunkHolder: {fileID: 2147198639}
-  viewDist: 10
+  viewDist: 4
   chunkSize: 10
   debrisScale: 0.06
   debrisMultiplier: 5
