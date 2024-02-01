@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: -9066259812528547899}
   - component: {fileID: -8973844629681964601}
   - component: {fileID: 3434563164811518689}
+  - component: {fileID: 8983833516757562162}
   m_Layer: 11
   m_Name: Debris
   m_TagString: Targetable
@@ -401,6 +402,18 @@ MonoBehaviour:
   valueFromSize: 1
   lootExplosionStrength: 0
   weaponDropChance: 0.01
+--- !u!114 &8983833516757562162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672731457504470230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78aa24faceb23c24ab04b4a9ac73d563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6726956779904962045
 GameObject:
   m_ObjectHideFlags: 0

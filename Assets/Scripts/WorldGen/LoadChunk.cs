@@ -10,8 +10,8 @@ public class LoadChunk : MonoBehaviour
     private void Start()
     {
         loader = ChunkLoader.Instance;
-        LoadDebris(loader.debrisMultiplier);
-        LoadFaction(loader.factionMultiplier);
+        LoadDebris(ChunkLoader.debrisMultiplier);
+        LoadFaction(ChunkLoader.factionMultiplier);
     }
 
     void LoadDebris(float amount)
