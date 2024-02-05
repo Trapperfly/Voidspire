@@ -10,25 +10,29 @@ public class LoadChunk : MonoBehaviour
     private void Start()
     {
         loader = ChunkLoader.Instance;
-        LoadDebris(ChunkLoader.debrisMultiplier);
-        LoadFaction(ChunkLoader.factionMultiplier);
+        StartCoroutine(LoadDebris(ChunkLoader.debrisMultiplier));
+        StartCoroutine(LoadFaction(ChunkLoader.factionMultiplier));
     }
 
-    void LoadDebris(float amount)
+    IEnumerator LoadDebris(float amount)
     {
         for (int i = 0; i < amount; i++)
         {
             if (Random.value < chunk.debrisValue)
                 SpawnDebris.Instance.Spawn(transform.position, loader.chunkSize / 2);
+            yield return new WaitForEndOfFrame();
         }
+        yield return null;
     }
 
-    private void LoadFaction(float amount)
+    IEnumerator LoadFaction(float amount)
     {
         for (int i = 0; i < amount; i++)
         {
             if (Random.value < chunk.factionValue)
                 SpawnEnemies.Instance.Spawn(transform.position, loader.chunkSize / 2);
+            yield return new WaitForEndOfFrame();
         }
+        yield return null;
     }
 }

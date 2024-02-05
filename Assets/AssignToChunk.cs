@@ -7,8 +7,14 @@ public class AssignToChunk : MonoBehaviour
     ChunkLoader loader;
     Vector2Int lastFramePos;
     Vector2Int pos;
+
+    private void Awake()
+    {
+        quitting = true;
+    }
     void Start()
     {
+        quitting = false;
         lastFramePos = new(100, 100);
         loader = ChunkLoader.Instance;
         pos = new(Mathf.RoundToInt(transform.position.x / loader.chunkSize), Mathf.RoundToInt(transform.position.y / loader.chunkSize));
@@ -47,6 +53,7 @@ public class AssignToChunk : MonoBehaviour
     private void OnDestroy()
     {
         if (quitting) return;
+        if (!loader.spaceChunkDictionary.ContainsKey(pos)) { Debug.LogWarning("Chunk didnt exist"); return; }
         loader.spaceChunkDictionary[pos].entities.Remove(gameObject);
     }
 }
