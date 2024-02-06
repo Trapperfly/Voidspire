@@ -216,24 +216,30 @@ public class GunFire : MonoBehaviour
         while (Input.GetMouseButton(0) && stat.active)
         {
             //Calculate baser and hit
-            RaycastHit2D hit = Physics2D.Raycast(bulletSpawnPoint.position, bulletSpawnPoint.up, w.longevity * w.speed / 5, rayHitMask);
+            RaycastHit2D[] hit = Physics2D.RaycastAll(bulletSpawnPoint.position, bulletSpawnPoint.up, w.longevity * w.speed / 5, rayHitMask);
+            int actualHits = 0;
             Damagable dm = null;
-            if (hit && hit.collider.GetComponent<Damagable>())
-                dm = hit.collider.GetComponent<Damagable>();
-            if (hit && dm) 
-                dm.TakeDamage(w.damage * Time.deltaTime * fireRateA);
+            for (int i = 0; i <= w.pierce; i++)
+            {
+                if (InBounds(i, hit)) { actualHits++; }
+                if (InBounds(i, hit) && hit[i].collider.GetComponent<Damagable>())
+                    dm = hit[i].collider.GetComponent<Damagable>();
+                if (InBounds(i, hit) && dm)
+                    dm.TakeDamage(w.damage * Time.deltaTime * fireRateA);
+            }
+
             
 
             //Viusal effects
-            if (!hit)
+            if (actualHits <= w.pierce)
             {
                 beam.SetPosition(1, new Vector2(0, 1) * w.longevity * w.speed / 5);
                 emis.enabled = false;
             }
             else
             {
-                beam.SetPosition(1, bulletSpawnPoint.InverseTransformPoint(hit.point));
-                beamHitPs.transform.position = hit.point;
+                beam.SetPosition(1, bulletSpawnPoint.InverseTransformPoint(hit[actualHits-1].point));
+                beamHitPs.transform.position = hit[actualHits - 1].point;
                 beamHitPs.transform.LookAt(bulletSpawnPoint);
                 emis.enabled = true;
             }
@@ -269,18 +275,24 @@ public class GunFire : MonoBehaviour
             .GetComponent<ParticleSystem>();
         ParticleSystem.ShapeModule shape = hitscanLinePs.shape;
         ParticleSystem.Burst burst = hitscanLinePs.emission.GetBurst(0);
-
-        RaycastHit2D hit = Physics2D.Raycast(bulletSpawnPoint.position, bulletSpawnPoint.up, w.longevity * w.speed / 5, rayHitMask);
+        RaycastHit2D[] hit = Physics2D.RaycastAll(bulletSpawnPoint.position, bulletSpawnPoint.up, w.longevity * w.speed / 5, rayHitMask);
         Debug.DrawRay(bulletSpawnPoint.position, bulletSpawnPoint.up);
         Damagable dm = null;
-        if (hit && hit.collider.GetComponent<Damagable>())
-            dm = hit.collider.GetComponent<Damagable>();
-        if (hit && dm)
-            dm.TakeDamage(w.damage);
+        int actualHits = 0;
+        for (int i = 0; i <= w.pierce; i++)
+        {
+            if (InBounds(i, hit)) { actualHits++; }
+            if (InBounds(i, hit) && hit[i].collider.GetComponent<Damagable>())
+                dm = hit[i].collider.GetComponent<Damagable>();
+            if (InBounds(i, hit) && dm)
+                dm.TakeDamage(w.damage);
+        }
+        Debug.Log(actualHits);
 
 
         //Viusal effects
-        if (!hit)
+        Debug.Log(w.pierce);
+        if (actualHits <= w.pierce)
         {
             hitscan.SetPosition(0, bulletSpawnPoint.transform.position);
             hitscan.SetPosition(1, bulletSpawnPoint.transform.position + (w.longevity * w.speed * bulletSpawnPoint.up / 5));
@@ -289,8 +301,8 @@ public class GunFire : MonoBehaviour
         {
             ParticleSystem hitscanHitPs = Instantiate(gc.railgunPsPrefab).GetComponent<ParticleSystem>();
             hitscan.SetPosition(0, bulletSpawnPoint.transform.position);
-            hitscan.SetPosition(1, hit.point);
-            hitscanHitPs.transform.position = hit.point;
+            hitscan.SetPosition(1, hit[actualHits-1].point);
+            hitscanHitPs.transform.position = hit[actualHits-1].point;
             hitscanHitPs.transform.LookAt(bulletSpawnPoint);
             hitscanHitPs.Play();
             Destroy(hitscanHitPs.gameObject, 0.5f);
@@ -310,6 +322,10 @@ public class GunFire : MonoBehaviour
         gunMaster.hasFired = true;
         bulletSpawnPoint.rotation = transform.rotation;
         yield return null;
+    }
+    private bool InBounds(int index, RaycastHit2D[] array)
+    {
+        return (index >= 0) && (index < array.Length);
     }
     private void Update()
     {

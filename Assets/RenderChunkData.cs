@@ -144,7 +144,7 @@ public class RenderChunkData : MonoBehaviour
             + GlobalRefs.ySeed 
             + specificSeed);
         if (pValue < limit) { return Color.black; }
-        Color color = whatColorChannel * pValue;
+        Color color = whatColorChannel * Mathf.Pow(pValue, 3);
         color.a = alpha;
         return color;
     }
@@ -168,7 +168,7 @@ public class RenderChunkData : MonoBehaviour
             + GlobalRefs.ySeed
             + specificSeed);
 
-        Color color = whatColorChannel * pValue;
+        Color color = whatColorChannel * Mathf.Pow(pValue, 3);
         color.a = alpha;
         return color;
     }
