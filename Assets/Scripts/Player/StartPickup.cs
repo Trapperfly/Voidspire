@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using static System.Net.WebRequestMethods;
+using System.Drawing;
 
 public class StartPickup : MonoBehaviour
 {
@@ -35,9 +36,12 @@ public class StartPickup : MonoBehaviour
 
     private void SetNewStats()
     {
+        CircleCollider2D col = GetComponent<CircleCollider2D>();
+        if (!equipment.collectorSlots[0].item) { col.enabled = false; return; }
+        col.enabled = true;
         collector = equipment.collectorSlots[0].item as Collector;
         //Debug.Log(collector);
-        GetComponent<CircleCollider2D>().radius = collector.range;
+        col.radius  = collector.range;
         //Debug.Log(collector);
     }
     private void OnTriggerEnter2D(Collider2D collision)

@@ -15,16 +15,14 @@ public class MenuController : MonoBehaviour
 
     bool inventoryActive;
     bool mapActive;
-    bool chunkMapActive;
+    //bool chunkMapActive;
     bool escActive;
     void Update()
     {
         if (inventoryActive && Input.GetKeyDown(KeyCode.Escape)) Inventory();
         else if (mapActive && Input.GetKeyDown(KeyCode.Escape)) MapMode();
-        else if (chunkMapActive && Input.GetKeyDown(KeyCode.Escape)) ChunkMapMode();
         else if (Input.GetKeyDown(KeyCode.Escape)) PauseGame();
-        if (!escActive && !inventoryActive && !chunkMapActive && Input.GetKeyDown(KeyCode.M)) MapMode();
-        if (!escActive && !inventoryActive && !mapActive && Input.GetKeyDown(KeyCode.N)) ChunkMapMode();
+        if (!escActive && !inventoryActive && Input.GetKeyDown(KeyCode.M)) MapMode();
         if (!escActive && !mapActive && Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)) Inventory();
     }
 
@@ -46,11 +44,11 @@ public class MenuController : MonoBehaviour
         else { map.SetActive(true); mapActive = true; }
     }
 
-    public void ChunkMapMode()
-    {
-        if (chunkMap.activeSelf) { chunkMap.SetActive(false); chunkMapActive = false; }
-        else { chunkMap.SetActive(true); chunkMapActive = true; }
-    }
+    //public void ChunkMapMode()
+    //{
+    //    if (chunkMap.activeSelf) { chunkMap.SetActive(false); chunkMapActive = false; }
+    //    else { chunkMap.SetActive(true); chunkMapActive = true; }
+    //}
 
     public void Inventory()
     {

@@ -61,7 +61,7 @@ public class PassiveShield : MonoBehaviour
             noShield = false;
         }
         UpdateSize();
-        if (shield.id == storedID) newShieldCheck = true;
+        if (shield && shield.id == storedID) newShieldCheck = true;
         ShieldCheck();
     }
 
@@ -119,7 +119,7 @@ public class PassiveShield : MonoBehaviour
         else { rechargeTimer = 0; }
         newShieldCheck = false;
         //check if shield is broken
-        UpdateShield();
+        UpdateSize();
         if (shieldActive && shieldCurrent <= 0)
         {
             //Debug.Log("Breaking shield because of damage taken");

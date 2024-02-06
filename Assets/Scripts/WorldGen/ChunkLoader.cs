@@ -40,13 +40,13 @@ public class ChunkLoader : MonoBehaviour
     public static float shopThreshold = 0.95f;
     public static float eventThreshold = 0.95f;
 
-    static float xSeed;
-    static float ySeed;
-    static float debrisSeed;
-    static float factionSeed;
-    static float shopSeed;
-    static float yieldSeed;
-    static float eventSeed;
+    //static float xSeed;
+    //static float ySeed;
+    //static float debrisSeed;
+    //static float factionSeed;
+    //static float shopSeed;
+    //static float yieldSeed;
+    //static float eventSeed;
 
     public static List<GameObject> toBeDestroyed = new();
 
@@ -71,16 +71,6 @@ public class ChunkLoader : MonoBehaviour
 
     private void Start()
     {
-        seed = Random.Range(-10000, 10000);
-        Random.InitState(seed);
-        //Set seeds 
-        xSeed = Random.Range(-10000, 10000);
-        ySeed = Random.Range(-10000, 10000);
-        debrisSeed = Random.Range(-10000, 10000);
-        factionSeed = Random.Range(-10000, 10000);
-        shopSeed = Random.Range(-10000, 10000);
-        yieldSeed = Random.Range(-10000, 10000);
-        eventSeed = Random.Range(-10000, 10000);
         chunksVisibleInViewDist = Mathf.RoundToInt(viewDist / chunkSize);
         //GenerateChunks();
     }
@@ -88,6 +78,7 @@ public class ChunkLoader : MonoBehaviour
     private void Update()
     {
         viewerPosition = new Vector2(viewer.position.x, viewer.position.y);
+        GlobalRefs.playerPos = viewerPosition;
         UpdateVisibleChunks();
         UpdateHiddenChunks();
     }
@@ -239,19 +230,19 @@ public class ChunkLoader : MonoBehaviour
         {
             Chunk chunk = new();
 
-            float debrisValue = Mathf.PerlinNoise(coord.x * debrisScale + xSeed + debrisSeed, coord.y * debrisScale + ySeed + debrisSeed);
+            float debrisValue = Mathf.PerlinNoise(coord.x * debrisScale + GlobalRefs.xSeed + GlobalRefs.debrisSeed, coord.y * debrisScale + GlobalRefs.ySeed + GlobalRefs.debrisSeed);
             chunk.debrisValue = debrisValue;
 
-            float factionValue = Mathf.PerlinNoise(coord.x * factionScale + xSeed + factionSeed, coord.y * factionScale + ySeed + factionSeed);
+            float factionValue = Mathf.PerlinNoise(coord.x * factionScale + GlobalRefs.xSeed + GlobalRefs.factionSeed, coord.y * factionScale + GlobalRefs.ySeed + GlobalRefs.factionSeed);
             chunk.factionValue = factionValue;
 
-            float shopValue = Mathf.PerlinNoise(coord.x * shopScale + xSeed + shopSeed, coord.y * shopScale + ySeed + shopSeed);
+            float shopValue = Mathf.PerlinNoise(coord.x * shopScale + GlobalRefs.xSeed + GlobalRefs.shopSeed, coord.y * shopScale + GlobalRefs.ySeed + GlobalRefs.shopSeed);
             chunk.shop = shopValue > shopThreshold;
 
-            float yieldValue = Mathf.PerlinNoise(coord.x * yieldScale + xSeed + yieldSeed, coord.y * yieldScale + ySeed + yieldSeed);
+            float yieldValue = Mathf.PerlinNoise(coord.x * yieldScale + GlobalRefs.xSeed + GlobalRefs.yieldSeed, coord.y * yieldScale + GlobalRefs.ySeed + GlobalRefs.yieldSeed);
             chunk.yieldValue = yieldValue;
 
-            float eventValue = Mathf.PerlinNoise(coord.x * eventScale + xSeed + eventSeed, coord.y * eventScale + ySeed + eventSeed);
+            float eventValue = Mathf.PerlinNoise(coord.x * eventScale + GlobalRefs.xSeed + GlobalRefs.eventSeed, coord.y * eventScale + GlobalRefs.ySeed + GlobalRefs.eventSeed);
             chunk.chunkEvent = eventValue > eventThreshold;
 
             return chunk;
