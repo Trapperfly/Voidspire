@@ -16,6 +16,7 @@ public class GlobalRefs : MonoBehaviour
         {
             Instance = this;
         }
+        SetSeeds();
     }
 
     public GameObject player;
@@ -30,7 +31,7 @@ public class GlobalRefs : MonoBehaviour
     public static float eventSeed;
 
 
-    private void Start()
+    private void SetSeeds()
     {
         if (seed == 0) { seed = Random.Range(-10000, 10000); }
         Random.InitState(seed);

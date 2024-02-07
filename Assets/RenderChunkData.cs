@@ -16,9 +16,47 @@ public class RenderChunkData : MonoBehaviour
     Texture2D texture;
     public RawImage rawImage;
 
+    Vector2 pos;
+    float dScale;
+    float fScale;
+    float yScale;
+    float eScale;
+    float sScale;
+
+    float xSeed;
+    float ySeed;
+    float dSeed;
+    float fSeed;
+    float yiSeed;
+    float eSeed;
+    float sSeed;
+
+
     private void Start()
     {
+        SetSeed();
+        SetNewScales();
         StartCoroutine(GenerateTexture());
+    }
+
+    void SetNewScales()
+    {
+        dScale = ChunkLoader.debrisScale;
+        fScale = ChunkLoader.factionScale;
+        yScale = ChunkLoader.yieldScale;
+        eScale = ChunkLoader.eventScale;
+        sScale = ChunkLoader.shopScale;
+    }
+
+    void SetSeed()
+    {
+        xSeed = GlobalRefs.xSeed; 
+        ySeed = GlobalRefs.ySeed;
+        dSeed = GlobalRefs.debrisSeed;
+        fSeed = GlobalRefs.factionSeed;
+        yiSeed = GlobalRefs.yieldSeed;
+        eSeed = GlobalRefs.eventSeed;
+        sSeed = GlobalRefs.shopSeed;
     }
 
     public void SetAlpha(float newAlpha)
@@ -73,8 +111,9 @@ public class RenderChunkData : MonoBehaviour
             {
                 for (int x = 0; x < width; x++)
                 {
-                    int X = Mathf.RoundToInt(x - (width / 2) + (GlobalRefs.playerPos.x) / scale);//ChunkLoader.Instance.chunkSize);
-                    int Y = Mathf.RoundToInt(y - (height / 2) + (GlobalRefs.playerPos.y) / scale);//ChunkLoader.Instance.chunkSize);
+                    pos = GlobalRefs.playerPos;
+                    int X = Mathf.RoundToInt(x - (width / 2) + (pos.x) / scale);//ChunkLoader.Instance.chunkSize);
+                    int Y = Mathf.RoundToInt(y - (height / 2) + (pos.y) / scale);//ChunkLoader.Instance.chunkSize);
                     Color color;
                     switch (mapMode)
                     {
@@ -84,31 +123,31 @@ public class RenderChunkData : MonoBehaviour
                             break;
                         case MapMode.combinedData:
                             color = new Color(
-                                GenerateColorData(X, Y, GlobalRefs.factionSeed, ChunkLoader.factionScale, new Vector4(1, 0, 0, 1)).r,
-                                GenerateColorData(X, Y, GlobalRefs.yieldSeed, ChunkLoader.yieldScale, new Vector4(0, 1, 0, 1)).g,
-                                GenerateColorData(X, Y, GlobalRefs.debrisSeed, ChunkLoader.debrisScale, new Vector4(0, 0, 1, 1)).b,
+                                GenerateColorData(X, Y, fSeed, fScale, new Vector4(1, 0, 0, 1)).r,
+                                GenerateColorData(X, Y, yiSeed, yScale, new Vector4(0, 1, 0, 1)).g,
+                                GenerateColorData(X, Y, dSeed, dScale, new Vector4(0, 0, 1, 1)).b,
                                 1);
                             tempTex.SetPixel(x, y, color);
 
                             break;
                         case MapMode.debrisMode:
-                            color = GenerateColorData(X, Y, GlobalRefs.debrisSeed, ChunkLoader.debrisScale, new Vector4(0, 0, 1, 1));
+                            color = GenerateColorData(X, Y, dSeed, dScale, new Vector4(0, 0, 1, 1));
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.factionMode:
-                            color = GenerateColorData(X, Y, GlobalRefs.factionSeed, ChunkLoader.factionScale, new Vector4(1, 0, 0, 1));
+                            color = GenerateColorData(X, Y, fSeed, fScale, new Vector4(1, 0, 0, 1));
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.yieldMode:
-                            color = GenerateColorData(x, Y, GlobalRefs.yieldSeed, ChunkLoader.yieldScale, new Vector4(0, 1, 0, 1));
+                            color = GenerateColorData(x, Y, yiSeed, yScale, new Vector4(0, 1, 0, 1));
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.eventMode:
-                            color = GenerateColorData(X, Y, GlobalRefs.eventSeed, ChunkLoader.eventScale, ChunkLoader.eventThreshold, new Vector4(1, 0, 0, 1));
+                            color = GenerateColorData(X, Y, eSeed, eScale, ChunkLoader.eventThreshold, new Vector4(1, 0, 0, 1));
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.shopMode:
-                            color = GenerateColorData(X, Y, GlobalRefs.shopSeed, ChunkLoader.shopScale, ChunkLoader.shopThreshold, new Vector4(0, 1, 0, 1));
+                            color = GenerateColorData(X, Y, sSeed, sScale, ChunkLoader.shopThreshold, new Vector4(0, 1, 0, 1));
                             tempTex.SetPixel(x, y, color);
                             break;
                         default:
@@ -135,13 +174,13 @@ public class RenderChunkData : MonoBehaviour
             x
             * specificScale
             //* scale
-            + GlobalRefs.xSeed 
+            + xSeed 
             + specificSeed
             , 
             y
             * specificScale
             //* scale
-            + GlobalRefs.ySeed 
+            + ySeed 
             + specificSeed);
         if (pValue < limit) { return Color.black; }
         Color color = whatColorChannel * Mathf.Pow(pValue, 3);
@@ -159,13 +198,13 @@ public class RenderChunkData : MonoBehaviour
             x
             * specificScale
             //* scale
-            + GlobalRefs.xSeed
+            + xSeed
             + specificSeed
             ,
             y
             * specificScale
             //* scale
-            + GlobalRefs.ySeed
+            + ySeed
             + specificSeed);
 
         Color color = whatColorChannel * Mathf.Pow(pValue, 3);

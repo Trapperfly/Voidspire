@@ -18,7 +18,7 @@ public class LoadChunk : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            if (Random.value < chunk.debrisValue)
+            if (Random.value < Mathf.Pow(chunk.debrisValue, 3))
                 SpawnDebris.Instance.Spawn(transform.position, loader.chunkSize / 2);
             yield return new WaitForEndOfFrame();
         }
@@ -29,7 +29,7 @@ public class LoadChunk : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            if (Random.value < chunk.factionValue)
+            if (Random.value < Mathf.Pow(chunk.factionValue, 3))
                 SpawnEnemies.Instance.Spawn(transform.position, loader.chunkSize / 2);
             yield return new WaitForEndOfFrame();
         }
