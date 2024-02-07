@@ -37,12 +37,21 @@ public class StartPickup : MonoBehaviour
     private void SetNewStats()
     {
         CircleCollider2D col = GetComponent<CircleCollider2D>();
-        if (!equipment.collectorSlots[0].item) { col.enabled = false; return; }
-        col.enabled = true;
+        if (!equipment.collectorSlots[0].item) 
+        {
+            collector = null;
+            Collector placeholderCollector = ScriptableObject.CreateInstance<Collector>();
+            placeholderCollector.collectorType = CollectorTypes.Default;
+            placeholderCollector.amount = 1;
+            placeholderCollector.range = 0.4f;
+            placeholderCollector.collectorSpeedFrom = 3;
+            placeholderCollector.collectorSpeedTo = 3;
+            collector = placeholderCollector;
+            col.radius = collector.range;
+            return; 
+        }
         collector = equipment.collectorSlots[0].item as Collector;
-        //Debug.Log(collector);
         col.radius  = collector.range;
-        //Debug.Log(collector);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

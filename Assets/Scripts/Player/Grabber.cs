@@ -39,7 +39,7 @@ public class Grabber : Events
             {
                 failed = true;
             }
-            if (Vector2.Distance(target.transform.position, player.transform.position) > range + 0.2f)
+            if (Vector2.Distance(target.transform.position, player.transform.position) > range + (range * 0.2f))
             {
                 failed = true;
             }
