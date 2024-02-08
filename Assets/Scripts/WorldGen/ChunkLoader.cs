@@ -25,10 +25,10 @@ public class ChunkLoader : MonoBehaviour
     
 
     public static float debrisScale = 0.06f;
-    public static float debrisMultiplier = 100;
+    public static float debrisMultiplier = 20;
 
     public static float factionScale = 0.03f;
-    public static float factionMultiplier = 2;
+    public static float factionMultiplier = 3;
 
     public static float shopScale = 0.6f;
 
@@ -37,8 +37,8 @@ public class ChunkLoader : MonoBehaviour
 
     public static float eventScale = 0.5f;
 
-    public static float shopThreshold = 0.95f;
-    public static float eventThreshold = 0.95f;
+    public static float shopThreshold = 0.90f;
+    public static float eventThreshold = 0.90f;
 
     //static float xSeed;
     //static float ySeed;

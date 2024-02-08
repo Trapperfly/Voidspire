@@ -56,11 +56,11 @@ MonoBehaviour:
   baseSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   icon: {fileID: 8542975885578395991}
   frames:
-  - {fileID: 0}
+  - {fileID: 21300000, guid: fc5225a41d591ef478aff5f45f81c453, type: 3}
   - {fileID: 0}
   - {fileID: 21300000, guid: d2e8629b6aec1bd4f89493df26e7ac63, type: 3}
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: eeb51150dfb5279449394bbe81f269f7, type: 3}
   - {fileID: 0}
   - {fileID: 21300000, guid: 81b43967828140a48b3459199ec2d9e0, type: 3}
   - {fileID: 21300000, guid: 78477dacc22b7ca4697038a526375b3d, type: 3}

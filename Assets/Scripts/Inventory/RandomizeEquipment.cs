@@ -269,6 +269,22 @@ public class RandomizeEquipment : MonoBehaviour
 
         weapon.rotationSpeed = fR(rotationSpeed);
 
+        float difficulty = Difficulty.dif.difficulty / 2;
+
+        weapon.damage *= difficulty;
+        weapon.fireRate *= difficulty;
+        weapon.speed *= 1 + (0.1f * difficulty);
+        weapon.homingStrength *= difficulty;
+        if (weapon.pierce > 0) { weapon.pierce *= 1 + (int)difficulty; if (weapon.pierce == 0) { weapon.pierce = 1; } }
+        if (weapon.bounce > 0) { weapon.bounce *= 1 + (int)difficulty; if (weapon.bounce == 0) { weapon.bounce = 1; } }
+        weapon.chargeUp /= difficulty;
+        if (weapon.burst > 0) { weapon.burst *= 1 + (int)difficulty; if (weapon.burst == 0) { weapon.burst = 1; } }
+        weapon.burstDelay /= difficulty;
+        weapon.punch *= difficulty;
+        weapon.rotationSpeed *= difficulty;
+
+        if (weapon.weaponType == WeaponType.Beam || weapon.weaponType == WeaponType.Railgun) { weapon.speed /= 2f; }
+
         #region Weapon type stats text
         string statsNames = "Something is wong";
         string statsValues = "WTF";

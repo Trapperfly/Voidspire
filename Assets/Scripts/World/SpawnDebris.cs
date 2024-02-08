@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnDebris : MonoBehaviour
 {
     //[SerializeField] float spawnRateInSeconds = 0.2f;
-    [SerializeField] int maxAmount;
+    //[SerializeField] int maxAmount;
     public float minSize = 0.1f;
     public float maxSize = 2f;
     [SerializeField] GameObject debrisPrefab;
