@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : Events
 {
     public float currentHealth;
     public int healthNodes;
@@ -77,7 +77,13 @@ public class PlayerHealth : MonoBehaviour
             if (shield != null && shield.shieldActiveForColliders)
             {
 
-            } else TakeDamage(collision.collider.GetComponent<Bullet>()._localDamage);
+            }
+            else
+            {
+                float damage = collision.collider.GetComponent<Bullet>()._localDamage;
+                TakeDamage(damage);
+                OnHitEvent(damage, collision.collider.transform.position);
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -88,14 +94,26 @@ public class PlayerHealth : MonoBehaviour
             if (shield != null && shield.shieldActiveForColliders)
             {
 
-            }else TakeDamage(collision.GetComponent<Bullet>()._localDamage);
+            }
+            else
+            {
+                float damage = collision.GetComponent<Bullet>()._localDamage;
+                TakeDamage(damage);
+                OnHitEvent(damage, collision.transform.position);
+            }
         }
         if (collision.CompareTag("AIBullet"))
         {
             if (shield != null && shield.shieldActiveForColliders)
             {
 
-            }else TakeDamage(collision.GetComponent<AIBullet>().damage);
+            }
+            else
+            {
+                float damage = collision.GetComponent<AIBullet>().damage;
+                TakeDamage(damage);
+                OnHitEvent(damage, collision.transform.position);
+            }
         }
     }
     #endregion
@@ -122,5 +140,10 @@ public class PlayerHealth : MonoBehaviour
             //Check if all nodes are destroyed
             //Then death and end screen
         }
+    }
+
+    public override void OnHitEvent(float damage, Vector2 position)
+    {
+        base.OnHitEvent(damage, position);
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Damagable : MonoBehaviour
+public class Damagable : Events
 {
     public float startHealth = 0;
     public float currentHealth;
@@ -11,8 +11,8 @@ public class Damagable : MonoBehaviour
     {
         if (startHealth == 0)
         {
-            float size = (transform.localScale.x + transform.localScale.y) / 2;
-            startHealth = Mathf.Pow(size * 2 + 1f, 2);
+            float size = (transform.localScale.x + transform.localScale.y);
+            startHealth = Mathf.Pow(size * 2 + 1f, 3);
         }
         currentHealth = startHealth;
     }
@@ -21,24 +21,29 @@ public class Damagable : MonoBehaviour
     {
             if (collision.collider.CompareTag("Bullet"))
             {
-                TakeDamage(collision.collider.GetComponent<Bullet>()._localDamage);
-            }
+                float damage = collision.collider.GetComponent<Bullet>()._localDamage;
+                TakeDamage(damage, collision.transform.position);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
             if (collision.CompareTag("Bullet"))
             {
-                TakeDamage(collision.GetComponent<Bullet>()._localDamage);
+                float damage = collision.GetComponent<Bullet>()._localDamage;
+                TakeDamage(damage, collision.transform.position);
             }
             if (collision.CompareTag("AIBullet"))
             {
-                TakeDamage(collision.GetComponent<AIBullet>().damage);
+                float damage = collision.GetComponent<AIBullet>().damage;
+                TakeDamage(damage, collision.transform.position);
+
             }
     }
 
-    public void TakeDamage(float value)
+    public void TakeDamage(float value, Vector2 position)
     {
+        OnHitEvent(value, position);
         currentHealth -= value;
         HealthCheck();
     }
@@ -55,5 +60,10 @@ public class Damagable : MonoBehaviour
                 GetComponent<Destructable>().StartCoroutine(nameof(Destructable.DestroyMe));
             }
         }
+    }
+    public override void OnHitEvent(float damage, Vector2 position)
+    {
+        base.OnHitEvent(damage, position);
+
     }
 }

@@ -210,6 +210,9 @@ public class GunFire : MonoBehaviour
         beamActive = true;
         LineRenderer beam = Instantiate(gc.beamPrefab, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation, bulletSpawnPoint).GetComponent<LineRenderer>();
         ParticleSystem beamHitPs = Instantiate(gc.beamPsPrefab).GetComponent<ParticleSystem>();
+        beam.material.SetColor("_TrailColor", w.effectColor);
+        var trails = beamHitPs.trails;
+        trails.colorOverTrail = w.effectColor;
         var emis = beamHitPs.emission;
         gunMaster.hasFired = true;
         gunTimer = 0;
@@ -224,8 +227,15 @@ public class GunFire : MonoBehaviour
                 if (InBounds(i, hit)) { actualHits++; }
                 if (InBounds(i, hit) && hit[i].collider.GetComponent<Damagable>())
                     dm = hit[i].collider.GetComponent<Damagable>();
-                if (InBounds(i, hit) && dm)
-                    dm.TakeDamage(w.damage * Time.deltaTime * fireRateA);
+                if (InBounds(i, hit) && dm) 
+                {
+                    float damage = w.damage * Time.deltaTime * fireRateA;
+                    if ( Random.value > 0.9f )
+                    {
+                        dm.TakeDamage(damage * 10, hit[i].point);
+                    }
+                }
+                    
             }
 
             
@@ -285,7 +295,7 @@ public class GunFire : MonoBehaviour
             if (InBounds(i, hit) && hit[i].collider.GetComponent<Damagable>())
                 dm = hit[i].collider.GetComponent<Damagable>();
             if (InBounds(i, hit) && dm)
-                dm.TakeDamage(w.damage);
+                dm.TakeDamage(w.damage, hit[i].point);
         }
         Debug.Log(actualHits);
 

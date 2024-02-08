@@ -139,6 +139,7 @@ public class RandomizeEquipment : MonoBehaviour
         weapon.icon = gunSprites[iR(0, gunSprites.Length - 1)];
         weapon.color = typeColor[(int)EquipmentTypes.Weapon];
         weapon.equipType = EquipmentTypes.Weapon;
+        weapon.effectColor = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.6f, 1);
 
         weapon.weaponType = (WeaponType)iR(0, 2);
         int style = Random.Range(0,5);
@@ -335,7 +336,7 @@ public class RandomizeEquipment : MonoBehaviour
                 if (fireRateBonus) { statsValues += ((weapon.damage + weapon.fireRate)).ToString("F2") + 
                         " -> "
                         + (weapon.damage * (weapon.fireRate + weapon.fireRateChange)).ToString("F2") + "\n"; }
-                else { statsValues += (weapon.damage * weapon.fireRate * weapon.amount).ToString("F2") + "\n"; }
+                else { statsValues += (weapon.damage * weapon.fireRate).ToString("F2") + "\n"; }
                 //if (isPierce) statsValues += "\n" + weapon.pierce + "\n";
                 statsValues += (weapon.speed * weapon.longevity).ToString("F2") + "\n";
                 statsValues += weapon.rotationSpeed.ToString("F2") + "\n";

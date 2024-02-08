@@ -86,5 +86,5 @@ Material:
     - _Offset: {r: 0, g: -0.14, b: 0, a: 0}
     - _PixelationOffset: {r: 10, g: 1, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _TrailColor: {r: 8, g: 4.320606, b: 0, a: 0}
+    - _TrailColor: {r: 10.680627, g: 0, b: 0.21135108, a: 0}
   m_BuildTextureStacks: []

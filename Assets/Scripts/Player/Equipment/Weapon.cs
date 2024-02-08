@@ -35,6 +35,7 @@ public class Weapon : Equipment
     [Header("Gun attributes")]
     public Vector2 rotationAngle;
     public float rotationSpeed;
+    public Color effectColor;
 }
 
 public enum WeaponType
