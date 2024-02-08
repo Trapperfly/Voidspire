@@ -13753,7 +13753,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &662615168
 Transform:
   m_ObjectHideFlags: 0
@@ -28825,7 +28825,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16ae91b422fb7d643b9ffddf67c2ffde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAmount: 100
   minSize: 0.1
   maxSize: 2
   debrisPrefab: {fileID: 6672731457504470230, guid: 5080ddefc466b74499ba6dd95dd8246b, type: 3}
