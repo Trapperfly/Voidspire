@@ -269,9 +269,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!114 &8969349100905773270
 MonoBehaviour:
@@ -364,8 +364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9869c56a8260a274c99b72dbd42e3fbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmgNrGO: {fileID: 7119513681410739460, guid: 9c622c906d82a2d4e8933ace4667e147, type: 3}
-  parent: {fileID: 0}
   startHealth: 0
   currentHealth: 0
   damageTaken: 0
@@ -397,8 +395,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b01373d50bfd746ab35a4e5aa55ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmgNrGO: {fileID: 0}
-  parent: {fileID: 0}
   resourceSpawner: {fileID: 0}
   noDrop: 1
   value: 0

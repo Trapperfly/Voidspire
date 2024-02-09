@@ -160,27 +160,36 @@ public class GunFire : MonoBehaviour
                 StartCoroutine(ShootBullet());
                 break;
             case WeaponType.Laser:
+                StartCoroutine(ShootLaser());
                 break;
             case WeaponType.Wave:
+                StartCoroutine(ShootWave());
                 break;
             case WeaponType.Rocket:
+                StartCoroutine(ShootRocket());
                 break;
             case WeaponType.Needle:
+                StartCoroutine(ShootNeedle());
                 break;
             case WeaponType.Railgun:
                 StartCoroutine(ShootRailgun());
                 break;
             case WeaponType.Mine:
+                StartCoroutine(ShootMine());
                 break;
             case WeaponType.Hammer:
+                StartCoroutine(ShootHammer());
                 break;
             case WeaponType.Cluster:
+                StartCoroutine(ShootCluster());
                 break;
             case WeaponType.Arrow:
+                StartCoroutine(ShootArrow());
                 break;
             case WeaponType.Mirage:
                 break;
             case WeaponType.Grand:
+                StartCoroutine(ShootGrand());
                 break;
             case WeaponType.Void:
                 break;
@@ -331,6 +340,108 @@ public class GunFire : MonoBehaviour
         gunTimer = 0;
         gunMaster.hasFired = true;
         bulletSpawnPoint.rotation = transform.rotation;
+        yield return null;
+    }
+
+    public IEnumerator ShootLaser()
+    {
+        //Debug.Log("Trying to shoot bullet");
+        GameObject bullet = Instantiate(gc.laserPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
+        bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
+        bullet.transform.localScale *= w.bulletSize;
+        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        gunTimer = 0;
+        gunMaster.hasFired = true;
+        yield return null;
+    }
+
+    public IEnumerator ShootWave()
+    {
+        //Debug.Log("Trying to shoot bullet");
+        GameObject bullet = Instantiate(gc.wavePrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
+        bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
+        bullet.transform.localScale *= w.bulletSize;
+        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        gunTimer = 0;
+        gunMaster.hasFired = true;
+        yield return null;
+    }
+
+    public IEnumerator ShootRocket()
+    {
+        //Debug.Log("Trying to shoot bullet");
+        GameObject bullet = Instantiate(gc.rocketPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
+        bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
+        bullet.transform.localScale *= w.bulletSize;
+        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        gunTimer = 0;
+        gunMaster.hasFired = true;
+        yield return null;
+    }
+    public IEnumerator ShootNeedle()
+    {
+        //Debug.Log("Trying to shoot bullet");
+        GameObject bullet = Instantiate(gc.needlePrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
+        bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
+        bullet.transform.localScale *= w.bulletSize;
+        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        gunTimer = 0;
+        gunMaster.hasFired = true;
+        yield return null;
+    }
+    public IEnumerator ShootMine()
+    {
+        //Debug.Log("Trying to shoot bullet");
+        GameObject bullet = Instantiate(gc.minePrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
+        bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
+        bullet.transform.localScale *= w.bulletSize;
+        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        gunTimer = 0;
+        gunMaster.hasFired = true;
+        yield return null;
+    }
+    public IEnumerator ShootHammer()
+    {
+        //Debug.Log("Trying to shoot bullet");
+        GameObject bullet = Instantiate(gc.hammerPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
+        bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
+        bullet.transform.localScale *= w.bulletSize;
+        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        gunTimer = 0;
+        gunMaster.hasFired = true;
+        yield return null;
+    }
+    public IEnumerator ShootCluster()
+    {
+        //Debug.Log("Trying to shoot bullet");
+        GameObject bullet = Instantiate(gc.clusterPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
+        bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
+        bullet.transform.localScale *= w.bulletSize;
+        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        gunTimer = 0;
+        gunMaster.hasFired = true;
+        yield return null;
+    }
+    public IEnumerator ShootArrow()
+    {
+        //Debug.Log("Trying to shoot bullet");
+        GameObject bullet = Instantiate(gc.arrowPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
+        bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
+        bullet.transform.localScale *= w.bulletSize;
+        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        gunTimer = 0;
+        gunMaster.hasFired = true;
+        yield return null;
+    }
+    public IEnumerator ShootGrand()
+    {
+        //Debug.Log("Trying to shoot bullet");
+        GameObject bullet = Instantiate(gc.grandPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
+        bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
+        bullet.transform.localScale *= w.bulletSize;
+        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        gunTimer = 0;
+        gunMaster.hasFired = true;
         yield return null;
     }
     private bool InBounds(int index, RaycastHit2D[] array)

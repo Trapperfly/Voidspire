@@ -48,7 +48,7 @@ public class ChunkLoader : MonoBehaviour
     //static float yieldSeed;
     //static float eventSeed;
 
-    public static List<GameObject> toBeDestroyed = new();
+    public static List<SpaceChunk> toBeDestroyed = new();
 
     //Dictionary<Vector2Int, Chunk> chunks = new Dictionary<Vector2Int, Chunk>();
     //Chunk[,] grid;
@@ -72,6 +72,7 @@ public class ChunkLoader : MonoBehaviour
     private void Start()
     {
         chunksVisibleInViewDist = Mathf.RoundToInt(viewDist / chunkSize);
+        InvokeRepeating(nameof(UpdateHiddenChunks), 0,2);
         //GenerateChunks();
     }
 
@@ -80,13 +81,12 @@ public class ChunkLoader : MonoBehaviour
         viewerPosition = new Vector2(viewer.position.x, viewer.position.y);
         GlobalRefs.playerPos = viewerPosition;
         UpdateVisibleChunks();
-        UpdateHiddenChunks();
     }
     void UpdateVisibleChunks()
     {
         for (int i = 0; i < chunksVisibleLastFrame.Count; i++)
         {
-            chunksVisibleLastFrame[i].SetVisible(false);
+            //chunksVisibleLastFrame[i].SetVisible(false);
         }
         chunksVisibleLastFrame.Clear();
 
@@ -111,6 +111,7 @@ public class ChunkLoader : MonoBehaviour
 
     void UpdateHiddenChunks()
     {
+        Debug.Log("Updating hidden chunks");
         foreach (KeyValuePair<Vector2, SpaceChunk> chunk in spaceChunkDictionary)
         {
             chunk.Value.CheckDistanceAndDestroy();
@@ -118,8 +119,12 @@ public class ChunkLoader : MonoBehaviour
         for (int i = 0; i < toBeDestroyed.Count; i++)
         {
             spaceChunkDictionary.Remove
-                (new Vector2(toBeDestroyed[i].transform.position.x / chunkSize, toBeDestroyed[i].transform.position.y / chunkSize));
-            Destroy(toBeDestroyed[i]);
+                (new Vector2(toBeDestroyed[i].chunkGO.transform.position.x / chunkSize, toBeDestroyed[i].chunkGO.transform.position.y / chunkSize));
+            foreach (GameObject go in toBeDestroyed[i].entities)
+            {
+                Destroy(go);
+            }
+            Destroy(toBeDestroyed[i].chunkGO);
         }
         toBeDestroyed.Clear();
     }
@@ -127,6 +132,7 @@ public class ChunkLoader : MonoBehaviour
     public class SpaceChunk
     {
         public GameObject chunkGO;
+        bool visibleLastFrame = false;
         Vector2 position;
         Bounds bounds;
         Chunk chunk;
@@ -146,8 +152,13 @@ public class ChunkLoader : MonoBehaviour
         {
             float viewerDstFromNearestEdge = bounds.SqrDistance(viewerPosition);
             bool visible = viewerDstFromNearestEdge <= viewDist * viewDist;
-            SetChildVisibility(visible);
-            SetVisible(visible);
+            if (visibleLastFrame == visible) { Debug.Log("It is the same"); }
+            else
+            {
+                SetChildVisibility(visible);
+                SetVisible(visible);
+            }
+            visibleLastFrame = visible;
         }
 
         public void CheckDistanceAndDestroy()
@@ -158,8 +169,8 @@ public class ChunkLoader : MonoBehaviour
             if (toBeKept) { }
             else
             {
-                Debug.Log("Destroying " + chunkGO + " because it was too far away");
-                toBeDestroyed.Add(chunkGO);
+                //Debug.Log("Destroying " + chunkGO + " because it was too far away");
+                toBeDestroyed.Add(this);
             }
         }
 

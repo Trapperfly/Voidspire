@@ -1,23 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Entities;
-using Unity.Mathematics;
 
-public class Bullet : MonoBehaviour
+public class ExplosiveProjectile : MonoBehaviour
 {
     public BulletController bc;
     public float _localDamage;
     public float _splashDamage;
     public float _splashRange;
-    public int _localBounce;
     public int _localPierce;
     public bool _localHoming;
-    public bool _explosive;
     public float currTime;
     public Rigidbody2D rb;
     Collider2D col;
-    
+
     public Vector3 lastVelocity;
     public bool bounced = false;
 
@@ -27,30 +23,18 @@ public class Bullet : MonoBehaviour
         bc = GetComponentInParent<BulletController>();
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
-        _localBounce = bc.bounce;
         _localPierce = bc.pierce;
         _localHoming = bc.homing;
         _localDamage = bc.damage;
-        _splashDamage = bc.splashDamage;
+        _splashDamage = bc.damage * 10;
         _splashRange = bc.splashRange;
-        _explosive = bc.isExplosive;
     }
     private void Start()
     {
-        if (!_explosive && bc.bounce > 0)
+        if (bc.bounce > 0)
         {
             col.isTrigger = false;
         }
-    }
-    private void FixedUpdate()
-    {
-        if (bounced)
-        {
-            _localBounce--;
-            col.isTrigger = false;
-            bounced = false;
-        }
-        lastVelocity = rb.velocity;     //Logs last velocity to be used in bounce
     }
     public IEnumerator WaitAndSwitchHoming(float time)
     {
@@ -61,14 +45,10 @@ public class Bullet : MonoBehaviour
     }
     private void OnDestroy()
     {
-        if (_explosive)
+        Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, _splashRange);
+        foreach (Collider2D col in hit)
         {
-            Debug.Log(_splashDamage);
-            Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, _splashRange);
-            foreach (Collider2D col in hit)
-            {
-                if (col.TryGetComponent<Damagable>(out var dm)) dm.TakeDamage(_splashDamage, col.transform.position);
-            }
+            if (col.TryGetComponent<Damagable>(out var dm)) dm.TakeDamage(_splashDamage, col.transform.position);
         }
         StopAllCoroutines();
     }

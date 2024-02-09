@@ -631,7 +631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &43668228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2843,7 +2843,16 @@ MonoBehaviour:
   railgunPrefab: {fileID: 1014769786928894636, guid: bbfccfdc0ead1c541a692a7e51fa5764, type: 3}
   railgunPsPrefab: {fileID: 5285321912691313874, guid: ea09b5e1fdd1ca3489e07553641b3211, type: 3}
   railgunLinePsPrefab: {fileID: 7918783872713161870, guid: 53ba4a97738b2e341a679b1a12db562d, type: 3}
-  wavePrefab: {fileID: 0}
+  laserPrefab: {fileID: 515737004715930061, guid: 7944fce5aa85cba4395b3e8e83da3fc4, type: 3}
+  wavePrefab: {fileID: 515737004715930061, guid: 351100c8ff0e7a845ad2720292ea4e69, type: 3}
+  rocketPrefab: {fileID: 515737004715930061, guid: dbfa1175fdf501f4ba79b25ea80e7a8b, type: 3}
+  needlePrefab: {fileID: 515737004715930061, guid: 52fe63f193dc47840b4ee6e5c11a0cbe, type: 3}
+  minePrefab: {fileID: 515737004715930061, guid: fc4f91b7dc7406e449507ac640156dd0, type: 3}
+  hammerPrefab: {fileID: 515737004715930061, guid: a02f6adc482c63545bdb337e1a97c605, type: 3}
+  clusterPrefab: {fileID: 515737004715930061, guid: 47171f1e70e793940ab23885ec580936, type: 3}
+  arrowPrefab: {fileID: 515737004715930061, guid: e4fb9538e037fd241b2284f0acba3710, type: 3}
+  Prefab: {fileID: 0}
+  grandPrefab: {fileID: 515737004715930061, guid: 0de4fa5b29e80704bbd51a898240e59f, type: 3}
   weightScalar: 0.0001
   bulletHolderMaster: {fileID: 1041309728}
   bulletHolderPrefab: {fileID: 1197185691633814660, guid: 1ebe4c8d85a8f3a479c67ca5cc6bad48, type: 3}
@@ -3082,6 +3091,8 @@ MonoBehaviour:
   burstDelay: {x: 0.04, y: 0.1}
   punch: {x: 2, y: 5}
   rotationSpeed: {x: 2, y: 4}
+  explosionDamageMultiplier: {x: 8, y: 10}
+  explosiveRange: {x: 1, y: 3}
   stlSprites:
   - {fileID: 21300000, guid: a1bb1b6a99b2d9149a50f18c586ed1af, type: 3}
   stlNameFirst:
@@ -5086,6 +5097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficulty: 1
+  difSetting: 2
   hardcap: 50
   increasePer5Mins: 1
 --- !u!4 &394186932
@@ -41769,7 +41781,7 @@ Transform:
   m_GameObject: {fileID: 9079451326559061759}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.437, y: -0.413, z: 0}
+  m_LocalPosition: {x: 0.347, y: -0.284, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42781,7 +42793,7 @@ Transform:
   m_GameObject: {fileID: 4271377522746868096}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.435, y: -0.413, z: 0}
+  m_LocalPosition: {x: -0.347, y: -0.284, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

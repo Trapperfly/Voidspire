@@ -5,6 +5,7 @@ using UnityEngine;
 public class Difficulty : MonoBehaviour
 {
     public float difficulty;
+    public float difSetting = 1;
     public float hardcap;
     public float increasePer5Mins;
 

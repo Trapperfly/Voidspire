@@ -22,7 +22,17 @@ public class EquipmentController : MonoBehaviour
     public GameObject railgunPrefab;
     public GameObject railgunPsPrefab;
     public GameObject railgunLinePsPrefab;
+    public GameObject laserPrefab;
     public GameObject wavePrefab;
+    public GameObject rocketPrefab;
+    public GameObject needlePrefab;
+    public GameObject minePrefab;
+    public GameObject hammerPrefab;
+    public GameObject clusterPrefab;
+    public GameObject arrowPrefab;
+    public GameObject Prefab;
+    public GameObject grandPrefab;
+
 
     [Header("Testing")]
     public float weightScalar = 0.0001f;

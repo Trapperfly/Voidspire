@@ -6,6 +6,10 @@ using UnityEngine;
 public class Weapon : Equipment
 {
     public WeaponType weaponType;
+    public bool isExplosive;
+    public float explosiveMultiplier;
+    public float splashDamage;
+    public float splashRange;
     public float damage;              //On bullet
     public float bulletSize;          //On gun
     public float fireRate;            //On gun
@@ -51,8 +55,8 @@ public enum WeaponType
     Hammer,
     Cluster,
     Arrow,
-    Mirage,
     Grand,
+    Mirage,
     Void,
     Blade
 }

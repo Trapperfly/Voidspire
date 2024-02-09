@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+    public WeaponType type;
+    public bool isExplosive;
+    public float explosiveDamage;
     public float damage;
     public float speed;
     public float bulletLongevity;
@@ -16,12 +19,29 @@ public class BulletController : MonoBehaviour
     public float weightScalar;
     public Transform target;
 
+    int currentID;
+
+    public float splashRange;
+    public float splashDamage;
+
     public void Copy(Weapon weapon)
     {
         if (weapon == null) { }
         else
         {
+            if (weapon.id != currentID )
+            {
+                foreach (Transform child in transform)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+            currentID = weapon.id;
             weightScalar = EquipmentController.Instance.weightScalar;
+            type = weapon.weaponType;
+            isExplosive = weapon.isExplosive;
+            splashDamage = weapon.splashDamage;
+            splashRange = weapon.splashRange;
             damage = weapon.damage;
             speed = weapon.speed;
             bulletLongevity = weapon.longevity;
@@ -54,6 +74,10 @@ public class BulletController : MonoBehaviour
                 {
                     _bullet.transform.up = _bullet.rb.velocity;
                     _bullet.rb.angularVelocity = 0;
+                }
+                if(type == WeaponType.Wave)
+                {
+                    _bullet.transform.localScale = new Vector2(_bullet.transform.localScale.x + (bulletLongevity / 10 / 60), _bullet.transform.localScale.y);
                 }
                 if (_bullet.currTime <= Time.time - bulletLongevity)
                 {
