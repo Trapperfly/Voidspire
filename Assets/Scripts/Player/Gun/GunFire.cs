@@ -211,6 +211,7 @@ public class GunFire : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
+        bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
         yield return null;
     }
 
@@ -241,7 +242,7 @@ public class GunFire : MonoBehaviour
                     float damage = w.damage * Time.deltaTime * fireRateA;
                     if ( Random.value > 0.9f )
                     {
-                        dm.TakeDamage(damage * 10, hit[i].point);
+                        dm.TakeDamage(damage * 10, hit[i].point, GlobalRefs.Instance.player);
                     }
                 }
                     
@@ -304,7 +305,7 @@ public class GunFire : MonoBehaviour
             if (InBounds(i, hit) && hit[i].collider.GetComponent<Damagable>())
                 dm = hit[i].collider.GetComponent<Damagable>();
             if (InBounds(i, hit) && dm)
-                dm.TakeDamage(w.damage, hit[i].point);
+                dm.TakeDamage(w.damage, hit[i].point, GlobalRefs.Instance.player);
         }
         Debug.Log(actualHits);
 
@@ -352,6 +353,7 @@ public class GunFire : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
+        bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
         yield return null;
     }
 
@@ -364,6 +366,7 @@ public class GunFire : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
+        bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
         yield return null;
     }
 
@@ -376,6 +379,7 @@ public class GunFire : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
+        bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
         yield return null;
     }
     public IEnumerator ShootNeedle()
@@ -387,6 +391,7 @@ public class GunFire : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
+        bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
         yield return null;
     }
     public IEnumerator ShootMine()
@@ -398,6 +403,7 @@ public class GunFire : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
+        bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
         yield return null;
     }
     public IEnumerator ShootHammer()
@@ -409,6 +415,7 @@ public class GunFire : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
+        bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
         yield return null;
     }
     public IEnumerator ShootCluster()
@@ -420,6 +427,7 @@ public class GunFire : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
+        bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
         yield return null;
     }
     public IEnumerator ShootArrow()
@@ -431,6 +439,7 @@ public class GunFire : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
+        bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
         yield return null;
     }
     public IEnumerator ShootGrand()
@@ -442,6 +451,7 @@ public class GunFire : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
+        bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
         yield return null;
     }
     private bool InBounds(int index, RaycastHit2D[] array)

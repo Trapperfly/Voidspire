@@ -5,29 +5,21 @@ using ExtensionMethods;
 
 public class LurkerAI : MonoBehaviour
 {
-    [SerializeField] float speed;
-    [SerializeField] float rotSpeed;
-    [SerializeField] float strafeSpeed;
+    public Ship ship;
     float currentModifier = 1f;
-    [SerializeField] float exploreModifier;
-    [SerializeField] float fleeModifier;
-    [SerializeField] float combatModifier;
-    [SerializeField] float repairModifier;
-    [SerializeField] float repairSpeed;
     bool repairing;
-    [SerializeField] float detectionRange;
-    [SerializeField] float combatDetectionRange;
 
-    [SerializeField] Vector2 newTargetTime;
     Transform combatTarget;
     public List<Vector2> dirs = new List<Vector2>();
 
     [SerializeField] ActiveTarget target;
+    Transform targetTransform;
 
     Vector2 dir;
     Vector2 targetPos;
     [SerializeField] LayerMask avoidMask;
     [SerializeField] LayerMask targetMask;
+    [SerializeField] LayerMask pickupMask;
     Rigidbody2D rb;
     Collider2D col;
     Damagable healthModule;
@@ -44,10 +36,12 @@ public class LurkerAI : MonoBehaviour
     float _distance;
 
     Vector2 spawnPoint;
-    [SerializeField] float awayFromTargetRadius = 10;
 
     [SerializeField] ParticleSystem ps;
     [SerializeField] ParticleSystem thrustersPS;
+
+    int jumpTimer = 0;
+    bool isEnraged = false;
 
     private void Start()
     {
@@ -65,32 +59,150 @@ public class LurkerAI : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        float distCheckToPlayer = Extension.Distance(transform.position, GlobalRefs.Instance.player.transform.position);
-        if (lowHealth && distCheckToPlayer > 30f)
+        currentModifier = CheckDistanceAndSetModifier();
+
+        if (lowHealth)
         {
-            currentModifier = repairModifier;
-            repairing = true;
+            switch (ship.lowHealthBehaviour)
+            {
+                case LowHealthBehaviour.None:
+                    break;
+                case LowHealthBehaviour.Flee:
+                    NormalMove();
+                    break;
+                case LowHealthBehaviour.Jump:
+                    Jump();
+                    Rotate();
+                    break;
+                case LowHealthBehaviour.DropLootAndJump:
+                    Jump();
+                    Rotate();
+                    break;
+                case LowHealthBehaviour.Surrender:
+                    //ContactPlayer
+                    break;
+                case LowHealthBehaviour.SurrenderButBargain:
+                    //ContactPlayer
+                    break;
+                case LowHealthBehaviour.SurrenderButTrick:
+                    //ContactPlayer
+                    break;
+                case LowHealthBehaviour.Enrage:
+                    NormalMove();
+                    isEnraged = true;
+                    break;
+                case LowHealthBehaviour.SelfDestruct:
+                    NormalMove();
+                    break;
+                default:
+                    break;
+            }
         }
-        else if (lowHealth && distCheckToPlayer < 30f)
+        else if (inCombat)
+        {
+            switch (ship.combatBehaviour)
+            {
+                case CombatBehaviour.None:
+                    break;
+                case CombatBehaviour.ChaseAndAttack:
+                    NormalMove();
+                    break;
+                case CombatBehaviour.RunAndAttack:
+                    NormalMove();
+                    break;
+                case CombatBehaviour.SelfDestruct:
+                    NormalMove();
+                    break;
+                case CombatBehaviour.Crash:
+                    NormalMove();
+                    break;
+                case CombatBehaviour.JumpImmediately:
+                    Rotate();
+                    Jump();
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            switch (ship.behaviour)
+            {
+                case Behaviour.None:
+                    break;
+                case Behaviour.NotDefined:
+                    NormalMove();
+                    break;
+                case Behaviour.TargetResources:
+                    NormalMove();
+                    break;
+                case Behaviour.StalkTarget:
+                    NormalMove();
+                    break;
+                case Behaviour.JumpOnSight:
+                    if (seenPlayer) { Rotate(); Jump(); break; }
+                    NormalMove();
+                    break;
+                case Behaviour.RepairTarget:
+                    NormalMove();
+                    break;
+                case Behaviour.Stealth:
+                    NormalMove();
+                    break;
+                default:
+                    break;
+            }
+        }
+        //AIStep();
+        
+        //Low health check
+        CheckIfLowHealth();
+
+        //Get target when hit
+        CheckForNewCombatTargetWhenDamageTaken();
+
+
+        TryStopCombat();
+        
+        lastFrameHealth = healthModule.currentHealth;
+    }
+    void NormalMove()
+    {
+        Thruster();
+        Rotate();
+        Strafe();
+        if (ship.canRepair)
+            Repair();
+    }
+
+    float CheckDistanceAndSetModifier()
+    {
+        float distCheckToPlayer = Extension.Distance(transform.position, GlobalRefs.Instance.player.transform.position);
+        if (lowHealth && distCheckToPlayer > ship.targetRadius * ship.targetRadius)
+        {
+            repairing = true;
+            return ship.repairMod;
+        }
+        else if (lowHealth && distCheckToPlayer < ship.targetRadius * ship.targetRadius)
         {
             if (healthModule.currentHealth <= healthModule.startHealth / 5)
             {
-                currentModifier = fleeModifier;
                 repairing = false;
+                return ship.fleeMod;
             }
             else
             {
-                currentModifier = fleeModifier;
                 repairing = false;
                 lowHealth = false;
+                return ship.fleeMod;
             }
         }
-        else if (inCombat) currentModifier = combatModifier;
-        else currentModifier = exploreModifier;
+        else if (inCombat) return ship.combatMod;
+        else return ship.exploreMod;
+    }
 
-        AIStep();
-        
-        //Low health check
+    void CheckIfLowHealth()
+    {
         if (!lowHealth)
         {
             if (healthModule.currentHealth <= healthModule.startHealth / 5)
@@ -99,31 +211,47 @@ public class LurkerAI : MonoBehaviour
                 StartCoroutine(nameof(GetNewTargetPos));
             }
         }
+    }
 
-        //Get target when hit
-        if (healthModule.damageTaken)
+    void CheckForNewCombatTargetWhenDamageTaken()
+    {
+        if (healthModule.damageTaken && healthModule.damageTakenFromWhat)
         {
             if (!inCombat && !lowHealth)
             {
-                Collider2D[] potentialTargets = Physics2D.OverlapCircleAll(transform.position, combatDetectionRange, targetMask);
-                foreach (Collider2D target in potentialTargets)
+                if (Extension.Distance(transform.position, healthModule.damageTakenFromWhat.transform.position) < ship.reactRange * ship.reactRange)
                 {
-                    if (target != col)
-                    {
-                        if (combatTarget == null || !combatTarget.CompareTag("Player"))
-                        {
-                            if (target.CompareTag("Player") && GlobalRefs.Instance.player.GetComponent<GunMaster>().hasFired == true)
-                                combatTarget = target.transform;
-                            else combatTarget = target.transform;
-                        }
-                    }
+                    combatTarget = healthModule.damageTakenFromWhat.transform;
+                    targetTransform = combatTarget;
+                    StartCoroutine(nameof(GetNewTargetPos));
+                    StartCoroutine(target.InitTargetValues(combatTarget, combatTarget.GetComponent<Rigidbody2D>()));
+                    healthModule.damageTaken = false;
+                    healthModule.damageTakenFromWhat = null;
+                    inCombat = true;
+                    return;
                 }
-                if (combatTarget != null) StartCoroutine(target.InitTargetValues(combatTarget, combatTarget.GetComponent<Rigidbody2D>()));
+                Collider2D[] potentialTargets = Physics2D.OverlapCircleAll(transform.position, ship.reactRange, targetMask);
+                foreach (Collider2D t in potentialTargets)
+                {
+                    //If the found target is this ship, return early
+                    if (t == col) { return; }
+                    if (Random.value > ship.changeTargetChance) { return; }
+                    combatTarget = t.transform;
+                    targetTransform = combatTarget;
+                    StartCoroutine(nameof(GetNewTargetPos));
+                    StartCoroutine(target.InitTargetValues(combatTarget, combatTarget.GetComponent<Rigidbody2D>()));
+                    healthModule.damageTaken = false;
+                    healthModule.damageTakenFromWhat = null;
+                    inCombat = true;
+                }
             }
-            healthModule.damageTaken = false;
-            inCombat = true;
-            StartCoroutine(nameof(GetNewTargetPos));
         }
+        healthModule.damageTaken = false;
+        healthModule.damageTakenFromWhat = null;
+    }
+
+    void TryStopCombat()
+    {
         if (inCombat)
         {
             if (lowHealth || combatTarget == null)
@@ -134,8 +262,6 @@ public class LurkerAI : MonoBehaviour
                 StartCoroutine(nameof(GetNewTargetPos));
             }
         }
-        
-        lastFrameHealth = healthModule.currentHealth;
     }
 
     //Draw debug rays for vectors in CheckProximity
@@ -149,7 +275,7 @@ public class LurkerAI : MonoBehaviour
         var pEmission = ps.emission;
         if (dir != new Vector2(0, 0))
         {
-            pEmission.rateOverTime = (detectionRange - _distance) * 20f;
+            pEmission.rateOverTime = (ship.viewRange - _distance) * 20f;
         }
         else if (!ps.isPaused)
         {
@@ -199,18 +325,18 @@ public class LurkerAI : MonoBehaviour
             Debug.DrawRay(transform.position, dir);
             */
             Vector2 newDirection = new(0, 0);
-            Collider2D[] objects = Physics2D.OverlapCircleAll(transform.position, detectionRange, avoidMask);
+            Collider2D[] objects = Physics2D.OverlapCircleAll(transform.position, ship.viewRange, avoidMask);
             if (objects != null)
             {
-                _distance = detectionRange;
+                _distance = ship.viewRange;
                 foreach (Collider2D avoid in objects)
                 {
                     if (avoid != col)
                     {
                         if (!seenPlayer && avoid.gameObject.layer == 6) //Layer 6 is Player
-                            seenPlayer = true;
+                        { seenPlayer = true; targetTransform = avoid.transform; }
                         float distCheckProx = Extension.Distance((Vector2)transform.position, avoid.ClosestPoint(transform.position));
-                        if (distCheckProx * distCheckProx < _distance)
+                        if (distCheckProx < _distance * _distance)
                         {
                             _distance = Vector2.Distance((Vector2)transform.position, avoid.ClosestPoint(transform.position));
                             newDirection = -(avoid.ClosestPoint(transform.position) - (Vector2)transform.position);
@@ -236,32 +362,131 @@ public class LurkerAI : MonoBehaviour
                 idle = true;
             else idle = false;
             StartCoroutine(nameof(GetNewTargetPos));
-            yield return new WaitForSeconds(Random.Range(newTargetTime.x / currentModifier, newTargetTime.y / currentModifier));
+            yield return new WaitForSeconds(Random.Range(ship.newMoveTargetTime.x / currentModifier, ship.newMoveTargetTime.y / currentModifier));
         }
     }
     IEnumerator GetNewTargetPos()
     {
         if (lowHealth)
         {
-            targetPos = 10 * awayFromTargetRadius * (Vector2)transform.up;
+            switch (ship.lowHealthBehaviour)
+            {
+                case LowHealthBehaviour.None:
+                    break;
+                case LowHealthBehaviour.Flee:
+                    FindPosFarAway();
+                    break;
+                case LowHealthBehaviour.Jump:
+                    FindPosFarAway();
+                    break;
+                case LowHealthBehaviour.DropLootAndJump:
+                    FindPosFarAway();
+                    break;
+                case LowHealthBehaviour.Surrender:
+                    break;
+                case LowHealthBehaviour.SurrenderButBargain:
+                    break;
+                case LowHealthBehaviour.SurrenderButTrick:
+                    break;
+                case LowHealthBehaviour.Enrage:
+                    FindPosNearTarget();
+                    break;
+                case LowHealthBehaviour.SelfDestruct:
+                    FindPosNearTarget();
+                    break;
+                default:
+                    break;
+            }
+            
         }
         else if (inCombat)
         {
-            if (combatTarget != null)
-                targetPos = (Vector2)combatTarget.position + Random.insideUnitCircle * (awayFromTargetRadius / 2);
+            switch (ship.combatBehaviour)
+            {
+                case CombatBehaviour.None:
+                    break;
+                case CombatBehaviour.ChaseAndAttack:
+                    FindPosNearTarget();
+                    break;
+                case CombatBehaviour.RunAndAttack:
+                    FindPosFarAway();
+                    break;
+                case CombatBehaviour.SelfDestruct:
+                    FindPosOnTarget();
+                    break;
+                case CombatBehaviour.Crash:
+                    FindPosOnTarget();
+                    break;
+                case CombatBehaviour.JumpImmediately:
+                    FindPosFarAway();
+                    break;
+                default:
+                    break;
+            }
+            
         }
-        else if (seenPlayer)
+        else if (targetTransform)
         {
-            targetPos = (Vector2)GlobalRefs.Instance.player.transform.position + Random.insideUnitCircle * awayFromTargetRadius;
+            switch (ship.behaviour)
+            {
+                case Behaviour.None:
+                    break;
+                case Behaviour.NotDefined:
+                    FindPosNearSpawn();
+                    break;
+                case Behaviour.TargetResources:
+                    FindResource();
+                    break;
+                case Behaviour.StalkTarget:
+                    FindPosNearTarget();
+                    break;
+                case Behaviour.JumpOnSight:
+                    FindPosFarAway();
+                    break;
+                case Behaviour.RepairTarget:
+                    FindPosNearTarget();
+                    break;
+                case Behaviour.Stealth:
+                    FindPosNearTarget();
+                    break;
+                default:
+                    break;
+            }
         }
-        else targetPos = spawnPoint + Random.insideUnitCircle * awayFromTargetRadius;
+        else FindPosNearSpawn();
         yield return null;
     }
-    void AIStep()
+    void FindPosFarAway()
     {
-        Vector2 actualDir = targetPos - rb.position;
-        float rotateAmount = Vector3.Cross(actualDir.normalized, transform.up).z;
-        rb.AddTorque(-rotSpeed * currentModifier * rotateAmount, ForceMode2D.Force);
+        targetPos = 10 * ship.targetRadius * (Vector2)transform.up;
+    }
+
+    void FindPosNearTarget()
+    {
+        targetPos = (Vector2)targetTransform.position + Random.insideUnitCircle * ship.targetRadius;
+    }
+
+    void FindPosOnTarget()
+    {
+        targetPos = (Vector2)targetTransform.position;
+    }
+
+    void FindPosNearSpawn()
+    {
+        targetPos = spawnPoint + Random.insideUnitCircle * ship.targetRadius * 2;
+    }
+    void FindResource()
+    {
+        Collider2D[] pickup = Physics2D.OverlapCircleAll(transform.position, ship.viewRange, pickupMask);
+        if (pickup != null)
+        {
+            targetPos = pickup[0].transform.position;
+        }
+    }
+
+
+    void Thruster()
+    {
         var tEmis = thrustersPS.emission;
         if (idle && !inCombat && !lowHealth)
         {
@@ -272,14 +497,26 @@ public class LurkerAI : MonoBehaviour
         {
             if (!tEmis.enabled)
                 tEmis.enabled = true;
-            rb.AddForce(Mathf.Lerp(0.2f, 1f, (_distance / detectionRange)) * currentModifier * speed * transform.up, ForceMode2D.Force);
+            rb.AddForce(Mathf.Lerp(0.2f, 1f, (_distance / ship.viewRange)) * currentModifier * ship.speed * transform.up, ForceMode2D.Force);
         }
-        rb.AddForce(((detectionRange + 1f - _distance) / 2) * currentModifier * strafeSpeed * dir.normalized, ForceMode2D.Force);
+    }
+    void Rotate()
+    {
+        Vector2 actualDir = targetPos - rb.position;
+        float rotateAmount = Vector3.Cross(actualDir.normalized, transform.up).z;
+        rb.AddTorque(-ship.rotSpeed * currentModifier * rotateAmount, ForceMode2D.Force);
+    }
+    void Strafe()
+    {
+        rb.AddForce(((ship.viewRange + 1f - _distance) / 2) * currentModifier * ship.strafeSpeed * dir.normalized, ForceMode2D.Force);
+    }
+    void Repair()
+    {
         if (repairing)
         {
             if (healthModule.currentHealth < healthModule.startHealth)
             {
-                healthModule.currentHealth += repairSpeed;
+                healthModule.currentHealth += ship.repairSpeed;
                 if (healthModule.currentHealth > healthModule.startHealth)
                     healthModule.currentHealth = healthModule.startHealth;
             }
@@ -290,6 +527,23 @@ public class LurkerAI : MonoBehaviour
                 StartCoroutine(nameof(GetNewTargetPos));
             }
         }
+    }
+    void Jump()
+    {
+        
+        var tEmis = thrustersPS.emission;
+        if (idle && !inCombat && !lowHealth)
+        {
+            if (tEmis.enabled)
+                tEmis.enabled = false;
+        }
+        else if (jumpTimer > ship.jumpTime * 60)
+        {
+            if (!tEmis.enabled)
+                tEmis.enabled = true;
+            rb.AddForce(currentModifier * ship.jumpSpeed * ship.speed * transform.up, ForceMode2D.Force);
+        }
+        jumpTimer++;
     }
 
     /*

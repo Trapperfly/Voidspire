@@ -7,6 +7,7 @@ public class Damagable : Events
     public float startHealth = 0;
     public float currentHealth;
     public bool damageTaken;
+    public GameObject damageTakenFromWhat;
     private void Start()
     {
         if (startHealth == 0)
@@ -19,31 +20,35 @@ public class Damagable : Events
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-            if (collision.collider.CompareTag("Bullet"))
-            {
-                float damage = collision.collider.GetComponent<Bullet>()._localDamage;
-                TakeDamage(damage, collision.transform.position);
+        if (collision.collider.CompareTag("Bullet"))
+        {
+            Bullet hitBy = collision.collider.GetComponent<Bullet>();
+            float damage = hitBy._localDamage;
+            TakeDamage(damage, collision.transform.position, hitBy.bulletSender);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
-            if (collision.CompareTag("Bullet"))
-            {
-                float damage = collision.GetComponent<Bullet>()._localDamage;
-                TakeDamage(damage, collision.transform.position);
-            }
-            if (collision.CompareTag("AIBullet"))
-            {
-                float damage = collision.GetComponent<AIBullet>().damage;
-                TakeDamage(damage, collision.transform.position);
+        if (collision.CompareTag("Bullet"))
+        {
+            Bullet hitBy = collision.GetComponent<Bullet>();
+            float damage = hitBy._localDamage;
+            TakeDamage(damage, collision.transform.position, hitBy.bulletSender);
+        }
+        if (collision.CompareTag("AIBullet"))
+        {
+            AIBullet hitBy = collision.GetComponent<AIBullet>();
+            float damage = hitBy.damage;
+            TakeDamage(damage, collision.transform.position, hitBy.bulletSender);
 
-            }
+        }
     }
 
-    public void TakeDamage(float value, Vector2 position)
+    public void TakeDamage(float value, Vector2 position, GameObject whatDealtDamage)
     {
         OnHitEvent(value, position);
+        damageTakenFromWhat = whatDealtDamage;
         currentHealth -= value;
         HealthCheck();
     }

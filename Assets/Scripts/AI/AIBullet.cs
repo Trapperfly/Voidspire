@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AIBullet : MonoBehaviour
 {
+    public GameObject bulletSender;
     public enum EnemyProjectileType
     {
         Void,

@@ -7,6 +7,7 @@ using Unity.Mathematics;
 public class Bullet : MonoBehaviour
 {
     public BulletController bc;
+    public GameObject bulletSender;
     public float _localDamage;
     public float _splashDamage;
     public float _splashRange;
@@ -67,7 +68,7 @@ public class Bullet : MonoBehaviour
             Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, _splashRange);
             foreach (Collider2D col in hit)
             {
-                if (col.TryGetComponent<Damagable>(out var dm)) dm.TakeDamage(_splashDamage, col.transform.position);
+                if (col.TryGetComponent<Damagable>(out var dm)) dm.TakeDamage(_splashDamage, col.transform.position, bulletSender);
             }
         }
         StopAllCoroutines();

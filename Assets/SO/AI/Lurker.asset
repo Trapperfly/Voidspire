@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c42329208f71aa469412ecfbbe6a610, type: 3}
+  m_Name: Lurker
+  m_EditorClassIdentifier: 
+  aiName: Lurker
+  description: 
+  playerRelation: 3
+  shipPrefab: {fileID: 0}
+  behaviour: 1
+  combatBehaviour: 1
+  lowHealthBehaviour: 1
+  lowHealthPercent: 0.2
+  contactBehaviour: 1
+  isDisabled: 0
+  speed: 1.3
+  rotSpeed: 0.03
+  strafeSpeed: 0.4
+  jumpTime: 0
+  jumpSpeed: 0
+  exploreMod: 1
+  fleeMod: 3
+  combatMod: 1.5
+  repairMod: 0.2
+  canRepair: 1
+  repairSpeed: 0.05
+  viewRange: 3
+  reactRange: 10
+  attackRange: 4
+  newMoveTargetTime: {x: 4, y: 8}
+  targetRadius: 6
+  changeTargetChance: 0
+  availableAttacks: 1
+  normalAttack: 2
+  effect: 0
+  effectChance: 0
+  isWeakened: 0
+  isDisarmed: 0
+  damage: 2
+  shotSpeed: 0.5
+  fireRate: 2
+  spread: 15
+  specialAttack: 0
+  specialAttackCD: {x: 0, y: 0}
+  specialAttackDamage: 0
+  specialAttackSpeed: 0
+  damageTickTime: 0
+  reward: 1
+  value: 1

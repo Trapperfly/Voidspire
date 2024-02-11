@@ -45,11 +45,11 @@ public class ExplosiveProjectile : MonoBehaviour
     }
     private void OnDestroy()
     {
-        Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, _splashRange);
-        foreach (Collider2D col in hit)
-        {
-            if (col.TryGetComponent<Damagable>(out var dm)) dm.TakeDamage(_splashDamage, col.transform.position);
-        }
-        StopAllCoroutines();
+        //Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, _splashRange);
+        //foreach (Collider2D col in hit)
+        //{
+        //    if (col.TryGetComponent<Damagable>(out var dm)) dm.TakeDamage(_splashDamage, col.transform.position);
+        //}
+        //StopAllCoroutines();
     }
 }
