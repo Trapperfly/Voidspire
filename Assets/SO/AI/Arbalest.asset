@@ -10,53 +10,53 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c42329208f71aa469412ecfbbe6a610, type: 3}
-  m_Name: Lurker
+  m_Name: Arbalest
   m_EditorClassIdentifier: 
-  aiName: Lurker
+  aiName: Arbalest
   description: 
   playerRelation: 3
   shipPrefab: {fileID: 0}
-  behaviour: 1
+  behaviour: 4
   combatBehaviour: 1
-  lowHealthBehaviour: 0
+  lowHealthBehaviour: 2
   lowHealthPercent: 0.2
   contactBehaviour: 1
   isDisabled: 0
-  speed: 1.3
-  rotSpeed: 0.03
-  strafeSpeed: 0.4
-  jumpTime: 5
+  speed: 1
+  rotSpeed: 0.06
+  strafeSpeed: 0.5
+  jumpTime: 4
   jumpSpeed: 100
   exploreMod: 1
-  fleeMod: 2
-  combatMod: 1.5
-  repairMod: 0.2
-  combatDrag: 1
-  combatAngularDrag: 1
+  fleeMod: 3
+  combatMod: 10
+  repairMod: 0.1
+  combatDrag: 5
+  combatAngularDrag: 5
   canRepair: 1
   repairSpeed: 0.05
   viewRange: 3
-  reactRange: 10
+  reactRange: 12
   attackRange: 4
-  newMoveTargetTime: {x: 4, y: 8}
-  targetRadius: 6
+  newMoveTargetTime: {x: 5, y: 10}
+  targetRadius: 4
   changeTargetChance: 0.5
-  availableAttacks: 1
-  normalAttack: 2
+  availableAttacks: 2
+  normalAttack: 0
   effect: 0
   effectChance: 0
   isWeakened: 0
   isDisarmed: 0
-  damage: 2
-  shotSpeed: 0.5
-  fireRate: 2
-  spread: 15
-  gunRotSpeed: 2
-  specialAttack: 0
-  specialAttackCD: 0
-  specialAttackDamage: 0
-  specialAttackSpeed: 0
-  damageTickTime: 0
-  stopCoreWhenSpecial: 0
+  damage: 0
+  shotSpeed: 0
+  fireRate: 0
+  spread: 0
+  gunRotSpeed: 0
+  specialAttack: 1
+  specialAttackCD: 5
+  specialAttackDamage: 1
+  specialAttackSpeed: 3
+  damageTickTime: 0.1
+  stopCoreWhenSpecial: 1
   reward: 1
   value: 1

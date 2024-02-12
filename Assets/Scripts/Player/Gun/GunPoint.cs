@@ -15,7 +15,7 @@ public class GunPoint : MonoBehaviour
     [SerializeField] bool noFireWhenOutOfReach;
     public bool doRotate = true;
     ActiveTarget target;
-    AIGunStats aiGun;
+    Ship stat;
     GunFire gunFire;
     GunStats gun;
     Transform bsp;
@@ -23,28 +23,23 @@ public class GunPoint : MonoBehaviour
     Transform parent;
     float maxRotX;
     float maxRotY;
-    private void Awake()
+    private void Start()
     {
+        if (TryGetComponent(out AIGun aiGun)) 
+        {
+            Debug.Log(aiGun.stat);
+            stat = aiGun.stat; 
+            rotSpeed = stat.gunRotSpeed; 
+        }
+        if (TryGetComponent(out GunStats gunStats)) gun = gunStats;
+        foreach (Transform child in transform)
+        {
+            if (child.name == "BulletSpawnPoint") bsp = child.transform;
+        }
+        target = GetComponentInParent<ActiveTarget>();
         if (!notAGun)
         {
-            if (GetComponent<AIGunStats>() != null) aiGun = GetComponent<AIGunStats>();
-            if (GetComponent<GunStats>() != null) gun = GetComponent<GunStats>();
-            foreach (Transform child in transform)
-            {
-                if (child.name == "BulletSpawnPoint") bsp = child.transform;
-            }
-            target = GetComponentInParent<ActiveTarget>();
             parent = transform.parent;
-        }
-        else
-        {
-            if (GetComponent<AIGunStats>() != null) aiGun = GetComponent<AIGunStats>();
-            if (GetComponent<GunStats>() != null) gun = GetComponent<GunStats>();
-            foreach (Transform child in transform)
-            {
-                if (child.name == "BulletSpawnPoint") bsp = child.transform;
-            }
-            target = GetComponent<ActiveTarget>();
         }
     }
     private void FixedUpdate()
@@ -69,12 +64,12 @@ public class GunPoint : MonoBehaviour
                         / gunFire.w.speed));
                     Debug.DrawLine(bsp.position, position);
                 }
-                else if (aiGun != null)
+                else if (stat != null)
                 {
                     position = (Vector2)target.target.position 
                         + (target.targetRB.velocity 
                         * (Vector2.Distance(bsp.position, target.target.position) 
-                        / aiGun.speed));
+                        / stat.speed));
                 }
             }
             else if (targetBased && target.target != null)

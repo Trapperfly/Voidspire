@@ -46,7 +46,7 @@ public class AssignToChunk : MonoBehaviour
     void CheckForDisabledChunk()
     {
         Debug.Log("Checking for new chunk. It was " + (bool)loader.spaceChunkDictionary.ContainsKey(pos));
-        if (loader.spaceChunkDictionary[pos].chunkGO.activeSelf)
+        if (loader.spaceChunkDictionary[pos].chunkGO.activeSelf == true)
         {
             Debug.Log("Found new chunk");
             GetComponent<Rigidbody2D>().simulated = true;

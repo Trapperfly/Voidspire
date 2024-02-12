@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using ExtensionMethods;
 
-public class LurkerAI : MonoBehaviour
+
+public class ShipAI : MonoBehaviour
 {
     public Ship ship;
     float currentModifier = 1f;
     bool repairing;
+    bool firingSpecial;
+    bool rotate = true;
+    public bool jumping;
+    public Transform aiBullets;
+
+    public AIGun[] guns;
+
+    public int curCD = 0;
 
     Transform combatTarget;
     public List<Vector2> dirs = new List<Vector2>();
@@ -45,6 +54,7 @@ public class LurkerAI : MonoBehaviour
 
     private void Start()
     {
+        aiBullets = GameObject.FindGameObjectWithTag("AIBulletHolder").transform;
         transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         StartCoroutine(nameof(CheckProximity));
 
@@ -71,10 +81,12 @@ public class LurkerAI : MonoBehaviour
                     NormalMove();
                     break;
                 case LowHealthBehaviour.Jump:
+                    Strafe();
                     Jump();
                     Rotate();
                     break;
                 case LowHealthBehaviour.DropLootAndJump:
+                    Strafe();
                     Jump();
                     Rotate();
                     break;
@@ -117,6 +129,7 @@ public class LurkerAI : MonoBehaviour
                     NormalMove();
                     break;
                 case CombatBehaviour.JumpImmediately:
+                    Strafe();
                     Rotate();
                     Jump();
                     break;
@@ -140,7 +153,7 @@ public class LurkerAI : MonoBehaviour
                     NormalMove();
                     break;
                 case Behaviour.JumpOnSight:
-                    if (seenPlayer) { Rotate(); Jump(); break; }
+                    if (seenPlayer) { Strafe(); Rotate(); Jump(); break; }
                     NormalMove();
                     break;
                 case Behaviour.RepairTarget:
@@ -165,16 +178,102 @@ public class LurkerAI : MonoBehaviour
         TryStopCombat();
         
         lastFrameHealth = healthModule.currentHealth;
+        if (inCombat)
+            HandleSpecialAttack();
+    }
+    void HandleSpecialAttack()
+    {
+        if (ship.specialAttackCD != 0 && curCD > ship.specialAttackCD * 60)
+        {
+            StartCoroutine(InitSpecialAttack());
+            curCD = 0;
+        }
+        curCD++;
+    }
+    void ToggleCombat(bool a)
+    {
+        if (a)
+        {
+            rb.drag = ship.combatDrag;
+            rb.angularDrag = ship.combatAngularDrag;
+        }
+        else
+        {
+            rb.drag = 1;
+            rb.angularDrag = 1;
+            combatTarget = null;
+            StartCoroutine(target.ClearTarget());
+        }
+        inCombat = a;
     }
     void NormalMove()
     {
         Thruster();
-        Rotate();
+        if (rotate) Rotate();
         Strafe();
-        if (ship.canRepair)
-            Repair();
+        if (ship.canRepair) Repair();
     }
-
+    IEnumerator InitSpecialAttack()
+    {
+        if(ship.stopCoreWhenSpecial && target.target) {
+            idle = true;
+            targetPos = (Vector2)target.target.position
+                        + (target.targetRB.velocity
+                        * (Vector2.Distance(transform.position, target.target.position)
+                        / ship.specialAttackSpeed));
+            yield return new WaitForSeconds(0.2f);
+            targetPos = (Vector2)target.target.position
+                            + (target.targetRB.velocity
+                            * (Vector2.Distance(transform.position, target.target.position)
+                            / ship.specialAttackSpeed));
+            yield return new WaitForSeconds(0.2f);
+            targetPos = (Vector2)target.target.position
+                            + (target.targetRB.velocity
+                            * (Vector2.Distance(transform.position, target.target.position)
+                            / ship.specialAttackSpeed));
+            yield return new WaitForSeconds(0.2f);
+            targetPos = (Vector2)target.target.position
+                            + (target.targetRB.velocity
+                            * (Vector2.Distance(transform.position, target.target.position)
+                            / ship.specialAttackSpeed));
+            yield return new WaitForSeconds(0.1f);
+        }
+        curCD = 0;
+        
+        FireSpecialAttack();
+        curCD = 0;
+        yield return new WaitForSeconds(0.2f);
+        if (ship.stopCoreWhenSpecial)
+        {
+            idle = false;
+            StartCoroutine(GetNewTargetPos());
+        }
+        curCD = 0;
+        yield return null;
+    }
+    public void FireSpecialAttack()
+    {
+        switch (ship.specialAttack)
+        {
+            case SpecialAttack.None:
+                break;
+            case SpecialAttack.ElectricBall:
+                GameObject bullet = Instantiate(EnemyManager.Instance.ElectricBallPrefab, transform.position, new Quaternion(), aiBullets.transform);
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
+                bullet.GetComponent<AIBullet>().damage = ship.specialAttackDamage;
+                bullet.GetComponent<AIBullet>().damageTimer = ship.damageTickTime;
+                bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * ship.specialAttackSpeed, ForceMode2D.Impulse);
+                break;
+            case SpecialAttack.HomingMissiles:
+                break;
+            case SpecialAttack.VoidNova:
+                break;
+            case SpecialAttack.SelfDestruct:
+                break;
+            default:
+                break;
+        }
+    }
     float CheckDistanceAndSetModifier()
     {
         float distCheckToPlayer = Extension.Distance(transform.position, GlobalRefs.Instance.player.transform.position);
@@ -217,17 +316,18 @@ public class LurkerAI : MonoBehaviour
     {
         if (healthModule.damageTaken && healthModule.damageTakenFromWhat)
         {
-            if (!inCombat && !lowHealth)
+            if (!lowHealth)
             {
                 if (Extension.Distance(transform.position, healthModule.damageTakenFromWhat.transform.position) < ship.reactRange * ship.reactRange)
                 {
                     combatTarget = healthModule.damageTakenFromWhat.transform;
-                    targetTransform = combatTarget;
+                    targetTransform = combatTarget; 
+                    ToggleCombat(true);
                     StartCoroutine(nameof(GetNewTargetPos));
                     StartCoroutine(target.InitTargetValues(combatTarget, combatTarget.GetComponent<Rigidbody2D>()));
                     healthModule.damageTaken = false;
                     healthModule.damageTakenFromWhat = null;
-                    inCombat = true;
+
                     return;
                 }
                 Collider2D[] potentialTargets = Physics2D.OverlapCircleAll(transform.position, ship.reactRange, targetMask);
@@ -238,11 +338,11 @@ public class LurkerAI : MonoBehaviour
                     if (Random.value > ship.changeTargetChance) { return; }
                     combatTarget = t.transform;
                     targetTransform = combatTarget;
+                    ToggleCombat(true);
                     StartCoroutine(nameof(GetNewTargetPos));
                     StartCoroutine(target.InitTargetValues(combatTarget, combatTarget.GetComponent<Rigidbody2D>()));
                     healthModule.damageTaken = false;
                     healthModule.damageTakenFromWhat = null;
-                    inCombat = true;
                 }
             }
         }
@@ -256,9 +356,7 @@ public class LurkerAI : MonoBehaviour
         {
             if (lowHealth || combatTarget == null)
             {
-                inCombat = false;
-                combatTarget = null;
-                StartCoroutine(target.ClearTarget());
+                ToggleCombat(false);
                 StartCoroutine(nameof(GetNewTargetPos));
             }
         }
@@ -270,16 +368,6 @@ public class LurkerAI : MonoBehaviour
         foreach  (Vector2 line in dirs)
         {
             Debug.DrawRay(transform.position, line.normalized);
-        }
-        ps.transform.rotation = Quaternion.RotateTowards(ps.transform.rotation, Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, -dir.normalized)), 10);
-        var pEmission = ps.emission;
-        if (dir != new Vector2(0, 0))
-        {
-            pEmission.rateOverTime = (ship.viewRange - _distance) * 20f;
-        }
-        else if (!ps.isPaused)
-        {
-            pEmission.rateOverTime = 0;
         }
 
     }
@@ -336,7 +424,7 @@ public class LurkerAI : MonoBehaviour
                         if (!seenPlayer && avoid.gameObject.layer == 6) //Layer 6 is Player
                         { seenPlayer = true; targetTransform = avoid.transform; }
                         float distCheckProx = Extension.Distance((Vector2)transform.position, avoid.ClosestPoint(transform.position));
-                        if (distCheckProx < _distance * _distance)
+                        if (distCheckProx < _distance)
                         {
                             _distance = Vector2.Distance((Vector2)transform.position, avoid.ClosestPoint(transform.position));
                             newDirection = -(avoid.ClosestPoint(transform.position) - (Vector2)transform.position);
@@ -352,7 +440,6 @@ public class LurkerAI : MonoBehaviour
             yield return null;
         }
     }
-
     IEnumerator GetNewTargetPosOverTime()
     {
         while (true)
@@ -460,17 +547,14 @@ public class LurkerAI : MonoBehaviour
     {
         targetPos = 10 * ship.targetRadius * (Vector2)transform.up;
     }
-
     void FindPosNearTarget()
     {
         targetPos = (Vector2)targetTransform.position + Random.insideUnitCircle * ship.targetRadius;
     }
-
     void FindPosOnTarget()
     {
         targetPos = (Vector2)targetTransform.position;
     }
-
     void FindPosNearSpawn()
     {
         targetPos = spawnPoint + Random.insideUnitCircle * ship.targetRadius * 2;
@@ -483,8 +567,6 @@ public class LurkerAI : MonoBehaviour
             targetPos = pickup[0].transform.position;
         }
     }
-
-
     void Thruster()
     {
         var tEmis = thrustersPS.emission;
@@ -508,6 +590,16 @@ public class LurkerAI : MonoBehaviour
     }
     void Strafe()
     {
+        ps.transform.rotation = Quaternion.RotateTowards(ps.transform.rotation, Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, -dir.normalized)), 10);
+        var pEmission = ps.emission;
+        if (dir != new Vector2(0, 0))
+        {
+            pEmission.rateOverTime = (ship.viewRange - _distance) * 20f;
+        }
+        else if (!ps.isPaused)
+        {
+            pEmission.rateOverTime = 0;
+        }
         rb.AddForce(((ship.viewRange + 1f - _distance) / 2) * currentModifier * ship.strafeSpeed * dir.normalized, ForceMode2D.Force);
     }
     void Repair()
@@ -530,20 +622,19 @@ public class LurkerAI : MonoBehaviour
     }
     void Jump()
     {
-        
+        jumping = true;
         var tEmis = thrustersPS.emission;
-        if (idle && !inCombat && !lowHealth)
-        {
-            if (tEmis.enabled)
-                tEmis.enabled = false;
-        }
-        else if (jumpTimer > ship.jumpTime * 60)
+        if (jumpTimer > ship.jumpTime * 60)
         {
             if (!tEmis.enabled)
                 tEmis.enabled = true;
+            if (!GetComponent<Collider2D>().isTrigger)
+                GetComponent<Collider2D>().isTrigger = true;
             rb.AddForce(currentModifier * ship.jumpSpeed * ship.speed * transform.up, ForceMode2D.Force);
         }
         jumpTimer++;
+        if (jumpTimer > ship.jumpTime * 60 * 2)
+            Destroy(gameObject);
     }
 
     /*

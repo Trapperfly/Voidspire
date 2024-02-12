@@ -5038,7 +5038,7 @@ GameObject:
   - component: {fileID: 2833068299456812864}
   - component: {fileID: 8119539975147132437}
   - component: {fileID: 4134512840287755518}
-  - component: {fileID: 5709941087183135974}
+  - component: {fileID: 4785452138515997220}
   - component: {fileID: 3550362939253741042}
   - component: {fileID: 8699744451935812313}
   - component: {fileID: 4968097612853454557}
@@ -5047,7 +5047,6 @@ GameObject:
   - component: {fileID: 3939070989029761135}
   - component: {fileID: 5088163908340901727}
   - component: {fileID: 1955076870583414186}
-  - component: {fileID: 949212495855852716}
   - component: {fileID: 5354132335033376675}
   - component: {fileID: 3195964237780554631}
   m_Layer: 9
@@ -5163,7 +5162,7 @@ PolygonCollider2D:
       - {x: 0.18753558, y: -0.000048178248}
       - {x: 0.109702356, y: 0.1086366}
   m_UseDelaunayMesh: 0
---- !u!114 &5709941087183135974
+--- !u!114 &4785452138515997220
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5172,22 +5171,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2873090934068894746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f7151852f2c5f84591373704562b80b, type: 3}
+  m_Script: {fileID: 11500000, guid: c631ff76429e5ac4dbeff717f5d45d91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  rotate: 1
-  rotSpeed: 0.06
-  strafeSpeed: 0.5
-  exploreModifier: 1
-  fleeModifier: 3
-  combatModifier: 10
-  repairModifier: 0.1
-  repairSpeed: 0.05
-  detectionRange: 2
-  combatDetectionRange: 8
-  newTargetTime: {x: 5, y: 10}
-  newCombatTargetTime: {x: 3, y: 4}
+  ship: {fileID: 11400000, guid: 49562556044938145b98fc2a931a1bab, type: 2}
+  guns: []
+  curCD: 0
   dirs: []
   target: {fileID: 8699744451935812313}
   avoidMask:
@@ -5196,16 +5185,16 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 1600
+  pickupMask:
+    serializedVersion: 2
+    m_Bits: 4096
   lowHealth: 0
   inCombat: 0
   sceptic: 0
   seenPlayer: 0
   idle: 0
-  awayFromTargetRadius: 4
   ps: {fileID: 7604102676827780405}
   thrustersPS: {fileID: 7501665658290220432}
-  combatDrag: 5
-  combatAngularDrag: 5
 --- !u!114 &3550362939253741042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5270,6 +5259,7 @@ MonoBehaviour:
   startHealth: 40
   currentHealth: 0
   damageTaken: 0
+  damageTakenFromWhat: {fileID: 0}
 --- !u!114 &4095773391793159098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5328,23 +5318,6 @@ MonoBehaviour:
   notAGun: 1
   noFireWhenOutOfReach: 0
   doRotate: 0
---- !u!114 &949212495855852716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2873090934068894746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f351010398652a4a9d89617ec3b1e3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
-  speed: 4
-  fireRate: 0
-  spread: 0
-  AIBulletPrefab: {fileID: 515737004715930061, guid: 7a4d75765c358d2439017ff812f0eaea, type: 3}
 --- !u!114 &5354132335033376675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5357,8 +5330,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2efc68ec2a9fcb44e9f2ba235bde8cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aiLurker: {fileID: 0}
-  stat: {fileID: 949212495855852716}
+  ai: {fileID: 4785452138515997220}
+  stat: {fileID: 0}
+  point: {fileID: 0}
   bulletSpawnPoint: {fileID: 5080079996602909951}
   autoFire: 0
 --- !u!114 &3195964237780554631
@@ -5456,8 +5430,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2efc68ec2a9fcb44e9f2ba235bde8cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aiLurker: {fileID: 0}
-  stat: {fileID: 2216482716536093299}
+  ai: {fileID: 0}
+  stat: {fileID: 0}
+  point: {fileID: 0}
   bulletSpawnPoint: {fileID: 1058510015244001123}
   autoFire: 0
 --- !u!114 &2216482716536093299

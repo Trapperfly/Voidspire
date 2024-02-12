@@ -16,7 +16,7 @@ public class AIBullet : MonoBehaviour
     public float damageTimer;
     public float damage;
     public float currTime;
-    public float timer;
+    public float timer = 0;
     Collider2D col;
     private void Awake()
     {
@@ -28,7 +28,7 @@ public class AIBullet : MonoBehaviour
     {
         if (damageTimer > 0)
         {
-            if (timer > damageTimer)
+            if (timer > damageTimer * 60)
             {
                 StartCoroutine(OneFrameCollider());
                 timer = 0;

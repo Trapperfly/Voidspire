@@ -270,7 +270,7 @@ public class ArbalestAI : MonoBehaviour
         yield return null;
         float timer = Random.Range(newCombatTargetTime.x, newCombatTargetTime.y);
         yield return new WaitForSeconds(timer / 4);
-        fire.FireElectricBall();
+        //fire.FireElectricBall();
         yield return new WaitForSeconds(timer / 8);
         rotate = true;
         point.doRotate = false;

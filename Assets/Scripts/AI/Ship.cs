@@ -29,6 +29,9 @@ public class Ship : AI
     public float combatMod;
     public float repairMod;
 
+    public float combatDrag;
+    public float combatAngularDrag;
+
     [Header("Repairing")]
     public bool canRepair;
     public float repairSpeed;
@@ -54,13 +57,15 @@ public class Ship : AI
     public float shotSpeed;
     public float fireRate;
     public float spread;
+    public float gunRotSpeed;
 
     [Header("SpecialAttack")]
     public SpecialAttack specialAttack;
-    public Vector2 specialAttackCD;
+    public float specialAttackCD;
     public float specialAttackDamage;
     public float specialAttackSpeed;
     public float damageTickTime;
+    public bool stopCoreWhenSpecial;
 
     [Header("Rewards")]
     public Reward reward;
