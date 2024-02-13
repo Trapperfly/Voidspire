@@ -54,6 +54,8 @@ public class ShipAI : MonoBehaviour
 
     private void Start()
     {
+        var tEmis = thrustersPS.emission;
+        tEmis.enabled = false;
         aiBullets = GameObject.FindGameObjectWithTag("AIBulletHolder").transform;
         transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         StartCoroutine(nameof(CheckProximity));
@@ -61,6 +63,8 @@ public class ShipAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         healthModule = GetComponent<Damagable>();
+        healthModule.startHealth = ship.maxHealth;
+        healthModule.currentHealth = ship.maxHealth;
         lastFrameHealth = healthModule.currentHealth;
         targetPos = GlobalRefs.Instance.player.transform.position;
         spawnPoint = transform.position;
@@ -70,6 +74,8 @@ public class ShipAI : MonoBehaviour
     private void FixedUpdate()
     {
         currentModifier = CheckDistanceAndSetModifier();
+
+        TryStopCombat();
 
         if (lowHealth)
         {
@@ -102,6 +108,10 @@ public class ShipAI : MonoBehaviour
                 case LowHealthBehaviour.Enrage:
                     NormalMove();
                     isEnraged = true;
+                    //if (isEnraged)
+                    //{
+                    //    ship.fireRate *= 2;
+                    //}
                     break;
                 case LowHealthBehaviour.SelfDestruct:
                     NormalMove();
@@ -115,6 +125,14 @@ public class ShipAI : MonoBehaviour
             switch (ship.combatBehaviour)
             {
                 case CombatBehaviour.None:
+                    break;
+                case CombatBehaviour.StandGroundAndAttack:
+                    NormalMove();
+                    break;
+                case CombatBehaviour.RotateTowardsAndAttack:
+                    Rotate();
+                    Strafe();
+                    Repair();
                     break;
                 case CombatBehaviour.ChaseAndAttack:
                     NormalMove();
@@ -162,6 +180,16 @@ public class ShipAI : MonoBehaviour
                 case Behaviour.Stealth:
                     NormalMove();
                     break;
+                case Behaviour.AttackImmediately:
+                    if (seenPlayer) { 
+                        combatTarget = GlobalRefs.Instance.player.transform;
+                        targetTransform = combatTarget;
+                        ToggleCombat(true);
+                        StartCoroutine(nameof(GetNewTargetPos));
+                        StartCoroutine(target.InitTargetValues(combatTarget, combatTarget.GetComponent<Rigidbody2D>()));
+                    }
+                    NormalMove();
+                    break;
                 default:
                     break;
             }
@@ -173,9 +201,6 @@ public class ShipAI : MonoBehaviour
 
         //Get target when hit
         CheckForNewCombatTargetWhenDamageTaken();
-
-
-        TryStopCombat();
         
         lastFrameHealth = healthModule.currentHealth;
         if (inCombat)
@@ -194,14 +219,17 @@ public class ShipAI : MonoBehaviour
     {
         if (a)
         {
+            Debug.Log("Toggling combat on");
             rb.drag = ship.combatDrag;
             rb.angularDrag = ship.combatAngularDrag;
         }
         else
         {
+            Debug.Log("Toggling combat off");
             rb.drag = 1;
             rb.angularDrag = 1;
             combatTarget = null;
+            targetTransform = null;
             StartCoroutine(target.ClearTarget());
         }
         inCombat = a;
@@ -352,6 +380,12 @@ public class ShipAI : MonoBehaviour
 
     void TryStopCombat()
     {
+        if (inCombat && (!target.target || !target.targetRB))
+        {
+            ToggleCombat(false);
+            StartCoroutine(nameof(GetNewTargetPos));
+            return;
+        }
         if (inCombat)
         {
             if (lowHealth || combatTarget == null)
@@ -492,6 +526,12 @@ public class ShipAI : MonoBehaviour
             {
                 case CombatBehaviour.None:
                     break;
+                case CombatBehaviour.StandGroundAndAttack:
+                    FindPosOnTarget();
+                    break;
+                case CombatBehaviour.RotateTowardsAndAttack:
+                    FindPosOnTarget();
+                    break;
                 case CombatBehaviour.ChaseAndAttack:
                     FindPosNearTarget();
                     break;
@@ -512,7 +552,7 @@ public class ShipAI : MonoBehaviour
             }
             
         }
-        else if (targetTransform)
+        else if (targetTransform && target.target)
         {
             switch (ship.behaviour)
             {
@@ -534,6 +574,9 @@ public class ShipAI : MonoBehaviour
                     FindPosNearTarget();
                     break;
                 case Behaviour.Stealth:
+                    FindPosNearTarget();
+                    break;
+                case Behaviour.AttackImmediately:
                     FindPosNearTarget();
                     break;
                 default:

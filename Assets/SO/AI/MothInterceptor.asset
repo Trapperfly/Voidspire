@@ -10,55 +10,55 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c42329208f71aa469412ecfbbe6a610, type: 3}
-  m_Name: Lurker
+  m_Name: MothInterceptor
   m_EditorClassIdentifier: 
-  aiName: Lurker
+  aiName: Moth Interceptor
   description: 
-  playerRelation: 3
+  playerRelation: 5
   shipPrefab: {fileID: 0}
-  behaviour: 1
-  combatBehaviour: 1
-  lowHealthBehaviour: 0
-  lowHealthPercent: 0.2
-  contactBehaviour: 1
-  maxHealth: 80
+  behaviour: 7
+  combatBehaviour: 2
+  lowHealthBehaviour: 2
+  lowHealthPercent: 0.1
+  contactBehaviour: 2
+  maxHealth: 200
   maxShield: 0
   isDisabled: 0
-  speed: 1.3
-  rotSpeed: 0.03
-  strafeSpeed: 0.4
-  jumpTime: 5
+  speed: 2
+  rotSpeed: 0.06
+  strafeSpeed: 0.2
+  jumpTime: 4
   jumpSpeed: 100
   exploreMod: 1
   fleeMod: 2
-  combatMod: 1.5
-  repairMod: 0.2
-  combatDrag: 1
-  combatAngularDrag: 1
-  canRepair: 1
-  repairSpeed: 0.05
-  viewRange: 3
-  reactRange: 10
+  combatMod: 5
+  repairMod: 1
+  combatDrag: 2
+  combatAngularDrag: 2
+  canRepair: 0
+  repairSpeed: 0
+  viewRange: 5
+  reactRange: 12
   attackRange: 4
-  newMoveTargetTime: {x: 4, y: 8}
-  targetRadius: 6
-  changeTargetChance: 0.5
+  newMoveTargetTime: {x: 5, y: 8}
+  targetRadius: 3
+  changeTargetChance: 0.2
   availableAttacks: 1
-  normalAttack: 2
-  effect: 0
-  effectChance: 0
+  normalAttack: 3
+  effect: 1
+  effectChance: 0.2
   isWeakened: 0
   isDisarmed: 0
-  damage: 2
-  shotSpeed: 0.5
-  fireRate: 2
-  spread: 15
-  gunRotSpeed: 2
+  damage: 1
+  shotSpeed: 3
+  fireRate: 1
+  spread: 5
+  gunRotSpeed: 1
   specialAttack: 0
   specialAttackCD: 0
   specialAttackDamage: 0
   specialAttackSpeed: 0
   damageTickTime: 0
   stopCoreWhenSpecial: 0
-  reward: 1
+  reward: 5
   value: 1

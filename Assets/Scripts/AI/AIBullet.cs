@@ -8,6 +8,7 @@ public class AIBullet : MonoBehaviour
     public enum EnemyProjectileType
     {
         Void,
+        Fire,
         Electric,
         Default
     }

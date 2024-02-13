@@ -104,6 +104,7 @@ public class GunPoint : MonoBehaviour
                     gun.aimed = false;
                     //Debug.Log("Kake");
                 }
+                else if (stat) { }
                 else gun.aimed = true;
             }
                 

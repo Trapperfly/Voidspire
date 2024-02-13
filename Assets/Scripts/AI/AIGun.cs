@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class AIGun : MonoBehaviour
 {
+    [SerializeField] bool isOnGun;
     [SerializeField] ShipAI ai;
-    public Ship stat;
-    public GunPoint point;
+    [HideInInspector] public Ship stat;
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] bool autoFire;
     Transform bh;
@@ -51,6 +51,9 @@ public class AIGun : MonoBehaviour
         if( bullet == null ) { return; }
         Physics2D.IgnoreCollision(GetComponentInParent<Collider2D>(), bullet.GetComponent<Collider2D>());
         bullet.GetComponent<AIBullet>().damage = stat.damage;
+        if (isOnGun) bullet.GetComponent<AIBullet>().bulletSender = transform.parent.gameObject;
+        else bullet.GetComponent<AIBullet>().bulletSender = gameObject;
+
         bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.up * stat.shotSpeed, ForceMode2D.Impulse);
         gunTimer = 0f;
     }

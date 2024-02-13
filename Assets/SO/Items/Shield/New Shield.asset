@@ -26,9 +26,9 @@ MonoBehaviour:
   statsValues: 
   statLength: 1
   shieldType: 7
-  shieldHealth: 10
-  shieldRechargeSpeed: 1
-  shieldRechargeDelay: 3
+  shieldHealth: 100
+  shieldRechargeSpeed: 100
+  shieldRechargeDelay: 0.1
   shieldBreakAnimTime: 0.1
   shieldRestoreAnimTime: 0.1
   shieldColor: {r: 0, g: 0.69138074, b: 1, a: 1}

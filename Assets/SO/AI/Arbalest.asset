@@ -21,6 +21,8 @@ MonoBehaviour:
   lowHealthBehaviour: 2
   lowHealthPercent: 0.2
   contactBehaviour: 1
+  maxHealth: 40
+  maxShield: 0
   isDisabled: 0
   speed: 1
   rotSpeed: 0.06

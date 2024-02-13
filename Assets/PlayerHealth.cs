@@ -38,6 +38,10 @@ public class PlayerHealth : Events
         EquipmentController.Instance.onEquipmentLoadComplete -= CustomStart;
         EquipmentController.Instance.onEquipmentLoadComplete += SetNewStats;
     }
+    private void Update()
+    {
+        healthBarImage.fillAmount = Mathf.Lerp(healthBarImage.fillAmount, healthPercent, 0.1f);
+    }
 
     private void SetNewStats()
     {
@@ -54,7 +58,6 @@ public class PlayerHealth : Events
     {
         if (hull.hullCurrentHealth > hull.hullHealth) hull.hullCurrentHealth = hull.hullHealth;
         healthPercent = hull.hullCurrentHealth / hull.hullHealth;
-        healthBarImage.fillAmount = healthPercent;
     }
 
     void UpdateSize()

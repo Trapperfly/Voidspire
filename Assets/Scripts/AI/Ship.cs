@@ -14,6 +14,10 @@ public class Ship : AI
     public float lowHealthPercent;
     public ContactBehaviour contactBehaviour;
 
+    [Header("Health/Shield")]
+    public float maxHealth;
+    public float maxShield;
+
     [Header("Movement")]
     public bool isDisabled;
     public float speed;
@@ -80,12 +84,15 @@ public enum Behaviour
     StalkTarget,
     JumpOnSight,
     RepairTarget,
-    Stealth
+    Stealth,
+    AttackImmediately
 }
 
 public enum CombatBehaviour
 {
     None,
+    StandGroundAndAttack,
+    RotateTowardsAndAttack,
     ChaseAndAttack,
     RunAndAttack,
     SelfDestruct,

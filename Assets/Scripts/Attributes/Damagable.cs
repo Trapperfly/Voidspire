@@ -7,9 +7,11 @@ public class Damagable : Events
     public float startHealth = 0;
     public float currentHealth;
     public bool damageTaken;
+    public bool shipOverride;
     public GameObject damageTakenFromWhat;
     private void Start()
     {
+        if (shipOverride) { return; }
         if (startHealth == 0)
         {
             float size = (transform.localScale.x + transform.localScale.y);

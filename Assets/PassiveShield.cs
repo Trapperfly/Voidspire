@@ -65,6 +65,10 @@ public class PassiveShield : Events
         ShieldCheck();
     }
 
+    private void Update()
+    {
+        shieldBarImage.fillAmount = Mathf.Lerp(shieldBarImage.fillAmount, shieldPercent, 0.1f);
+    }
     private void FixedUpdate()
     {
         if (noShield) { }
@@ -88,8 +92,7 @@ public class PassiveShield : Events
     {
         if (shieldCurrent > shield.shieldHealth) shieldCurrent = shield.shieldHealth;
         shieldPercent = shieldCurrent / shield.shieldHealth;
-        shieldBarImage.fillAmount = shieldPercent;
-        mat.SetFloat("_ShieldHealth", shieldPercent);
+        mat.SetFloat("_ShieldHealth", shieldBarImage.fillAmount);
     }
 
     void UpdateSize()

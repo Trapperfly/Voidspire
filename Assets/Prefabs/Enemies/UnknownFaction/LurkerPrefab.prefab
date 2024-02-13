@@ -363,6 +363,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ship: {fileID: 11400000, guid: 745de9ab33af42c45b4f1081c0833b67, type: 2}
+  jumping: 0
+  aiBullets: {fileID: 0}
   guns: []
   curCD: 0
   dirs: []
@@ -431,6 +433,7 @@ MonoBehaviour:
   startHealth: 80
   currentHealth: 0
   damageTaken: 0
+  shipOverride: 1
   damageTakenFromWhat: {fileID: 0}
 --- !u!114 &5596287114082821822
 MonoBehaviour:
@@ -5440,9 +5443,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2efc68ec2a9fcb44e9f2ba235bde8cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOnGun: 0
   ai: {fileID: 7032400325573297199}
   stat: {fileID: 0}
-  point: {fileID: 0}
   bulletSpawnPoint: {fileID: 6824648274095818587}
   autoFire: 1
 --- !u!114 &4412543238381484517
