@@ -51,7 +51,7 @@ MonoBehaviour:
   isDisarmed: 0
   damage: 1
   shotSpeed: 3
-  fireRate: 1
+  fireRate: 2
   spread: 5
   gunRotSpeed: 1
   specialAttack: 0
