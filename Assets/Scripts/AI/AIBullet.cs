@@ -18,6 +18,10 @@ public class AIBullet : MonoBehaviour
     public float damage;
     public float currTime;
     public float timer = 0;
+    public bool homing;
+    public float homingStrength;
+    public float speed;
+    public Transform target;
     Collider2D col;
     private void Awake()
     {

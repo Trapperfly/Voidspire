@@ -14,14 +14,14 @@ public class ShipAI : MonoBehaviour
     public bool jumping;
     public Transform aiBullets;
 
-    public AIGun[] guns;
+    public AIEquipGun[] guns;
 
     public int curCD = 0;
 
     Transform combatTarget;
     public List<Vector2> dirs = new List<Vector2>();
 
-    [SerializeField] ActiveTarget target;
+    public ActiveTarget target;
     Transform targetTransform;
 
     Vector2 dir;
@@ -51,12 +51,18 @@ public class ShipAI : MonoBehaviour
 
     int jumpTimer = 0;
     bool isEnraged = false;
+    bool enrageActive = false;
+
+    [HideInInspector] public bool doubleAttackSpeed;
+    [HideInInspector] public bool doubleDamage;
+    [HideInInspector] public bool enabledSpecialAttack;
+    [HideInInspector] public bool unlockedGuns;
 
     private void Start()
     {
         var tEmis = thrustersPS.emission;
         tEmis.enabled = false;
-        aiBullets = GameObject.FindGameObjectWithTag("AIBulletHolder").transform;
+        aiBullets = EnemyManager.Instance.bh;
         transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         StartCoroutine(nameof(CheckProximity));
 
@@ -70,6 +76,8 @@ public class ShipAI : MonoBehaviour
         spawnPoint = transform.position;
         StartCoroutine(nameof(GetNewTargetPosOverTime));
         dir = transform.up;
+
+        rb.mass = ship.mass;
     }
     private void FixedUpdate()
     {
@@ -107,7 +115,6 @@ public class ShipAI : MonoBehaviour
                     break;
                 case LowHealthBehaviour.Enrage:
                     NormalMove();
-                    isEnraged = true;
                     //if (isEnraged)
                     //{
                     //    ship.fireRate *= 2;
@@ -198,6 +205,7 @@ public class ShipAI : MonoBehaviour
         
         //Low health check
         CheckIfLowHealth();
+        if (lowHealth && isEnraged) { ActivateEnrage(); }
 
         //Get target when hit
         CheckForNewCombatTargetWhenDamageTaken();
@@ -206,11 +214,43 @@ public class ShipAI : MonoBehaviour
         if (inCombat)
             HandleSpecialAttack();
     }
+
+    void ActivateEnrage()
+    {
+        if (enrageActive) return;
+        enrageActive = true;
+        switch (ship.enrageBehaviour)
+        {
+            case EnrageBehaviour.DoubleAttackSpeed:
+                doubleAttackSpeed = true;
+                break;
+            case EnrageBehaviour.DoubleDamage:
+                doubleDamage = true;
+                break;
+            case EnrageBehaviour.EnableSpecialAttack:
+                enabledSpecialAttack = true;
+                break;
+            case EnrageBehaviour.SpawnAllies:
+                break;
+            case EnrageBehaviour.UnlockLockedGuns:
+                unlockedGuns = true;
+                break;
+            default:
+                break;
+        }
+    }
     void HandleSpecialAttack()
     {
-        if (ship.specialAttackCD != 0 && curCD > ship.specialAttackCD * 60)
+        if (enabledSpecialAttack && ship.specialAttackCD != 0 && curCD > ship.specialAttackCD * 60)
         {
-            StartCoroutine(InitSpecialAttack());
+            StartCoroutine(InitSpecialAttack(ship.enrageSpecialAttack));
+            curCD = 0;
+            curCD++;
+            return;
+        }
+        if (ship.specialAttack != SpecialAttack.None && ship.specialAttackCD != 0 && curCD > ship.specialAttackCD * 60)
+        {
+            StartCoroutine(InitSpecialAttack(ship.specialAttack));
             curCD = 0;
         }
         curCD++;
@@ -241,7 +281,7 @@ public class ShipAI : MonoBehaviour
         Strafe();
         if (ship.canRepair) Repair();
     }
-    IEnumerator InitSpecialAttack()
+    IEnumerator InitSpecialAttack(SpecialAttack special)
     {
         if(ship.stopCoreWhenSpecial && target.target) {
             idle = true;
@@ -268,9 +308,7 @@ public class ShipAI : MonoBehaviour
         }
         curCD = 0;
         
-        FireSpecialAttack();
-        curCD = 0;
-        yield return new WaitForSeconds(0.2f);
+        FireSpecialAttack(special);
         if (ship.stopCoreWhenSpecial)
         {
             idle = false;
@@ -279,20 +317,20 @@ public class ShipAI : MonoBehaviour
         curCD = 0;
         yield return null;
     }
-    public void FireSpecialAttack()
+    public void FireSpecialAttack(SpecialAttack special)
     {
-        switch (ship.specialAttack)
+        Transform bh;
+        if (ship.specialIsHoming) { bh = EnemyManager.Instance.hbh; }
+        else bh = EnemyManager.Instance.bh;
+        switch (special)
         {
             case SpecialAttack.None:
                 break;
             case SpecialAttack.ElectricBall:
-                GameObject bullet = Instantiate(EnemyManager.Instance.ElectricBallPrefab, transform.position, new Quaternion(), aiBullets.transform);
-                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
-                bullet.GetComponent<AIBullet>().damage = ship.specialAttackDamage;
-                bullet.GetComponent<AIBullet>().damageTimer = ship.damageTickTime;
-                bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * ship.specialAttackSpeed, ForceMode2D.Impulse);
+                StartCoroutine(FireElectricBalls(bh));
                 break;
             case SpecialAttack.HomingMissiles:
+                StartCoroutine(FireMissiles(bh));
                 break;
             case SpecialAttack.VoidNova:
                 break;
@@ -301,6 +339,52 @@ public class ShipAI : MonoBehaviour
             default:
                 break;
         }
+    }
+    IEnumerator FireElectricBalls(Transform parent)
+    {
+        for (int i = 0; i < ship.specialAmount; i++)
+        {
+            AIBullet bullet = Instantiate
+                (EnemyManager.Instance.ElectricBallPrefab,
+                transform.position, Spread(transform.rotation,
+                ship.specialAttackSpread),
+                parent).GetComponent<AIBullet>();
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
+            bullet.damageTimer = ship.damageTickTime;
+            bullet.homing = true;
+            bullet.homingStrength = ship.specialHomingStrength;
+            bullet.target = target.target;
+            bullet.damage = ship.specialAttackDamage;
+            bullet.speed = ship.specialAttackSpeed;
+            bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * ship.specialAttackSpeed, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return null;
+    }
+    IEnumerator FireMissiles(Transform parent)
+    {
+        for (int i = 0; i < ship.specialAmount; i++)
+        {
+            AIBullet bullet = Instantiate
+                (EnemyManager.Instance.HomingMissilesPrefab, 
+                transform.position, Spread(transform.rotation, 
+                ship.specialAttackSpread), 
+                parent).GetComponent<AIBullet>();
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
+            bullet.homing = true;
+            bullet.homingStrength = ship.specialHomingStrength;
+            bullet.target = target.target;
+            bullet.damage = ship.specialAttackDamage;
+            bullet.speed = ship.specialAttackSpeed;
+            bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * ship.specialAttackSpeed, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return null;
+    }
+    Quaternion Spread(Quaternion baseRotation, float spread)
+    {
+        Quaternion spreadValue = baseRotation * Quaternion.Euler(0, 0, Random.Range(-spread, spread));
+        return spreadValue;
     }
     float CheckDistanceAndSetModifier()
     {
@@ -312,7 +396,7 @@ public class ShipAI : MonoBehaviour
         }
         else if (lowHealth && distCheckToPlayer < ship.targetRadius * ship.targetRadius)
         {
-            if (healthModule.currentHealth <= healthModule.startHealth / 5)
+            if (healthModule.currentHealth <= healthModule.startHealth * ship.lowHealthPercent)
             {
                 repairing = false;
                 return ship.fleeMod;
@@ -332,9 +416,11 @@ public class ShipAI : MonoBehaviour
     {
         if (!lowHealth)
         {
-            if (healthModule.currentHealth <= healthModule.startHealth / 5)
+            if (healthModule.currentHealth <= healthModule.startHealth * ship.lowHealthPercent)
             {
+                Debug.Log(gameObject + " is now at low health");
                 lowHealth = true;
+                if(!enrageActive) { isEnraged = true; }
                 StartCoroutine(nameof(GetNewTargetPos));
             }
         }
@@ -388,7 +474,17 @@ public class ShipAI : MonoBehaviour
         }
         if (inCombat)
         {
-            if (lowHealth || combatTarget == null)
+            if (lowHealth && (
+                ship.lowHealthBehaviour == LowHealthBehaviour.Flee
+                || ship.lowHealthBehaviour == LowHealthBehaviour.Jump
+                || ship.lowHealthBehaviour == LowHealthBehaviour.DropLootAndJump
+                ))
+            {
+                ToggleCombat(false);
+                StartCoroutine(nameof(GetNewTargetPos));
+                return;
+            }
+            if (combatTarget == null)
             {
                 ToggleCombat(false);
                 StartCoroutine(nameof(GetNewTargetPos));
@@ -622,14 +718,14 @@ public class ShipAI : MonoBehaviour
         {
             if (!tEmis.enabled)
                 tEmis.enabled = true;
-            rb.AddForce(Mathf.Lerp(0.2f, 1f, (_distance / ship.viewRange)) * currentModifier * ship.speed * transform.up, ForceMode2D.Force);
+            rb.AddForce(currentModifier * Mathf.Lerp(0.2f, 1f, (_distance / ship.viewRange)) * ship.mass * ship.speed * transform.up, ForceMode2D.Force);
         }
     }
     void Rotate()
     {
         Vector2 actualDir = targetPos - rb.position;
         float rotateAmount = Vector3.Cross(actualDir.normalized, transform.up).z;
-        rb.AddTorque(-ship.rotSpeed * currentModifier * rotateAmount, ForceMode2D.Force);
+        rb.AddTorque(-ship.rotSpeed * currentModifier * rotateAmount * ship.mass, ForceMode2D.Force);
     }
     void Strafe()
     {
@@ -643,7 +739,7 @@ public class ShipAI : MonoBehaviour
         {
             pEmission.rateOverTime = 0;
         }
-        rb.AddForce(((ship.viewRange + 1f - _distance) / 2) * currentModifier * ship.strafeSpeed * dir.normalized, ForceMode2D.Force);
+        rb.AddForce(((ship.viewRange + 1f - _distance) / 2) * currentModifier * ship.strafeSpeed * ship.mass * dir.normalized, ForceMode2D.Force);
     }
     void Repair()
     {
@@ -673,7 +769,7 @@ public class ShipAI : MonoBehaviour
                 tEmis.enabled = true;
             if (!GetComponent<Collider2D>().isTrigger)
                 GetComponent<Collider2D>().isTrigger = true;
-            rb.AddForce(currentModifier * ship.jumpSpeed * ship.speed * transform.up, ForceMode2D.Force);
+            rb.AddForce(currentModifier * ship.jumpSpeed * ship.speed * ship.mass * transform.up, ForceMode2D.Force);
         }
         jumpTimer++;
         if (jumpTimer > ship.jumpTime * 60 * 2)

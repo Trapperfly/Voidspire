@@ -15,7 +15,7 @@ public class GunPoint : MonoBehaviour
     [SerializeField] bool noFireWhenOutOfReach;
     public bool doRotate = true;
     ActiveTarget target;
-    Ship stat;
+    AIEquipGun stat;
     GunFire gunFire;
     GunStats gun;
     Transform bsp;
@@ -69,7 +69,7 @@ public class GunPoint : MonoBehaviour
                     position = (Vector2)target.target.position 
                         + (target.targetRB.velocity 
                         * (Vector2.Distance(bsp.position, target.target.position) 
-                        / stat.speed));
+                        / stat.shotSpeed));
                 }
             }
             else if (targetBased && target.target != null)

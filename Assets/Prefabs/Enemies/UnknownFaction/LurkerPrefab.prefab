@@ -365,7 +365,8 @@ MonoBehaviour:
   ship: {fileID: 11400000, guid: 745de9ab33af42c45b4f1081c0833b67, type: 2}
   jumping: 0
   aiBullets: {fileID: 0}
-  guns: []
+  guns:
+  - {fileID: 11400000, guid: e66f0a095d321c246b2ebce5bffb3a46, type: 2}
   curCD: 0
   dirs: []
   target: {fileID: 4114461018743490042}
@@ -5443,6 +5444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2efc68ec2a9fcb44e9f2ba235bde8cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idRelation: 0
   isOnGun: 0
   ai: {fileID: 7032400325573297199}
   stat: {fileID: 0}

@@ -12,11 +12,15 @@ public class Ship : AI
     public CombatBehaviour combatBehaviour;
     public LowHealthBehaviour lowHealthBehaviour;
     public float lowHealthPercent;
+    public EnrageBehaviour enrageBehaviour;
+    public float enrageStrength;
+    public SpecialAttack enrageSpecialAttack;
     public ContactBehaviour contactBehaviour;
 
     [Header("Health/Shield")]
     public float maxHealth;
     public float maxShield;
+    public float mass = 1;
 
     [Header("Movement")]
     public bool isDisabled;
@@ -52,23 +56,19 @@ public class Ship : AI
 
     [Header("Weapon stats")]
     public AvailableAttacks availableAttacks;
-    public NormalAttack normalAttack;
-    public EffectFromAttack effect;
-    public float effectChance;
     public bool isWeakened;
     public bool isDisarmed;
-    public float damage;
-    public float shotSpeed;
-    public float fireRate;
-    public float spread;
-    public float gunRotSpeed;
 
     [Header("SpecialAttack")]
     public SpecialAttack specialAttack;
     public float specialAttackCD;
     public float specialAttackDamage;
     public float specialAttackSpeed;
+    public float specialAttackSpread;
+    public int specialAmount;
     public float damageTickTime;
+    public bool specialIsHoming;
+    public float specialHomingStrength;
     public bool stopCoreWhenSpecial;
 
     [Header("Rewards")]
@@ -113,6 +113,16 @@ public enum LowHealthBehaviour
     SelfDestruct
 }
 
+public enum EnrageBehaviour
+{
+    None,
+    DoubleAttackSpeed,
+    DoubleDamage,
+    EnableSpecialAttack,
+    SpawnAllies,
+    UnlockLockedGuns
+}
+
 public enum ContactBehaviour
 {
     None,
@@ -122,14 +132,7 @@ public enum ContactBehaviour
     Jump
 }
 
-public enum NormalAttack
-{
-    None,
-    Bullet,
-    VoidSphere,
-    FireMissile,
-    ElectricRailgun
-}
+
 
 public enum SpecialAttack
 {
@@ -146,14 +149,6 @@ public enum AvailableAttacks
     Normal,
     Special,
     NormalAndSpecial
-}
-
-public enum EffectFromAttack
-{
-    None,
-    Burn,
-    Void,
-    Shock
 }
 public enum Reward
 {

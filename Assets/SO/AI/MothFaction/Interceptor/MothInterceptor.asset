@@ -23,6 +23,7 @@ MonoBehaviour:
   contactBehaviour: 2
   maxHealth: 200
   maxShield: 0
+  mass: 2
   isDisabled: 0
   speed: 2
   rotSpeed: 0.06
@@ -44,16 +45,8 @@ MonoBehaviour:
   targetRadius: 3
   changeTargetChance: 0.2
   availableAttacks: 1
-  normalAttack: 3
-  effect: 1
-  effectChance: 0.2
   isWeakened: 0
   isDisarmed: 0
-  damage: 1
-  shotSpeed: 3
-  fireRate: 2
-  spread: 5
-  gunRotSpeed: 1
   specialAttack: 0
   specialAttackCD: 0
   specialAttackDamage: 0
