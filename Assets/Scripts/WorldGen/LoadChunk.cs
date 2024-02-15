@@ -36,10 +36,26 @@ public class LoadChunk : MonoBehaviour
 
     IEnumerator LoadFaction(float amount)
     {
+        //StartCoroutine(LoadVoidEnemies(amount));
+        StartCoroutine(LoadChitinEnemies(amount));
+        yield return null;
+    }
+
+    IEnumerator LoadVoidEnemies(float amount)
+    {
         for (int i = 0; i < amount; i++)
         {
             if (Random.value < Mathf.Pow(chunk.factionValue, 3))
-                SpawnEnemies.Instance.Spawn(transform.position, loader.chunkSize / 2);
+                SpawnEnemies.Instance.SpawnVoidEnemies(transform.position, loader.chunkSize / 2);
+        }
+        yield return null;
+    }
+    IEnumerator LoadChitinEnemies(float amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            if (Random.value < Mathf.Pow(chunk.factionValue, 3))
+                SpawnEnemies.Instance.SpawnChitinEnemies(transform.position, loader.chunkSize / 2);
         }
         yield return null;
     }

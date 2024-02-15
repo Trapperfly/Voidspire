@@ -26,8 +26,8 @@ MonoBehaviour:
   statsValues: 
   statLength: 1
   hullType: 0
-  hullCurrentHealth: 30
-  hullHealth: 30
-  hullDamageNegation: 0
+  hullCurrentHealth: 20
+  hullHealth: 20
+  hullDamageNegation: 5
   hullWeight: 1
   hullSpecialEffectChance: 0

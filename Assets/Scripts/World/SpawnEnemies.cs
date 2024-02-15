@@ -7,13 +7,23 @@ public class SpawnEnemies : MonoBehaviour
     //[SerializeField] float secondsTillNextSpawnAttempt = 5f;
     [SerializeField] int maxAmount;
     int amount = 0;
+    [Header("Void")]
     [SerializeField] GameObject lurkerPrefab;
     [SerializeField] GameObject arbalestPrefab;
     [SerializeField] const int oneSpawnPercent = 10;
     [SerializeField] const int twoSpawnPercent = 5;
     [SerializeField] const int fiveSpawnPercent = 2;
     [SerializeField] const int tenSpawnPercent = 1;
-    
+
+    [Header("Chitin")]
+    [SerializeField] GameObject interceptorPrefab;
+    [SerializeField] GameObject cruiserPrefab;
+    [SerializeField] GameObject conquerorPrefab;
+    const int straggler = 10;
+    const int smallSquad = 5;
+    const int largeSquad = 2;
+    const int conqueror = 1;
+
     #region Singleton
     public static SpawnEnemies Instance;
 
@@ -29,7 +39,7 @@ public class SpawnEnemies : MonoBehaviour
         }
     }
     #endregion
-    public void Spawn(Vector2 pos, float range)
+    public void SpawnVoidEnemies(Vector2 pos, float range)
     {
         amount = Random.Range(1, 101) switch
         {
@@ -64,6 +74,102 @@ public class SpawnEnemies : MonoBehaviour
         }
     }
 
+    public void SpawnChitinEnemies(Vector2 pos, float range)
+    {
+        amount = Random.Range(1, 101) switch
+        {
+            > (100 - conqueror) => 4,
+            > (100 - largeSquad) => 3,
+            > (100 - smallSquad) => 2,
+            > (100 - straggler) => 1,
+            _ => 0
+        };
+        Vector2 spawnLocation = pos + new Vector2(Random.Range(-range, range), Random.Range(-range, range));
+        switch (amount)
+        {
+            case 1:
+                Instantiate
+                (
+                    interceptorPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+                break;
+            case 2:
+                Instantiate
+                (
+                    interceptorPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+                Instantiate
+                (
+                    cruiserPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+                break;
+            case 3:
+                Instantiate
+                (
+                    interceptorPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+                Instantiate
+                (
+                    interceptorPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+                Instantiate
+                (
+                    cruiserPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+                Instantiate
+                (
+                    cruiserPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+                break;
+            case 4:
+                Instantiate
+                (
+                    interceptorPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+                Instantiate
+                (
+                    interceptorPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+                Instantiate
+                (
+                    conquerorPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+                break;
+            default:
+                break;
+        }
+        
+    }
     //Vector3 RandomOutsideView()
     //{
     //    int whichSide = Random.Range(1, 5);

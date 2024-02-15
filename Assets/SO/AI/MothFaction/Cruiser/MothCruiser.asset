@@ -20,6 +20,9 @@ MonoBehaviour:
   combatBehaviour: 3
   lowHealthBehaviour: 2
   lowHealthPercent: 0.1
+  enrageBehaviour: 0
+  enrageStrength: 0
+  enrageSpecialAttack: 0
   contactBehaviour: 2
   maxHealth: 120
   maxShield: 0
@@ -47,11 +50,15 @@ MonoBehaviour:
   availableAttacks: 1
   isWeakened: 0
   isDisarmed: 0
-  specialAttack: 0
-  specialAttackCD: 0
-  specialAttackDamage: 0
-  specialAttackSpeed: 0
+  specialAttack: 2
+  specialAttackCD: 5
+  specialAttackDamage: 2
+  specialAttackSpeed: 3
+  specialAttackSpread: 180
+  specialAmount: 1
   damageTickTime: 0
+  specialIsHoming: 1
+  specialHomingStrength: 50
   stopCoreWhenSpecial: 0
   reward: 5
   value: 1

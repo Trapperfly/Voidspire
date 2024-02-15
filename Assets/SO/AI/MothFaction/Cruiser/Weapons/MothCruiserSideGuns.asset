@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: MothCruiserSideGuns
   m_EditorClassIdentifier: 
   id: 0
-  attack: 2
+  attack: 6
   effect: 0
   effectChance: 0
-  damage: 1
+  damage: 0.5
   amount: 1
   shotSpeed: 1
-  fireRate: 1
+  fireRate: 2
   spread: 10
   gunRotSpeed: 2
+  homing: 0
+  homingStrength: 0

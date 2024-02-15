@@ -367,6 +367,8 @@ MonoBehaviour:
   startHealth: 0
   currentHealth: 0
   damageTaken: 0
+  shipOverride: 0
+  damageTakenFromWhat: {fileID: 0}
 --- !u!114 &-8973844629681964601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,7 +403,7 @@ MonoBehaviour:
   size: 0
   valueFromSize: 1
   lootExplosionStrength: 0
-  weaponDropChance: 0.01
+  weaponDropChance: 0.1
 --- !u!114 &8983833516757562162
 MonoBehaviour:
   m_ObjectHideFlags: 0
