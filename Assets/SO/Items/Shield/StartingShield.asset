@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Starting shield
   description: 
-  icon: {fileID: 21300000, guid: 5ed29374b6c0df749bd39aff7b6932d2, type: 3}
+  icon: {fileID: 21300000, guid: 0f31c664741d07847938d222534ffb41, type: 3}
   isDefault: 0
   id: 0
   value: 0

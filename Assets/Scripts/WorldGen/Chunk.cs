@@ -7,6 +7,11 @@ public class Chunk
     public bool isEmpty;
     public float debrisValue;
     public float factionValue;
+    public float voidValue;
+    public float chitinValue;
+    public float chromeValue;
+    public float pirateValue;
+    public float civValue;
     public bool shop;
     public float yieldValue;
     public bool chunkEvent;

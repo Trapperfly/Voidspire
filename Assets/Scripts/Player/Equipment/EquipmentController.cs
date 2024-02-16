@@ -44,8 +44,8 @@ public class EquipmentController : MonoBehaviour
     public List<List<EquipmentSlot>> equipmentLists = new List<List<EquipmentSlot>>();
     public List<EquipmentSlot> equipmentSlots = new List<EquipmentSlot>();
     public List<EquipmentSlot> weaponSlots = new List<EquipmentSlot>();
-    public List<EquipmentSlot> stlSlots = new List<EquipmentSlot>();
-    public List<EquipmentSlot> ftlSlots = new List<EquipmentSlot>();
+    public List<EquipmentSlot> thrusterSlots = new List<EquipmentSlot>();
+    //public List<EquipmentSlot> ftlSlots = new List<EquipmentSlot>();
     public List<EquipmentSlot> hullSlots = new List<EquipmentSlot>();
     public List<EquipmentSlot> cargoSlots = new List<EquipmentSlot>();
     public List<EquipmentSlot> collectorSlots = new List<EquipmentSlot>();
@@ -72,8 +72,8 @@ public class EquipmentController : MonoBehaviour
     private void Start()
     {
         equipmentLists.Add(weaponSlots); 
-        equipmentLists.Add(stlSlots); 
-        equipmentLists.Add(ftlSlots); 
+        equipmentLists.Add(thrusterSlots); 
+        //equipmentLists.Add(ftlSlots); 
         equipmentLists.Add(hullSlots);
         equipmentLists.Add(cargoSlots); 
         equipmentLists.Add(collectorSlots); 
@@ -96,12 +96,12 @@ public class EquipmentController : MonoBehaviour
                 case EquipmentTypes.Shield:
                     shieldSlots.Add(equipmentSlots[i]);
                     break;
-                case EquipmentTypes.STL:
-                    stlSlots.Add(equipmentSlots[i]);
+                case EquipmentTypes.Thruster:
+                    thrusterSlots.Add(equipmentSlots[i]);
                     break;
-                case EquipmentTypes.FTL:
-                    ftlSlots.Add(equipmentSlots[i]);
-                    break;
+                //case EquipmentTypes.FTL:
+                //    ftlSlots.Add(equipmentSlots[i]);
+                //    break;
                 case EquipmentTypes.Hull:
                     hullSlots.Add(equipmentSlots[i]);
                     break;

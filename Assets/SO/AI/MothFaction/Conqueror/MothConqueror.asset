@@ -19,7 +19,7 @@ MonoBehaviour:
   behaviour: 7
   combatBehaviour: 3
   lowHealthBehaviour: 7
-  lowHealthPercent: 0.99
+  lowHealthPercent: 0.5
   enrageBehaviour: 3
   enrageStrength: 2
   enrageSpecialAttack: 2

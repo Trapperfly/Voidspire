@@ -21,7 +21,7 @@ public class LoadChunk : MonoBehaviour
         eventValue = chunk.chunkEvent;
         shopValue = chunk.shop;
         StartCoroutine(LoadDebris(ChunkLoader.debrisMultiplier));
-        StartCoroutine(LoadFaction(ChunkLoader.factionMultiplier));
+        StartCoroutine(LoadFaction());
     }
 
     IEnumerator LoadDebris(float amount)
@@ -34,10 +34,13 @@ public class LoadChunk : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator LoadFaction(float amount)
+    IEnumerator LoadFaction()
     {
-        //StartCoroutine(LoadVoidEnemies(amount));
-        StartCoroutine(LoadChitinEnemies(amount));
+        StartCoroutine(LoadVoidEnemies(ChunkLoader.voidMultiplier));
+        StartCoroutine(LoadChitinEnemies(ChunkLoader.chitinMultiplier));
+        //StartCoroutine(LoadChromeEnemies(ChunkLoader.chromeMultiplier));
+        //StartCoroutine(LoadPirateEnemies(ChunkLoader.pirateMultiplier));
+        //StartCoroutine(LoadCiv(ChunkLoader.civMultiplier));
         yield return null;
     }
 
@@ -45,7 +48,7 @@ public class LoadChunk : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            if (Random.value < Mathf.Pow(chunk.factionValue, 3))
+            if (Random.value < Mathf.Pow(chunk.voidValue, 3))
                 SpawnEnemies.Instance.SpawnVoidEnemies(transform.position, loader.chunkSize / 2);
         }
         yield return null;
@@ -54,8 +57,35 @@ public class LoadChunk : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            if (Random.value < Mathf.Pow(chunk.factionValue, 3))
+            if (Random.value < Mathf.Pow(chunk.chitinValue, 3))
                 SpawnEnemies.Instance.SpawnChitinEnemies(transform.position, loader.chunkSize / 2);
+        }
+        yield return null;
+    }
+    IEnumerator LoadChromeEnemies(float amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            if (Random.value < Mathf.Pow(chunk.chromeValue, 3))
+                SpawnEnemies.Instance.SpawnChromeEnemies(transform.position, loader.chunkSize / 2);
+        }
+        yield return null;
+    }
+    IEnumerator LoadPirateEnemies(float amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            if (Random.value < Mathf.Pow(chunk.pirateValue, 3))
+                SpawnEnemies.Instance.SpawnPirateEnemies(transform.position, loader.chunkSize / 2);
+        }
+        yield return null;
+    }
+    IEnumerator LoadCiv(float amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            if (Random.value < Mathf.Pow(chunk.civValue, 3))
+                SpawnEnemies.Instance.SpawnCiv(transform.position, loader.chunkSize / 2);
         }
         yield return null;
     }

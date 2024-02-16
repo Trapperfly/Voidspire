@@ -46,10 +46,10 @@ public class RandomizeEquipment : MonoBehaviour
     [SerializeField] Vector2 explosiveRange;
     #endregion
 
-    [Header("STL Engine")]
-    [SerializeField] Sprite[] stlSprites;
-    [SerializeField] string[] stlNameFirst;
-    [SerializeField] string[] stlNameLast;
+    [Header("Thruster")]
+    [SerializeField] Sprite[] thrusterSprites;
+    [SerializeField] string[] thrusterNameFirst;
+    [SerializeField] string[] thrusterNameLast;
 
     [SerializeField] Vector2 moveSpeed;
     [SerializeField] Vector2 maxSpeed;
@@ -58,19 +58,28 @@ public class RandomizeEquipment : MonoBehaviour
     [SerializeField] Vector2 turnBrakingSpeed;
     [SerializeField] Vector2 brakingSpeed;
 
-    [Header("FTL Engine")]
-    [SerializeField] Sprite[] ftlSprites;
-    [SerializeField] string[] ftlNameFirst;
-    [SerializeField] string[] ftlNameLast;
-
-    [SerializeField] Vector2 acceleration;
+    [SerializeField] Vector2 ftlAcc;
     [SerializeField] Vector2 ftlMaxSpeed;
-    [SerializeField] Vector2 rotSpeed;
+    [SerializeField] Vector2 ftlRot;
     [SerializeField] Vector2 chargeTime;
     [SerializeField] Vector2 fuelCurrent;
     [SerializeField] Vector2 fuelMax;
     [SerializeField] Vector2 fuelDrain;
     [SerializeField] Vector2 maxDuration;
+
+    //[Header("FTL Engine")]
+    //[SerializeField] Sprite[] ftlSprites;
+    //[SerializeField] string[] ftlNameFirst;
+    //[SerializeField] string[] ftlNameLast;
+
+    //[SerializeField] Vector2 acceleration;
+    //[SerializeField] Vector2 ftlMaxSpeed;
+    //[SerializeField] Vector2 rotSpeed;
+    //[SerializeField] Vector2 chargeTime;
+    //[SerializeField] Vector2 fuelCurrent;
+    //[SerializeField] Vector2 fuelMax;
+    //[SerializeField] Vector2 fuelDrain;
+    //[SerializeField] Vector2 maxDuration;
 
     [Header("Collector")]
     [SerializeField] Sprite[] colSprites;
@@ -102,6 +111,15 @@ public class RandomizeEquipment : MonoBehaviour
     [SerializeField] Vector2 hullMax;
     [SerializeField] Vector2 hullDamageNeg;
     [SerializeField] Vector2 hullWeight;
+
+    [Header("Scanner")]
+    [SerializeField] Sprite[] scannerSprites;
+    [SerializeField] string[] scannerNameFirst;
+    [SerializeField] string[] scannerNameLast;
+
+    [SerializeField] Vector4 zoom;
+    [SerializeField] Vector2Int mapUpdateAmount;
+    [SerializeField] Vector2 mapUpdateSpeed;
 
     #region Singleton
     public static RandomizeEquipment Instance;
@@ -1327,112 +1345,120 @@ public class RandomizeEquipment : MonoBehaviour
     }
     #endregion
 
-    #region RandomizeSTLEngine
-    public STLEngine RandomizeSTLEngine()
+    #region RandomizeThruster
+    public Thrusters RandomizeThruster()
     {
-        STLEngine stl = ScriptableObject.CreateInstance<STLEngine>();
-        stl.itemName = new string
-            (stlNameFirst[iR(0, stlNameFirst.Length - 1)]
+        Thrusters thruster = ScriptableObject.CreateInstance<Thrusters>();
+        thruster.itemName = new string
+            (thrusterNameFirst[iR(0, thrusterNameFirst.Length - 1)]
             + " "
-            + stlNameLast[iR(0, stlNameLast.Length - 1)]);
-        stl.name = stl.itemName;
-        stl.id = Inventory.Instance.id;
-        stl.icon = stlSprites[iR(0, stlSprites.Length - 1)];
-        stl.color = typeColor[(int)EquipmentTypes.STL];
-        stl.equipType = EquipmentTypes.STL;
+            + thrusterNameLast[iR(0, thrusterNameLast.Length - 1)]);
+        thruster.name = thruster.itemName;
+        thruster.id = Inventory.Instance.id;
+        thruster.icon = thrusterSprites[iR(0, thrusterSprites.Length - 1)];
+        thruster.color = typeColor[(int)EquipmentTypes.Thruster];
+        thruster.equipType = EquipmentTypes.Thruster;
 
-        stl.stlType = (STLTypes)iR(0, 1);
+        thruster.stlType = (STLTypes)iR(0, 5);
+        thruster.speed = fR(moveSpeed);
+        thruster.maxSpeed = fR(maxSpeed);
+        thruster.turnSpeed = fR(turnSpeed);
+        thruster.maxTurnSpeed = fR(maxTurnSpeed);
+        thruster.turnBrakingSpeed = fR(turnBrakingSpeed);
+        thruster.brakingSpeed = fR(brakingSpeed);
 
-        stl.speed = fR(moveSpeed);
-        stl.maxSpeed = fR(maxSpeed);
-        stl.turnSpeed = fR(turnSpeed);
-        stl.maxTurnSpeed = fR(maxTurnSpeed);
-        stl.turnBrakingSpeed = fR(turnBrakingSpeed);
-        stl.brakingSpeed = fR(brakingSpeed);
+        switch (thruster.stlType)
+        {
+            case STLTypes.Drive: //Generalized
+                
+                break;
+            case STLTypes.Agile: //Slower but better rotation stats
+                thruster.speed *= 0.7f;
+                thruster.maxSpeed *= 0.7f;
+                thruster.turnSpeed *= 3f;
+                thruster.maxTurnSpeed *= 2;
+                thruster.turnBrakingSpeed *= 2;
+                thruster.brakingSpeed *= 2;
+                break;
+            case STLTypes.Pulse: //Faster but worse rotation stats
+                thruster.speed *= 2f;
+                thruster.maxSpeed *= 2f;
+                thruster.turnSpeed *= 0.5f;
+                thruster.maxTurnSpeed *= 0.5f;
+                thruster.turnBrakingSpeed *= 1;
+                thruster.brakingSpeed *= 2;
+                break;
+            case STLTypes.Boost: //High speed, and rotation, but little control
+                thruster.speed *= 3f;
+                thruster.maxSpeed *= 3f;
+                thruster.turnSpeed *= 0.8f;
+                thruster.maxTurnSpeed *= 0.8f;
+                thruster.turnBrakingSpeed *= 0.7f;
+                thruster.brakingSpeed *= 0.6f;
+                break;
+            case STLTypes.Sail: //Very little drag
+                thruster.speed *= 1f;
+                thruster.maxSpeed *= 10;
+                thruster.turnSpeed *= 0.8f;
+                thruster.maxTurnSpeed *= 0.8f;
+                thruster.turnBrakingSpeed *= 0.3f;
+                thruster.brakingSpeed *= 0.3f;
+                break;
+            case STLTypes.Crawler: //Slow but very controllable rotation
+                thruster.speed *= 1f;
+                thruster.maxSpeed *= 0.5f;
+                thruster.turnSpeed *= 3f;
+                thruster.maxTurnSpeed *= 3f;
+                thruster.turnBrakingSpeed *= 5f;
+                thruster.brakingSpeed *= 3f;
+                break;
+            case STLTypes.Default:
+                break;
+            default:
+                break;
+        }
+        thruster.speed *= 1 + (thruster.brakingSpeed / 10);
+        thruster.turnSpeed *= 1 + (thruster.turnBrakingSpeed / 10);
 
-        string statsNames = "Something is wong";
-        string statsValues = "WTF";
-        statsNames = "";
-        statsNames += "Speed:\n"; stl.statLength++;
-        statsNames += "Max speed: \n"; stl.statLength++;
-        statsNames += "Brake: \n"; stl.statLength++;
-        statsNames += "Turn speed: \n"; stl.statLength++;
-        statsNames += "Max turn speed: \n"; stl.statLength++;
-        statsNames += "Rotation brake: \n"; stl.statLength++;
-        
-        stl.statsText = statsNames;
+        thruster.ftlType = (FTLTypes)iR(0, 3);
+        thruster.ftlAcc = fR(ftlAcc);
+        thruster.ftlMaxSpeed = fR(ftlMaxSpeed);
+        thruster.ftlRotSpeed = fR(ftlRot);
+        thruster.chargeTime = fR(chargeTime);
+        thruster.fuelMax = fR(fuelMax);
+        thruster.fuelCurrent = thruster.fuelMax - (thruster.fuelMax * (fR(fuelCurrent) / 100));
+        thruster.fuelDrain = fR(fuelDrain);
+        thruster.maxDuration = fR(maxDuration);
 
-        statsValues = "";
-        statsValues += stl.speed.ToString("F2") + "\n";
-        statsValues += stl.maxSpeed.ToString("F2") + "\n";
-        statsValues += stl.brakingSpeed.ToString("F2") + "\n";
-        statsValues += stl.turnSpeed.ToString("F2") + "\n";
-        statsValues += stl.maxTurnSpeed.ToString("F2") + "\n";
-        statsValues += stl.turnBrakingSpeed.ToString("F2") + "\n";
 
-        stl.statsValues = statsValues;
-
-        return stl;
-    }
-    #endregion
-
-    #region RandomizeFTLEngine
-    public FTLEngine RandomizeFTLEngine()
-    {
-        FTLEngine ftl = ScriptableObject.CreateInstance<FTLEngine>();
-        ftl.itemName = new string
-            (ftlNameFirst[iR(0, ftlNameFirst.Length - 1)]
-            + " "
-            + ftlNameLast[iR(0, ftlNameLast.Length - 1)]);
-        ftl.name = ftl.itemName;
-        ftl.id = Inventory.Instance.id;
-        ftl.icon = ftlSprites[iR(0, ftlSprites.Length - 1)];
-        ftl.color = typeColor[(int)EquipmentTypes.FTL];
-        ftl.equipType = EquipmentTypes.FTL;
-
-        ftl.ftlType = (FTLTypes)iR(0, 3);
-
-        switch (ftl.ftlType)
+        switch (thruster.ftlType)
         {
             case FTLTypes.Ready: //Short charge time, shorter duration, more fuel drain
-                ftl.acceleration = fR(acceleration);
-                ftl.maxSpeed = fR(ftlMaxSpeed);
-                ftl.rotSpeed = fR(rotSpeed);
-                ftl.chargeTime = fR(chargeTime) * 0.5f;
-                ftl.fuelMax = fR(fuelMax);
-                ftl.fuelCurrent = ftl.fuelMax - (ftl.fuelMax * (fR(fuelCurrent) / 100));
-                ftl.fuelDrain = fR(fuelDrain) * 1.5f;
-                ftl.maxDuration = fR(maxDuration) * 0.5f;
+                thruster.chargeTime *= 0.2f;
+                thruster.fuelDrain *= 3f;
+                thruster.maxDuration *= 0.5f;
                 break;
             case FTLTypes.Burst: //High acceleration, higher max speed
-                ftl.acceleration = fR(acceleration) * 3;
-                ftl.maxSpeed = fR(ftlMaxSpeed) * 3;
-                ftl.rotSpeed = fR(rotSpeed);
-                ftl.chargeTime = fR(chargeTime) * 0.8f;
-                ftl.fuelMax = fR(fuelMax);
-                ftl.fuelCurrent = ftl.fuelMax - (ftl.fuelMax * (fR(fuelCurrent) / 100));
-                ftl.fuelDrain = fR(fuelDrain) * 2;
-                ftl.maxDuration = fR(maxDuration) * 0.3f;
+                thruster.ftlAcc *= 2f;
+                thruster.ftlMaxSpeed *= 1.5f;
+                thruster.chargeTime *= 0.8f;
+                thruster.fuelDrain *= 2f;
+                thruster.maxDuration *= 0.3f;
                 break;
             case FTLTypes.Flight: //Long charge time, high max speed and acceleration, lower fuel drain
-                ftl.acceleration = fR(acceleration);
-                ftl.maxSpeed = fR(ftlMaxSpeed);
-                ftl.rotSpeed = fR(rotSpeed) * 0;
-                ftl.chargeTime = fR(chargeTime) * 2;
-                ftl.fuelMax = fR(fuelMax) * 2;
-                ftl.fuelCurrent = ftl.fuelMax - (ftl.fuelMax * (fR(fuelCurrent) / 100));
-                ftl.fuelDrain = fR(fuelDrain) * 0.5f;
-                ftl.maxDuration = fR(maxDuration) * 3;
+                thruster.ftlAcc *= 1.5f;
+                thruster.ftlMaxSpeed *= 1.5f;
+                thruster.ftlRotSpeed *= 0;
+                thruster.chargeTime *= 2f;
+                thruster.fuelDrain *= 0.5f;
+                thruster.maxDuration *= 3f;
                 break;
             case FTLTypes.Scout: //Medium all round, but high rot speed and duration
-                ftl.acceleration = fR(acceleration);
-                ftl.maxSpeed = fR(ftlMaxSpeed);
-                ftl.rotSpeed = fR(rotSpeed) * 10;
-                ftl.chargeTime = fR(chargeTime) * 0.75f;
-                ftl.fuelMax = fR(fuelMax);
-                ftl.fuelCurrent = ftl.fuelMax - (ftl.fuelMax * (fR(fuelCurrent) / 100));
-                ftl.fuelDrain = fR(fuelDrain) * 1.5f;
-                ftl.maxDuration = fR(maxDuration);
+                thruster.ftlAcc *= 0.5f;
+                thruster.ftlMaxSpeed *= 0.8f;
+                thruster.ftlRotSpeed *= 5f;
+                thruster.chargeTime *= 0.75f;
+                thruster.fuelDrain *= 1.5f;
                 break;
             case FTLTypes.Crash:
                 break;
@@ -1442,35 +1468,181 @@ public class RandomizeEquipment : MonoBehaviour
                 break;
         }
 
+        float difficulty = Difficulty.dif.difficulty / Difficulty.dif.difSetting;
+
+        thruster.speed *= 1 + (difficulty * 0.08f);
+        thruster.ftlAcc /= 1 + (difficulty * 0.06f);
+        thruster.maxSpeed *= 1 + (difficulty * 0.07f);
+        thruster.ftlMaxSpeed *= 1 + (difficulty * 0.07f);
+        thruster.maxDuration *= 1 + (difficulty * 0.1f);
+
+        //ddd
         string statsNames = "Something is wong";
         string statsValues = "WTF";
         statsNames = "";
-        statsNames += "Acceleration:\n"; ftl.statLength++;
-        statsNames += "Max speed: \n"; ftl.statLength++;
-        statsNames += "Rotation speed: \n"; ftl.statLength++;
-        statsNames += "Charge time: \n"; ftl.statLength++;
-        statsNames += "Current fuel: \n"; ftl.statLength++;
-        statsNames += "Max fuel: \n"; ftl.statLength++;
-        statsNames += "Fuel drain: \n"; ftl.statLength++;
-        statsNames += "Max duration: \n"; ftl.statLength++;
+        statsNames += "Speed:\n\n"; thruster.statLength++;
+        //statsNames += "Max speed: \n";
+        thruster.statLength++;
+        statsNames += "Turning: \n\n"; thruster.statLength++;
+        //statsNames += "Max turn speed: \n";
+        thruster.statLength++;
+        statsNames += "Linear control: \n"; thruster.statLength++;
+        statsNames += "Angular control: \n"; thruster.statLength++;
 
-        ftl.statsText = statsNames;
+        //statsNames += "Acceleration:\n"; thruster.statLength++;
+        statsNames += "Max speed: \n"; thruster.statLength++;
+        //statsNames += "Rotation speed: \n"; thruster.statLength++;
+        statsNames += "Charge time: \n";thruster.statLength++;
+        statsNames += "Fuel: \n"; thruster.statLength++;
+        //statsNames += "Max fuel: \n"; thruster.statLength++;
+        statsNames += "Fuel drain: \n"; thruster.statLength++;
+        statsNames += "Duration: \n"; thruster.statLength++;
+
+
+        thruster.statsText = statsNames;
 
         statsValues = "";
-        statsValues += ftl.acceleration.ToString("F0") + "\n";
-        statsValues += ftl.maxSpeed.ToString("F0") + "\n";
-        statsValues += ftl.rotSpeed.ToString("F2") + "\n";
-        statsValues += ftl.chargeTime.ToString("F2") + "\n";
-        statsValues += ftl.fuelCurrent.ToString("F0") + "\n";
-        statsValues += ftl.fuelMax.ToString("F0") + "\n";
-        statsValues += ftl.fuelDrain.ToString("F2") + "\n";
-        statsValues += ftl.maxDuration.ToString("F0") + "\n";
 
-        ftl.statsValues = statsValues;
+        statsValues += 
+            thruster.speed.ToString("F0") 
+            + " / " + (thruster.maxSpeed).ToString("F0")
+            + "\n"
+            + " FTL: "
+            + (thruster.ftlAcc).ToString("F0") 
+            + " / " 
+            + (thruster.ftlMaxSpeed).ToString("F0")
+            + "\n";
+        //statsValues += thruster.maxSpeed.ToString("F0") + " / " + (thruster.maxSpeed * 10 * 0.5f).ToString("F0") + "\n";
+        statsValues += 
+            (thruster.turnSpeed * 10).ToString("F0") 
+            + " / "
+            + (thruster.maxTurnSpeed * 10).ToString("F0")
+            + "\n"
+            + " FTL: "
+            + (thruster.ftlRotSpeed * 10).ToString("F0")
+            + " / "
+            + (thruster.maxTurnSpeed).ToString("F0")
+            + "\n";
+        //statsValues += (thruster.maxTurnSpeed * 10).ToString("F0") + "\n";
+        statsValues += thruster.brakingSpeed.ToString("F2") + "\n";
+        statsValues += thruster.turnBrakingSpeed.ToString("F0") + "\n";
 
-        return ftl;
+        //statsValues += thruster.acceleration.ToString("F0") + "\n";
+        //statsValues += thruster.maxSpeed.ToString("F0") + "\n";
+        //statsValues += thruster.rotSpeed.ToString("F2") + "\n";
+        statsValues += thruster.chargeTime.ToString("F2") + "\n";
+        statsValues += 
+            thruster.fuelCurrent.ToString("F0") 
+            + " / "
+            + thruster.fuelMax.ToString("F0")
+            + "\n";
+        //statsValues += thruster.fuelMax.ToString("F0") + "\n";
+        statsValues += thruster.fuelDrain.ToString("F2") + "\n";
+        statsValues += thruster.maxDuration.ToString("F0") + "\n";
+
+        thruster.statsValues = statsValues;
+
+        thruster.statsText = statsNames;
+
+        return thruster;
     }
     #endregion
+
+    //#region RandomizeFTLEngine
+    //public FTLEngine RandomizeFTLEngine()
+    //{
+    //    FTLEngine ftl = ScriptableObject.CreateInstance<FTLEngine>();
+    //    ftl.itemName = new string
+    //        (ftlNameFirst[iR(0, ftlNameFirst.Length - 1)]
+    //        + " "
+    //        + ftlNameLast[iR(0, ftlNameLast.Length - 1)]);
+    //    ftl.name = ftl.itemName;
+    //    ftl.id = Inventory.Instance.id;
+    //    ftl.icon = ftlSprites[iR(0, ftlSprites.Length - 1)];
+    //    ftl.color = typeColor[(int)EquipmentTypes.Thruster];
+    //    ftl.equipType = EquipmentTypes.Thruster;
+
+    //    ftl.ftlType = (FTLTypes)iR(0, 3);
+
+    //    switch (ftl.ftlType)
+    //    {
+    //        case FTLTypes.Ready: //Short charge time, shorter duration, more fuel drain
+    //            ftl.acceleration = fR(acceleration);
+    //            ftl.maxSpeed = fR(ftlMaxSpeed);
+    //            ftl.rotSpeed = fR(rotSpeed);
+    //            ftl.chargeTime = fR(chargeTime) * 0.2f;
+    //            ftl.fuelMax = fR(fuelMax);
+    //            ftl.fuelCurrent = ftl.fuelMax - (ftl.fuelMax * (fR(fuelCurrent) / 100));
+    //            ftl.fuelDrain = fR(fuelDrain) * 3f;
+    //            ftl.maxDuration = fR(maxDuration) * 0.5f;
+    //            break;
+    //        case FTLTypes.Burst: //High acceleration, higher max speed
+    //            ftl.acceleration = fR(acceleration) * 3;
+    //            ftl.maxSpeed = fR(ftlMaxSpeed) * 3;
+    //            ftl.rotSpeed = fR(rotSpeed);
+    //            ftl.chargeTime = fR(chargeTime) * 0.8f;
+    //            ftl.fuelMax = fR(fuelMax);
+    //            ftl.fuelCurrent = ftl.fuelMax - (ftl.fuelMax * (fR(fuelCurrent) / 100));
+    //            ftl.fuelDrain = fR(fuelDrain) * 2;
+    //            ftl.maxDuration = fR(maxDuration) * 0.3f;
+    //            break;
+    //        case FTLTypes.Flight: //Long charge time, high max speed and acceleration, lower fuel drain
+    //            ftl.acceleration = fR(acceleration);
+    //            ftl.maxSpeed = fR(ftlMaxSpeed);
+    //            ftl.rotSpeed = fR(rotSpeed) * 0;
+    //            ftl.chargeTime = fR(chargeTime) * 2;
+    //            ftl.fuelMax = fR(fuelMax) * 2;
+    //            ftl.fuelCurrent = ftl.fuelMax - (ftl.fuelMax * (fR(fuelCurrent) / 100));
+    //            ftl.fuelDrain = fR(fuelDrain) * 0.5f;
+    //            ftl.maxDuration = fR(maxDuration) * 3;
+    //            break;
+    //        case FTLTypes.Scout: //Medium all round, but high rot speed and duration
+    //            ftl.acceleration = fR(acceleration);
+    //            ftl.maxSpeed = fR(ftlMaxSpeed);
+    //            ftl.rotSpeed = fR(rotSpeed) * 10;
+    //            ftl.chargeTime = fR(chargeTime) * 0.75f;
+    //            ftl.fuelMax = fR(fuelMax);
+    //            ftl.fuelCurrent = ftl.fuelMax - (ftl.fuelMax * (fR(fuelCurrent) / 100));
+    //            ftl.fuelDrain = fR(fuelDrain) * 1.5f;
+    //            ftl.maxDuration = fR(maxDuration);
+    //            break;
+    //        case FTLTypes.Crash:
+    //            break;
+    //        case FTLTypes.Default:
+    //            break;
+    //        default:
+    //            break;
+    //    }
+
+    //    string statsNames = "Something is wong";
+    //    string statsValues = "WTF";
+    //    statsNames = "";
+    //    statsNames += "Acceleration:\n"; ftl.statLength++;
+    //    statsNames += "Max speed: \n"; ftl.statLength++;
+    //    statsNames += "Rotation speed: \n"; ftl.statLength++;
+    //    statsNames += "Charge time: \n"; ftl.statLength++;
+    //    statsNames += "Current fuel: \n"; ftl.statLength++;
+    //    statsNames += "Max fuel: \n"; ftl.statLength++;
+    //    statsNames += "Fuel drain: \n"; ftl.statLength++;
+    //    statsNames += "Max duration: \n"; ftl.statLength++;
+
+    //    ftl.statsText = statsNames;
+
+    //    statsValues = "";
+    //    statsValues += ftl.acceleration.ToString("F0") + "\n";
+    //    statsValues += ftl.maxSpeed.ToString("F0") + "\n";
+    //    statsValues += ftl.rotSpeed.ToString("F2") + "\n";
+    //    statsValues += ftl.chargeTime.ToString("F2") + "\n";
+    //    statsValues += ftl.fuelCurrent.ToString("F0") + "\n";
+    //    statsValues += ftl.fuelMax.ToString("F0") + "\n";
+    //    statsValues += ftl.fuelDrain.ToString("F2") + "\n";
+    //    statsValues += ftl.maxDuration.ToString("F0") + "\n";
+
+    //    ftl.statsValues = statsValues;
+
+    //    return ftl;
+    //}
+    //#endregion //Not used
 
     #region RandomizeCollector
     public Collector RandomizeCollector()
@@ -1598,6 +1770,12 @@ public class RandomizeEquipment : MonoBehaviour
         }
         Debug.Log(shield.shieldColor);
 
+        float difficulty = Difficulty.dif.difficulty / Difficulty.dif.difSetting;
+
+        shield.shieldHealth *= 1 + (difficulty * 0.1f);
+        shield.shieldRechargeDelay /= 1 + (difficulty * 0.06f);
+        shield.shieldRechargeSpeed *= 1 + (difficulty * 0.2f);
+
         string statsNames = "Something is wong";
         string statsValues = "WTF";
         statsNames = "";
@@ -1673,7 +1851,11 @@ public class RandomizeEquipment : MonoBehaviour
             default:
                 break;
         }
+        float difficulty = Difficulty.dif.difficulty / Difficulty.dif.difSetting;
 
+        hull.hullHealth *= 1 + (difficulty * 0.1f);
+        hull.hullDamageNegation *= 1 + (difficulty * 0.02f);
+        hull.hullSpecialEffectChance *= 1 + (difficulty * 0.05f);
 
         string statsNames = "Something is wong";
         string statsValues = "WTF";
@@ -1696,6 +1878,87 @@ public class RandomizeEquipment : MonoBehaviour
         return hull;
     }
     #endregion
+
+    #region RandomizeScanner
+    public Scanner RandomizeScanner()
+    {
+        Scanner scanner = ScriptableObject.CreateInstance<Scanner>();
+        scanner.itemName = new string(
+             scannerNameFirst[iR(0, scannerNameFirst.Length - 1)]
+            + " "
+            + scannerNameLast[iR(0, scannerNameLast.Length - 1)]);
+        scanner.name = scanner.itemName;
+        scanner.id = Inventory.Instance.id;
+        scanner.icon = scannerSprites[iR(0, scannerSprites.Length - 1)];
+        scanner.color = typeColor[(int)EquipmentTypes.Scanner];
+        scanner.equipType = EquipmentTypes.Scanner;
+
+        scanner.type = (ScannerTypes)iR(0, 2);
+
+        switch (scanner.type)
+        {
+            case ScannerTypes.Custom:
+                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y) * 0.5f), 1, 100); 
+                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 1.5f), 1, 100);
+                scanner.mapUpdateAmount = iR(mapUpdateAmount);
+                scanner.mapUpdateSpeed = fR(mapUpdateSpeed) * 0.5f;
+                scanner.frequency = (Frequencies)iR(0, 2);
+                break;
+            case ScannerTypes.Lookout:
+                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y)), 1, 100);
+                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 2f), 1, 100);
+                scanner.mapUpdateAmount = (int)(iR(mapUpdateAmount) * 0.5f);
+                scanner.mapUpdateSpeed = fR(mapUpdateSpeed) * 2f;
+                scanner.frequency = (Frequencies)iR(2, 5);
+                break;
+            case ScannerTypes.Radio:
+                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y) * 1.5f), 1, 100);
+                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 1), 1, 100);
+                scanner.mapUpdateAmount = (int)(iR(mapUpdateAmount) * 2);
+                scanner.mapUpdateSpeed = fR(mapUpdateSpeed) * 1f;
+                scanner.frequency = (Frequencies)iR(0, 6);
+                break;
+            case ScannerTypes.Gamma:
+                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y) * 1.5f), 1, 100);
+                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 0.5f), 1, 100);
+                scanner.mapUpdateAmount = (int)(iR(mapUpdateAmount) * 2f);
+                scanner.mapUpdateSpeed = fR(mapUpdateSpeed) * 1f;
+                scanner.frequency = (Frequencies)iR(5, 7);
+                break;
+            case ScannerTypes.Default:
+                break;
+            default:
+                break;
+        }
+        if (scanner.zoom.x > scanner.zoom.y)
+        {
+            if (Random.value < 0.5f) { scanner.zoom.x = scanner.zoom.y; }
+            else { scanner.zoom.y = scanner.zoom.x; }
+        }
+        //if (scanner.mapUpdateAmount <= 0) scanner.mapUpdateAmount = 4;
+
+
+        string statsNames = "Something is wong";
+        string statsValues = "WTF";
+        statsNames = "";
+        statsNames += "Maps:\n"; scanner.statLength++;
+        statsNames += "Zoom: \n"; scanner.statLength++;
+        statsNames += "Update speed: \n"; scanner.statLength++;
+        statsNames += "Update delay: \n"; scanner.statLength++;
+
+        scanner.statsText = statsNames;
+
+        statsValues = "";
+        statsValues += scanner.frequency.ToString() + "\n";
+        statsValues += scanner.zoom.x.ToString("F0") + " - " + scanner.zoom.y.ToString("F0") + "\n";
+        statsValues += (scanner.mapUpdateAmount).ToString("F0") + "\n";
+        statsValues += (scanner.mapUpdateSpeed).ToString("F2") + "\n";
+
+        scanner.statsValues = statsValues;
+
+        return scanner;
+    }
+#endregion
 
     #region Methods
     public float fR(float min, float max)

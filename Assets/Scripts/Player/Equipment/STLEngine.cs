@@ -8,19 +8,17 @@ public class STLEngine : Equipment
     public float speed;
     public float maxSpeed;
     public float turnSpeed;
-    public float turnSpeedStored;
     public float maxTurnSpeed;
-    public float turnSpeedBoostUpTo = 40f;
     public float turnBrakingSpeed;
     public float brakingSpeed;
 }
-public enum STLTypes
-{
-    Drive,
-    Agile,
-    Pulse,
-    Boost,
-    Sail,
-    Crawler,
-    Default
-}
+//public enum STLTypes
+//{
+//    Drive,
+//    Agile,
+//    Pulse,
+//    Boost,
+//    Sail,
+//    Crawler,
+//    Default
+//}

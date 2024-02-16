@@ -16,10 +16,13 @@ MonoBehaviour:
   description: 
   playerRelation: 3
   shipPrefab: {fileID: 0}
-  behaviour: 4
-  combatBehaviour: 1
+  behaviour: 3
+  combatBehaviour: 3
   lowHealthBehaviour: 2
   lowHealthPercent: 0.2
+  enrageBehaviour: 0
+  enrageStrength: 0
+  enrageSpecialAttack: 0
   contactBehaviour: 1
   maxHealth: 40
   maxShield: 0
@@ -51,7 +54,11 @@ MonoBehaviour:
   specialAttackCD: 5
   specialAttackDamage: 1
   specialAttackSpeed: 3
+  specialAttackSpread: 0
+  specialAmount: 1
   damageTickTime: 0.1
+  specialIsHoming: 0
+  specialHomingStrength: 0
   stopCoreWhenSpecial: 1
   reward: 1
   value: 1

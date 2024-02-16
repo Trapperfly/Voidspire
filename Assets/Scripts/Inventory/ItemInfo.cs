@@ -34,19 +34,21 @@ public class ItemInfo : MonoBehaviour
                     newEquipment = RandomizeEquipment.Instance.RandomizeShield() as Shield;
                     accepted = true;
                     break;
-                case EquipmentTypes.STL:
-                    newEquipment = RandomizeEquipment.Instance.RandomizeSTLEngine() as STLEngine;
+                case EquipmentTypes.Thruster:
+                    newEquipment = RandomizeEquipment.Instance.RandomizeThruster() as Thrusters;
                     accepted = true;
                     break;
-                case EquipmentTypes.FTL:
-                    newEquipment = RandomizeEquipment.Instance.RandomizeFTLEngine() as FTLEngine;
-                    accepted = true;
-                    break;
+                //case EquipmentTypes.FTL:
+                //    newEquipment = RandomizeEquipment.Instance.RandomizeFTLEngine() as FTLEngine;
+                //    accepted = true;
+                //    break;
                 case EquipmentTypes.Hull:
                     newEquipment = RandomizeEquipment.Instance.RandomizeHull() as Hull;
                     accepted = true;
                     break;
                 case EquipmentTypes.Scanner:
+                    newEquipment = RandomizeEquipment.Instance.RandomizeScanner() as Scanner;
+                    accepted = true;
                     break;
                 case EquipmentTypes.Cargo:
                     break;

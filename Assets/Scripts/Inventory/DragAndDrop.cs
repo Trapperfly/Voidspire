@@ -265,17 +265,17 @@ public class DragAndDrop : MonoBehaviour,
             case EquipmentTypes.Shield:
                 textasset.text = (equipment as Shield).shieldType.ToString() + " - Shield";
                 break;
-            case EquipmentTypes.STL:
-                textasset.text = (equipment as STLEngine).stlType.ToString() + " - STL";
+            case EquipmentTypes.Thruster:
+                textasset.text = (equipment as Thrusters).stlType.ToString() + "/" + (equipment as Thrusters).ftlType.ToString() + " - Thruster";
                 break;
-            case EquipmentTypes.FTL:
-                textasset.text = (equipment as FTLEngine).ftlType.ToString() + " - FTL";
-                break;
+            //case EquipmentTypes.FTL:
+            //    textasset.text = (equipment as FTLEngine).ftlType.ToString() + " - FTL";
+            //    break;
             case EquipmentTypes.Hull:
                 textasset.text = (equipment as Hull).hullType.ToString() + " - Hull";
                 break;
             case EquipmentTypes.Scanner:
-                textasset.text = " - Scanner";
+                textasset.text = (equipment as Scanner).type.ToString() + " - Scanner";
                 break;
             case EquipmentTypes.Cargo:
                 textasset.text = " - Cargo";

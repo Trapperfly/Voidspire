@@ -14,12 +14,12 @@ public class FTLEngine : Equipment
     public float fuelDrain;
     public float maxDuration;
 }
-public enum FTLTypes
-{
-    Ready,
-    Burst,
-    Flight,
-    Scout,
-    Crash,
-    Default
-}
+//public enum FTLTypes
+//{
+//    Ready,
+//    Burst,
+//    Flight,
+//    Scout,
+//    Crash,
+//    Default
+//}

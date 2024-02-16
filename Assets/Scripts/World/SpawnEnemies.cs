@@ -72,7 +72,7 @@ public class SpawnEnemies : MonoBehaviour
                 i--;
             }
         }
-    }
+    } // Spawns random amount
 
     public void SpawnChitinEnemies(Vector2 pos, float range)
     {
@@ -169,7 +169,113 @@ public class SpawnEnemies : MonoBehaviour
                 break;
         }
         
-    }
+    } // Spawns preset squadron sizes
+
+    public void SpawnChromeEnemies(Vector2 pos, float range)
+    {
+        amount = Random.Range(1, 101) switch
+        {
+            > (100 - tenSpawnPercent) => 10,
+            > (100 - fiveSpawnPercent) => 5,
+            > (100 - twoSpawnPercent) => 2,
+            > (100 - oneSpawnPercent) => 1,
+            _ => 0
+        };
+        Vector2 spawnLocation = pos + new Vector2(Random.Range(-range, range), Random.Range(-range, range));
+        for (int i = amount; i > 0; i--)
+        {
+            if (Random.Range(0, 2) == 0)
+                Instantiate
+                (
+                    lurkerPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+            else
+            {
+                Instantiate
+                (
+                    arbalestPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+                i--;
+            }
+        }
+    } // Spawns random amount with predetermined leader
+
+    public void SpawnPirateEnemies(Vector2 pos, float range)
+    {
+        amount = Random.Range(1, 101) switch
+        {
+            > (100 - tenSpawnPercent) => 10,
+            > (100 - fiveSpawnPercent) => 5,
+            > (100 - twoSpawnPercent) => 2,
+            > (100 - oneSpawnPercent) => 1,
+            _ => 0
+        };
+        Vector2 spawnLocation = pos + new Vector2(Random.Range(-range, range), Random.Range(-range, range));
+        for (int i = amount; i > 0; i--)
+        {
+            if (Random.Range(0, 2) == 0)
+                Instantiate
+                (
+                    lurkerPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+            else
+            {
+                Instantiate
+                (
+                    arbalestPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+                i--;
+            }
+        }
+    } // Spawns one
+
+    public void SpawnCiv(Vector2 pos, float range)
+    {
+        amount = Random.Range(1, 101) switch
+        {
+            > (100 - tenSpawnPercent) => 10,
+            > (100 - fiveSpawnPercent) => 5,
+            > (100 - twoSpawnPercent) => 2,
+            > (100 - oneSpawnPercent) => 1,
+            _ => 0
+        };
+        Vector2 spawnLocation = pos + new Vector2(Random.Range(-range, range), Random.Range(-range, range));
+        for (int i = amount; i > 0; i--)
+        {
+            if (Random.Range(0, 2) == 0)
+                Instantiate
+                (
+                    lurkerPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+            else
+            {
+                Instantiate
+                (
+                    arbalestPrefab,
+                    spawnLocation + (Vector2)Random.insideUnitSphere,
+                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+                    transform
+                );
+                i--;
+            }
+        }
+    } // Spawns a few, with military escorts
+
     //Vector3 RandomOutsideView()
     //{
     //    int whichSide = Random.Range(1, 5);

@@ -15,7 +15,7 @@ public class Damagable : Events
         if (startHealth == 0)
         {
             float size = (transform.localScale.x + transform.localScale.y);
-            startHealth = Mathf.Pow(size * 2 + 1f, 3);
+            startHealth = Mathf.Pow(size + 1f, 3);
         }
         currentHealth = startHealth;
     }

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.UIElements;
+using System;
 
 public class RenderChunkData : MonoBehaviour
 {
@@ -11,6 +14,19 @@ public class RenderChunkData : MonoBehaviour
     [SerializeField] int height;
     [SerializeField] float scale;
 
+    [SerializeField] Color debrisColor;
+    [SerializeField] Color voidColor;
+    [SerializeField] Color chitinColor;
+    [SerializeField] Color chromeColor;
+    [SerializeField] Color pirateColor;
+    [SerializeField] Color civilizationColor;
+    [SerializeField] Color yieldColor;
+    [SerializeField] Color eventColor;
+    [SerializeField] Color shopColor;
+
+    [SerializeField] Transform buttonsParent;
+    [SerializeField] CameraController zoomer;
+
     public float alpha = 1;
     public MapMode mapMode = MapMode.normal;
     Texture2D texture;
@@ -18,7 +34,11 @@ public class RenderChunkData : MonoBehaviour
 
     Vector2 pos;
     float dScale;
-    float fScale;
+    float voidScale;
+    float chitinScale;
+    float chromeScale;
+    float pirateScale;
+    float civScale;
     float yScale;
     float eScale;
     float sScale;
@@ -26,11 +46,115 @@ public class RenderChunkData : MonoBehaviour
     float xSeed;
     float ySeed;
     float dSeed;
-    float fSeed;
+    float voidSeed;
+    float chitinSeed;
+    float chromeSeed;
+    float pirateSeed;
+    float civSeed;
     float yiSeed;
     float eSeed;
     float sSeed;
 
+    EquipmentController equipment;
+    Scanner scanner;
+
+    private void Awake()
+    {
+        EquipmentController.Instance.onGunLoadComplete += CustomStart;
+    }
+
+    private void CustomStart()
+    {
+        //Debug.Log("CustomStartActivated");
+        equipment = EquipmentController.Instance;
+        SetNewScanner();
+
+        EquipmentController.Instance.onGunLoadComplete -= CustomStart;
+        EquipmentController.Instance.onGunLoadComplete += SetNewScanner;
+    }
+    public void SetNewScanner()
+    {
+        scanner = equipment.scannerSlots[0].item as Scanner;
+        if (scanner) { 
+            renderDelay = scanner.mapUpdateSpeed;
+            renderSpeed = scanner.mapUpdateAmount;
+            SetMapButtons();
+
+            zoomer.minZoom = scanner.zoom.x;
+            zoomer.maxZoom = scanner.zoom.y;
+        }
+        else { renderDelay = 0.01f; renderSpeed = 10; mapMode = MapMode.normal; SetMapButtons(); }
+    }
+    public void SetMapButtons()
+    {
+        int i = 0;
+        foreach (Transform child in buttonsParent)
+        {
+            if (i == 0) { i++; }
+            else child.gameObject.SetActive(false);
+        }
+        if (!scanner) { return; }
+        switch (scanner.frequency)
+        {
+            // 0 = Normal
+            // 1 = Combined
+            // 2 = Debris
+            // 3 = Faction
+            // 4 = Void
+            // 5 = Chitin
+            // 6 = Chrome
+            // 7 = Pirate
+            // 8 = Civ
+            // 9 = Yield
+            // 10 = Event
+            // 11 = Shop
+            case Frequencies.Friendly:
+                buttonsParent.GetChild(1).gameObject.SetActive(true);
+                buttonsParent.GetChild(8).gameObject.SetActive(true);
+                break;
+            case Frequencies.General:
+                buttonsParent.GetChild(2).gameObject.SetActive(true);
+                buttonsParent.GetChild(3).gameObject.SetActive(true);
+                break;
+            case Frequencies.Factions:
+                buttonsParent.GetChild(3).gameObject.SetActive(true);
+                buttonsParent.GetChild(4).gameObject.SetActive(true);
+                buttonsParent.GetChild(5).gameObject.SetActive(true);
+                buttonsParent.GetChild(6).gameObject.SetActive(true);
+                buttonsParent.GetChild(7).gameObject.SetActive(true);
+                break;
+            case Frequencies.Transmitters:
+                buttonsParent.GetChild(10).gameObject.SetActive(true);
+                buttonsParent.GetChild(11).gameObject.SetActive(true);
+                break;
+            case Frequencies.Mining:
+                buttonsParent.GetChild(2).gameObject.SetActive(true);
+                buttonsParent.GetChild(9).gameObject.SetActive(true);
+                break;
+            case Frequencies.Action:
+                buttonsParent.GetChild(3).gameObject.SetActive(true);
+                buttonsParent.GetChild(10).gameObject.SetActive(true);
+                break;
+            case Frequencies.Diplomat:
+                buttonsParent.GetChild(8).gameObject.SetActive(true);
+                buttonsParent.GetChild(10).gameObject.SetActive(true);
+                buttonsParent.GetChild(11).gameObject.SetActive(true);
+                buttonsParent.GetChild(7).gameObject.SetActive(true);
+                break;
+            case Frequencies.Broad:
+                buttonsParent.GetChild(1).gameObject.SetActive(true);
+                buttonsParent.GetChild(2).gameObject.SetActive(true);
+                buttonsParent.GetChild(11).gameObject.SetActive(true);
+                buttonsParent.GetChild(10).gameObject.SetActive(true);
+                buttonsParent.GetChild(8).gameObject.SetActive(true);
+                buttonsParent.GetChild(2).gameObject.SetActive(true);
+                break;
+            case Frequencies.Default:
+                break;
+            default:
+                break;
+        }
+    }
 
     private void Start()
     {
@@ -42,7 +166,11 @@ public class RenderChunkData : MonoBehaviour
     void SetNewScales()
     {
         dScale = ChunkLoader.debrisScale;
-        fScale = ChunkLoader.factionScale;
+        voidScale = ChunkLoader.voidScale;
+        chitinScale = ChunkLoader.chitinScale;
+        chromeScale = ChunkLoader.chromeScale;
+        pirateScale = ChunkLoader.pirateScale;
+        civScale = ChunkLoader.civScale;
         yScale = ChunkLoader.yieldScale;
         eScale = ChunkLoader.eventScale;
         sScale = ChunkLoader.shopScale;
@@ -53,7 +181,11 @@ public class RenderChunkData : MonoBehaviour
         xSeed = GlobalRefs.xSeed; 
         ySeed = GlobalRefs.ySeed;
         dSeed = GlobalRefs.debrisSeed;
-        fSeed = GlobalRefs.factionSeed;
+        voidSeed = GlobalRefs.voidSeed;
+        chitinSeed = GlobalRefs.chitinSeed;
+        chromeSeed = GlobalRefs.chromeSeed;
+        pirateSeed = GlobalRefs.pirateSeed;
+        civSeed = GlobalRefs.civSeed;
         yiSeed = GlobalRefs.yieldSeed;
         eSeed = GlobalRefs.eventSeed;
         sSeed = GlobalRefs.shopSeed;
@@ -82,12 +214,27 @@ public class RenderChunkData : MonoBehaviour
                 tempMode = MapMode.factionMode;
                 break;
             case 4:
-                tempMode = MapMode.yieldMode;
+                tempMode = MapMode.voidMode;
                 break;
             case 5:
-                tempMode = MapMode.eventMode;
+                tempMode = MapMode.chitinMode;
                 break;
             case 6:
+                tempMode = MapMode.chromeMode;
+                break;
+            case 7:
+                tempMode = MapMode.pirateMode;
+                break;
+            case 8:
+                tempMode = MapMode.civMode;
+                break;
+            case 9:
+                tempMode = MapMode.yieldMode;
+                break;
+            case 10:
+                tempMode = MapMode.eventMode;
+                break;
+            case 11:
                 tempMode = MapMode.shopMode;
                 break;
             default:
@@ -123,7 +270,14 @@ public class RenderChunkData : MonoBehaviour
                             break;
                         case MapMode.combinedData:
                             color = new Color(
-                                GenerateColorData(X, Y, fSeed, fScale, new Vector4(1, 0, 0, 1)).r,
+                            new Color ((
+                                GenerateColorData(X, Y, voidSeed, voidScale, voidColor)
+                                + GenerateColorData(X, Y, chitinSeed, chitinScale, chitinColor)
+                                + GenerateColorData(X, Y, chromeSeed, chromeScale, chromeColor)
+                                + GenerateColorData(X, Y, pirateSeed, pirateScale, pirateColor)
+                                ).grayscale,
+                                0, 0, 1
+                                ).r,
                                 GenerateColorData(X, Y, yiSeed, yScale, new Vector4(0, 1, 0, 1)).g,
                                 GenerateColorData(X, Y, dSeed, dScale, new Vector4(0, 0, 1, 1)).b,
                                 1);
@@ -131,23 +285,50 @@ public class RenderChunkData : MonoBehaviour
 
                             break;
                         case MapMode.debrisMode:
-                            color = GenerateColorData(X, Y, dSeed, dScale, new Vector4(0, 0, 1, 1));
+                            color = GenerateColorData(X, Y, dSeed, dScale, debrisColor);
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.factionMode:
-                            color = GenerateColorData(X, Y, fSeed, fScale, new Vector4(1, 0, 0, 1));
+                            color = new Color((
+                                GenerateColorData(X, Y, voidSeed, voidScale, voidColor)
+                                + GenerateColorData(X, Y, chitinSeed, chitinScale, chitinColor)
+                                + GenerateColorData(X, Y, chromeSeed, chromeScale, chromeColor)
+                                + GenerateColorData(X, Y, pirateSeed, pirateScale, pirateColor)
+                                ).grayscale,
+                                0, 0, 1
+                                );
+                            tempTex.SetPixel(x, y, color);
+                            break;
+                        case MapMode.voidMode:
+                            color = GenerateColorData(X, Y, voidSeed, voidScale, voidColor);
+                            tempTex.SetPixel(x, y, color);
+                            break;
+                        case MapMode.chitinMode:
+                            color = GenerateColorData(X, Y, chitinSeed, chitinScale, chitinColor);
+                            tempTex.SetPixel(x, y, color);
+                            break;
+                        case MapMode.chromeMode:
+                            color = GenerateColorData(X, Y, chromeSeed, chromeScale, chromeColor);
+                            tempTex.SetPixel(x, y, color);
+                            break;
+                        case MapMode.pirateMode:
+                            color = GenerateColorData(X, Y, pirateSeed, pirateScale, pirateColor);
+                            tempTex.SetPixel(x, y, color);
+                            break;
+                        case MapMode.civMode:
+                            color = GenerateColorData(X, Y, civSeed, civScale, civilizationColor);
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.yieldMode:
-                            color = GenerateColorData(x, Y, yiSeed, yScale, new Vector4(0, 1, 0, 1));
+                            color = GenerateColorData(x, Y, yiSeed, yScale, yieldColor);
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.eventMode:
-                            color = GenerateColorData(X, Y, eSeed, eScale, ChunkLoader.eventThreshold, new Vector4(1, 0, 0, 1));
+                            color = GenerateColorData(X, Y, eSeed, eScale, ChunkLoader.eventThreshold, eventColor);
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.shopMode:
-                            color = GenerateColorData(X, Y, sSeed, sScale, ChunkLoader.shopThreshold, new Vector4(0, 1, 0, 1));
+                            color = GenerateColorData(X, Y, sSeed, sScale, ChunkLoader.shopThreshold, shopColor);
                             tempTex.SetPixel(x, y, color);
                             break;
                         default:
@@ -218,6 +399,11 @@ public class RenderChunkData : MonoBehaviour
         combinedData,
         debrisMode,
         factionMode,
+        voidMode,
+        chitinMode,
+        chromeMode,
+        pirateMode,
+        civMode,
         yieldMode,
         eventMode,
         shopMode

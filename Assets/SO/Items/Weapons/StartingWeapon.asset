@@ -32,7 +32,7 @@ MonoBehaviour:
   splashRange: 0
   damage: 1
   bulletSize: 1
-  fireRate: 2
+  fireRate: 5
   fireRateChange: 0
   fireRateChangeTimer: 0
   amount: 1

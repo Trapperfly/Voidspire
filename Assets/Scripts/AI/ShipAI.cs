@@ -137,6 +137,7 @@ public class ShipAI : MonoBehaviour
                     NormalMove();
                     break;
                 case CombatBehaviour.RotateTowardsAndAttack:
+                    //Debug.Log("IIIIIIIIIIIIIIIIIIIIIIIIIIII");
                     Rotate();
                     Strafe();
                     Repair();
@@ -188,7 +189,8 @@ public class ShipAI : MonoBehaviour
                     NormalMove();
                     break;
                 case Behaviour.AttackImmediately:
-                    if (seenPlayer) { 
+                    if (seenPlayer) {
+                        //Debug.LogWarning("Something");
                         combatTarget = GlobalRefs.Instance.player.transform;
                         targetTransform = combatTarget;
                         ToggleCombat(true);
@@ -468,6 +470,7 @@ public class ShipAI : MonoBehaviour
     {
         if (inCombat && (!target.target || !target.targetRB))
         {
+            //Debug.LogWarning("Toggling off combat because of no target");
             ToggleCombat(false);
             StartCoroutine(nameof(GetNewTargetPos));
             return;
@@ -480,12 +483,14 @@ public class ShipAI : MonoBehaviour
                 || ship.lowHealthBehaviour == LowHealthBehaviour.DropLootAndJump
                 ))
             {
+                //Debug.LogWarning("Toggling off combat because of this is wimpy");
                 ToggleCombat(false);
                 StartCoroutine(nameof(GetNewTargetPos));
                 return;
             }
-            if (combatTarget == null)
+            if (combatTarget == null || !targetTransform)
             {
+                //Debug.LogWarning("Toggling off combat because combat target is dead");
                 ToggleCombat(false);
                 StartCoroutine(nameof(GetNewTargetPos));
             }

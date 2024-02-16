@@ -27,8 +27,20 @@ public class ChunkLoader : MonoBehaviour
     public static float debrisScale = 0.06f;
     public static float debrisMultiplier = 20;
 
-    public static float factionScale = 0.03f;
-    public static float factionMultiplier = 3;
+    public static float voidScale = 0.03f;
+    public static float voidMultiplier = 3;
+
+    public static float chitinScale = 0.04f;
+    public static float chitinMultiplier = 3;
+
+    public static float chromeScale = 0.02f;
+    public static float chromeMultiplier = 3;
+
+    public static float pirateScale = 0.2f;
+    public static float pirateMultiplier = 1;
+
+    public static float civScale = 0.08f;
+    public static float civMultiplier = 3;
 
     public static float shopScale = 0.6f;
 
@@ -244,8 +256,20 @@ public class ChunkLoader : MonoBehaviour
             float debrisValue = Mathf.PerlinNoise(coord.x * debrisScale + GlobalRefs.xSeed + GlobalRefs.debrisSeed, coord.y * debrisScale + GlobalRefs.ySeed + GlobalRefs.debrisSeed);
             chunk.debrisValue = debrisValue;
 
-            float factionValue = Mathf.PerlinNoise(coord.x * factionScale + GlobalRefs.xSeed + GlobalRefs.factionSeed, coord.y * factionScale + GlobalRefs.ySeed + GlobalRefs.factionSeed);
-            chunk.factionValue = factionValue;
+            float voidValue = Mathf.PerlinNoise(coord.x * voidScale + GlobalRefs.xSeed + GlobalRefs.voidSeed, coord.y * voidScale + GlobalRefs.ySeed + GlobalRefs.voidSeed);
+            chunk.voidValue = voidValue;
+
+            float chitinValue = Mathf.PerlinNoise(coord.x * chitinScale + GlobalRefs.xSeed + GlobalRefs.chitinSeed, coord.y * chitinScale + GlobalRefs.ySeed + GlobalRefs.chitinSeed);
+            chunk.chitinValue = chitinValue;
+
+            float chromeValue = Mathf.PerlinNoise(coord.x * chromeScale + GlobalRefs.xSeed + GlobalRefs.chromeSeed, coord.y * chromeScale + GlobalRefs.ySeed + GlobalRefs.chromeSeed);
+            chunk.chromeValue = chromeValue;
+
+            float pirateValue = Mathf.PerlinNoise(coord.x * pirateScale + GlobalRefs.xSeed + GlobalRefs.pirateSeed, coord.y * pirateScale + GlobalRefs.ySeed + GlobalRefs.pirateSeed);
+            chunk.pirateValue = pirateValue;
+
+            float civValue = Mathf.PerlinNoise(coord.x * civScale + GlobalRefs.xSeed + GlobalRefs.civSeed, coord.y * civScale + GlobalRefs.ySeed + GlobalRefs.civSeed);
+            chunk.civValue = civValue;
 
             float shopValue = Mathf.PerlinNoise(coord.x * shopScale + GlobalRefs.xSeed + GlobalRefs.shopSeed, coord.y * shopScale + GlobalRefs.ySeed + GlobalRefs.shopSeed);
             chunk.shop = shopValue > shopThreshold;
@@ -306,9 +330,9 @@ public class ChunkLoader : MonoBehaviour
                 //debrisMap[x, y] = debrisValue;
                 chunk.debrisValue = debrisValue;
 
-                float factionValue = Mathf.PerlinNoise(x * factionScale + xSeed + factionSeed, y * factionScale + ySeed + factionSeed);
-                //factionMap[x, y] = factionValue;
-                chunk.factionValue = factionValue;
+                //float factionValue = Mathf.PerlinNoise(x * factionScale + xSeed + factionSeed, y * factionScale + ySeed + factionSeed);
+                ////factionMap[x, y] = factionValue;
+                //chunk.factionValue = factionValue;
 
                 float shopValue = Mathf.PerlinNoise(x * shopScale + xSeed + shopSeed, y * shopScale + ySeed + shopSeed);
                 //shopMap[x, y] = shopValue;
@@ -336,7 +360,7 @@ public class ChunkLoader : MonoBehaviour
                 sprite.sortingOrder = -10;
                 if ( chunk.chunkEvent ) { sprite.color = new Color(1, 0, 0, 1); }
                 else if ( chunk.shop ) { sprite.color = new Color(0, 1, 0, 1); }
-                else { sprite.color = new Color(factionValue, yieldValue, debrisValue, 1); }
+                //else { sprite.color = new Color(factionValue, yieldValue, debrisValue, 1); }
 
                 spriteHolder.GetComponent<SpriteRenderer>().sprite = testingSprite;
                 //chunks.Add(new Vector2Int(i,j), newChunk.GetComponent<Chunk>());

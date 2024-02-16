@@ -25,7 +25,11 @@ public class GlobalRefs : MonoBehaviour
     public static float xSeed;
     public static float ySeed;
     public static float debrisSeed;
-    public static float factionSeed;
+    public static float voidSeed;
+    public static float chitinSeed;
+    public static float chromeSeed;
+    public static float pirateSeed;
+    public static float civSeed;
     public static float shopSeed;
     public static float yieldSeed;
     public static float eventSeed;
@@ -39,7 +43,11 @@ public class GlobalRefs : MonoBehaviour
         xSeed = Random.Range(-10000, 10000);
         ySeed = Random.Range(-10000, 10000);
         debrisSeed = Random.Range(-10000, 10000);
-        factionSeed = Random.Range(-10000, 10000);
+        voidSeed = Random.Range(-10000, 10000);
+        chitinSeed = Random.Range(-10000, 10000);
+        chromeSeed = Random.Range(-10000, 10000);
+        pirateSeed = Random.Range(-10000, 10000);
+        civSeed = Random.Range(-10000, 10000);
         shopSeed = Random.Range(-10000, 10000);
         yieldSeed = Random.Range(-10000, 10000);
         eventSeed = Random.Range(-10000, 10000);
