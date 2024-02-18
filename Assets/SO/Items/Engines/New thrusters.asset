@@ -37,7 +37,7 @@ MonoBehaviour:
   ftlMaxSpeed: 40
   ftlRotSpeed: 0.2
   chargeTime: 2
-  fuelCurrent: 20000
+  fuelCurrent: 14052
   fuelMax: 20000
   fuelDrain: 1
-  maxDuration: 10
+  maxDuration: -1

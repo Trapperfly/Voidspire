@@ -7,6 +7,7 @@ using TMPro;
 public class CameraController : MonoBehaviour
 {
     public float zoom = 5;
+    public float currentZoom;
     public float minZoom = 3;
     public float maxZoom = 10;
 
@@ -26,5 +27,6 @@ public class CameraController : MonoBehaviour
         settings.OrthographicSize = Mathf.Lerp(settings.OrthographicSize, zoom, 0.03f);
         virtualCamera.m_Lens = settings;
         text.text = Mathf.RoundToInt(settings.OrthographicSize).ToString("F0");
+        currentZoom = settings.OrthographicSize;
     }
 }
