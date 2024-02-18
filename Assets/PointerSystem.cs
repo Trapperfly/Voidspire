@@ -27,7 +27,7 @@ public class PointerSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            opacity = 5;
+            opacity = 10;
         }
         if (pings.Count < 1)
         {
@@ -86,12 +86,12 @@ public class PointerSystem : MonoBehaviour
         pingGO.transform.position = pos;
         Transform ping = pingGO.transform;
         pings.Add(ping);
-        opacity = 2;
+        opacity = 5;
     }
 
     public void TestAddPing()
     {
-        Vector2 pos = new(Random.Range(-1000,1000),Random.Range(-1000,1000));
+        Vector2 pos = (Vector2)player.transform.position + new Vector2(Random.Range(-1000,1000),Random.Range(-1000,1000));
         AddPing(pos);
     }
 }

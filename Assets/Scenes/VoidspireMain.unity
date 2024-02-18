@@ -3150,8 +3150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cController: {fileID: 1918590781}
   hud: {fileID: 1551465086}
-  pings:
-  - {fileID: 1707607127}
+  pings: []
   textPrefab: {fileID: 4482036756323178680, guid: 14acf9db64d599f4b9e4fd5fb5a0f4a6, type: 3}
   texts: []
   pointerSpeed: 0.02
@@ -31319,37 +31318,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706386922}
   m_CullTransparentMesh: 1
---- !u!1 &1707607126
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1707607127}
-  m_Layer: 0
-  m_Name: Ping
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1707607127
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1707607126}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.48, y: 9.71, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1710810045
 GameObject:
   m_ObjectHideFlags: 0
@@ -49464,4 +49432,3 @@ SceneRoots:
   - {fileID: 7234749976992769894}
   - {fileID: 1063303197}
   - {fileID: 662615168}
-  - {fileID: 1707607127}
