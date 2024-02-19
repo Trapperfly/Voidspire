@@ -52,6 +52,8 @@ public class ChunkLoader : MonoBehaviour
     public static float shopThreshold = 0.90f;
     public static float eventThreshold = 0.90f;
 
+    public static float difScale = 0.06f;
+
     //static float xSeed;
     //static float ySeed;
     //static float debrisSeed;
@@ -279,6 +281,9 @@ public class ChunkLoader : MonoBehaviour
 
             float eventValue = Mathf.PerlinNoise(coord.x * eventScale + GlobalRefs.xSeed + GlobalRefs.eventSeed, coord.y * eventScale + GlobalRefs.ySeed + GlobalRefs.eventSeed);
             chunk.chunkEvent = eventValue > eventThreshold;
+
+            float difValue = Mathf.PerlinNoise(coord.x * difScale + GlobalRefs.xSeed + GlobalRefs.difSeed, coord.y * difScale + GlobalRefs.ySeed + GlobalRefs.difSeed);
+            chunk.chunkDif = 1 + Mathf.RoundToInt(difValue * 9);
 
             return chunk;
         }

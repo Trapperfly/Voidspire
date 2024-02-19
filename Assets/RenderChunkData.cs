@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
-using UnityEngine.UIElements;
-using System;
 
 public class RenderChunkData : MonoBehaviour
 {
@@ -23,6 +20,9 @@ public class RenderChunkData : MonoBehaviour
     [SerializeField] Color yieldColor;
     [SerializeField] Color eventColor;
     [SerializeField] Color shopColor;
+    [SerializeField] Color difEasyColor;
+    [SerializeField] Color difMediumColor;
+    [SerializeField] Color difHardColor;
 
     [SerializeField] Transform buttonsParent;
     [SerializeField] CameraController zoomer;
@@ -42,6 +42,7 @@ public class RenderChunkData : MonoBehaviour
     float yScale;
     float eScale;
     float sScale;
+    float difScale;
 
     float xSeed;
     float ySeed;
@@ -54,6 +55,7 @@ public class RenderChunkData : MonoBehaviour
     float yiSeed;
     float eSeed;
     float sSeed;
+    float difSeed;
 
     EquipmentController equipment;
     Scanner scanner;
@@ -174,6 +176,7 @@ public class RenderChunkData : MonoBehaviour
         yScale = ChunkLoader.yieldScale;
         eScale = ChunkLoader.eventScale;
         sScale = ChunkLoader.shopScale;
+        difScale = ChunkLoader.difScale;
     }
 
     void SetSeed()
@@ -189,6 +192,7 @@ public class RenderChunkData : MonoBehaviour
         yiSeed = GlobalRefs.yieldSeed;
         eSeed = GlobalRefs.eventSeed;
         sSeed = GlobalRefs.shopSeed;
+        difSeed = GlobalRefs.difSeed;
     }
 
     public void SetAlpha(float newAlpha)
@@ -237,6 +241,9 @@ public class RenderChunkData : MonoBehaviour
             case 11:
                 tempMode = MapMode.shopMode;
                 break;
+            case 12:
+                tempMode = MapMode.difMode;
+                break;
             default:
                 Debug.Log("Wrong map mode");
                 break;
@@ -271,64 +278,70 @@ public class RenderChunkData : MonoBehaviour
                         case MapMode.combinedData:
                             color = new Color(
                             new Color ((
-                                GenerateColorData(X, Y, voidSeed, voidScale, voidColor)
-                                + GenerateColorData(X, Y, chitinSeed, chitinScale, chitinColor)
-                                + GenerateColorData(X, Y, chromeSeed, chromeScale, chromeColor)
-                                + GenerateColorData(X, Y, pirateSeed, pirateScale, pirateColor)
+                                GenerateColorData(X, Y, voidSeed, voidScale, voidColor, 3)
+                                + GenerateColorData(X, Y, chitinSeed, chitinScale, chitinColor, 3)
+                                + GenerateColorData(X, Y, chromeSeed, chromeScale, chromeColor, 3)
+                                + GenerateColorData(X, Y, pirateSeed, pirateScale, pirateColor, 3)
                                 ).grayscale,
                                 0, 0, 1
                                 ).r,
-                                GenerateColorData(X, Y, yiSeed, yScale, new Vector4(0, 1, 0, 1)).g,
-                                GenerateColorData(X, Y, dSeed, dScale, new Vector4(0, 0, 1, 1)).b,
+                                GenerateColorData(X, Y, yiSeed, yScale, new Vector4(0, 1, 0, 1), 3).g,
+                                GenerateColorData(X, Y, dSeed, dScale, new Vector4(0, 0, 1, 1), 3).b,
                                 1);
                             tempTex.SetPixel(x, y, color);
 
                             break;
                         case MapMode.debrisMode:
-                            color = GenerateColorData(X, Y, dSeed, dScale, debrisColor);
+                            color = GenerateColorData(X, Y, dSeed, dScale, debrisColor, 3);
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.factionMode:
                             color = new Color((
-                                GenerateColorData(X, Y, voidSeed, voidScale, voidColor)
-                                + GenerateColorData(X, Y, chitinSeed, chitinScale, chitinColor)
-                                + GenerateColorData(X, Y, chromeSeed, chromeScale, chromeColor)
-                                + GenerateColorData(X, Y, pirateSeed, pirateScale, pirateColor)
+                                GenerateColorData(X, Y, voidSeed, voidScale, voidColor, 3)
+                                + GenerateColorData(X, Y, chitinSeed, chitinScale, chitinColor, 3)
+                                + GenerateColorData(X, Y, chromeSeed, chromeScale, chromeColor, 3)
+                                + GenerateColorData(X, Y, pirateSeed, pirateScale, pirateColor, 3)
                                 ).grayscale,
                                 0, 0, 1
                                 );
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.voidMode:
-                            color = GenerateColorData(X, Y, voidSeed, voidScale, voidColor);
+                            color = GenerateColorData(X, Y, voidSeed, voidScale, voidColor, 3);
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.chitinMode:
-                            color = GenerateColorData(X, Y, chitinSeed, chitinScale, chitinColor);
+                            color = GenerateColorData(X, Y, chitinSeed, chitinScale, chitinColor, 3);
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.chromeMode:
-                            color = GenerateColorData(X, Y, chromeSeed, chromeScale, chromeColor);
+                            color = GenerateColorData(X, Y, chromeSeed, chromeScale, chromeColor, 3);
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.pirateMode:
-                            color = GenerateColorData(X, Y, pirateSeed, pirateScale, pirateColor);
+                            color = GenerateColorData(X, Y, pirateSeed, pirateScale, pirateColor, 3);
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.civMode:
-                            color = GenerateColorData(X, Y, civSeed, civScale, civilizationColor);
+                            color = GenerateColorData(X, Y, civSeed, civScale, civilizationColor, 3);
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.yieldMode:
-                            color = GenerateColorData(x, Y, yiSeed, yScale, yieldColor);
+                            color = GenerateColorData(x, Y, yiSeed, yScale, yieldColor, 3);
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.eventMode:
-                            color = GenerateColorData(X, Y, eSeed, eScale, ChunkLoader.eventThreshold, eventColor);
+                            color = GenerateColorData(X, Y, eSeed, eScale, ChunkLoader.eventThreshold, eventColor, 3);
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.shopMode:
-                            color = GenerateColorData(X, Y, sSeed, sScale, ChunkLoader.shopThreshold, shopColor);
+                            color = GenerateColorData(X, Y, sSeed, sScale, ChunkLoader.shopThreshold, shopColor, 3);
+                            tempTex.SetPixel(x, y, color);
+                            break;
+                        case MapMode.difMode:
+                            color = GenerateColorData(X, Y, difSeed, difScale, Color.white, 1);
+                            float hue = Mathf.Lerp( 0.5f, -0.25f, color.grayscale);
+                            color = Random.ColorHSV(hue, hue, 1, 1, 0.5f, 0.5f);
                             tempTex.SetPixel(x, y, color);
                             break;
                         default:
@@ -345,7 +358,7 @@ public class RenderChunkData : MonoBehaviour
         }
     }
 
-    Color GenerateColorData(int x, int y, float specificSeed, float specificScale, float limit, Vector4 whatColorChannel)
+    Color GenerateColorData(int x, int y, float specificSeed, float specificScale, float limit, Vector4 whatColorChannel, int power)
     {
         float xCoord = (float)x / width;
         float yCoord = (float)y / height;
@@ -364,11 +377,11 @@ public class RenderChunkData : MonoBehaviour
             + ySeed 
             + specificSeed);
         if (pValue < limit) { return Color.black; }
-        Color color = whatColorChannel * Mathf.Pow(pValue, 3);
+        Color color = whatColorChannel * Mathf.Pow(pValue, power);
         color.a = alpha;
         return color;
     }
-    Color GenerateColorData(int x, int y, float specificSeed, float specificScale, Vector4 whatColorChannel)
+    Color GenerateColorData(int x, int y, float specificSeed, float specificScale, Vector4 whatColorChannel, int power)
     {
         float xCoord = (float)x / width;
         float yCoord = (float)y / height;
@@ -388,7 +401,7 @@ public class RenderChunkData : MonoBehaviour
             + ySeed
             + specificSeed);
 
-        Color color = whatColorChannel * Mathf.Pow(pValue, 3);
+        Color color = whatColorChannel * Mathf.Pow(pValue, power);
         color.a = alpha;
         return color;
     }
@@ -406,6 +419,7 @@ public class RenderChunkData : MonoBehaviour
         civMode,
         yieldMode,
         eventMode,
-        shopMode
+        shopMode,
+        difMode
     }
 }

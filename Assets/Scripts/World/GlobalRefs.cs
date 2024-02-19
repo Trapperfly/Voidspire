@@ -33,6 +33,7 @@ public class GlobalRefs : MonoBehaviour
     public static float shopSeed;
     public static float yieldSeed;
     public static float eventSeed;
+    public static float difSeed;
 
 
     private void SetSeeds()
@@ -51,6 +52,7 @@ public class GlobalRefs : MonoBehaviour
         shopSeed = Random.Range(-10000, 10000);
         yieldSeed = Random.Range(-10000, 10000);
         eventSeed = Random.Range(-10000, 10000);
+        difSeed = Random.Range(-10000, 10000);
         //GenerateChunks();
     }
 }
