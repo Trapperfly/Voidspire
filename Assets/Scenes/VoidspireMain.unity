@@ -23676,6 +23676,10 @@ PrefabInstance:
       propertyPath: allowed
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 6063762914699560620, guid: 60af3784c65ed0f4580a2679ed3d3ed8, type: 3}
+      propertyPath: frames.Array.data[7]
+      value: 
+      objectReference: {fileID: 21300000, guid: 78477dacc22b7ca4697038a526375b3d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
