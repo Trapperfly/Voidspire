@@ -29,7 +29,14 @@ public class AIGun : MonoBehaviour
     {
         if (autoFire)
         {
-            float fireRate = ai.doubleAttackSpeed ? stat.fireRate * ai.ship.enrageStrength : stat.fireRate;
+            float fireRate = 
+                ai.doubleAttackSpeed 
+                ? stat.fireRate 
+                * ai.ship.enrageStrength 
+                * (1 + (ai.level * Difficulty.dif.AIFireRateIncreasePerLevel))
+                : stat.fireRate 
+                
+                * (1 + (ai.level * Difficulty.dif.AIFireRateIncreasePerLevel));
             if (ai.inCombat && gunTimer >= 60 / fireRate) 
             { 
                 for (int i = 0; i < stat.amount; i++) { Fire(); }
@@ -74,7 +81,10 @@ public class AIGun : MonoBehaviour
         if( bullet == null ) { return; }
         Physics2D.IgnoreCollision(GetComponentInParent<Collider2D>(), bullet.GetComponent<Collider2D>());
         AIBullet b = bullet.GetComponent<AIBullet>();
-        b.damage = ai.doubleDamage ? stat.damage * ai.ship.enrageStrength : stat.damage;
+        b.damage = ai.doubleDamage 
+            ? stat.damage * ai.ship.enrageStrength *
+            (1 + (ai.level * Difficulty.dif.AIDamageIncreasePerLevel))
+            : stat.damage * (1 + (ai.level * Difficulty.dif.AIDamageIncreasePerLevel));
         b.speed = stat.shotSpeed;
         b.homing = stat.homing;
         b.homingStrength = stat.homingStrength;

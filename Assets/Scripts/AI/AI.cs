@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AI : ScriptableObject
 {
+    public int level;
     public string aiName;
     public string description;
     public Relation playerRelation;

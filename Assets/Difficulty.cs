@@ -9,6 +9,11 @@ public class Difficulty : MonoBehaviour
     public float hardcap;
     public float increasePer5Mins;
 
+    public float AIDamageIncreasePerLevel;
+    public float AIFireRateIncreasePerLevel;
+    public float AISpeedIncreasePerLevel;
+    public float AICombatTimeIncreasePerLevel;
+
     #region Singleton
     public static Difficulty dif;
     private void Awake()

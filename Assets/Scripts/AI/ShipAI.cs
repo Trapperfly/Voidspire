@@ -6,6 +6,7 @@ using ExtensionMethods;
 
 public class ShipAI : MonoBehaviour
 {
+    public int level = 0;
     public Ship ship;
     float currentModifier = 1f;
     bool repairing;
@@ -584,7 +585,9 @@ public class ShipAI : MonoBehaviour
                 idle = true;
             else idle = false;
             StartCoroutine(nameof(GetNewTargetPos));
-            yield return new WaitForSeconds(Random.Range(ship.newMoveTargetTime.x / currentModifier, ship.newMoveTargetTime.y / currentModifier));
+            yield return new WaitForSeconds(
+                Random.Range(ship.newMoveTargetTime.x / currentModifier *(1 + (level * Difficulty.dif.AICombatTimeIncreasePerLevel)),
+                ship.newMoveTargetTime.y / currentModifier * (1 + (level * Difficulty.dif.AICombatTimeIncreasePerLevel))));
         }
     }
     IEnumerator GetNewTargetPos()
@@ -723,14 +726,26 @@ public class ShipAI : MonoBehaviour
         {
             if (!tEmis.enabled)
                 tEmis.enabled = true;
-            rb.AddForce(currentModifier * Mathf.Lerp(0.2f, 1f, (_distance / ship.viewRange)) * ship.mass * ship.speed * transform.up, ForceMode2D.Force);
+            rb.AddForce
+                (
+                (1 + (level * Difficulty.dif.AISpeedIncreasePerLevel))
+                * currentModifier 
+                * Mathf.Lerp(0.2f, 1f, (_distance / ship.viewRange)) 
+                * ship.mass 
+                * ship.speed 
+                * transform.up, ForceMode2D.Force);
         }
     }
     void Rotate()
     {
         Vector2 actualDir = targetPos - rb.position;
         float rotateAmount = Vector3.Cross(actualDir.normalized, transform.up).z;
-        rb.AddTorque(-ship.rotSpeed * currentModifier * rotateAmount * ship.mass, ForceMode2D.Force);
+        rb.AddTorque(
+            (1 + (level * Difficulty.dif.AISpeedIncreasePerLevel))
+            * -ship.rotSpeed 
+            * currentModifier 
+            * rotateAmount 
+            * ship.mass, ForceMode2D.Force);
     }
     void Strafe()
     {

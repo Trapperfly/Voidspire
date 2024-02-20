@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class LoadChunk : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class LoadChunk : MonoBehaviour
     public float yieldValue;
     public bool eventValue;
     public bool shopValue;
+    public float chunkDif;
     ChunkLoader loader;
 
     private void Start()
@@ -20,6 +22,7 @@ public class LoadChunk : MonoBehaviour
         yieldValue = chunk.yieldValue;
         eventValue = chunk.chunkEvent;
         shopValue = chunk.shop;
+        chunkDif = chunk.chunkDif;
         StartCoroutine(LoadDebris(ChunkLoader.debrisMultiplier));
         StartCoroutine(LoadFaction());
     }
@@ -36,56 +39,56 @@ public class LoadChunk : MonoBehaviour
 
     IEnumerator LoadFaction()
     {
-        StartCoroutine(LoadVoidEnemies(ChunkLoader.voidMultiplier));
-        StartCoroutine(LoadChitinEnemies(ChunkLoader.chitinMultiplier));
-        //StartCoroutine(LoadChromeEnemies(ChunkLoader.chromeMultiplier));
-        //StartCoroutine(LoadPirateEnemies(ChunkLoader.pirateMultiplier));
-        //StartCoroutine(LoadCiv(ChunkLoader.civMultiplier));
+        StartCoroutine(LoadVoidEnemies(ChunkLoader.voidMultiplier, Mathf.RoundToInt(chunkDif)));
+        StartCoroutine(LoadChitinEnemies(ChunkLoader.chitinMultiplier, Mathf.RoundToInt(chunkDif)));
+        //StartCoroutine(LoadChromeEnemies(ChunkLoader.chromeMultiplier, Mathf.RoundToInt(chunkDif)));
+        //StartCoroutine(LoadPirateEnemies(ChunkLoader.pirateMultiplier, Mathf.RoundToInt(chunkDif)));
+        //StartCoroutine(LoadCiv(ChunkLoader.civMultiplier, Mathf.RoundToInt(chunkDif)));
         yield return null;
     }
 
-    IEnumerator LoadVoidEnemies(float amount)
+    IEnumerator LoadVoidEnemies(float amount, int level)
     {
         for (int i = 0; i < amount; i++)
         {
             if (Random.value < Mathf.Pow(chunk.voidValue, 3))
-                SpawnEnemies.Instance.SpawnVoidEnemies(transform.position, loader.chunkSize / 2);
+                SpawnEnemies.Instance.SpawnVoidEnemies(transform.position, loader.chunkSize / 2, level);
         }
         yield return null;
     }
-    IEnumerator LoadChitinEnemies(float amount)
+    IEnumerator LoadChitinEnemies(float amount, int level)
     {
         for (int i = 0; i < amount; i++)
         {
             if (Random.value < Mathf.Pow(chunk.chitinValue, 3))
-                SpawnEnemies.Instance.SpawnChitinEnemies(transform.position, loader.chunkSize / 2);
+                SpawnEnemies.Instance.SpawnChitinEnemies(transform.position, loader.chunkSize / 2, level);
         }
         yield return null;
     }
-    IEnumerator LoadChromeEnemies(float amount)
+    IEnumerator LoadChromeEnemies(float amount, int level)
     {
         for (int i = 0; i < amount; i++)
         {
             if (Random.value < Mathf.Pow(chunk.chromeValue, 3))
-                SpawnEnemies.Instance.SpawnChromeEnemies(transform.position, loader.chunkSize / 2);
+                SpawnEnemies.Instance.SpawnChromeEnemies(transform.position, loader.chunkSize / 2, level);
         }
         yield return null;
     }
-    IEnumerator LoadPirateEnemies(float amount)
+    IEnumerator LoadPirateEnemies(float amount, int level)
     {
         for (int i = 0; i < amount; i++)
         {
             if (Random.value < Mathf.Pow(chunk.pirateValue, 3))
-                SpawnEnemies.Instance.SpawnPirateEnemies(transform.position, loader.chunkSize / 2);
+                SpawnEnemies.Instance.SpawnPirateEnemies(transform.position, loader.chunkSize / 2, level);
         }
         yield return null;
     }
-    IEnumerator LoadCiv(float amount)
+    IEnumerator LoadCiv(float amount, int level)
     {
         for (int i = 0; i < amount; i++)
         {
             if (Random.value < Mathf.Pow(chunk.civValue, 3))
-                SpawnEnemies.Instance.SpawnCiv(transform.position, loader.chunkSize / 2);
+                SpawnEnemies.Instance.SpawnCiv(transform.position, loader.chunkSize / 2, level);
         }
         yield return null;
     }

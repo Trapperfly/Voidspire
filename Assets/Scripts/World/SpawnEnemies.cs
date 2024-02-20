@@ -39,7 +39,7 @@ public class SpawnEnemies : MonoBehaviour
         }
     }
     #endregion
-    public void SpawnVoidEnemies(Vector2 pos, float range)
+    public void SpawnVoidEnemies(Vector2 pos, float range, int level)
     {
         amount = Random.Range(1, 101) switch
         {
@@ -59,7 +59,7 @@ public class SpawnEnemies : MonoBehaviour
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
             else
             {
                 Instantiate
@@ -68,13 +68,13 @@ public class SpawnEnemies : MonoBehaviour
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
                 i--;
             }
         }
     } // Spawns random amount
 
-    public void SpawnChitinEnemies(Vector2 pos, float range)
+    public void SpawnChitinEnemies(Vector2 pos, float range, int level)
     {
         amount = Random.Range(1, 101) switch
         {
@@ -94,7 +94,7 @@ public class SpawnEnemies : MonoBehaviour
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
                 break;
             case 2:
                 Instantiate
@@ -103,14 +103,14 @@ public class SpawnEnemies : MonoBehaviour
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
                 Instantiate
                 (
                     cruiserPrefab,
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
                 break;
             case 3:
                 Instantiate
@@ -119,28 +119,28 @@ public class SpawnEnemies : MonoBehaviour
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
                 Instantiate
                 (
                     interceptorPrefab,
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
                 Instantiate
                 (
                     cruiserPrefab,
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
                 Instantiate
                 (
                     cruiserPrefab,
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
                 break;
             case 4:
                 Instantiate
@@ -149,21 +149,21 @@ public class SpawnEnemies : MonoBehaviour
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
                 Instantiate
                 (
                     interceptorPrefab,
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
                 Instantiate
                 (
                     conquerorPrefab,
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
                 break;
             default:
                 break;
@@ -171,7 +171,7 @@ public class SpawnEnemies : MonoBehaviour
         
     } // Spawns preset squadron sizes
 
-    public void SpawnChromeEnemies(Vector2 pos, float range)
+    public void SpawnChromeEnemies(Vector2 pos, float range, int level)
     {
         amount = Random.Range(1, 101) switch
         {
@@ -191,7 +191,7 @@ public class SpawnEnemies : MonoBehaviour
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
             else
             {
                 Instantiate
@@ -200,13 +200,13 @@ public class SpawnEnemies : MonoBehaviour
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
                 i--;
             }
         }
     } // Spawns random amount with predetermined leader
 
-    public void SpawnPirateEnemies(Vector2 pos, float range)
+    public void SpawnPirateEnemies(Vector2 pos, float range, int level)
     {
         amount = Random.Range(1, 101) switch
         {
@@ -226,7 +226,7 @@ public class SpawnEnemies : MonoBehaviour
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
             else
             {
                 Instantiate
@@ -235,13 +235,13 @@ public class SpawnEnemies : MonoBehaviour
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
                 i--;
             }
         }
     } // Spawns one
 
-    public void SpawnCiv(Vector2 pos, float range)
+    public void SpawnCiv(Vector2 pos, float range, int level)
     {
         amount = Random.Range(1, 101) switch
         {
@@ -261,7 +261,7 @@ public class SpawnEnemies : MonoBehaviour
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
             else
             {
                 Instantiate
@@ -270,7 +270,7 @@ public class SpawnEnemies : MonoBehaviour
                     spawnLocation + (Vector2)Random.insideUnitSphere,
                     Quaternion.Euler(0, 0, (Random.value * 360) - 180),
                     transform
-                );
+                ).GetComponent<ShipAI>().level = level;
                 i--;
             }
         }

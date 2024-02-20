@@ -5812,6 +5812,10 @@ MonoBehaviour:
   difSetting: 2
   hardcap: 10
   increasePer5Mins: 1
+  AIDamageIncreasePerLevel: 0.2
+  AIFireRateIncreasePerLevel: 0.2
+  AISpeedIncreasePerLevel: 0.05
+  AICombatTimeIncreasePerLevel: -0.05
 --- !u!4 &394186932
 Transform:
   m_ObjectHideFlags: 0
