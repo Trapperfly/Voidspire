@@ -11,6 +11,8 @@ public class PassiveShield : Events
     float shieldPercent;
     public int rechargeTimer;
 
+    public int shieldBarDividedByInLength;
+
     int storedID;
     float animTime;
 
@@ -101,7 +103,7 @@ public class PassiveShield : Events
         {
             float _backModifier = 0;
             if (child == shieldBar.GetChild(0)) _backModifier = 0.05f;
-            if (!noShield) child.sizeDelta = new Vector2((shield.shieldHealth / 5) + _backModifier, child.sizeDelta.y);
+            if (!noShield) child.sizeDelta = new Vector2((shield.shieldHealth / shieldBarDividedByInLength) + _backModifier, child.sizeDelta.y);
             else child.sizeDelta = new Vector2(0 + _backModifier, child.sizeDelta.y);
         }
         if (!noShield)

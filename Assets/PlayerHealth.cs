@@ -10,6 +10,8 @@ public class PlayerHealth : Events
     public int healthNodesMax;
     float healthPercent;
 
+    public int healthBarDividedByInLength;
+
     public Transform healthBar;
     Image healthBarImage;
 
@@ -67,7 +69,7 @@ public class PlayerHealth : Events
             float _backModifier = 0;
             if (child == healthBar.GetChild(0)) _backModifier = 0.05f;
             if (noHull) child.sizeDelta = new Vector2(0 + _backModifier, child.sizeDelta.y);
-            else child.sizeDelta = new Vector2((hull.hullHealth / 5) + _backModifier, child.sizeDelta.y);
+            else child.sizeDelta = new Vector2((hull.hullHealth / healthBarDividedByInLength) + _backModifier, child.sizeDelta.y);
         }
         if (!noHull) UpdateHealth();
     }

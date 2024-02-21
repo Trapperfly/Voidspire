@@ -20,7 +20,7 @@ MonoBehaviour:
   value: 0
   color: {r: 1, g: 0.14509805, b: 0.8509804, a: 1}
   level: 0
-  equipType: 7
+  equipType: 6
   quality: 0
   statsText: Its stats are obscured
   statsValues: 

@@ -15,7 +15,7 @@ public class SpawnResourceOnDestroy : MonoBehaviour
     public int resourceWorth;
 
     
-    public void SpawnLoot(float value, float explosionStrength, Vector2 position, float size, float equipmentDropChance)
+    public void SpawnLoot(float value, float explosionStrength, Vector2 position, float size, float equipmentDropChance, int level)
     {
         amount = Mathf.Clamp((int)(value * amountScalar), 1, 1000);
 
@@ -23,7 +23,7 @@ public class SpawnResourceOnDestroy : MonoBehaviour
         {
             if (Random.value < equipmentDropChance)
             {
-                EquipmentDrop(explosionStrength, position, size);
+                EquipmentDrop(explosionStrength, position, size, level);
             }
             else ResourceDrop(value, explosionStrength, position, size);
         }
@@ -43,13 +43,14 @@ public class SpawnResourceOnDestroy : MonoBehaviour
         _resourceRb.AddExplosionForce(explosionStrength, position, size, 0, ForceMode2D.Impulse);
     }
 
-    void EquipmentDrop(float explosionStrength, Vector2 position, float size)
+    void EquipmentDrop(float explosionStrength, Vector2 position, float size, int level)
     {
         Quaternion _rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         GameObject _equipment = Instantiate(equipmentPlaceholderPrefab, RandomVector2InsideCircle(position, size), _rotation, transform);
         Rigidbody2D _equipmentRb = _equipment.GetComponent<Rigidbody2D>();
 
         _equipmentRb.AddExplosionForce(explosionStrength, position, size, 0, ForceMode2D.Impulse);
+        _equipment.GetComponent<ItemInfo>().level = level;
     }
 
     Vector2 RandomVector2InsideCircle(Vector2 middle, float radius)

@@ -18,32 +18,32 @@ public class RandomizeEquipment : MonoBehaviour
     [SerializeField] string[] wNameMid;
     [SerializeField] string[] wNameLast;
     [Header("WeaponStats")]
-    [SerializeField] Vector2 damage;              //On bullet
+    [SerializeField] Vector3 damage;              //On bullet
     //[SerializeField] AnimationCurve damageChance;
     [SerializeField] Vector2 bulletSize;          //On gun
-    [SerializeField] Vector2 fireRate;
+    [SerializeField] Vector3 fireRate;
     //[SerializeField] AnimationCurve fireRateChance;        //On gun
     [SerializeField] Vector2 fireRateChange;   //On gun
     [SerializeField] Vector2 fireRateChangeTimer; //On gun
-    [SerializeField] Vector2 amount;                //On gun
+    [SerializeField] Vector3 amount;                //On gun
     [SerializeField] AnimationCurve A_amount;
-    [SerializeField] Vector2 spread;              //On gun
+    [SerializeField] Vector3 spread;              //On gun
     [SerializeField] Vector2 spreadChange;        //On gun
     [SerializeField] Vector2 spreadChangeTimer;
-    [SerializeField] Vector2 speed;               //On gun
+    [SerializeField] Vector3 speed;               //On gun
     [SerializeField] Vector2 longevity;           //On bullet
-    [SerializeField] Vector2 homingStrength;      //On bullet
-    [SerializeField] Vector2 pierce;                //On bullet
-    [SerializeField] Vector2 bounce;                //On bullet
+    [SerializeField] Vector3 homingStrength;      //On bullet
+    [SerializeField] Vector3 pierce;                //On bullet
+    [SerializeField] Vector3 bounce;                //On bullet
     //[SerializeField] bool bounceToTarget;
-    [SerializeField] Vector2 chargeUp;            //On gun
-    [SerializeField] Vector2 burst;                 //On gun
-    [SerializeField] Vector2 burstDelay;          //On gun
-    [SerializeField] Vector2 punch;               //On bullet
-    [SerializeField] Vector2 rotationSpeed;
+    [SerializeField] Vector3 chargeUp;            //On gun
+    [SerializeField] Vector3 burst;                 //On gun
+    [SerializeField] Vector3 burstDelay;          //On gun
+    [SerializeField] Vector3 punch;               //On bullet
+    [SerializeField] Vector3 rotationSpeed;
 
     [SerializeField] Vector2 explosionDamageMultiplier;
-    [SerializeField] Vector2 explosiveRange;
+    [SerializeField] Vector3 explosiveRange;
     #endregion
 
     [Header("Thruster")]
@@ -51,21 +51,21 @@ public class RandomizeEquipment : MonoBehaviour
     [SerializeField] string[] thrusterNameFirst;
     [SerializeField] string[] thrusterNameLast;
 
-    [SerializeField] Vector2 moveSpeed;
-    [SerializeField] Vector2 maxSpeed;
-    [SerializeField] Vector2 turnSpeed;
-    [SerializeField] Vector2 maxTurnSpeed;
-    [SerializeField] Vector2 turnBrakingSpeed;
-    [SerializeField] Vector2 brakingSpeed;
+    [SerializeField] Vector3 moveSpeed;
+    [SerializeField] Vector3 maxSpeed;
+    [SerializeField] Vector3 turnSpeed;
+    [SerializeField] Vector3 maxTurnSpeed;
+    [SerializeField] Vector3 turnBrakingSpeed;
+    [SerializeField] Vector3 brakingSpeed;
 
-    [SerializeField] Vector2 ftlAcc;
-    [SerializeField] Vector2 ftlMaxSpeed;
-    [SerializeField] Vector2 ftlRot;
-    [SerializeField] Vector2 chargeTime;
+    [SerializeField] Vector3 ftlAcc;
+    [SerializeField] Vector3 ftlMaxSpeed;
+    [SerializeField] Vector3 ftlRot;
+    [SerializeField] Vector3 chargeTime;
     [SerializeField] Vector2 fuelCurrent;
-    [SerializeField] Vector2 fuelMax;
-    [SerializeField] Vector2 fuelDrain;
-    [SerializeField] Vector2 maxDuration;
+    [SerializeField] Vector3 fuelMax;
+    [SerializeField] Vector3 fuelDrain;
+    [SerializeField] Vector3 maxDuration;
 
     //[Header("FTL Engine")]
     //[SerializeField] Sprite[] ftlSprites;
@@ -86,31 +86,31 @@ public class RandomizeEquipment : MonoBehaviour
     [SerializeField] string[] colNameFirst;
     [SerializeField] string[] colNameLast;
 
-    [SerializeField] Vector2 speedTo;
-    [SerializeField] Vector2 speedFrom;
-    [SerializeField] Vector2 colAmount;
-    [SerializeField] Vector2 range;
+    [SerializeField] Vector3 speedTo;
+    [SerializeField] Vector3 speedFrom;
+    [SerializeField] Vector3 colAmount;
+    [SerializeField] Vector3 range;
 
     [Header("Shield")]
     [SerializeField] Sprite[] shieldSprites;
     [SerializeField] string[] shieldNameFirst;
     [SerializeField] string[] shieldNameLast;
 
-    [SerializeField] Vector2 shieldHealth;
-    [SerializeField] Vector2 shieldRechargeSpeed;
-    [SerializeField] Vector2 shieldRechargeDelay;
-    [SerializeField] Vector2 breakAnim;
-    [SerializeField] Vector2 restoreAnim;
+    [SerializeField] Vector3 shieldHealth;
+    [SerializeField] Vector3 shieldRechargeSpeed;
+    [SerializeField] Vector3 shieldRechargeDelay;
+    [SerializeField] Vector3 breakAnim;
+    [SerializeField] Vector3 restoreAnim;
 
     [Header("Hull")]
     [SerializeField] Sprite[] hullSprites;
     [SerializeField] string[] hullNameFirst;
     [SerializeField] string[] hullNameLast;
 
-    [SerializeField] Vector2 hullCurrent;
-    [SerializeField] Vector2 hullMax;
-    [SerializeField] Vector2 hullDamageNeg;
-    [SerializeField] Vector2 hullWeight;
+    [SerializeField] Vector3 hullCurrent;
+    [SerializeField] Vector3 hullMax;
+    [SerializeField] Vector3 hullDamageNeg;
+    [SerializeField] Vector3 hullWeight;
 
     [Header("Scanner")]
     [SerializeField] Sprite[] scannerSprites;
@@ -118,8 +118,8 @@ public class RandomizeEquipment : MonoBehaviour
     [SerializeField] string[] scannerNameLast;
 
     [SerializeField] Vector4 zoom;
-    [SerializeField] Vector2Int mapUpdateAmount;
-    [SerializeField] Vector2 mapUpdateSpeed;
+    [SerializeField] Vector3Int mapUpdateAmount;
+    [SerializeField] Vector3 mapUpdateSpeed;
 
     #region Singleton
     public static RandomizeEquipment Instance;
@@ -139,7 +139,7 @@ public class RandomizeEquipment : MonoBehaviour
 
 
     #region RandomizeGun
-    public Weapon RandomizeGun()
+    public Weapon RandomizeGun(int level)
     {
         bool fireRateBonus = false;
         bool accuracyBonus = false;
@@ -162,7 +162,7 @@ public class RandomizeEquipment : MonoBehaviour
         weapon.color = typeColor[(int)EquipmentTypes.Weapon];
         weapon.equipType = EquipmentTypes.Weapon;
         weapon.effectColor = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.6f, 1);
-
+        weapon.level = level;
         weapon.weaponType = (WeaponType)iR(0, 11);
         
 
@@ -550,7 +550,7 @@ public class RandomizeEquipment : MonoBehaviour
                 weapon.amount += 10;
                 weapon.damage *= 0.8f;
                 weapon.spread *= 2;
-                weapon.fireRate /= 4;
+                weapon.fireRate /= 10;
                 break;
             case WeaponType.Cluster:
                 switch (AddChargeOrBurst(weapon, style))
@@ -693,19 +693,23 @@ public class RandomizeEquipment : MonoBehaviour
 
         if (weapon.isExplosive) { weapon.bounce = 0; isBounce = false; }
 
-        float difficulty = Difficulty.dif.difficulty / Difficulty.dif.difSetting;
-
-        weapon.damage *= difficulty;
-        weapon.fireRate *= difficulty;
-        weapon.speed *= 1 + (0.1f * difficulty);
-        weapon.homingStrength *= difficulty;
-        if (weapon.pierce > 0) { weapon.pierce *= 1 + (int)difficulty; if (weapon.pierce == 0) { weapon.pierce = 1; } }
-        if (weapon.bounce > 0) { weapon.bounce *= 1 + (int)difficulty; if (weapon.bounce == 0) { weapon.bounce = 1; } }
-        weapon.chargeUp /= difficulty;
-        if (weapon.burst > 0) { weapon.burst *= 1 + (int)difficulty; if (weapon.burst == 0) { weapon.burst = 1; } }
-        weapon.burstDelay /= difficulty;
-        weapon.punch *= difficulty;
-        weapon.rotationSpeed *= difficulty;
+        for (int i = 0; i < level; i++)
+        {
+            weapon.damage *= 1 + (damage.z);
+            weapon.fireRate *= 1 + (fireRate.z);
+            weapon.amount *= 1 + Mathf.RoundToInt(amount.z);
+            weapon.spread *= 1 + (spread.z);
+            weapon.speed *= 1 + (speed.z);
+            weapon.homingStrength *= 1 + (homingStrength.z);
+            weapon.pierce *= 1 + Mathf.RoundToInt(pierce.z);
+            weapon.bounce *= 1 + Mathf.RoundToInt(bounce.z);
+            weapon.chargeUp *= 1 + (chargeUp.z);
+            weapon.burst *= 1 + Mathf.RoundToInt(burst.z);
+            weapon.punch *= 1 + (punch.z);
+            weapon.rotationSpeed *= 1 + (rotationSpeed.z);
+            weapon.splashRange *= 1 + (explosiveRange.z);
+            weapon.splashDamage *= 1 + damage.z;
+        }
 
         if (weapon.weaponType == WeaponType.Beam || weapon.weaponType == WeaponType.Railgun) { weapon.speed /= 2f; }
 
@@ -1346,7 +1350,7 @@ public class RandomizeEquipment : MonoBehaviour
     #endregion
 
     #region RandomizeThruster
-    public Thrusters RandomizeThruster()
+    public Thrusters RandomizeThruster(int level)
     {
         Thrusters thruster = ScriptableObject.CreateInstance<Thrusters>();
         thruster.itemName = new string
@@ -1358,6 +1362,7 @@ public class RandomizeEquipment : MonoBehaviour
         thruster.icon = thrusterSprites[iR(0, thrusterSprites.Length - 1)];
         thruster.color = typeColor[(int)EquipmentTypes.Thruster];
         thruster.equipType = EquipmentTypes.Thruster;
+        thruster.level = level;
 
         thruster.stlType = (STLTypes)iR(0, 5);
         thruster.speed = fR(moveSpeed);
@@ -1467,15 +1472,22 @@ public class RandomizeEquipment : MonoBehaviour
             default:
                 break;
         }
-
-        float difficulty = Difficulty.dif.difficulty / Difficulty.dif.difSetting;
-
-        thruster.speed *= 1 + (difficulty * 0.08f);
-        thruster.ftlAcc /= 1 + (difficulty * 0.06f);
-        thruster.maxSpeed *= 1 + (difficulty * 0.07f);
-        thruster.ftlMaxSpeed *= 1 + (difficulty * 0.07f);
-        thruster.maxDuration *= 1 + (difficulty * 0.1f);
-
+        for (int i = 0; i < level; i++)
+        {
+            thruster.speed *= 1 + (moveSpeed.z);
+            thruster.maxSpeed *= 1 + (maxSpeed.z);
+            thruster.turnSpeed *= 1 + (turnSpeed.z);
+            thruster.maxTurnSpeed *= 1 + (maxTurnSpeed.z);
+            thruster.turnBrakingSpeed *= 1 + (turnBrakingSpeed.z);
+            thruster.brakingSpeed *= 1 + (brakingSpeed.z);
+            thruster.ftlAcc *= 1 + (ftlAcc.z);
+            thruster.ftlMaxSpeed *= 1 + (ftlMaxSpeed.z);
+            thruster.ftlRotSpeed *= 1 + (ftlRot.z);
+            thruster.chargeTime *= 1 + (chargeTime.z);
+            thruster.fuelMax *= 1 + (fuelMax.z);
+            thruster.fuelDrain *= 1 + (fuelDrain.z);
+            thruster.maxDuration *= 1 + (maxDuration.z);
+        }
         //ddd
         string statsNames = "Something is wong";
         string statsValues = "WTF";
@@ -1490,7 +1502,6 @@ public class RandomizeEquipment : MonoBehaviour
         statsNames += "Angular control: \n"; thruster.statLength++;
 
         //statsNames += "Acceleration:\n"; thruster.statLength++;
-        statsNames += "Max speed: \n"; thruster.statLength++;
         //statsNames += "Rotation speed: \n"; thruster.statLength++;
         statsNames += "Charge time: \n";thruster.statLength++;
         statsNames += "Fuel: \n"; thruster.statLength++;
@@ -1645,7 +1656,7 @@ public class RandomizeEquipment : MonoBehaviour
     //#endregion //Not used
 
     #region RandomizeCollector
-    public Collector RandomizeCollector()
+    public Collector RandomizeCollector(int level)
     {
         Collector col = ScriptableObject.CreateInstance<Collector>();
         col.itemName = new string(
@@ -1657,6 +1668,7 @@ public class RandomizeEquipment : MonoBehaviour
         col.icon = colSprites[iR(0, colSprites.Length - 1)];
         col.color = typeColor[(int)EquipmentTypes.Collector];
         col.equipType = EquipmentTypes.Collector;
+        col.level = level;
 
         col.collectorType = (CollectorTypes)iR(0, 1);
 
@@ -1683,7 +1695,13 @@ public class RandomizeEquipment : MonoBehaviour
             default:
                 break;
         }
-        
+        for (int i = 0; i < level; i++)
+        {
+            col.amount *= 1 + Mathf.RoundToInt(colAmount.z);
+            col.collectorSpeedTo *= 1 + (speedTo.z);
+            col.collectorSpeedFrom *= 1 + (speedFrom.z);
+            col.range *= 1 + (range.z);
+        }
 
         string statsNames = "Something is wong";
         string statsValues = "WTF";
@@ -1708,7 +1726,7 @@ public class RandomizeEquipment : MonoBehaviour
     #endregion
 
     #region RandomizeShield
-    public Shield RandomizeShield()
+    public Shield RandomizeShield(int level)
     {
         Shield shield = ScriptableObject.CreateInstance<Shield>();
         shield.itemName = new string(
@@ -1720,6 +1738,7 @@ public class RandomizeEquipment : MonoBehaviour
         shield.icon = shieldSprites[iR(0, shieldSprites.Length - 1)];
         shield.color = typeColor[(int)EquipmentTypes.Shield];
         shield.equipType = EquipmentTypes.Shield;
+        shield.level = level;
 
         shield.shieldType = (ShieldType)iR(0, 2);
 
@@ -1771,11 +1790,12 @@ public class RandomizeEquipment : MonoBehaviour
         Debug.Log(shield.shieldColor);
 
         float difficulty = Difficulty.dif.difficulty / Difficulty.dif.difSetting;
-
-        shield.shieldHealth *= 1 + (difficulty * 0.1f);
-        shield.shieldRechargeDelay /= 1 + (difficulty * 0.06f);
-        shield.shieldRechargeSpeed *= 1 + (difficulty * 0.2f);
-
+        for (int i = 0; i < level; i++)
+        {
+            shield.shieldHealth *= 1 + (shieldHealth.z);
+            shield.shieldRechargeDelay *= 1 + (shieldRechargeDelay.z);
+            shield.shieldRechargeSpeed *= 1 + (shieldRechargeSpeed.z);
+        }
         string statsNames = "Something is wong";
         string statsValues = "WTF";
         statsNames = "";
@@ -1797,7 +1817,7 @@ public class RandomizeEquipment : MonoBehaviour
     #endregion
 
     #region RandomizeHull
-    public Hull RandomizeHull()
+    public Hull RandomizeHull(int level)
     {
         Hull hull = ScriptableObject.CreateInstance<Hull>();
         hull.itemName = new string(
@@ -1809,7 +1829,7 @@ public class RandomizeEquipment : MonoBehaviour
         hull.icon = hullSprites[iR(0, hullSprites.Length - 1)];
         hull.color = typeColor[(int)EquipmentTypes.Hull];
         hull.equipType = EquipmentTypes.Hull;
-
+        hull.level = level;
         hull.hullType = (HullTypes)iR(0, 2);
 
         switch (hull.hullType)
@@ -1853,9 +1873,12 @@ public class RandomizeEquipment : MonoBehaviour
         }
         float difficulty = Difficulty.dif.difficulty / Difficulty.dif.difSetting;
 
-        hull.hullHealth *= 1 + (difficulty * 0.1f);
-        hull.hullDamageNegation *= 1 + (difficulty * 0.02f);
-        hull.hullSpecialEffectChance *= 1 + (difficulty * 0.05f);
+        for (int i = 0; i < level; i++)
+        {
+            hull.hullHealth *= 1 + (hullMax.z);
+            hull.hullDamageNegation *= 1 + (hullDamageNeg.z);
+            //hull.hullSpecialEffectChance = 1 + (hull.level * .z);
+        }
 
         string statsNames = "Something is wong";
         string statsValues = "WTF";
@@ -1880,7 +1903,7 @@ public class RandomizeEquipment : MonoBehaviour
     #endregion
 
     #region RandomizeScanner
-    public Scanner RandomizeScanner()
+    public Scanner RandomizeScanner(int level)
     {
         Scanner scanner = ScriptableObject.CreateInstance<Scanner>();
         scanner.itemName = new string(
@@ -1892,7 +1915,7 @@ public class RandomizeEquipment : MonoBehaviour
         scanner.icon = scannerSprites[iR(0, scannerSprites.Length - 1)];
         scanner.color = typeColor[(int)EquipmentTypes.Scanner];
         scanner.equipType = EquipmentTypes.Scanner;
-
+        scanner.level = level;
         scanner.type = (ScannerTypes)iR(0, 2);
 
         switch (scanner.type)
@@ -1937,6 +1960,11 @@ public class RandomizeEquipment : MonoBehaviour
         }
         //if (scanner.mapUpdateAmount <= 0) scanner.mapUpdateAmount = 4;
 
+        for (int i = 0; i < level; i++)
+        {
+            scanner.mapUpdateSpeed *= 1 + (mapUpdateSpeed.z);
+            scanner.mapUpdateAmount += mapUpdateAmount.z;
+        }
 
         string statsNames = "Something is wong";
         string statsValues = "WTF";
@@ -1974,6 +2002,10 @@ public class RandomizeEquipment : MonoBehaviour
         return Random.Range(min, max + 1);
     }
     public int iR(Vector2 minMax)
+    {
+        return (int)Random.Range(minMax.x, minMax.y);
+    }
+    public int iR(Vector3 minMax)
     {
         return (int)Random.Range(minMax.x, minMax.y);
     }

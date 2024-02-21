@@ -112,8 +112,8 @@ public class ShipControl : MonoBehaviour
             float _backModifier = 0;
             if (child == fuelBar.GetChild(0)) _backModifier = 0.05f;
             float currentFuel;
-            if (thrusterEquipped) { currentFuel = thruster.fuelCurrent; } else { currentFuel = 0; }
-            child.sizeDelta = new Vector2((currentFuel / 10000) + _backModifier, child.sizeDelta.y);
+            if (thrusterEquipped) { currentFuel = thruster.fuelMax; } else { currentFuel = 0; }
+            child.sizeDelta = new Vector2((currentFuel / 40000) + _backModifier, child.sizeDelta.y);
         }
         UpdateFuel();
     }

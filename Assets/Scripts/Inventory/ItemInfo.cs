@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ItemInfo : MonoBehaviour
 {
+    public int level;
     public EquipmentTypes type = EquipmentTypes.None;
     public bool random;
     public Transform parent;
@@ -27,15 +28,15 @@ public class ItemInfo : MonoBehaviour
                 case EquipmentTypes.All:
                     break;
                 case EquipmentTypes.Weapon:
-                    newEquipment = RandomizeEquipment.Instance.RandomizeGun() as Weapon;
+                    newEquipment = RandomizeEquipment.Instance.RandomizeGun(level) as Weapon;
                     accepted = true;
                     break;
                 case EquipmentTypes.Shield:
-                    newEquipment = RandomizeEquipment.Instance.RandomizeShield() as Shield;
+                    newEquipment = RandomizeEquipment.Instance.RandomizeShield(level) as Shield;
                     accepted = true;
                     break;
                 case EquipmentTypes.Thruster:
-                    newEquipment = RandomizeEquipment.Instance.RandomizeThruster() as Thrusters;
+                    newEquipment = RandomizeEquipment.Instance.RandomizeThruster(level) as Thrusters;
                     accepted = true;
                     break;
                 //case EquipmentTypes.FTL:
@@ -43,17 +44,17 @@ public class ItemInfo : MonoBehaviour
                 //    accepted = true;
                 //    break;
                 case EquipmentTypes.Hull:
-                    newEquipment = RandomizeEquipment.Instance.RandomizeHull() as Hull;
+                    newEquipment = RandomizeEquipment.Instance.RandomizeHull(level) as Hull;
                     accepted = true;
                     break;
                 case EquipmentTypes.Scanner:
-                    newEquipment = RandomizeEquipment.Instance.RandomizeScanner() as Scanner;
+                    newEquipment = RandomizeEquipment.Instance.RandomizeScanner(level) as Scanner;
                     accepted = true;
                     break;
                 case EquipmentTypes.Cargo:
                     break;
                 case EquipmentTypes.Collector:
-                    newEquipment = RandomizeEquipment.Instance.RandomizeCollector() as Collector;
+                    newEquipment = RandomizeEquipment.Instance.RandomizeCollector(level) as Collector;
                     accepted = true;
                     break;
                 case EquipmentTypes.Relic:

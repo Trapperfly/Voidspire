@@ -2017,7 +2017,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -3164,7 +3168,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -3324,12 +3332,12 @@ MonoBehaviour:
   - Type
   - Blaster
   - Enigma
-  damage: {x: 0.8, y: 1.2}
+  damage: {x: 0.8, y: 1.2, z: 0.08}
   bulletSize: {x: 1, y: 1}
-  fireRate: {x: 8, y: 12}
+  fireRate: {x: 8, y: 12, z: 0.03}
   fireRateChange: {x: -5, y: 10}
   fireRateChangeTimer: {x: 2, y: 4}
-  amount: {x: 1, y: 4}
+  amount: {x: 1, y: 4, z: 0.07}
   A_amount:
     serializedVersion: 2
     m_Curve:
@@ -3363,41 +3371,41 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  spread: {x: 5, y: 15}
+  spread: {x: 5, y: 15, z: -0.05}
   spreadChange: {x: -15, y: 15}
   spreadChangeTimer: {x: 1, y: 2}
-  speed: {x: 6, y: 8}
-  longevity: {x: 3, y: 5}
-  homingStrength: {x: 4, y: 10}
-  pierce: {x: 1, y: 3}
-  bounce: {x: 1, y: 3}
-  chargeUp: {x: 0.3, y: 2}
-  burst: {x: 2, y: 5}
-  burstDelay: {x: 0.04, y: 0.1}
-  punch: {x: 2, y: 5}
-  rotationSpeed: {x: 2, y: 4}
+  speed: {x: 6, y: 8, z: 0.02}
+  longevity: {x: 3, y: 4}
+  homingStrength: {x: 4, y: 10, z: 0.01}
+  pierce: {x: 1, y: 3, z: 0.1}
+  bounce: {x: 1, y: 3, z: 0.1}
+  chargeUp: {x: 0.3, y: 2, z: -0.01}
+  burst: {x: 2, y: 5, z: 0.1}
+  burstDelay: {x: 0.04, y: 0.1, z: -0.05}
+  punch: {x: 2, y: 5, z: 0.03}
+  rotationSpeed: {x: 2, y: 4, z: 0.06}
   explosionDamageMultiplier: {x: 8, y: 10}
-  explosiveRange: {x: 1, y: 3}
+  explosiveRange: {x: 1, y: 3, z: 0.03}
   thrusterSprites:
   - {fileID: 21300000, guid: 1b5495a3dd35daa4ca368dd48cf67ca2, type: 3}
   thrusterNameFirst:
   - Kake
   thrusterNameLast:
   - Kake
-  moveSpeed: {x: 3, y: 6}
-  maxSpeed: {x: 4, y: 10}
-  turnSpeed: {x: 0.4, y: 1}
-  maxTurnSpeed: {x: 2, y: 5}
-  turnBrakingSpeed: {x: 1, y: 2}
-  brakingSpeed: {x: 0.2, y: 1}
-  ftlAcc: {x: 80, y: 120}
-  ftlMaxSpeed: {x: 30, y: 50}
-  ftlRot: {x: 0.1, y: 0.3}
-  chargeTime: {x: 1.5, y: 2.5}
+  moveSpeed: {x: 3, y: 6, z: 0.01}
+  maxSpeed: {x: 4, y: 10, z: 0.01}
+  turnSpeed: {x: 0.4, y: 1, z: 0.01}
+  maxTurnSpeed: {x: 2, y: 5, z: 0.01}
+  turnBrakingSpeed: {x: 1, y: 2, z: 0.01}
+  brakingSpeed: {x: 0.2, y: 1, z: 0.01}
+  ftlAcc: {x: 80, y: 120, z: 0.01}
+  ftlMaxSpeed: {x: 30, y: 50, z: 0.01}
+  ftlRot: {x: 0.1, y: 0.3, z: 0.01}
+  chargeTime: {x: 1.5, y: 2.5, z: -0.001}
   fuelCurrent: {x: 4, y: 75}
-  fuelMax: {x: 20000, y: 40000}
-  fuelDrain: {x: 0.8, y: 2}
-  maxDuration: {x: 20, y: 30}
+  fuelMax: {x: 20000, y: 40000, z: 0.01}
+  fuelDrain: {x: 0.8, y: 2, z: 0}
+  maxDuration: {x: 20, y: 30, z: 0.01}
   colSprites:
   - {fileID: 21300000, guid: 5e4ce0dd8b20bbb44801ecc51b2ce818, type: 3}
   colNameFirst:
@@ -3408,10 +3416,10 @@ MonoBehaviour:
   - Grabber
   - Collector
   - Bringer
-  speedTo: {x: 0.5, y: 2}
-  speedFrom: {x: 0.5, y: 2}
-  colAmount: {x: 1, y: 4}
-  range: {x: 1.5, y: 3}
+  speedTo: {x: 0.5, y: 2, z: -0.01}
+  speedFrom: {x: 0.5, y: 2, z: -0.01}
+  colAmount: {x: 1, y: 4, z: 0.05}
+  range: {x: 1.5, y: 3, z: 0.02}
   shieldSprites:
   - {fileID: 21300000, guid: 0f31c664741d07847938d222534ffb41, type: 3}
   shieldNameFirst:
@@ -3422,11 +3430,11 @@ MonoBehaviour:
   - Projection
   - Shield
   - Field
-  shieldHealth: {x: 12, y: 20}
-  shieldRechargeSpeed: {x: 1.5, y: 4}
-  shieldRechargeDelay: {x: 2, y: 3}
-  breakAnim: {x: 0.1, y: 0.3}
-  restoreAnim: {x: 0.1, y: 0.3}
+  shieldHealth: {x: 12, y: 20, z: 0.02}
+  shieldRechargeSpeed: {x: 1.5, y: 4, z: 0.01}
+  shieldRechargeDelay: {x: 2, y: 3, z: -0.01}
+  breakAnim: {x: 0.1, y: 0.3, z: 0}
+  restoreAnim: {x: 0.1, y: 0.3, z: 0}
   hullSprites:
   - {fileID: 21300000, guid: 6041f2814d69f3f4d926ffda1ff179a1, type: 3}
   hullNameFirst:
@@ -3437,10 +3445,10 @@ MonoBehaviour:
   - Casing
   - Hull
   - Metal
-  hullCurrent: {x: 0, y: 50}
-  hullMax: {x: 20, y: 40}
-  hullDamageNeg: {x: 0, y: 15}
-  hullWeight: {x: 0.8, y: 1.2}
+  hullCurrent: {x: 0, y: 50, z: 0}
+  hullMax: {x: 25, y: 35, z: 0.01}
+  hullDamageNeg: {x: 0, y: 15, z: 0.01}
+  hullWeight: {x: 0.8, y: 1.2, z: -0.001}
   scannerSprites:
   - {fileID: 21300000, guid: 76d029c7ae008d04083d2c38ca69094a, type: 3}
   scannerNameFirst:
@@ -3452,8 +3460,8 @@ MonoBehaviour:
   - Mapper
   - Reciever
   zoom: {x: 3, y: 4, z: 4, w: 6}
-  mapUpdateAmount: {x: 8, y: 12}
-  mapUpdateSpeed: {x: 0.01, y: 0.1}
+  mapUpdateAmount: {x: 8, y: 12, z: 1}
+  mapUpdateSpeed: {x: 0.01, y: 0.1, z: -0.01}
 --- !u!4 &202474985
 Transform:
   m_ObjectHideFlags: 0
@@ -5579,7 +5587,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -6397,7 +6409,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -12464,7 +12480,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -14484,7 +14504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &662615168
 Transform:
   m_ObjectHideFlags: 0
@@ -15124,7 +15144,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -17981,7 +18005,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -25770,7 +25798,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -26710,7 +26742,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -26779,7 +26815,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -26848,7 +26888,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -27260,7 +27304,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -28640,7 +28688,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -30856,7 +30908,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -31159,7 +31215,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -33231,7 +33291,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -33462,6 +33526,7 @@ MonoBehaviour:
   shieldActiveForColliders: 1
   shieldCurrent: 0
   rechargeTimer: 0
+  shieldBarDividedByInLength: 20
   col: {fileID: 782593097}
   offset: 1.03
   spritesToBeHidden: {fileID: 588763375}
@@ -35764,7 +35829,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -36329,7 +36398,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -37699,7 +37772,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -37799,7 +37876,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: type
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -42929,6 +43010,10 @@ PrefabInstance:
       propertyPath: baseColor.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6410948936503180793, guid: 96b96be356a449444825549f08439be8, type: 3}
+      propertyPath: frames.Array.data[7]
+      value: 
+      objectReference: {fileID: 21300000, guid: 78477dacc22b7ca4697038a526375b3d, type: 3}
     - target: {fileID: 8929491158886721667, guid: 96b96be356a449444825549f08439be8, type: 3}
       propertyPath: m_TagString
       value: ItemPanel
@@ -44607,6 +44692,7 @@ MonoBehaviour:
   currentHealth: 0
   healthNodes: 0
   healthNodesMax: 0
+  healthBarDividedByInLength: 20
   healthBar: {fileID: 999748694}
   shield: {fileID: 1815333327}
   deathMenu: {fileID: 374844420}

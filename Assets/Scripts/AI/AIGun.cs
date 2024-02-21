@@ -83,8 +83,8 @@ public class AIGun : MonoBehaviour
         AIBullet b = bullet.GetComponent<AIBullet>();
         b.damage = ai.doubleDamage 
             ? stat.damage * ai.ship.enrageStrength *
-            (1 + (ai.level * Difficulty.dif.AIDamageIncreasePerLevel))
-            : stat.damage * (1 + (ai.level * Difficulty.dif.AIDamageIncreasePerLevel));
+            ai.level * Difficulty.dif.AIDamageIncreasePerLevel
+            : stat.damage * ai.level * Difficulty.dif.AIDamageIncreasePerLevel;
         b.speed = stat.shotSpeed;
         b.homing = stat.homing;
         b.homingStrength = stat.homingStrength;
