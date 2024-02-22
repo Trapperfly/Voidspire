@@ -15,5 +15,5 @@ public class Chunk
     public bool shop;
     public float yieldValue;
     public bool chunkEvent;
-    public int chunkDif;
+    public float chunkDif;
 }

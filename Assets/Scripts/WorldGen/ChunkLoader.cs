@@ -13,7 +13,7 @@ public class ChunkLoader : MonoBehaviour
 
     //Chunk chunk;
 
-    public const float viewDist = 20;
+    public const float viewDist = 40;
     public const float destroyDist = 100;
     public Transform viewer;
     public static Vector2 viewerPosition;
@@ -283,7 +283,7 @@ public class ChunkLoader : MonoBehaviour
             chunk.chunkEvent = eventValue > eventThreshold;
 
             float difValue = Mathf.PerlinNoise(coord.x * difScale + GlobalRefs.xSeed + GlobalRefs.difSeed, coord.y * difScale + GlobalRefs.ySeed + GlobalRefs.difSeed);
-            chunk.chunkDif = 1 + Mathf.RoundToInt(difValue * 9);
+            chunk.chunkDif = difValue;
 
             return chunk;
         }

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ShipControl : MonoBehaviour
 {
+
     public bool thrusterEquipped;
     [Header("Ship control")]
 
@@ -70,6 +71,8 @@ public class ShipControl : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (GlobalRefs.Instance.playerIsDead) { rb.drag = 0; rb.angularDrag = 0; return; }
+
         if (thrusterEquipped && ftlActive) FTL();
         else if (thrusterEquipped) Movement();
 

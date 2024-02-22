@@ -73,6 +73,7 @@ public class PassiveShield : Events
     }
     private void FixedUpdate()
     {
+        if (GlobalRefs.Instance.playerIsDead) return;
         if (noShield) { }
         else
         {

@@ -13,6 +13,7 @@ public class Difficulty : MonoBehaviour
     public float AIFireRateIncreasePerLevel;
     public float AISpeedIncreasePerLevel;
     public float AICombatTimeIncreasePerLevel;
+    public float AIHealthIncreasePerLevel;
 
     #region Singleton
     public static Difficulty dif;

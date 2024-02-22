@@ -68,6 +68,7 @@ public class GunFire : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (GlobalRefs.Instance.playerIsDead) return;
         if (stat.aimed && stat.active && Input.GetKey(KeyCode.Mouse0) && gunTimer >= Mathf.Clamp(60 / fireRateA, 1, 600))
         {
             if (w.fireRateChange != 0 && w.fireRateChangeTimer != 0)

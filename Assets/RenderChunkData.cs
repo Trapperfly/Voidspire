@@ -339,7 +339,7 @@ public class RenderChunkData : MonoBehaviour
                             tempTex.SetPixel(x, y, color);
                             break;
                         case MapMode.difMode:
-                            color = GenerateColorData(X, Y, difSeed, difScale, Color.white, 1);
+                            color = GenerateColorData(X, Y, difSeed, difScale, Color.white, 2);
                             float hue = Mathf.Lerp( 0.5f, -0.25f, color.grayscale);
                             color = Random.ColorHSV(hue, hue, 1, 1, 0.5f, 0.5f);
                             tempTex.SetPixel(x, y, color);

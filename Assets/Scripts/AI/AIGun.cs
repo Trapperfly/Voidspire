@@ -14,6 +14,8 @@ public class AIGun : MonoBehaviour
     Transform bh;
     Transform hbh;
     float gunTimer = 0;
+    float damageScaling = 0;
+    float attackSpeedScaling = 0;
 
     private void Awake()
     {
@@ -23,6 +25,18 @@ public class AIGun : MonoBehaviour
     {
         bh = EnemyManager.Instance.bh;
         hbh = EnemyManager.Instance.hbh;
+        float tempDamage = stat.damage;
+        for (int i = 0; i < ai.level; i++)
+        {
+            tempDamage *= 1 + Difficulty.dif.AIDamageIncreasePerLevel;
+        }
+        damageScaling = tempDamage;
+        float tempAS = stat.fireRate;
+        for (int i = 0; i < ai.level; i++)
+        {
+            tempAS *= 1 + Difficulty.dif.AIFireRateIncreasePerLevel;
+        }
+        attackSpeedScaling = tempAS;
     }
 
     private void FixedUpdate()
@@ -33,10 +47,9 @@ public class AIGun : MonoBehaviour
                 ai.doubleAttackSpeed 
                 ? stat.fireRate 
                 * ai.ship.enrageStrength 
-                * (1 + (ai.level * Difficulty.dif.AIFireRateIncreasePerLevel))
+                * attackSpeedScaling
                 : stat.fireRate 
-                
-                * (1 + (ai.level * Difficulty.dif.AIFireRateIncreasePerLevel));
+                * attackSpeedScaling;
             if (ai.inCombat && gunTimer >= 60 / fireRate) 
             { 
                 for (int i = 0; i < stat.amount; i++) { Fire(); }
@@ -82,9 +95,8 @@ public class AIGun : MonoBehaviour
         Physics2D.IgnoreCollision(GetComponentInParent<Collider2D>(), bullet.GetComponent<Collider2D>());
         AIBullet b = bullet.GetComponent<AIBullet>();
         b.damage = ai.doubleDamage 
-            ? stat.damage * ai.ship.enrageStrength *
-            ai.level * Difficulty.dif.AIDamageIncreasePerLevel
-            : stat.damage * ai.level * Difficulty.dif.AIDamageIncreasePerLevel;
+            ? stat.damage * ai.ship.enrageStrength * damageScaling
+            : stat.damage * damageScaling;
         b.speed = stat.shotSpeed;
         b.homing = stat.homing;
         b.homingStrength = stat.homingStrength;

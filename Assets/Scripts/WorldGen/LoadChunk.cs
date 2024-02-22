@@ -12,6 +12,7 @@ public class LoadChunk : MonoBehaviour
     public bool eventValue;
     public bool shopValue;
     public float chunkDif;
+    public int chunkLevel = 1;
     ChunkLoader loader;
 
     private void Start()
@@ -39,8 +40,9 @@ public class LoadChunk : MonoBehaviour
 
     IEnumerator LoadFaction()
     {
-        StartCoroutine(LoadVoidEnemies(ChunkLoader.voidMultiplier, Mathf.RoundToInt(chunkDif)));
-        StartCoroutine(LoadChitinEnemies(ChunkLoader.chitinMultiplier, Mathf.RoundToInt(chunkDif)));
+        chunkLevel = (1 + Mathf.RoundToInt(Mathf.Pow(chunkDif, 2) * 9));
+        StartCoroutine(LoadVoidEnemies(ChunkLoader.voidMultiplier, chunkLevel));
+        StartCoroutine(LoadChitinEnemies(ChunkLoader.chitinMultiplier, chunkLevel));
         //StartCoroutine(LoadChromeEnemies(ChunkLoader.chromeMultiplier, Mathf.RoundToInt(chunkDif)));
         //StartCoroutine(LoadPirateEnemies(ChunkLoader.pirateMultiplier, Mathf.RoundToInt(chunkDif)));
         //StartCoroutine(LoadCiv(ChunkLoader.civMultiplier, Mathf.RoundToInt(chunkDif)));

@@ -71,6 +71,7 @@ public class StartPickup : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (GlobalRefs.Instance.playerIsDead) return;
         if (grabberHandler.transform.childCount < collector.amount && queue.Count > 0)
         {
             GameObject grabber = Instantiate(grabberPrefab, grabberHandler.transform);

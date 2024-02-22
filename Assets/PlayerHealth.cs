@@ -1,16 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : Events
 {
+    public float iFrames;
+
+
     public float currentHealth;
     public int healthNodes;
     public int healthNodesMax;
+    public GameObject healthNode;
+    public List<Image> nodes = new();
     float healthPercent;
 
     public int healthBarDividedByInLength;
+
+    public Transform hud;
+    public RectTransform origo;
 
     public Transform healthBar;
     Image healthBarImage;
@@ -37,12 +46,25 @@ public class PlayerHealth : Events
             hull.hullCurrentHealth = hull.hullHealth;
         }
 
+        for (int i = 0; i < healthNodesMax; i++) // link to ship stats when starting game
+        {
+            RectTransform node = Instantiate(healthNode).GetComponent<RectTransform>();
+            node.SetParent(hud);
+            Image nodeImage = node.GetChild(2).GetComponent<Image>();
+            nodes.Insert(i, nodeImage);
+            node.localPosition = new Vector3(origo.localPosition.x, origo.localPosition.y, origo.localPosition.z);
+            node.position = new Vector3(node.position.x + (i * 0.17f), node.position.y, node.position.z);
+            node.localScale = healthBar.localScale;
+        }
+        healthBar.position = new Vector3(0.04f + healthBar.position.x + ((0.13f * healthNodesMax) + (0.04f * (healthNodesMax - 1))), healthBar.position.y, healthBar.position.z);
+
         EquipmentController.Instance.onEquipmentLoadComplete -= CustomStart;
         EquipmentController.Instance.onEquipmentLoadComplete += SetNewStats;
     }
     private void Update()
     {
         healthBarImage.fillAmount = Mathf.Lerp(healthBarImage.fillAmount, healthPercent, 0.1f);
+        iFrames -= Time.deltaTime;
     }
 
     private void SetNewStats()
@@ -127,10 +149,13 @@ public class PlayerHealth : Events
     {
         if (!noHull)
         {
+            if (iFrames >= 0) { return; }
+            
             float incomingDamage = damage - (damage * (hull.hullDamageNegation / 100));
             hull.hullCurrentHealth -= incomingDamage;
         }
-        HealthCheck();
+        if (iFrames <= 0)
+            HealthCheck();
     }
     public void HealthCheck()
     {
@@ -138,12 +163,33 @@ public class PlayerHealth : Events
         if (!noHull) UpdateHealth();
         if (noHull || hull.hullCurrentHealth <= 0)
         {
-            //TMP solution
-            Time.timeScale = 0;
-            deathMenu.SetActive(true);
-            //Start taking damage to nodes
-            //Check if all nodes are destroyed
-            //Then death and end screen
+            if (healthNodes == 0) return;
+            if (healthNodes == 1)
+            {
+                healthNodes = 0;
+                SetNodes();
+                //TMP solution
+                Time.timeScale = 1;
+                GlobalRefs.Instance.playerIsDead = true;
+                deathMenu.SetActive(true);
+                //Start taking damage to nodes
+                //Check if all nodes are destroyed
+                //Then death and end screen
+            }
+            else
+            {
+                iFrames = 1; healthNodes--;
+                SetNodes();
+            }
+        }
+    }
+
+    public void SetNodes()
+    {
+        nodes.ForEach(node => { node.fillAmount = 0; });
+        for (int i = 0; i < healthNodes; i++)
+        {
+            nodes[i].fillAmount = 1;
         }
     }
 

@@ -44,6 +44,7 @@ public class GunPoint : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (mouseBased) { if (GlobalRefs.Instance.playerIsDead) return; }
         if (target.target == null && !mouseBased)
         {
             if (!notAGun)

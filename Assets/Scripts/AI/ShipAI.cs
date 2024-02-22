@@ -6,6 +6,7 @@ using ExtensionMethods;
 
 public class ShipAI : MonoBehaviour
 {
+    bool playerIsDead;
     public int level = 0;
     public Ship ship;
     float currentModifier = 1f;
@@ -59,6 +60,10 @@ public class ShipAI : MonoBehaviour
     [HideInInspector] public bool enabledSpecialAttack;
     [HideInInspector] public bool unlockedGuns;
 
+    float speedScaling;
+    Vector2 combatTScaling;
+    float healthScaling;
+
     private void Start()
     {
         var tEmis = thrustersPS.emission;
@@ -69,16 +74,41 @@ public class ShipAI : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
-        healthModule = GetComponent<Damagable>();
-        healthModule.startHealth = ship.maxHealth;
-        healthModule.currentHealth = ship.maxHealth;
-        lastFrameHealth = healthModule.currentHealth;
+
         targetPos = GlobalRefs.Instance.player.transform.position;
         spawnPoint = transform.position;
         StartCoroutine(nameof(GetNewTargetPosOverTime));
         dir = transform.up;
 
         rb.mass = ship.mass;
+
+        float tempSpeed = ship.speed;
+        for (int i = 0; i < level; i++)
+        {
+            tempSpeed *= 1 + Difficulty.dif.AISpeedIncreasePerLevel;
+        }
+        speedScaling = tempSpeed;
+        float tempCTx = ship.newMoveTargetTime.x;
+        float tempCTy = ship.newMoveTargetTime.y;
+        for (int i = 0; i < level; i++)
+        {
+            tempCTx *= 1 + Difficulty.dif.AICombatTimeIncreasePerLevel;
+            tempCTy *= 1 + Difficulty.dif.AICombatTimeIncreasePerLevel;
+        }
+        combatTScaling = new Vector2(tempCTx, tempCTy);
+        float tempMaxHealth = ship.maxHealth;
+        for (int i = 0; i < level; i++)
+        {
+            tempMaxHealth *= 1 + Difficulty.dif.AIHealthIncreasePerLevel;
+        } 
+        healthScaling = tempMaxHealth;
+        Debug.Log(healthScaling);
+
+        healthModule = GetComponent<Damagable>();
+        healthModule.startHealth = healthScaling;
+        healthModule.currentHealth = healthScaling;
+        lastFrameHealth = healthModule.currentHealth;
+
     }
     private void FixedUpdate()
     {
@@ -216,6 +246,9 @@ public class ShipAI : MonoBehaviour
         lastFrameHealth = healthModule.currentHealth;
         if (inCombat)
             HandleSpecialAttack();
+
+        if (target.target == GlobalRefs.Instance.player.transform && GlobalRefs.Instance.playerIsDead) { playerIsDead = true; target.target = null; seenPlayer = false; }
+            
     }
 
     void ActivateEnrage()
@@ -288,26 +321,16 @@ public class ShipAI : MonoBehaviour
     {
         if(ship.stopCoreWhenSpecial && target.target) {
             idle = true;
-            targetPos = (Vector2)target.target.position
+            for (int i = 0; i < 4; i++)
+            {
+                if (target.target) {
+                    targetPos = (Vector2)target.target.position
                         + (target.targetRB.velocity
                         * (Vector2.Distance(transform.position, target.target.position)
                         / ship.specialAttackSpeed));
-            yield return new WaitForSeconds(0.2f);
-            targetPos = (Vector2)target.target.position
-                            + (target.targetRB.velocity
-                            * (Vector2.Distance(transform.position, target.target.position)
-                            / ship.specialAttackSpeed));
-            yield return new WaitForSeconds(0.2f);
-            targetPos = (Vector2)target.target.position
-                            + (target.targetRB.velocity
-                            * (Vector2.Distance(transform.position, target.target.position)
-                            / ship.specialAttackSpeed));
-            yield return new WaitForSeconds(0.2f);
-            targetPos = (Vector2)target.target.position
-                            + (target.targetRB.velocity
-                            * (Vector2.Distance(transform.position, target.target.position)
-                            / ship.specialAttackSpeed));
-            yield return new WaitForSeconds(0.1f);
+                }
+                yield return new WaitForSeconds(0.2f);
+            }
         }
         curCD = 0;
         
@@ -557,7 +580,7 @@ public class ShipAI : MonoBehaviour
                 {
                     if (avoid != col)
                     {
-                        if (!seenPlayer && avoid.gameObject.layer == 6) //Layer 6 is Player
+                        if (!playerIsDead && !seenPlayer && avoid.gameObject.layer == 6) //Layer 6 is Player
                         { seenPlayer = true; targetTransform = avoid.transform; }
                         float distCheckProx = Extension.Distance((Vector2)transform.position, avoid.ClosestPoint(transform.position));
                         if (distCheckProx < _distance)
@@ -586,8 +609,8 @@ public class ShipAI : MonoBehaviour
             else idle = false;
             StartCoroutine(nameof(GetNewTargetPos));
             yield return new WaitForSeconds(
-                Random.Range(ship.newMoveTargetTime.x / currentModifier *(1 + (level * Difficulty.dif.AICombatTimeIncreasePerLevel)),
-                ship.newMoveTargetTime.y / currentModifier * (1 + (level * Difficulty.dif.AICombatTimeIncreasePerLevel))));
+                Random.Range(ship.newMoveTargetTime.x / currentModifier * combatTScaling.x,
+                ship.newMoveTargetTime.y / currentModifier * combatTScaling.y));
         }
     }
     IEnumerator GetNewTargetPos()
@@ -728,7 +751,7 @@ public class ShipAI : MonoBehaviour
                 tEmis.enabled = true;
             rb.AddForce
                 (
-                (1 + (level * Difficulty.dif.AISpeedIncreasePerLevel))
+                speedScaling
                 * currentModifier 
                 * Mathf.Lerp(0.2f, 1f, (_distance / ship.viewRange)) 
                 * ship.mass 
@@ -741,7 +764,7 @@ public class ShipAI : MonoBehaviour
         Vector2 actualDir = targetPos - rb.position;
         float rotateAmount = Vector3.Cross(actualDir.normalized, transform.up).z;
         rb.AddTorque(
-            (1 + (level * Difficulty.dif.AISpeedIncreasePerLevel))
+            speedScaling
             * -ship.rotSpeed 
             * currentModifier 
             * rotateAmount 

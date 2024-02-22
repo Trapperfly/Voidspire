@@ -20,6 +20,7 @@ public class TargetStandard : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (GlobalRefs.Instance.playerIsDead) return;
         if (Input.GetMouseButton(1))   //Targeting system
         {
             if (targetHoldTimer >= 30 && targetingDone == false)
