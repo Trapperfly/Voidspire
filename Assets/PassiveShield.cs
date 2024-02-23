@@ -30,7 +30,7 @@ public class PassiveShield : Events
 
     EquipmentController equipment;
     Shield shield;
-    bool noShield;
+    public bool noShield;
     bool newShieldCheck;
     private void Awake()
     {

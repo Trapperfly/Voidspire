@@ -65,7 +65,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 78477dacc22b7ca4697038a526375b3d, type: 3}
   - {fileID: 21300000, guid: 78477dacc22b7ca4697038a526375b3d, type: 3}
   - {fileID: 21300000, guid: 561ec079184c8554194a8d9a6c07a0e4, type: 3}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: d25d1ec06c920a24f9d6a498ff90c05b, type: 3}
   frame: {fileID: 8925688700149374991}
   item: {fileID: 0}
   allowed: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 76d029c7ae008d04083d2c38ca69094a, type: 3}
   - {fileID: 0}
   - {fileID: 21300000, guid: 5e4ce0dd8b20bbb44801ecc51b2ce818, type: 3}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 685db78e0fd0809498c2459e7d278484, type: 3}
   placeholderIcon: {fileID: 1135409037658432787}
 --- !u!114 &3372305420830967783
 MonoBehaviour:

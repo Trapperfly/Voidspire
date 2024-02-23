@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using static System.Net.WebRequestMethods;
-using System.Drawing;
+
 
 public class StartPickup : MonoBehaviour
 {
@@ -36,8 +33,9 @@ public class StartPickup : MonoBehaviour
 
     private void SetNewStats()
     {
+
         CircleCollider2D col = GetComponent<CircleCollider2D>();
-        if (!equipment.collectorSlots[0].item) 
+        if (!equipment.collectorSlots[0].item)
         {
             collector = null;
             Collector placeholderCollector = ScriptableObject.CreateInstance<Collector>();
@@ -48,7 +46,7 @@ public class StartPickup : MonoBehaviour
             placeholderCollector.collectorSpeedTo = 3;
             collector = placeholderCollector;
             col.radius = collector.range;
-            return; 
+            return;
         }
         collector = equipment.collectorSlots[0].item as Collector;
         col.radius  = collector.range;

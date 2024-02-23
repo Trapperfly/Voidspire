@@ -8,10 +8,13 @@ public class Equipment : Item
 {
     public int level;
     public EquipmentTypes equipType;
+    public Relics relic;
 
     public Quality quality;
 
+    [TextArea]
     public string statsText;
+    [TextArea]
     public string statsValues;
 
     public int statLength;
@@ -20,6 +23,7 @@ public class Equipment : Item
     {
         base.Use();
     }
+
 }
 public enum EquipmentTypes
 {
@@ -44,4 +48,13 @@ public enum Quality
     Normal,
     Quality,
     Pristine,
+}
+
+public enum Relics
+{
+    NotARelic,
+    QuantumTargeting,
+    FriendModule,
+    FissionBarrel,
+    Default
 }

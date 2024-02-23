@@ -284,6 +284,8 @@ public class DragAndDrop : MonoBehaviour,
                 textasset.text = (equipment as Collector).collectorType.ToString() + " - Collector";
                 break;
             case EquipmentTypes.Relic:
+                textasset.text = "Relic";
+
                 break;
             case EquipmentTypes.Default:
                 break;

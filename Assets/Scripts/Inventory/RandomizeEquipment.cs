@@ -7,6 +7,7 @@ using static UnityEngine.ParticleSystem;
 public class RandomizeEquipment : MonoBehaviour
 {
     public Color[] typeColor;
+    public Equipment[] relics;
     [Space]
 
     public Transform textBoxParent;
@@ -137,7 +138,12 @@ public class RandomizeEquipment : MonoBehaviour
     }
     #endregion
 
-
+    public Equipment RandomizeRelic()
+    {
+        Debug.Log(relics.Length);
+        return relics[iR(0, relics.Length - 1)];
+    }
+     
     #region RandomizeGun
     public Weapon RandomizeGun(int level)
     {

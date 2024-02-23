@@ -58,6 +58,8 @@ public class ItemInfo : MonoBehaviour
                     accepted = true;
                     break;
                 case EquipmentTypes.Relic:
+                    newEquipment = RandomizeEquipment.Instance.RandomizeRelic();
+                    accepted = true;
                     break;
                 case EquipmentTypes.Default:
                     break;

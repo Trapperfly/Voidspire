@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5902c1a660f9d1e46a7ff91322a647c5, type: 3}
+  m_Name: FissionBarrel
+  m_EditorClassIdentifier: Assembly-CSharp::FissionBarrel
+  itemName: Fission Barrel
+  description: Two is better than one!
+  icon: {fileID: 21300000, guid: 0597069d4102b6d4cb82b7f838158570, type: 3}
+  isDefault: 0
+  id: 1
+  value: 100
+  color: {r: 0.5294118, g: 0.28627452, b: 0.74509805, a: 1}
+  level: 0
+  equipType: 9
+  relic: 3
+  quality: 0
+  statsText: "+ Doubles projectile count\n+ 25% Projectile spread\n- 25% Gun rotation
+    speed\n\nOnly works on \nprojectile weapons"
+  statsValues: 
+  statLength: 6

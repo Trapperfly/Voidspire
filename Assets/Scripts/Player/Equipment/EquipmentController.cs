@@ -1,9 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Entities;
-using Unity.Physics;
 using UnityEngine;
 using static Inventory;
 
@@ -54,9 +51,14 @@ public class EquipmentController : MonoBehaviour
     public List<EquipmentSlot> relicSlots = new List<EquipmentSlot>();
 
     #region Singleton
+
     public static EquipmentController Instance;
 
     private void Awake()
+    {
+        SetSingleton();
+    }
+    public void SetSingleton()
     {
         if (Instance != null && Instance != this)
         {
