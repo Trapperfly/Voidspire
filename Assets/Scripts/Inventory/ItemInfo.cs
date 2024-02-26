@@ -70,7 +70,7 @@ public class ItemInfo : MonoBehaviour
     }
     public bool Pickup()
     {
-        Debug.Log("Picking up " + newEquipment.name);
+        //Debug.Log("Picking up " + newEquipment.name);
         return Inventory.Instance.Add(newEquipment);
     }
 }

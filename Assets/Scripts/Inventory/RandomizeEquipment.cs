@@ -1219,7 +1219,7 @@ public class RandomizeEquipment : MonoBehaviour
         weapon.statsText = statsNames;
         Debug.Log(weapon.statsText);
         weapon.statsValues = statsValues;
-
+        weapon.unalteredVersion = weapon;
         return weapon;
     }
 

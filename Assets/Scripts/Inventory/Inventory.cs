@@ -31,6 +31,8 @@ public class Inventory : MonoBehaviour
     public List<Item> items = new();
     public List<Item> equipment = new();
 
+    [HideInInspector] public bool QuantumTargeting;
+
     public bool Add (Item item)
     {
         if (!item.isDefault) 
@@ -42,10 +44,21 @@ public class Inventory : MonoBehaviour
             }
             item.id = id;
             id++;
-            Debug.Log(item.id);
+            //Debug.Log(item.id);
+            if (item is Weapon && QuantumTargeting)
+            {
+                Weapon w = item as Weapon;
+                w.homing = true;
+                w.homingStrength += 100;
+                w.speed *= 0.75f;
+                item = w;
+            }
             items.Add(item);
 
+
+
             onItemChangedCallback?.Invoke();
+
         }
         return true;
     }
@@ -80,7 +93,8 @@ public class Inventory : MonoBehaviour
             else if (!s1Equip && s0Equip) { equipment.Remove(slot0.item); items.Add(slot0.item); }
             
         }
-        else { Debug.Log("Slot 0 was empty, so slot 1 is set to null"); slot1.item = null; }
+        else { //Debug.Log("Slot 0 was empty, so slot 1 is set to null"); 
+            slot1.item = null; }
 
         if (s1Filled) 
         {
@@ -90,7 +104,8 @@ public class Inventory : MonoBehaviour
             if (s0Equip && !s1Equip) { items.Remove(itemTemp); equipment.Add(itemTemp); }
             else if (!s0Equip && s1Equip) { equipment.Remove(itemTemp); items.Add(itemTemp); }
         }
-        else { Debug.Log("Slot 1 was empty, so slot 0 is set to null"); slot0.item = null; }
+        else { //Debug.Log("Slot 1 was empty, so slot 0 is set to null"); 
+            slot0.item = null; }
 
         onItemChangedCallback?.Invoke();
     }

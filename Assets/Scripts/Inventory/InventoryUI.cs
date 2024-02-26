@@ -85,13 +85,13 @@ public class InventoryUI : MonoBehaviour
                     if (!inventory.items[j]) { Debug.Log("Special case: deleted item i guess. If not deleted, then this is issue"); }
                     else if (loggedItems.Contains(inventory.items[j].id))
                     {
-                        Debug.Log("It contained the thing");
+                        //Debug.Log("It contained the thing");
                     }
                     else
                     {
                         slots[i].AddItem(inventory.items[j]);
                         loggedItems.Add(inventory.items[j].id);
-                        Debug.Log("Added item " + inventory.items[j].name + " to slot " + i + ". It has id " + inventory.items[j].id);
+                        //Debug.Log("Added item " + inventory.items[j].name + " to slot " + i + ". It has id " + inventory.items[j].id);
                     }
                 }
             }
