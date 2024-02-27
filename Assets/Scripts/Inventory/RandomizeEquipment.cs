@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 public class RandomizeEquipment : MonoBehaviour
 {
@@ -141,7 +140,36 @@ public class RandomizeEquipment : MonoBehaviour
     public Equipment RandomizeRelic()
     {
         Debug.Log(relics.Length);
-        return relics[iR(0, relics.Length - 1)];
+        Equipment copyRelic = relics[iR(0, relics.Length - 1)];
+        Equipment relic = null;
+        switch (copyRelic.GetType().FullName)
+        {
+            case "QuantumTargeting":
+                relic = ScriptableObject.CreateInstance<QuantumTargeting>();
+                break;
+            case "FriendModule":
+                relic = ScriptableObject.CreateInstance<FriendModule>();
+                break;
+            case "FissionBarrel":
+                relic = ScriptableObject.CreateInstance<FissionBarrel>();
+                break;
+            default:
+                Debug.Log("Something went wrong with the relics");
+                break;
+        }
+        
+
+        relic.itemName = copyRelic.itemName;
+        relic.description = copyRelic.description;
+        relic.icon = copyRelic.icon;
+        relic.value = copyRelic.value;
+        relic.color = copyRelic.color;
+        relic.equipType = copyRelic.equipType;
+        relic.relic = copyRelic.relic;
+        relic.statsText = copyRelic.statsText;
+        relic.statLength = copyRelic.statLength;
+        relic.id = Inventory.Instance.id;
+        return relic;
     }
      
     #region RandomizeGun
@@ -1219,7 +1247,8 @@ public class RandomizeEquipment : MonoBehaviour
         weapon.statsText = statsNames;
         Debug.Log(weapon.statsText);
         weapon.statsValues = statsValues;
-        weapon.unalteredVersion = weapon;
+        weapon.savedHoming = weapon.homing;
+        weapon.savedIsExplosive = weapon.isExplosive;
         return weapon;
     }
 

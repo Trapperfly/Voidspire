@@ -21,12 +21,14 @@ MonoBehaviour:
   color: {r: 1, g: 0, b: 0, a: 1}
   level: 0
   equipType: 2
+  relic: 0
   quality: 0
   statsText: Its stats are obscured...
   statsValues: 
   statLength: 1
   weaponType: 0
   isExplosive: 0
+  savedIsExplosive: 0
   explosiveMultiplier: 0
   splashDamage: 0
   splashRange: 0
@@ -42,6 +44,7 @@ MonoBehaviour:
   speed: 5
   longevity: 5
   homing: 0
+  savedHoming: 0
   homingStrength: 0
   pierce: 0
   bounce: 0

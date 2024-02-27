@@ -13,8 +13,8 @@ public class Collector : Equipment
 }
 public enum CollectorTypes
 {
-    Grabber,
-    Harpoon,
+    Grabber, //Medium speed back and forth
+    Harpoon, //Fast speed to, but slow back
     Tractor,
     Drone,
     Default

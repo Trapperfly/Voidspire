@@ -15,10 +15,10 @@ public class Scanner : Equipment
 
 public enum ScannerTypes
 {
-    Custom,
-    Lookout,
-    Radio,
-    Gamma,
+    Custom, //Lower min-zoom, higher max-zoom, faster update speed. Available map channels: general and friendly
+    Lookout, //High max-zoom, slower update speed. Available map channels: Most of the general ones (Mining, action, etc)
+    Radio, //General zoom. Available maps: Most of them, plus some special (Diplomacy)
+    Gamma, //Generally bad zoom. Available maps: Only the best ones (Diplomacy, broad (all), )
     Default
 }
 

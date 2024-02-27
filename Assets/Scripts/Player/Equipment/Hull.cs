@@ -13,9 +13,9 @@ public class Hull : Equipment
 }
 public enum HullTypes
 {
-    Default,
-    HeavyClass,
-    LightClass,
+    Default, //General
+    HeavyClass, //High health, high weight
+    LightClass, //Low health, low weight
     NebularProtection,
     NucularProtection,
     IONICProtection,

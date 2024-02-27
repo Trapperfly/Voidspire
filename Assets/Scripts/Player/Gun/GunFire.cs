@@ -60,6 +60,12 @@ public class GunFire : MonoBehaviour
 
     public void SetNewWeapon()
     {
+        if (gc.weaponSlots[stat.gunNumber].item.id == 0)
+        {
+            var copy = Instantiate(gc.weaponSlots[stat.gunNumber].item as Weapon);
+            Inventory.Instance.NewID(copy);
+            gc.weaponSlots[stat.gunNumber].item = copy;
+        }
         w = gc.weaponSlots[stat.gunNumber].item as Weapon;
         SpriteRenderer wSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
         if (w) { wSprite.sprite = w.icon; wSprite.enabled = true; gunPoint.rotSpeed = w.rotationSpeed; }

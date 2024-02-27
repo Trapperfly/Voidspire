@@ -36,8 +36,8 @@ public class HandleRelic : Events
         equipment.relicSlots.ForEach(slot =>
         {
             Equipment relic = null;
-            if (slot.item != null) relic = relics[i];
-            if (slot.item == null) { relics[i] = null; }
+            if (relics[i] != null) { relic = relics[i]; }
+            if (slot.item == null) { if (relic != null) UnEquipRelic(relic); relics[i] = null; }
             else if (relics[i] == slot.item as Equipment) {  }
             else
             {
@@ -51,24 +51,24 @@ public class HandleRelic : Events
                     case Relics.QuantumTargeting:
                         Debug.Log("QuantumTargeting is equipped");
                         relics[i] = slot.item as Equipment;
-                        for (int i = 0; i < equipment.weaponSlots.Count; i++)
+                        for (int j = 0; j < equipment.weaponSlots.Count; j++)
                         {
-                            Weapon w = equipment.weaponSlots[i].item as Weapon;
+                            Weapon w = equipment.weaponSlots[j].item as Weapon;
                             w.homing = QuantumTargeting.setHomingToThis;
                             w.homingStrength += QuantumTargeting.aHomingStrength;
                             w.speed *= QuantumTargeting.mProjectileSpeed;
-                            inventoryUI.slots[i].item = w;
+                            equipment.weaponSlots[j].item = w;
                         }
-                        for (int i = 0; i < inventoryUI.slots.Length; i++)
+                        for (int j = 0; j < inventoryUI.slots.Length; j++)
                         {
-                            Debug.Log(inventoryUI.slots[i].item);
-                            if (inventoryUI.slots[i].item != null && inventoryUI.slots[i].item is Weapon)
+                            Debug.Log(inventoryUI.slots[j].item);
+                            if (inventoryUI.slots[j].item != null && inventoryUI.slots[j].item is Weapon)
                             {
-                                Weapon w = inventoryUI.slots[i].item as Weapon;
+                                Weapon w = inventoryUI.slots[j].item as Weapon;
                                 w.homing = QuantumTargeting.setHomingToThis;
                                 w.homingStrength += QuantumTargeting.aHomingStrength;
                                 w.speed *= QuantumTargeting.mProjectileSpeed;
-                                inventoryUI.slots[i].item = w;
+                                inventoryUI.slots[j].item = w;
                             }
                         }
                         break;
@@ -79,6 +79,26 @@ public class HandleRelic : Events
                     case Relics.FissionBarrel:
                         Debug.Log("Fission Barrel is equipped");
                         relics[i] = slot.item as Equipment;
+                        for (int j = 0; j < equipment.weaponSlots.Count; j++)
+                        {
+                            Weapon w = equipment.weaponSlots[j].item as Weapon;
+                            w.amount *= Mathf.RoundToInt(FissionBarrel.mProjectileCount);
+                            w.spread *= FissionBarrel.mSpread;
+                            w.rotationSpeed *= FissionBarrel.mRotSpeed;
+                            equipment.weaponSlots[j].item = w;
+                        }
+                        for (int j = 0; j < inventoryUI.slots.Length; j++)
+                        {
+                            Debug.Log(inventoryUI.slots[j].item);
+                            if (inventoryUI.slots[j].item != null && inventoryUI.slots[j].item is Weapon)
+                            {
+                                Weapon w = inventoryUI.slots[j].item as Weapon;
+                                w.amount *= Mathf.RoundToInt(FissionBarrel.mProjectileCount);
+                                w.spread *= FissionBarrel.mSpread;
+                                w.rotationSpeed *= FissionBarrel.mRotSpeed;
+                                inventoryUI.slots[j].item = w;
+                            }
+                        }
                         break;
                     case Relics.Default:
                         break;
@@ -86,8 +106,6 @@ public class HandleRelic : Events
                         break;
                 }
             }
-            
-            Debug.Log(i);
             i++;
         });
         
@@ -95,6 +113,7 @@ public class HandleRelic : Events
 
     void UnEquipRelic(Equipment relic)
     {
+        Debug.Log("Unequipping " + relic.itemName);
         switch (relic.relic)
         {
             case Relics.NotARelic:
@@ -103,10 +122,11 @@ public class HandleRelic : Events
                 for (int i = 0; i < equipment.weaponSlots.Count; i++)
                 {
                     Weapon w = equipment.weaponSlots[i].item as Weapon;
-                    w.homing = w.unalteredVersion.homing;
+                    if (CheckIfRelicIsEquipped(relic)) { }
+                    else w.homing = w.savedHoming;
                     w.homingStrength -= QuantumTargeting.aHomingStrength;
                     w.speed *= 1/QuantumTargeting.mProjectileSpeed;
-                    inventoryUI.slots[i].item = w;
+                    equipment.weaponSlots[i].item = w;
                 }
                 for (int i = 0; i < inventoryUI.slots.Length; i++)
                 {
@@ -114,7 +134,8 @@ public class HandleRelic : Events
                     if (inventoryUI.slots[i].item != null && inventoryUI.slots[i].item is Weapon)
                     {
                         Weapon w = inventoryUI.slots[i].item as Weapon;
-                        w.homing = w.unalteredVersion.homing;
+                        if (CheckIfRelicIsEquipped(relic)) { }
+                        else w.homing = w.savedHoming;
                         w.homingStrength -= QuantumTargeting.aHomingStrength;
                         w.speed *= 1 / QuantumTargeting.mProjectileSpeed;
                         inventoryUI.slots[i].item = w;
@@ -124,11 +145,41 @@ public class HandleRelic : Events
             case Relics.FriendModule:
                 break;
             case Relics.FissionBarrel:
+                for (int j = 0; j < equipment.weaponSlots.Count; j++)
+                {
+                    Weapon w = equipment.weaponSlots[j].item as Weapon;
+                    w.amount /= Mathf.RoundToInt(FissionBarrel.mProjectileCount);
+                    w.spread *= 1/FissionBarrel.mSpread;
+                    w.rotationSpeed *= 1/FissionBarrel.mRotSpeed;
+                    equipment.weaponSlots[j].item = w;
+                }
+                for (int j = 0; j < inventoryUI.slots.Length; j++)
+                {
+                    Debug.Log(inventoryUI.slots[j].item);
+                    if (inventoryUI.slots[j].item != null && inventoryUI.slots[j].item is Weapon)
+                    {
+                        Weapon w = inventoryUI.slots[j].item as Weapon;
+                        w.amount /= Mathf.RoundToInt(FissionBarrel.mProjectileCount);
+                        w.spread *= 1/FissionBarrel.mSpread;
+                        w.rotationSpeed *= 1/FissionBarrel.mRotSpeed;
+                        inventoryUI.slots[j].item = w;
+                    }
+                }
                 break;
             case Relics.Default:
                 break;
             default:
                 break;
         }
+    }
+
+    private bool CheckIfRelicIsEquipped(Equipment relic)
+    {
+        Debug.Log(relic);
+        bool isSameRelic = false;
+        for (int i = 0; i < relics.Length; i++)
+            if (relics[i])
+                isSameRelic = relics[i].relic == relic.relic;
+        return isSameRelic;
     }
 }

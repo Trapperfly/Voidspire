@@ -31,8 +31,11 @@ public class Inventory : MonoBehaviour
     public List<Item> items = new();
     public List<Item> equipment = new();
 
-    [HideInInspector] public bool QuantumTargeting;
-
+    EquipmentController e;
+    private void Start()
+    {
+        e = EquipmentController.Instance;
+    }
     public bool Add (Item item)
     {
         if (!item.isDefault) 
@@ -45,22 +48,58 @@ public class Inventory : MonoBehaviour
             item.id = id;
             id++;
             //Debug.Log(item.id);
-            if (item is Weapon && QuantumTargeting)
+            if (item is Weapon)
             {
-                Weapon w = item as Weapon;
-                w.homing = true;
-                w.homingStrength += 100;
-                w.speed *= 0.75f;
-                item = w;
+                ApplyRelicEffect(item as Weapon);
             }
             items.Add(item);
-
-
 
             onItemChangedCallback?.Invoke();
 
         }
         return true;
+    }
+
+    private void ApplyRelicEffect(Weapon weapon)
+    {
+        for (int i = 0; i < e.relicSlots.Count; i++)
+        {
+            if (e.relicSlots[i].item)
+            {
+                Weapon w;
+                switch ((e.relicSlots[i].item as Equipment).relic)
+                {
+                    case Relics.NotARelic:
+                        break;
+                    case Relics.QuantumTargeting:
+                        w = weapon;
+                        w.homing = QuantumTargeting.setHomingToThis;
+                        w.homingStrength += QuantumTargeting.aHomingStrength;
+                        w.speed *= QuantumTargeting.mProjectileSpeed;
+                        weapon = w;
+                        break;
+                    case Relics.FriendModule:
+                        break;
+                    case Relics.FissionBarrel:
+                        w = weapon;
+                        w.amount *= Mathf.RoundToInt(FissionBarrel.mProjectileCount);
+                        w.spread *= FissionBarrel.mSpread;
+                        w.rotationSpeed *= FissionBarrel.mRotSpeed;
+                        weapon = w;
+                        break;
+                    case Relics.Default:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    public void NewID(Item item)
+    {
+        item.id = id;
+        id++;
     }
 
     public void Remove (Item item)

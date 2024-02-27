@@ -19,8 +19,8 @@ public class QuantumTargeting : Equipment
 [CreateAssetMenu(fileName = "FissionBarrel", menuName = "Inventory/Equipment/Relic/FissionBarrel")]
 public class FissionBarrel : Equipment
 {
-    public static float mProjectileCount = 100f;
-    public static float mSpread = 1.25f;
+    public static float mProjectileCount = 2f;
+    public static float mSpread = 1.5f;
     public static float mRotSpeed = 0.75f;
 }
 

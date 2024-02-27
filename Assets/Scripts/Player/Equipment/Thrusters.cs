@@ -29,20 +29,20 @@ public class Thrusters : Equipment
 }
 public enum STLTypes
 {
-    Drive,
-    Agile,
-    Pulse,
-    Boost,
-    Sail,
-    Crawler,
+    Drive, //All round
+    Agile, //Slower but better rotation
+    Pulse, //Faster but slower rotation
+    Boost, //Even faster but less control in rotation
+    Sail, //Generalized but less friction
+    Crawler, //Very slow but great control
     Default
 }
 public enum FTLTypes
 {
-    Ready,
-    Burst,
-    Flight,
-    Scout,
+    Ready, //Very short FTL charge-up
+    Burst, //Very fast but short FTL duration
+    Flight, //Generalized but cannot rotate during FTL
+    Scout, //Good rotation during FTL but more fuel used
     Crash,
     Default
 }

@@ -15,9 +15,9 @@ public class Shield : Equipment
 }
 public enum ShieldType
 {
-    Hardlight,
-    Energy,
-    Phaze,
+    Hardlight, //Tanky shield but slower recharge
+    Energy, //General
+    Phaze, //Fast recharge but weak
     Obliterator,
     Portal,
     Forcefield,
