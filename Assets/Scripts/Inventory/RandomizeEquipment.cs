@@ -192,15 +192,15 @@ public class RandomizeEquipment : MonoBehaviour
             + wNameLast[iR(0, wNameLast.Length - 1)]);
         weapon.name = weapon.itemName;
         weapon.id = Inventory.Instance.id;
-        weapon.icon = gunSprites[iR(0, gunSprites.Length - 1)];
         weapon.color = typeColor[(int)EquipmentTypes.Weapon];
         weapon.equipType = EquipmentTypes.Weapon;
         weapon.effectColor = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.6f, 1);
         weapon.level = level;
         weapon.weaponType = (WeaponType)iR(0, 11);
-        
+        weapon.icon = gunSprites[(int)weapon.weaponType];
 
-        
+
+
         weapon.bulletSize = fR(bulletSize);
 
         weapon.amount = (int)Mathf.Lerp(amount.x, amount.y, CurveWeightedRandom(A_amount));
@@ -1394,12 +1394,13 @@ public class RandomizeEquipment : MonoBehaviour
             + thrusterNameLast[iR(0, thrusterNameLast.Length - 1)]);
         thruster.name = thruster.itemName;
         thruster.id = Inventory.Instance.id;
-        thruster.icon = thrusterSprites[iR(0, thrusterSprites.Length - 1)];
         thruster.color = typeColor[(int)EquipmentTypes.Thruster];
         thruster.equipType = EquipmentTypes.Thruster;
         thruster.level = level;
 
         thruster.stlType = (STLTypes)iR(0, 5);
+        thruster.icon = thrusterSprites[(int)thruster.stlType];
+
         thruster.speed = fR(moveSpeed);
         thruster.maxSpeed = fR(maxSpeed);
         thruster.turnSpeed = fR(turnSpeed);
@@ -1700,12 +1701,12 @@ public class RandomizeEquipment : MonoBehaviour
             + colNameLast[iR(0, colNameLast.Length - 1)]);
         col.name = col.itemName;
         col.id = Inventory.Instance.id;
-        col.icon = colSprites[iR(0, colSprites.Length - 1)];
         col.color = typeColor[(int)EquipmentTypes.Collector];
         col.equipType = EquipmentTypes.Collector;
         col.level = level;
 
         col.collectorType = (CollectorTypes)iR(0, 1);
+        col.icon = colSprites[(int)col.collectorType];
 
         switch (col.collectorType)
         {
@@ -1770,12 +1771,12 @@ public class RandomizeEquipment : MonoBehaviour
             + shieldNameLast[iR(0, shieldNameLast.Length - 1)]);
         shield.name = shield.itemName;
         shield.id = Inventory.Instance.id;
-        shield.icon = shieldSprites[iR(0, shieldSprites.Length - 1)];
         shield.color = typeColor[(int)EquipmentTypes.Shield];
         shield.equipType = EquipmentTypes.Shield;
         shield.level = level;
 
         shield.shieldType = (ShieldType)iR(0, 2);
+        shield.icon = shieldSprites[(int)shield.shieldType];
 
         switch (shield.shieldType)
         {
@@ -1861,11 +1862,11 @@ public class RandomizeEquipment : MonoBehaviour
             + hullNameLast[iR(0, hullNameLast.Length - 1)]);
         hull.name = hull.itemName;
         hull.id = Inventory.Instance.id;
-        hull.icon = hullSprites[iR(0, hullSprites.Length - 1)];
         hull.color = typeColor[(int)EquipmentTypes.Hull];
         hull.equipType = EquipmentTypes.Hull;
         hull.level = level;
         hull.hullType = (HullTypes)iR(0, 2);
+        hull.icon = hullSprites[(int)hull.hullType];
 
         switch (hull.hullType)
         {
@@ -1947,11 +1948,11 @@ public class RandomizeEquipment : MonoBehaviour
             + scannerNameLast[iR(0, scannerNameLast.Length - 1)]);
         scanner.name = scanner.itemName;
         scanner.id = Inventory.Instance.id;
-        scanner.icon = scannerSprites[iR(0, scannerSprites.Length - 1)];
         scanner.color = typeColor[(int)EquipmentTypes.Scanner];
         scanner.equipType = EquipmentTypes.Scanner;
         scanner.level = level;
         scanner.type = (ScannerTypes)iR(0, 2);
+        scanner.icon = scannerSprites[(int)scanner.type];
 
         switch (scanner.type)
         {

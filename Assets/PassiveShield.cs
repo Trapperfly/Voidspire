@@ -140,7 +140,7 @@ public class PassiveShield : Events
         rechargeTimer = 0;
         col.enabled = false;
         int timer = 0;
-        shieldActiveForColliders = false;
+        
         while (timer < 60f * animTime)
         {
             rechargeTimer = 0;
@@ -148,6 +148,7 @@ public class PassiveShield : Events
             timer++;
             yield return new WaitForFixedUpdate();
         }
+        shieldActiveForColliders = false;
         spritesToBeHidden.transform.localScale = new Vector3(0, 0, 0);
         spritesToBeHidden.SetActive(false);
         yield return null;
