@@ -94,9 +94,11 @@ public class AIGun : MonoBehaviour
         if( bullet == null ) { return; }
         Physics2D.IgnoreCollision(GetComponentInParent<Collider2D>(), bullet.GetComponent<Collider2D>());
         AIBullet b = bullet.GetComponent<AIBullet>();
-        b.damage = ai.doubleDamage 
-            ? stat.damage * ai.ship.enrageStrength * damageScaling
-            : stat.damage * damageScaling;
+        b.damage =
+            ai.doubleDamage ? 
+            ai.ship.enrageStrength * damageScaling
+            : 
+            damageScaling;
         b.speed = stat.shotSpeed;
         b.homing = stat.homing;
         b.homingStrength = stat.homingStrength;

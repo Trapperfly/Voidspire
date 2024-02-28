@@ -5172,6 +5172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c631ff76429e5ac4dbeff717f5d45d91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
   ship: {fileID: 11400000, guid: 49562556044938145b98fc2a931a1bab, type: 2}
   jumping: 0
   aiBullets: {fileID: 0}
@@ -5195,6 +5196,12 @@ MonoBehaviour:
   idle: 0
   ps: {fileID: 7604102676827780405}
   thrustersPS: {fileID: 7501665658290220432}
+  doubleAttackSpeed: 0
+  doubleDamage: 0
+  enabledSpecialAttack: 0
+  unlockedGuns: 0
+  hud: {fileID: 0}
+  healthBarAndLevel: {fileID: 424752908760282577, guid: bb7b434864c5c4749b3138929ec81a1a, type: 3}
 --- !u!114 &3550362939253741042
 MonoBehaviour:
   m_ObjectHideFlags: 0

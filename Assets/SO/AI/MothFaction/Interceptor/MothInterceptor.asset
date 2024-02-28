@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c42329208f71aa469412ecfbbe6a610, type: 3}
   m_Name: MothInterceptor
   m_EditorClassIdentifier: 
+  level: 0
   aiName: Moth Interceptor
   description: 
   playerRelation: 5
@@ -33,7 +34,7 @@ MonoBehaviour:
   strafeSpeed: 0.2
   jumpTime: 4
   jumpSpeed: 100
-  exploreMod: 1
+  exploreMod: 0.5
   fleeMod: 2
   combatMod: 5
   repairMod: 1

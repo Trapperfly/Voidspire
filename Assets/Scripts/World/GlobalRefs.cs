@@ -23,6 +23,7 @@ public class GlobalRefs : MonoBehaviour
     public bool playerIsDead;
     public static Vector2 playerPos;
     public int seed;
+    public int currentSector;
     public static float xSeed;
     public static float ySeed;
     public static float debrisSeed;

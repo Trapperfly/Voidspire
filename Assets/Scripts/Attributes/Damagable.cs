@@ -9,6 +9,7 @@ public class Damagable : Events
     public bool damageTaken;
     public bool shipOverride;
     public GameObject damageTakenFromWhat;
+    public float healthPercent;
     private void Start()
     {
         if (shipOverride) { return; }
@@ -18,6 +19,7 @@ public class Damagable : Events
             startHealth = Mathf.Pow(size + 1f, 3);
         }
         currentHealth = startHealth;
+        healthPercent = currentHealth / startHealth;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -67,6 +69,7 @@ public class Damagable : Events
                 GetComponent<Destructable>().StartCoroutine(nameof(Destructable.DestroyMe));
             }
         }
+        healthPercent = currentHealth / startHealth;
     }
     public override void OnHitEvent(float damage, Vector2 position)
     {

@@ -3159,6 +3159,7 @@ MonoBehaviour:
   textPrefab: {fileID: 4482036756323178680, guid: 14acf9db64d599f4b9e4fd5fb5a0f4a6, type: 3}
   texts: []
   pointerSpeed: 0.02
+  target: {fileID: 8106356090197956215}
 --- !u!114 &193543356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3448,8 +3449,8 @@ MonoBehaviour:
   - Projection
   - Shield
   - Field
-  shieldHealth: {x: 12, y: 20, z: 0.02}
-  shieldRechargeSpeed: {x: 1.5, y: 4, z: 0.01}
+  shieldHealth: {x: 12, y: 20, z: 0.03}
+  shieldRechargeSpeed: {x: 1.5, y: 4, z: 0.02}
   shieldRechargeDelay: {x: 2, y: 3, z: -0.01}
   breakAnim: {x: 0.1, y: 0.3, z: 0}
   restoreAnim: {x: 0.1, y: 0.3, z: 0}
@@ -5921,7 +5922,7 @@ MonoBehaviour:
   hardcap: 10
   increasePer5Mins: 1
   AIDamageIncreasePerLevel: 0.03
-  AIFireRateIncreasePerLevel: 0.03
+  AIFireRateIncreasePerLevel: 0.01
   AISpeedIncreasePerLevel: 0.01
   AICombatTimeIncreasePerLevel: -0.01
   AIHealthIncreasePerLevel: 0.05
@@ -6906,6 +6907,7 @@ MonoBehaviour:
   player: {fileID: 3085379300055439446}
   playerIsDead: 0
   seed: 0
+  currentSector: 1
 --- !u!1 &479753315
 GameObject:
   m_ObjectHideFlags: 0
@@ -29869,7 +29871,7 @@ GameObject:
   - component: {fileID: 1551465083}
   m_Layer: 5
   m_Name: InGameHud
-  m_TagString: Untagged
+  m_TagString: Hud
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

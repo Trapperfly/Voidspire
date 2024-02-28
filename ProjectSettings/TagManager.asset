@@ -20,6 +20,7 @@ TagManager:
   - GunOnShip
   - InfoBox
   - PlayerManager
+  - Hud
   layers:
   - Default
   - TransparentFX

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ExtensionMethods;
+using UnityEngine.UI;
+using TMPro;
 
 
 public class ShipAI : MonoBehaviour
@@ -64,8 +66,15 @@ public class ShipAI : MonoBehaviour
     Vector2 combatTScaling;
     float healthScaling;
 
+    public Transform hud;
+    public GameObject healthBarAndLevel;
+    Image healthBar;
+    TMP_Text levelText;
+
     private void Start()
     {
+        level += (GlobalRefs.Instance.currentSector - 1) * 10;
+        Init();
         var tEmis = thrustersPS.emission;
         tEmis.enabled = false;
         aiBullets = EnemyManager.Instance.bh;
@@ -108,7 +117,18 @@ public class ShipAI : MonoBehaviour
         healthModule.startHealth = healthScaling;
         healthModule.currentHealth = healthScaling;
         lastFrameHealth = healthModule.currentHealth;
+        healthModule.healthPercent = healthModule.currentHealth / healthModule.startHealth;
+    }
 
+    void Init()
+    {
+        gameObject.name = ship.aiName;
+        hud = GameObject.FindGameObjectWithTag("Hud").transform;
+        GameObject h = Instantiate(healthBarAndLevel, transform.position, new Quaternion(), hud);
+        healthBar = h.transform.GetChild(1).GetChild(2).GetComponent<Image>();
+        levelText = h.transform.GetChild(0).GetChild(2).GetComponent<TMP_Text>();
+        levelText.text = level.ToString();
+        h.GetComponent<EnemyHealthBar>().target = transform;
     }
     private void FixedUpdate()
     {
@@ -251,6 +271,17 @@ public class ShipAI : MonoBehaviour
             
     }
 
+
+    //Draw debug rays for vectors in CheckProximity
+    private void Update()
+    {
+        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, healthModule.healthPercent, 0.1f);
+        foreach (Vector2 line in dirs)
+        {
+            Debug.DrawRay(transform.position, line.normalized);
+        }
+
+    }
     void ActivateEnrage()
     {
         if (enrageActive) return;
@@ -456,6 +487,8 @@ public class ShipAI : MonoBehaviour
     {
         if (healthModule.damageTaken && healthModule.damageTakenFromWhat)
         {
+            if (combatTarget)
+                if (Random.value > ship.changeTargetChance) { return; }
             if (!lowHealth)
             {
                 if (Extension.Distance(transform.position, healthModule.damageTakenFromWhat.transform.position) < ship.reactRange * ship.reactRange)
@@ -521,15 +554,6 @@ public class ShipAI : MonoBehaviour
         }
     }
 
-    //Draw debug rays for vectors in CheckProximity
-    private void Update()
-    {
-        foreach  (Vector2 line in dirs)
-        {
-            Debug.DrawRay(transform.position, line.normalized);
-        }
-
-    }
 
     //Checks for objects in proximity when navigating
     IEnumerator CheckProximity()

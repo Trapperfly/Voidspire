@@ -17,6 +17,8 @@ public class PointerSystem : MonoBehaviour
     [Range(0.001f, 0.02f)]
     public float pointerSpeed = 0.02f;
     float opacity = 0;
+
+    public ActiveTarget target;
     void Start()
     {
         player = GlobalRefs.Instance.player.transform;
@@ -33,6 +35,10 @@ public class PointerSystem : MonoBehaviour
         {
             Debug.Log("Pings were empty");
             return;
+        }
+        for (int i = 0; i < pings.Count; i++)
+        {
+            if (!pings[i]) pings.Remove(pings[i]);
         }
         if (pings.Count == texts.Count) { }
         else if (pings.Count > texts.Count) for (int i = 0; i < pings.Count - texts.Count; i++) 
@@ -88,10 +94,19 @@ public class PointerSystem : MonoBehaviour
         pings.Add(ping);
         opacity = 5;
     }
+    public void AddPing(Transform pos)
+    {
+        pings.Add(pos);
+        opacity = 5;
+    }
+
 
     public void TestAddPing()
     {
-        Vector2 pos = (Vector2)player.transform.position + new Vector2(Random.Range(-1000,1000),Random.Range(-1000,1000));
-        AddPing(pos);
+        if (target.targetRB) {
+            AddPing(target.target);
+        } else if (target.target) AddPing(target.target.position);
+        //Vector2 pos = (Vector2)player.transform.position + new Vector2(Random.Range(-1000,1000),Random.Range(-1000,1000));
+
     }
 }
