@@ -8,9 +8,14 @@ public class ItemInfo : MonoBehaviour
     public int level;
     public EquipmentTypes type = EquipmentTypes.None;
     public bool random;
+    public float additionalWeaponChance;
+    public float relicChance;
     public Transform parent;
     public Equipment newEquipment;
     bool accepted = false;
+
+    public ParticleSystem ps;
+    public SpriteRenderer sprite;
     private void Start()
     {
         parent = transform.parent;
@@ -19,6 +24,13 @@ public class ItemInfo : MonoBehaviour
         {
             if (random)
             {
+                if (Random.value < additionalWeaponChance)
+                {
+                    type = EquipmentTypes.Weapon;
+                    newEquipment = RandomizeEquipment.Instance.RandomizeGun(level) as Weapon;
+                    ChangeTrailAndSpriteColors();
+                    return;
+                }
                 type = (EquipmentTypes)Random.Range(2, 10);
             }
             switch (type)
@@ -59,7 +71,9 @@ public class ItemInfo : MonoBehaviour
                     break;
                 case EquipmentTypes.Relic:
                     newEquipment = RandomizeEquipment.Instance.RandomizeRelic();
-                    accepted = true;
+                    if (Random.value > relicChance && random)
+                        accepted = false;
+                    else accepted = true;
                     break;
                 case EquipmentTypes.Default:
                     break;
@@ -67,6 +81,15 @@ public class ItemInfo : MonoBehaviour
                     break;
             }
         }
+        ChangeTrailAndSpriteColors();
+    }
+
+    void ChangeTrailAndSpriteColors()
+    {
+        var trail = ps.trails;
+        trail.colorOverLifetime = newEquipment.gradient;
+
+        sprite.color = newEquipment.color;
     }
     public bool Pickup()
     {

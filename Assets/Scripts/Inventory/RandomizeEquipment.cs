@@ -6,6 +6,7 @@ using UnityEngine;
 public class RandomizeEquipment : MonoBehaviour
 {
     public Color[] typeColor;
+    public ParticleSystem.MinMaxGradient[] gradients;
     public Equipment[] relics;
     [Space]
 
@@ -160,7 +161,7 @@ public class RandomizeEquipment : MonoBehaviour
                 Debug.Log("Something went wrong with the relics");
                 break;
         }
-        
+        relic.gradient = gradients[(int)EquipmentTypes.Relic];
 
         relic.itemName = copyRelic.itemName;
         relic.description = copyRelic.description;
@@ -202,7 +203,7 @@ public class RandomizeEquipment : MonoBehaviour
         weapon.weaponType = (WeaponType)iR(0, 11);
         weapon.icon = gunSprites[(int)weapon.weaponType];
 
-
+        weapon.gradient = gradients[(int)EquipmentTypes.Weapon];
 
         weapon.bulletSize = fR(bulletSize);
 
@@ -1403,6 +1404,7 @@ public class RandomizeEquipment : MonoBehaviour
         thruster.color = typeColor[(int)EquipmentTypes.Thruster];
         thruster.equipType = EquipmentTypes.Thruster;
         thruster.level = level;
+        thruster.gradient = gradients[(int)EquipmentTypes.Thruster];
 
         thruster.stlType = (STLTypes)iR(0, 5);
         thruster.icon = thrusterSprites[(int)thruster.stlType];
@@ -1710,6 +1712,7 @@ public class RandomizeEquipment : MonoBehaviour
         col.color = typeColor[(int)EquipmentTypes.Collector];
         col.equipType = EquipmentTypes.Collector;
         col.level = level;
+        col.gradient = gradients[(int)EquipmentTypes.Collector];
 
         col.collectorType = (CollectorTypes)iR(0, 1);
         col.icon = colSprites[(int)col.collectorType];
@@ -1780,6 +1783,7 @@ public class RandomizeEquipment : MonoBehaviour
         shield.color = typeColor[(int)EquipmentTypes.Shield];
         shield.equipType = EquipmentTypes.Shield;
         shield.level = level;
+        shield.gradient = gradients[(int)EquipmentTypes.Shield];
 
         shield.shieldType = (ShieldType)iR(0, 2);
         shield.icon = shieldSprites[(int)shield.shieldType];
@@ -1871,6 +1875,8 @@ public class RandomizeEquipment : MonoBehaviour
         hull.color = typeColor[(int)EquipmentTypes.Hull];
         hull.equipType = EquipmentTypes.Hull;
         hull.level = level;
+        hull.gradient = gradients[(int)EquipmentTypes.Hull];
+
         hull.hullType = (HullTypes)iR(0, 2);
         hull.icon = hullSprites[(int)hull.hullType];
 
@@ -1957,6 +1963,8 @@ public class RandomizeEquipment : MonoBehaviour
         scanner.color = typeColor[(int)EquipmentTypes.Scanner];
         scanner.equipType = EquipmentTypes.Scanner;
         scanner.level = level;
+        scanner.gradient = gradients[(int)EquipmentTypes.Scanner];
+
         scanner.type = (ScannerTypes)iR(0, 2);
         scanner.icon = scannerSprites[(int)scanner.type];
 

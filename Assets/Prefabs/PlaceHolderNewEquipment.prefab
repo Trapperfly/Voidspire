@@ -237,10 +237,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d6c0acc318a7b4dad8efc299640ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
   type: 0
   random: 1
+  additionalWeaponChance: 0.2
+  relicChance: 0.02
   parent: {fileID: 0}
   newEquipment: {fileID: 0}
+  ps: {fileID: 1454299886401446111}
+  sprite: {fileID: 3227819605498024101}
 --- !u!114 &315080269483725711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   child:
   - {fileID: 7470430705806722477}
+  toWhatParent: {fileID: 0}
 --- !u!1 &8172088473066830805
 GameObject:
   m_ObjectHideFlags: 0

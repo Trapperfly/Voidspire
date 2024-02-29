@@ -19,6 +19,8 @@ public class Equipment : Item
 
     public int statLength;
 
+    public ParticleSystem.MinMaxGradient gradient;
+
     public override void Use()
     {
         base.Use();
