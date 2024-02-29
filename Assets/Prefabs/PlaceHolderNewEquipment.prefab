@@ -241,7 +241,7 @@ MonoBehaviour:
   type: 0
   random: 1
   additionalWeaponChance: 0.2
-  relicChance: 0.02
+  relicChance: 0.1
   parent: {fileID: 0}
   newEquipment: {fileID: 0}
   ps: {fileID: 1454299886401446111}
