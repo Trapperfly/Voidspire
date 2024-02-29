@@ -44,6 +44,9 @@ public class RandomizeEquipment : MonoBehaviour
 
     [SerializeField] Vector2 explosionDamageMultiplier;
     [SerializeField] Vector3 explosiveRange;
+
+    [SerializeField] Vector2 cluster;
+    [SerializeField] Vector2 clusterAmount;
     #endregion
 
     [Header("Thruster")]
@@ -632,6 +635,9 @@ public class RandomizeEquipment : MonoBehaviour
                 weapon.damage *= 2;
                 weapon.spread /= 2;
                 weapon.fireRate /= 4;
+                weapon.cluster = iR(cluster);
+                weapon.clusterAmount = iR(clusterAmount);
+                weapon.clusterSpeed = weapon.speed / 2;
                 break;
             case WeaponType.Arrow:
                 switch (AddBonusFireROrAcc(weapon))

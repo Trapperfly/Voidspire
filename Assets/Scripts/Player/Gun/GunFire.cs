@@ -429,12 +429,13 @@ public class GunFire : MonoBehaviour
     {
         //Debug.Log("Trying to shoot bullet");
         GameObject bullet = Instantiate(gc.clusterPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
-        bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
+        Bullet b = bullet.GetComponent<Bullet>();
+        b.bc = gc.bc[stat.gunNumber];
         bullet.transform.localScale *= w.bulletSize;
         bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
-        bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
+        b.bulletSender = GlobalRefs.Instance.player;
         yield return null;
     }
     public IEnumerator ShootArrow()

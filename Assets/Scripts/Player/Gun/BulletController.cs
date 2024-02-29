@@ -7,6 +7,11 @@ public class BulletController : MonoBehaviour
     public WeaponType type;
     public bool isExplosive;
     public float explosiveDamage;
+
+    public int cluster;
+    public int clusterAmount;
+    public float clusterSpeed;
+
     public float damage;
     public float speed;
     public float bulletLongevity;
@@ -42,6 +47,11 @@ public class BulletController : MonoBehaviour
             isExplosive = weapon.isExplosive;
             splashDamage = weapon.splashDamage;
             splashRange = weapon.splashRange;
+
+            cluster = weapon.cluster;
+            clusterAmount = weapon.clusterAmount;
+            clusterSpeed = weapon.clusterSpeed;
+
             damage = weapon.damage;
             speed = weapon.speed;
             bulletLongevity = weapon.longevity;

@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Entities;
-using Unity.Mathematics;
 
 public class Bullet : MonoBehaviour
 {
@@ -15,10 +13,17 @@ public class Bullet : MonoBehaviour
     public int _localPierce;
     public bool _localHoming;
     public bool _explosive;
+    public int _cluster;
+    public bool _isClusterProjectile;
+    public int _clusterAmount;
+    public float _clusterSpeed;
+    public GameObject _clusterPrefab;
     public float currTime;
     public Rigidbody2D rb;
     Collider2D col;
-    
+
+    bool stopping;
+
     public Vector3 lastVelocity;
     public bool bounced = false;
 
@@ -31,10 +36,15 @@ public class Bullet : MonoBehaviour
         _localBounce = bc.bounce;
         _localPierce = bc.pierce;
         _localHoming = bc.homing;
-        _localDamage = bc.damage;
+        if (!_isClusterProjectile)
+            _localDamage = bc.damage;
         _splashDamage = bc.splashDamage;
         _splashRange = bc.splashRange;
         _explosive = bc.isExplosive;
+        if (!_isClusterProjectile)
+            _cluster = bc.cluster;
+        _clusterAmount = bc.clusterAmount;
+        _clusterSpeed = bc.clusterSpeed;
     }
     private void Start()
     {
@@ -62,6 +72,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnDestroy()
     {
+        if (stopping) return;
         if (_explosive)
         {
             Debug.Log(_splashDamage);
@@ -71,6 +82,24 @@ public class Bullet : MonoBehaviour
                 if (col.TryGetComponent<Damagable>(out var dm)) dm.TakeDamage(_splashDamage, col.transform.position, bulletSender);
             }
         }
+        if (_cluster > 0)
+        {
+            Debug.Log("Clustering");
+            for (int i = 0; i < _clusterAmount; i++)
+            {
+                Rigidbody2D bullet = Instantiate(_clusterPrefab, transform.position, Quaternion.Euler(0, 0, Random.Range(0f, 360f)), transform.parent).GetComponent<Rigidbody2D>();
+                Bullet b = bullet.GetComponent<Bullet>();
+                b._localDamage *= 0.2f;
+                b._cluster = _cluster - 1;
+                b.bulletSender = bulletSender;
+                b._clusterPrefab = _clusterPrefab;
+                bullet.velocity = bullet.transform.up * _clusterSpeed;
+            }
+        }
         StopAllCoroutines();
+    }
+    private void OnApplicationQuit()
+    {
+        stopping = true;
     }
 }

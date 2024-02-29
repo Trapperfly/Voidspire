@@ -11,6 +11,11 @@ public class Weapon : Equipment
     public float explosiveMultiplier;
     public float splashDamage;
     public float splashRange;
+
+    public int cluster;
+    public int clusterAmount;
+    public float clusterSpeed;
+
     public float damage;              //On bullet
     public float bulletSize;          //On gun
     public float fireRate;            //On gun
