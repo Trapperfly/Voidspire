@@ -17,6 +17,7 @@ MonoBehaviour:
   difficulty: 0
   category: 8
   pingCondition: 1
+  position: 3
   boss: {fileID: 5658329314286419434, guid: c932f401e91116845ad0b42bf0107f2d, type: 3}
   ads:
   - {fileID: 3976236312003157668, guid: f13d7550fbff28043a7d5ed2be0a6219, type: 3}

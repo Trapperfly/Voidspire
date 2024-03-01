@@ -11156,11 +11156,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceSpawner: {fileID: 0}
   noDrop: 1
-  value: 1
+  value: 10
   size: 1
   valueFromSize: 0
   lootExplosionStrength: 0.1
-  weaponDropChance: 0.1
+  weaponDropChance: 1
 --- !u!114 &1475571826313758656
 MonoBehaviour:
   m_ObjectHideFlags: 0

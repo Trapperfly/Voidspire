@@ -5172,6 +5172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c631ff76429e5ac4dbeff717f5d45d91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBoss: 0
   level: 0
   ship: {fileID: 11400000, guid: 49562556044938145b98fc2a931a1bab, type: 2}
   jumping: 0
@@ -5202,6 +5203,7 @@ MonoBehaviour:
   unlockedGuns: 0
   hud: {fileID: 0}
   healthBarAndLevel: {fileID: 424752908760282577, guid: bb7b434864c5c4749b3138929ec81a1a, type: 3}
+  bossHealthBarAndLevel: {fileID: 0}
 --- !u!114 &3550362939253741042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5250,7 +5252,7 @@ MonoBehaviour:
   size: 1
   valueFromSize: 0
   lootExplosionStrength: 0.1
-  weaponDropChance: 0.15
+  weaponDropChance: 0.2
 --- !u!114 &5340644641591241321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5268,6 +5270,7 @@ MonoBehaviour:
   damageTaken: 0
   shipOverride: 1
   damageTakenFromWhat: {fileID: 0}
+  healthPercent: 0
 --- !u!114 &4095773391793159098
 MonoBehaviour:
   m_ObjectHideFlags: 0

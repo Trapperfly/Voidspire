@@ -8,6 +8,9 @@ public class GlobalRefs : MonoBehaviour
     public Transform[] clearTheseOfChildrenWhenNewSector;
     public List<GameObject> clearThese = new();
 
+    public GameObject sectorBossEvent;
+    public Transform eventParent;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -39,6 +42,10 @@ public class GlobalRefs : MonoBehaviour
     public static float eventSeed;
     public static float difSeed;
 
+    private void Start()
+    {
+        Instantiate(sectorBossEvent, eventParent);
+    }
     private void SetSeeds()
     {
         if (seed == 0) { seed = Random.Range(-10000, 10000); Random.InitState(seed); }
@@ -76,6 +83,6 @@ public class GlobalRefs : MonoBehaviour
         }
         clearThese.Clear();
         ChunkLoader.Instance.Clear();
-        
+        Instantiate(sectorBossEvent, eventParent);
     }
 }

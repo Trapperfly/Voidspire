@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Cinemachine.DocumentationSortingAttribute;
 
 public class SpawnEvent : MonoBehaviour
 {
@@ -21,6 +20,18 @@ public class SpawnEvent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        switch (_event.position)
+        {
+            case EventPosition.NearEventChunk:
+                break;
+            case EventPosition.RandomClose:
+                break;
+            case EventPosition.RandomFarAway:
+                transform.position = new Vector2(Random.Range(-10000, 10000), Random.Range(-10000, 10000));
+                break;
+            default:
+                break;
+        }
         switch (_event.pingCondition)
         {
             case PingCondition.None:
