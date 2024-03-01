@@ -21,6 +21,7 @@ TagManager:
   - InfoBox
   - PlayerManager
   - Hud
+  - Chitin
   layers:
   - Default
   - TransparentFX

@@ -8,6 +8,7 @@ using TMPro;
 
 public class ShipAI : MonoBehaviour
 {
+    public bool isBoss;
     bool playerIsDead;
     public int level = 0;
     public Ship ship;
@@ -68,12 +69,14 @@ public class ShipAI : MonoBehaviour
 
     public Transform hud;
     public GameObject healthBarAndLevel;
+    public GameObject bossHealthBarAndLevel;
     Image healthBar;
     TMP_Text levelText;
 
     private void Start()
     {
-        level += (GlobalRefs.Instance.currentSector - 1) * 10;
+        if (level == 0)
+            level += (GlobalRefs.Instance.currentSector - 1) * 10;
         Init();
         var tEmis = thrustersPS.emission;
         tEmis.enabled = false;
@@ -122,6 +125,18 @@ public class ShipAI : MonoBehaviour
 
     void Init()
     {
+        if (isBoss)
+        {
+            gameObject.name = ship.aiName;
+            hud = GameObject.FindGameObjectWithTag("Hud").transform;
+            GameObject b = Instantiate(bossHealthBarAndLevel, hud);
+            healthBar = b.transform.GetChild(2).GetChild(2).GetComponent<Image>();
+            b.transform.GetChild(1).GetChild(2).GetComponent<TMP_Text>().text = gameObject.name;
+            levelText = b.transform.GetChild(0).GetChild(2).GetComponent<TMP_Text>();
+            levelText.text = level.ToString();
+            b.GetComponent<EnemyHealthBar>().target = transform;
+            return;
+        }
         gameObject.name = ship.aiName;
         hud = GameObject.FindGameObjectWithTag("Hud").transform;
         GameObject h = Instantiate(healthBarAndLevel, transform.position, new Quaternion(), hud);
@@ -487,6 +502,7 @@ public class ShipAI : MonoBehaviour
     {
         if (healthModule.damageTaken && healthModule.damageTakenFromWhat)
         {
+            if (healthModule.damageTakenFromWhat.CompareTag(gameObject.tag)) return;
             if (combatTarget)
                 if (Random.value > ship.changeTargetChance) { return; }
             if (!lowHealth)
@@ -506,6 +522,7 @@ public class ShipAI : MonoBehaviour
                 Collider2D[] potentialTargets = Physics2D.OverlapCircleAll(transform.position, ship.reactRange, targetMask);
                 foreach (Collider2D t in potentialTargets)
                 {
+                    if (t.gameObject.CompareTag(gameObject.tag)) return;
                     //If the found target is this ship, return early
                     if (t == col) { return; }
                     if (Random.value > ship.changeTargetChance) { return; }
@@ -743,11 +760,13 @@ public class ShipAI : MonoBehaviour
     }
     void FindPosNearTarget()
     {
-        targetPos = (Vector2)targetTransform.position + Random.insideUnitCircle * ship.targetRadius;
+        if (targetTransform)
+            targetPos = (Vector2)targetTransform.position + Random.insideUnitCircle * ship.targetRadius;
     }
     void FindPosOnTarget()
     {
-        targetPos = (Vector2)targetTransform.position;
+        if (targetTransform)
+            targetPos = (Vector2)targetTransform.position;
     }
     void FindPosNearSpawn()
     {

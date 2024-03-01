@@ -25,7 +25,7 @@ MonoBehaviour:
   enrageStrength: 0
   enrageSpecialAttack: 0
   contactBehaviour: 2
-  maxHealth: 60
+  maxHealth: 80
   maxShield: 0
   mass: 2
   isDisabled: 0

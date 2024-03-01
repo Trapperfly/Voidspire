@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PassiveShieldCollider : Events
+public class PassiveShieldCollider : GameTrigger
 {
     [SerializeField] PassiveShield master;
     private void OnCollisionEnter2D(Collision2D collision)

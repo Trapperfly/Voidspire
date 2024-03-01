@@ -5,6 +5,8 @@ using UnityEngine;
 public class GlobalRefs : MonoBehaviour 
 {
     public static GlobalRefs Instance;
+    public Transform[] clearTheseOfChildrenWhenNewSector;
+    public List<GameObject> clearThese = new();
 
     private void Awake()
     {
@@ -37,11 +39,10 @@ public class GlobalRefs : MonoBehaviour
     public static float eventSeed;
     public static float difSeed;
 
-
     private void SetSeeds()
     {
-        if (seed == 0) { seed = Random.Range(-10000, 10000); }
-        Random.InitState(seed);
+        if (seed == 0) { seed = Random.Range(-10000, 10000); Random.InitState(seed); }
+        
         //Set seeds 
         xSeed = Random.Range(-10000, 10000);
         ySeed = Random.Range(-10000, 10000);
@@ -56,5 +57,25 @@ public class GlobalRefs : MonoBehaviour
         eventSeed = Random.Range(-10000, 10000);
         difSeed = Random.Range(-10000, 10000);
         //GenerateChunks();
+    }
+
+    public void StartNewSector()
+    {
+        currentSector++;
+        SetSeeds();
+        for (int i = 0; i < clearTheseOfChildrenWhenNewSector.Length; i++)
+        {
+            for (int j = 0; j < clearTheseOfChildrenWhenNewSector[i].childCount; j++)
+            {
+                Destroy(clearTheseOfChildrenWhenNewSector[i].GetChild(j).gameObject);
+            }
+        }
+        for (int i = 0; i < clearThese.Count; i++)
+        {
+            Destroy(clearThese[i]);
+        }
+        clearThese.Clear();
+        ChunkLoader.Instance.Clear();
+        
     }
 }

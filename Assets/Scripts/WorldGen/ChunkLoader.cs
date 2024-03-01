@@ -72,16 +72,27 @@ public class ChunkLoader : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
+        Instance = this;
     }
     #endregion
+
+    public void Clear()
+    {
+        for (int i = 0; i < toBeDestroyed.Count; i++)
+        {
+            spaceChunkDictionary.Remove
+                (new Vector2(toBeDestroyed[i].chunkGO.transform.position.x / chunkSize, toBeDestroyed[i].chunkGO.transform.position.y / chunkSize));
+            foreach (GameObject go in toBeDestroyed[i].entities)
+            {
+                Destroy(go);
+            }
+            Destroy(toBeDestroyed[i].chunkGO);
+        }
+        toBeDestroyed.Clear();
+        chunksVisibleLastFrame.Clear();
+        spaceChunkDictionary.Clear();
+
+    }
 
     private void Start()
     {

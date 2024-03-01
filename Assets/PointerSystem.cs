@@ -18,6 +18,22 @@ public class PointerSystem : MonoBehaviour
     public float pointerSpeed = 0.02f;
     float opacity = 0;
 
+    #region Singleton
+    public static PointerSystem Instance;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+    #endregion
+
     public ActiveTarget target;
     void Start()
     {

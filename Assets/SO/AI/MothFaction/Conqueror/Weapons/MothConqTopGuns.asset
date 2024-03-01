@@ -16,7 +16,7 @@ MonoBehaviour:
   attack: 3
   effect: 1
   effectChance: 0.5
-  damage: 2
+  damage: 1
   amount: 1
   shotSpeed: 10
   fireRate: 0.7

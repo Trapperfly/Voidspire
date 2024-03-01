@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ShipControl : MonoBehaviour
 {
-
+    public bool ftlDisabled;
     public bool thrusterEquipped;
     [Header("Ship control")]
 
@@ -73,10 +73,10 @@ public class ShipControl : MonoBehaviour
     {
         if (GlobalRefs.Instance.playerIsDead) { rb.drag = 0; rb.angularDrag = 0; return; }
 
-        if (thrusterEquipped && ftlActive) FTL();
+        if (!ftlDisabled && thrusterEquipped && ftlActive) FTL();
         else if (thrusterEquipped) Movement();
 
-        if ( thrusterEquipped && Input.GetKey(KeyCode.Space) && !ftlActive) ChargeFTL();
+        if (!ftlDisabled && thrusterEquipped && Input.GetKey(KeyCode.Space) && !ftlActive) ChargeFTL();
         else if (ftlCharge > 0) ftlCharge -= 3;
         else if (ftlCharge < 0) ftlCharge = 0;
 
@@ -85,7 +85,7 @@ public class ShipControl : MonoBehaviour
 
     private void Update()
     {
-        if (ftlActive && (Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.S)))
+        if ((ftlDisabled && ftlActive) || (ftlActive && (Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.S))))
             ftlEnding = true;
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : Events
+public class PlayerHealth : GameTrigger
 {
     public float iFrames;
 

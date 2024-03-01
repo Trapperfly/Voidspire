@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Events : MonoBehaviour
+public class GameTrigger : MonoBehaviour
 {
     public delegate void OnKill();
     public OnKill onKillCallback;
@@ -21,7 +21,7 @@ public class Events : MonoBehaviour
     public virtual void OnHitEvent(float damage, Vector2 position)
     {
         Debug.Log(damage + " damage was dealt");
-        TMP_Text textAsset = Instantiate(EventsVars.instance.dmgNrGO, position, new Quaternion(), EventsVars.instance.parent).GetComponent<TMP_Text>();
+        TMP_Text textAsset = Instantiate(GameTriggerVars.instance.dmgNrGO, position, new Quaternion(), GameTriggerVars.instance.parent).GetComponent<TMP_Text>();
         textAsset.text = damage.ToString("F1");
         onHitCallback?.Invoke();
     }

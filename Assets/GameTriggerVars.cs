@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventsVars : MonoBehaviour
+public class GameTriggerVars : MonoBehaviour
 {
     public GameObject dmgNrGO;
     public Transform parent;
 
-    public static EventsVars instance;
+    public static GameTriggerVars instance;
 
     private void Awake()
     {

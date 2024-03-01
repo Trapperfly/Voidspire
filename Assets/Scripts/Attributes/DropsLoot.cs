@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DropsLoot : Events
+public class DropsLoot : GameTrigger
 {
     public SpawnResourceOnDestroy resourceSpawner;
     [HideInInspector] public bool noDrop = true;

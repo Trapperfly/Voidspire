@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PassiveShield : Events
+public class PassiveShield : GameTrigger
 {
     public bool shieldActive = false;
     [HideInInspector] public bool shieldActiveForColliders = false;

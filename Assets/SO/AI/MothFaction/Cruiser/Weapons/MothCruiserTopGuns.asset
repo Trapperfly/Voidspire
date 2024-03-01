@@ -16,9 +16,11 @@ MonoBehaviour:
   attack: 3
   effect: 1
   effectChance: 0.3
-  damage: 3
+  damage: 2
   amount: 1
   shotSpeed: 3
   fireRate: 0.5
   spread: 5
   gunRotSpeed: 0.5
+  homing: 0
+  homingStrength: 0

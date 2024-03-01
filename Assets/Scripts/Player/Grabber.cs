@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grabber : Events
+public class Grabber : GameTrigger
 {
     bool reachedTarget = false;
     bool failed = false;

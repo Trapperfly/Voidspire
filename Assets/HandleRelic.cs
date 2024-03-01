@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandleRelic : Events
+public class HandleRelic : GameTrigger
 {
     EquipmentController equipment;
     InventoryUI inventoryUI;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Damagable : Events
+public class Damagable : GameTrigger
 {
     public float startHealth = 0;
     public float currentHealth;
