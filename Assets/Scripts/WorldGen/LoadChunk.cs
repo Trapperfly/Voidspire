@@ -24,6 +24,7 @@ public class LoadChunk : MonoBehaviour
         eventValue = chunk.chunkEvent;
         shopValue = chunk.shop;
         chunkDif = chunk.chunkDif;
+        chunkLevel = (10 * (GlobalRefs.Instance.currentSector - 1)) + 1 + Mathf.RoundToInt(Mathf.Pow(chunkDif, 2) * 9);
         StartCoroutine(LoadDebris(ChunkLoader.debrisMultiplier));
         StartCoroutine(LoadFaction());
     }
@@ -33,14 +34,15 @@ public class LoadChunk : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             if (Random.value < Mathf.Pow(chunk.debrisValue, 3))
-                SpawnDebris.Instance.Spawn(transform.position, loader.chunkSize / 2);
+            {
+                SpawnDebris.Instance.Spawn(transform.position, loader.chunkSize / 2, chunkLevel);
+            }  
         }
         yield return null;
     }
 
     IEnumerator LoadFaction()
     {
-        chunkLevel = (1 + Mathf.RoundToInt(Mathf.Pow(chunkDif, 2) * 9));
         StartCoroutine(LoadVoidEnemies(ChunkLoader.voidMultiplier, chunkLevel));
         StartCoroutine(LoadChitinEnemies(ChunkLoader.chitinMultiplier, chunkLevel));
         //StartCoroutine(LoadChromeEnemies(ChunkLoader.chromeMultiplier, Mathf.RoundToInt(chunkDif)));

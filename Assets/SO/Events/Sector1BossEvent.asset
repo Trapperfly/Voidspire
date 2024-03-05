@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 9dc9d250169c03d4bad3a8f150eed747, type: 3}
   m_Name: Sector1BossEvent
-  m_EditorClassIdentifier: Assembly-CSharp::BossEvent
-  eventName: Sector boss
-  id: 0
+  m_EditorClassIdentifier: 
+  eventName: Sector Boss
+  id: 1
   difficulty: 0
   category: 8
   pingCondition: 1
@@ -26,7 +26,7 @@ MonoBehaviour:
   - {fileID: 651877200622359586, guid: 3ffd406f8811d49449d67ffd56d012e3, type: 3}
   spawnEnemies: []
   playerIsTooFarAway: 2
-  range: 0
+  range: 20
   timer: 0
   winCondition: 2
   reward: 1

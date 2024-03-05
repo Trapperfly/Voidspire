@@ -43,10 +43,14 @@ public class AssignToChunk : MonoBehaviour
         }
     }
 
-    void CheckForDisabledChunk()
+    IEnumerator CheckForDisabledChunk()
     {
         Debug.Log("Checking for new chunk. It was " + (bool)loader.spaceChunkDictionary.ContainsKey(pos));
-        if (loader.spaceChunkDictionary[pos].chunkGO.activeSelf == true)
+        if (!loader.spaceChunkDictionary.ContainsKey(pos)) {
+            StartCoroutine(nameof(CheckForNewChunk));
+            StopCoroutine(nameof(CheckForDisabledChunk));
+        }
+        else if (loader.spaceChunkDictionary[pos].chunkGO.activeSelf == true)
         {
             Debug.Log("Found new chunk");
             GetComponent<Rigidbody2D>().simulated = true;
@@ -54,6 +58,8 @@ public class AssignToChunk : MonoBehaviour
             CancelInvoke(nameof(CheckForNewChunk));
             currentlyCheckingForChunk = false;
         }
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(nameof(CheckForDisabledChunk));
     }
 
     void ChangeParent()
@@ -73,7 +79,7 @@ public class AssignToChunk : MonoBehaviour
             GetComponent<Rigidbody2D>().simulated = false;
             if (!currentlyCheckingForChunk) 
             { 
-                InvokeRepeating(nameof(CheckForDisabledChunk), 0, 0.5f); 
+                StartCoroutine(nameof(CheckForDisabledChunk)); 
                 currentlyCheckingForChunk = true; 
             }
         }

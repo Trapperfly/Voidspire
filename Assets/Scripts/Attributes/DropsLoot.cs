@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DropsLoot : GameTrigger
 {
+    public int level = 1;
     public SpawnResourceOnDestroy resourceSpawner;
     [HideInInspector] public bool noDrop = true;
     [SerializeField] float value;
@@ -31,12 +32,12 @@ public class DropsLoot : GameTrigger
     {
         base.OnKillEvent();
         TryGetComponent(out ShipAI ship);
-        int level = 0;
         if (ship != null) {
             level = ship.level;
+            resourceSpawner.SpawnLoot(value, lootExplosionStrength, transform.position, size, weaponDropChance, level);
+        } else
+        {
+            resourceSpawner.SpawnLoot(value, lootExplosionStrength, transform.position, size, weaponDropChance, level);
         }
-        if (valueFromSize)
-            resourceSpawner.SpawnLoot(transform.localScale.x, transform.localScale.x, transform.position, transform.localScale.x, weaponDropChance, level);
-        else resourceSpawner.SpawnLoot(value, lootExplosionStrength, transform.position, size, weaponDropChance, level);
     }
 }
