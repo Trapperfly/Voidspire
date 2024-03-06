@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Weapon", menuName = "Inventory/Equipment/Weapon")]
 public class Weapon : Equipment
 {
+    public Sprite gameSpaceSprite;
     public WeaponType weaponType;
     public bool isExplosive;
     public bool savedIsExplosive;

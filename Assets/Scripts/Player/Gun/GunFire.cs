@@ -68,7 +68,7 @@ public class GunFire : MonoBehaviour
         }
         w = gc.weaponSlots[stat.gunNumber].item as Weapon;
         SpriteRenderer wSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        if (w) { wSprite.sprite = w.icon; wSprite.enabled = true; gunPoint.rotSpeed = w.rotationSpeed; }
+        if (w) { wSprite.sprite = w.gameSpaceSprite; wSprite.enabled = true; gunPoint.rotSpeed = w.rotationSpeed; }
         else { wSprite.enabled = false; wSprite.sprite = null; }
         stat.active = w != null;
     }

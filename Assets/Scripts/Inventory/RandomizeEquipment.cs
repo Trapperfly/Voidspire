@@ -15,6 +15,7 @@ public class RandomizeEquipment : MonoBehaviour
     #region WeaponRandomizing
     [Header("Weapon")]
     [SerializeField] Sprite[] gunSprites;
+    [SerializeField] Sprite[] gameSpaceGunSprites;
     [SerializeField] string[] wNameFirst;
     [SerializeField] string[] wNameMid;
     [SerializeField] string[] wNameLast;
@@ -202,6 +203,7 @@ public class RandomizeEquipment : MonoBehaviour
         weapon.level = level;
         weapon.weaponType = (WeaponType)iR(0, 11);
         weapon.icon = gunSprites[(int)weapon.weaponType];
+        weapon.gameSpaceSprite = gameSpaceGunSprites[(int)weapon.weaponType];
 
         weapon.gradient = gradients[(int)EquipmentTypes.Weapon];
 
