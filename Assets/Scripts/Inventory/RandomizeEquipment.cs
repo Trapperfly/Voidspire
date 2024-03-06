@@ -202,6 +202,7 @@ public class RandomizeEquipment : MonoBehaviour
         weapon.effectColor = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.6f, 1);
         weapon.level = level;
         weapon.weaponType = (WeaponType)iR(0, 11);
+        if (weapon.weaponType == WeaponType.Arrow) { weapon.weaponType = (WeaponType)iR(0, 9); }
         weapon.icon = gunSprites[(int)weapon.weaponType];
         weapon.gameSpaceSprite = gameSpaceGunSprites[(int)weapon.weaponType];
 
