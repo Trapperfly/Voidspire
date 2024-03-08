@@ -39,7 +39,7 @@ public class Grabber : GameTrigger
             {
                 failed = true;
             }
-            if (Vector2.Distance(target.transform.position, player.transform.position) > range + (range * 0.2f))
+            if (!failed && Vector2.Distance(target.transform.position, player.transform.position) > range + (range * 0.2f))
             {
                 failed = true;
             }
