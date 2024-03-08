@@ -27,7 +27,7 @@ public class PlayerHealth : GameTrigger
     public GameObject deathMenu;
 
     EquipmentController equipment;
-    Hull hull;
+    public Hull hull;
     bool noHull;
     private void Awake()
     {
@@ -77,7 +77,7 @@ public class PlayerHealth : GameTrigger
         UpdateSize();
     }
 
-    void UpdateHealth()
+    public void UpdateHealth()
     {
         if (hull.hullCurrentHealth > hull.hullHealth) hull.hullCurrentHealth = hull.hullHealth;
         healthPercent = hull.hullCurrentHealth / hull.hullHealth;

@@ -53,8 +53,8 @@ public class SpawnDebris : MonoBehaviour
         //debrisRb.mass = Mathf.Pow(size, 3);
 
         SetDirection();
-        debrisRb.AddForce(SetDirection() * Random.Range(0, debrisRb.mass), ForceMode2D.Impulse);
-        debrisRb.AddTorque(Random.Range(-debrisRb.mass / 2, debrisRb.mass / 2),ForceMode2D.Impulse);
+        debrisRb.AddForce(SetDirection() * Random.Range(0, debrisRb.mass / 2), ForceMode2D.Impulse);
+        debrisRb.AddTorque(Random.Range(-debrisRb.mass / 10, debrisRb.mass / 10),ForceMode2D.Impulse);
 
         Damagable hm = debris.GetComponent<Damagable>();
         float tempHealth = hm.startHealth;

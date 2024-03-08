@@ -103,7 +103,8 @@ public class ChunkLoader : MonoBehaviour
 
     private void Update()
     {
-        viewerPosition = new Vector2(viewer.position.x, viewer.position.y);
+        if (GlobalRefs.Instance.playerIsInFtl) { }
+        else viewerPosition = new Vector2(viewer.position.x, viewer.position.y);
         GlobalRefs.playerPos = viewerPosition;
         UpdateVisibleChunks();
     }

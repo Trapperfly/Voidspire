@@ -16,9 +16,30 @@ public class RandomizeEquipment : MonoBehaviour
     [Header("Weapon")]
     [SerializeField] Sprite[] gunSprites;
     [SerializeField] Sprite[] gameSpaceGunSprites;
-    [SerializeField] string[] wNameFirst;
-    [SerializeField] string[] wNameMid;
-    [SerializeField] string[] wNameLast;
+    [SerializeField] List<string> bulletNameFirst = new();
+    [SerializeField] List<string> bulletNameLast = new();
+    [SerializeField] List<string> beamNameFirst = new();
+    [SerializeField] List<string> beamNameLast = new();
+    [SerializeField] List<string> railgunNameFirst = new();
+    [SerializeField] List<string> railgunNameLast = new();
+    [SerializeField] List<string> laserNameFirst = new();
+    [SerializeField] List<string> laserNameLast = new();
+    [SerializeField] List<string> waveNameFirst = new();
+    [SerializeField] List<string> waveNameLast = new();
+    [SerializeField] List<string> rocketNameFirst = new();
+    [SerializeField] List<string> rocketNameLast = new();
+    [SerializeField] List<string> needleNameFirst = new();
+    [SerializeField] List<string> needleNameLast = new();
+    [SerializeField] List<string> mineNameFirst = new();
+    [SerializeField] List<string> mineNameLast = new();
+    [SerializeField] List<string> hammerNameFirst = new();
+    [SerializeField] List<string> hammerNameLast = new();
+    [SerializeField] List<string> clusterNameFirst = new();
+    [SerializeField] List<string> clusterNameLast = new();
+    [SerializeField] List<string> arrowNameFirst = new();
+    [SerializeField] List<string> arrowNameLast = new();
+    [SerializeField] List<string> grandNameFirst = new();
+    [SerializeField] List<string> grandNameLast = new();
     [Header("WeaponStats")]
     [SerializeField] Vector3 damage;              //On bullet
     //[SerializeField] AnimationCurve damageChance;
@@ -189,12 +210,6 @@ public class RandomizeEquipment : MonoBehaviour
         bool isCharge = false;
 
         Weapon weapon = ScriptableObject.CreateInstance<Weapon>();
-        weapon.itemName = new string
-            (wNameFirst[iR(0, wNameFirst.Length - 1)]
-            + " "
-            + wNameMid[iR(0, wNameMid.Length - 1)] 
-            + " " 
-            + wNameLast[iR(0, wNameLast.Length - 1)]);
         weapon.name = weapon.itemName;
         weapon.id = Inventory.Instance.id;
         weapon.color = typeColor[(int)EquipmentTypes.Weapon];
@@ -203,6 +218,86 @@ public class RandomizeEquipment : MonoBehaviour
         weapon.level = level;
         weapon.weaponType = (WeaponType)iR(0, 11);
         if (weapon.weaponType == WeaponType.Arrow) { weapon.weaponType = (WeaponType)iR(0, 9); }
+
+        switch (weapon.weaponType)
+        {
+            case WeaponType.Bullet:
+                weapon.itemName = new string
+                (bulletNameFirst[iR(0, bulletNameFirst.Count - 1)]
+                + " "
+                + bulletNameLast[iR(0, bulletNameLast.Count - 1)]);
+                break;
+            case WeaponType.Beam:
+                weapon.itemName = new string
+                (beamNameFirst[iR(0, beamNameFirst.Count - 1)]
+                + " "
+                + beamNameLast[iR(0, beamNameLast.Count - 1)]);
+                break;
+            case WeaponType.Railgun:
+                weapon.itemName = new string
+                (railgunNameFirst[iR(0, railgunNameFirst.Count - 1)]
+                + " "
+                + railgunNameLast[iR(0, railgunNameLast.Count - 1)]);
+                break;
+            case WeaponType.Laser:
+                weapon.itemName = new string
+                (laserNameFirst[iR(0, laserNameFirst.Count - 1)]
+                + " "
+                + laserNameLast[iR(0, laserNameLast.Count - 1)]);
+                break;
+            case WeaponType.Wave:
+                weapon.itemName = new string
+                (waveNameFirst[iR(0, waveNameFirst.Count - 1)]
+                + " "
+                + waveNameLast[iR(0, waveNameLast.Count - 1)]);
+                break;
+            case WeaponType.Rocket:
+                weapon.itemName = new string
+                (rocketNameFirst[iR(0, rocketNameFirst.Count - 1)]
+                + " "
+                + rocketNameLast[iR(0, rocketNameLast.Count - 1)]);
+                break;
+            case WeaponType.Needle:
+                weapon.itemName = new string
+                (needleNameFirst[iR(0, needleNameFirst.Count - 1)]
+                + " "
+                + needleNameLast[iR(0, needleNameLast.Count - 1)]);
+                break;
+            case WeaponType.Mine:
+                weapon.itemName = new string
+                (mineNameFirst[iR(0, mineNameFirst.Count - 1)]
+                + " "
+                + mineNameLast[iR(0, mineNameLast.Count - 1)]);
+                break;
+            case WeaponType.Hammer:
+                weapon.itemName = new string
+                (hammerNameFirst[iR(0, hammerNameFirst.Count - 1)]
+                + " "
+                + hammerNameLast[iR(0, hammerNameLast.Count - 1)]);
+                break;
+            case WeaponType.Cluster:
+                weapon.itemName = new string
+                (clusterNameFirst[iR(0, clusterNameFirst.Count - 1)]
+                + " "
+                + clusterNameLast[iR(0, clusterNameLast.Count - 1)]);
+                break;
+            case WeaponType.Arrow:
+                break;
+            case WeaponType.Grand:
+                weapon.itemName = new string
+                (grandNameFirst[iR(0, grandNameFirst.Count - 1)]
+                + " "
+                + grandNameLast[iR(0, grandNameLast.Count - 1)]);
+                break;
+            case WeaponType.Mirage:
+                break;
+            case WeaponType.Void:
+                break;
+            case WeaponType.Blade:
+                break;
+            default:
+                break;
+        }
         weapon.icon = gunSprites[(int)weapon.weaponType];
         weapon.gameSpaceSprite = gameSpaceGunSprites[(int)weapon.weaponType];
 
@@ -1472,53 +1567,53 @@ public class RandomizeEquipment : MonoBehaviour
         thruster.speed *= 1 + (thruster.brakingSpeed / 10);
         thruster.turnSpeed *= 1 + (thruster.turnBrakingSpeed / 10);
 
-        thruster.ftlType = (FTLTypes)iR(0, 3);
-        thruster.ftlAcc = fR(ftlAcc);
-        thruster.ftlMaxSpeed = fR(ftlMaxSpeed);
-        thruster.ftlRotSpeed = fR(ftlRot);
-        thruster.chargeTime = fR(chargeTime);
-        thruster.fuelMax = fR(fuelMax);
-        thruster.fuelCurrent = thruster.fuelMax - (thruster.fuelMax * (fR(fuelCurrent) / 100));
-        thruster.fuelDrain = fR(fuelDrain);
-        thruster.maxDuration = fR(maxDuration);
+        //thruster.ftlType = (FTLTypes)iR(0, 3);
+        //thruster.ftlAcc = fR(ftlAcc);
+        //thruster.ftlMaxSpeed = fR(ftlMaxSpeed);
+        //thruster.ftlRotSpeed = fR(ftlRot);
+        //thruster.chargeTime = fR(chargeTime);
+        //thruster.fuelMax = fR(fuelMax);
+        //thruster.fuelCurrent = thruster.fuelMax - (thruster.fuelMax * (fR(fuelCurrent) / 100));
+        //thruster.fuelDrain = fR(fuelDrain);
+        //thruster.maxDuration = fR(maxDuration);
 
 
-        switch (thruster.ftlType)
-        {
-            case FTLTypes.Ready: //Short charge time, shorter duration, more fuel drain
-                thruster.chargeTime *= 0.2f;
-                thruster.fuelDrain *= 3f;
-                thruster.maxDuration *= 0.5f;
-                break;
-            case FTLTypes.Burst: //High acceleration, higher max speed
-                thruster.ftlAcc *= 2f;
-                thruster.ftlMaxSpeed *= 1.5f;
-                thruster.chargeTime *= 0.8f;
-                thruster.fuelDrain *= 2f;
-                thruster.maxDuration *= 0.3f;
-                break;
-            case FTLTypes.Flight: //Long charge time, high max speed and acceleration, lower fuel drain
-                thruster.ftlAcc *= 1.5f;
-                thruster.ftlMaxSpeed *= 1.5f;
-                thruster.ftlRotSpeed *= 0;
-                thruster.chargeTime *= 2f;
-                thruster.fuelDrain *= 0.5f;
-                thruster.maxDuration *= 3f;
-                break;
-            case FTLTypes.Scout: //Medium all round, but high rot speed and duration
-                thruster.ftlAcc *= 0.5f;
-                thruster.ftlMaxSpeed *= 0.8f;
-                thruster.ftlRotSpeed *= 5f;
-                thruster.chargeTime *= 0.75f;
-                thruster.fuelDrain *= 1.5f;
-                break;
-            case FTLTypes.Crash:
-                break;
-            case FTLTypes.Default:
-                break;
-            default:
-                break;
-        }
+        //switch (thruster.ftlType)
+        //{
+        //    case FTLTypes.Ready: //Short charge time, shorter duration, more fuel drain
+        //        thruster.chargeTime *= 0.2f;
+        //        thruster.fuelDrain *= 3f;
+        //        thruster.maxDuration *= 0.5f;
+        //        break;
+        //    case FTLTypes.Burst: //High acceleration, higher max speed
+        //        thruster.ftlAcc *= 2f;
+        //        thruster.ftlMaxSpeed *= 1.5f;
+        //        thruster.chargeTime *= 0.8f;
+        //        thruster.fuelDrain *= 2f;
+        //        thruster.maxDuration *= 0.3f;
+        //        break;
+        //    case FTLTypes.Flight: //Long charge time, high max speed and acceleration, lower fuel drain
+        //        thruster.ftlAcc *= 1.5f;
+        //        thruster.ftlMaxSpeed *= 1.5f;
+        //        thruster.ftlRotSpeed *= 0;
+        //        thruster.chargeTime *= 2f;
+        //        thruster.fuelDrain *= 0.5f;
+        //        thruster.maxDuration *= 3f;
+        //        break;
+        //    case FTLTypes.Scout: //Medium all round, but high rot speed and duration
+        //        thruster.ftlAcc *= 0.5f;
+        //        thruster.ftlMaxSpeed *= 0.8f;
+        //        thruster.ftlRotSpeed *= 5f;
+        //        thruster.chargeTime *= 0.75f;
+        //        thruster.fuelDrain *= 1.5f;
+        //        break;
+        //    case FTLTypes.Crash:
+        //        break;
+        //    case FTLTypes.Default:
+        //        break;
+        //    default:
+        //        break;
+        //}
         for (int i = 0; i < level; i++)
         {
             thruster.speed *= 1 + (moveSpeed.z);
@@ -1527,60 +1622,58 @@ public class RandomizeEquipment : MonoBehaviour
             thruster.maxTurnSpeed *= 1 + (maxTurnSpeed.z);
             thruster.turnBrakingSpeed *= 1 + (turnBrakingSpeed.z);
             thruster.brakingSpeed *= 1 + (brakingSpeed.z);
-            thruster.ftlAcc *= 1 + (ftlAcc.z);
-            thruster.ftlMaxSpeed *= 1 + (ftlMaxSpeed.z);
-            thruster.ftlRotSpeed *= 1 + (ftlRot.z);
-            thruster.chargeTime *= 1 + (chargeTime.z);
-            thruster.fuelMax *= 1 + (fuelMax.z);
-            thruster.fuelDrain *= 1 + (fuelDrain.z);
-            thruster.maxDuration *= 1 + (maxDuration.z);
+            //thruster.ftlAcc *= 1 + (ftlAcc.z);
+            //thruster.ftlMaxSpeed *= 1 + (ftlMaxSpeed.z);
+            //thruster.ftlRotSpeed *= 1 + (ftlRot.z);
+            //thruster.chargeTime *= 1 + (chargeTime.z);
+            //thruster.fuelMax *= 1 + (fuelMax.z);
+            //thruster.fuelDrain *= 1 + (fuelDrain.z);
+            //thruster.maxDuration *= 1 + (maxDuration.z);
         }
         //ddd
         string statsNames = "Something is wong";
         string statsValues = "WTF";
         statsNames = "";
-        statsNames += "Speed:\n\n"; thruster.statLength++;
+        statsNames += "Speed:\n"; thruster.statLength++;
         //statsNames += "Max speed: \n";
-        thruster.statLength++;
-        statsNames += "Turning: \n\n"; thruster.statLength++;
+        statsNames += "Turning: \n"; thruster.statLength++;
         //statsNames += "Max turn speed: \n";
-        thruster.statLength++;
         statsNames += "Linear control: \n"; thruster.statLength++;
         statsNames += "Angular control: \n"; thruster.statLength++;
 
         //statsNames += "Acceleration:\n"; thruster.statLength++;
         //statsNames += "Rotation speed: \n"; thruster.statLength++;
-        statsNames += "Charge time: \n";thruster.statLength++;
-        statsNames += "Fuel: \n"; thruster.statLength++;
-        //statsNames += "Max fuel: \n"; thruster.statLength++;
-        statsNames += "Fuel drain: \n"; thruster.statLength++;
-        statsNames += "Duration: \n"; thruster.statLength++;
+        //statsNames += "Charge time: \n";thruster.statLength++;
+        //statsNames += "Fuel: \n"; thruster.statLength++;
+        ////statsNames += "Max fuel: \n"; thruster.statLength++;
+        //statsNames += "Fuel drain: \n"; thruster.statLength++;
+        //statsNames += "Duration: \n"; thruster.statLength++;
 
 
         thruster.statsText = statsNames;
 
         statsValues = "";
 
-        statsValues += 
-            thruster.speed.ToString("F0") 
+        statsValues +=
+            thruster.speed.ToString("F0")
             + " / " + (thruster.maxSpeed).ToString("F0")
-            + "\n"
-            + " FTL: "
-            + (thruster.ftlAcc).ToString("F0") 
-            + " / " 
-            + (thruster.ftlMaxSpeed).ToString("F0")
             + "\n";
+        //+ " FTL: "
+        //+ (thruster.ftlAcc).ToString("F0") 
+        //+ " / " 
+        //+ (thruster.ftlMaxSpeed).ToString("F0")
+        //+ "\n";
         //statsValues += thruster.maxSpeed.ToString("F0") + " / " + (thruster.maxSpeed * 10 * 0.5f).ToString("F0") + "\n";
-        statsValues += 
-            (thruster.turnSpeed * 10).ToString("F0") 
+        statsValues +=
+            (thruster.turnSpeed * 10).ToString("F0")
             + " / "
             + (thruster.maxTurnSpeed * 10).ToString("F0")
-            + "\n"
-            + " FTL: "
-            + (thruster.ftlRotSpeed * 10).ToString("F0")
-            + " / "
-            + (thruster.maxTurnSpeed).ToString("F0")
             + "\n";
+            //+ " FTL: "
+            //+ (thruster.ftlRotSpeed * 10).ToString("F0")
+            //+ " / "
+            //+ (thruster.maxTurnSpeed).ToString("F0")
+            //+ "\n";
         //statsValues += (thruster.maxTurnSpeed * 10).ToString("F0") + "\n";
         statsValues += thruster.brakingSpeed.ToString("F2") + "\n";
         statsValues += thruster.turnBrakingSpeed.ToString("F0") + "\n";
@@ -1588,15 +1681,15 @@ public class RandomizeEquipment : MonoBehaviour
         //statsValues += thruster.acceleration.ToString("F0") + "\n";
         //statsValues += thruster.maxSpeed.ToString("F0") + "\n";
         //statsValues += thruster.rotSpeed.ToString("F2") + "\n";
-        statsValues += thruster.chargeTime.ToString("F2") + "\n";
-        statsValues += 
-            thruster.fuelCurrent.ToString("F0") 
-            + " / "
-            + thruster.fuelMax.ToString("F0")
-            + "\n";
-        //statsValues += thruster.fuelMax.ToString("F0") + "\n";
-        statsValues += thruster.fuelDrain.ToString("F2") + "\n";
-        statsValues += thruster.maxDuration.ToString("F0") + "\n";
+        //statsValues += thruster.chargeTime.ToString("F2") + "\n";
+        //statsValues += 
+        //    thruster.fuelCurrent.ToString("F0") 
+        //    + " / "
+        //    + thruster.fuelMax.ToString("F0")
+        //    + "\n";
+        ////statsValues += thruster.fuelMax.ToString("F0") + "\n";
+        //statsValues += thruster.fuelDrain.ToString("F2") + "\n";
+        //statsValues += thruster.maxDuration.ToString("F0") + "\n";
 
         thruster.statsValues = statsValues;
 

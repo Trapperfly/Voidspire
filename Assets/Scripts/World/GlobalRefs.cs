@@ -11,6 +11,7 @@ public class GlobalRefs : MonoBehaviour
     public GameObject sectorBossEvent;
     public Transform eventParent;
 
+    [SerializeField] TMPro.TMP_Text seedText;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -26,6 +27,7 @@ public class GlobalRefs : MonoBehaviour
 
     public GameObject player;
     public bool playerIsDead;
+    public bool playerIsInFtl;
     public static Vector2 playerPos;
     public int seed;
     public int currentSector;
@@ -48,7 +50,7 @@ public class GlobalRefs : MonoBehaviour
     }
     private void SetSeeds()
     {
-        if (seed == 0) { seed = Random.Range(-10000, 10000); Random.InitState(seed); }
+        if (seed == 0) { seed = Random.Range(-10000000, 10000000); Random.InitState(seed); seedText.text = seed.ToString(); }
         
         //Set seeds 
         xSeed = Random.Range(-10000, 10000);

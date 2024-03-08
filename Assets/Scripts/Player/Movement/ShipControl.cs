@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class ShipControl : MonoBehaviour
 {
     public bool ftlDisabled;
-    public bool thrusterEquipped;
     [Header("Ship control")]
 
     float fuelPercent;
@@ -23,6 +22,7 @@ public class ShipControl : MonoBehaviour
     bool ftlEnding;
     int duration;
 
+    public Thrusters ftl; //Change with ship
     public Thrusters thruster;
     EquipmentController equipment;
     private void Awake()
@@ -44,15 +44,12 @@ public class ShipControl : MonoBehaviour
         //Debug.Log("CustomStartActivated");
         equipment = EquipmentController.Instance;
         SetNewStats();
-        if (thrusterEquipped)
-        {
-            thruster.fuelCurrent = thruster.fuelMax;
-            fuelPercent = thruster.fuelCurrent / thruster.fuelMax;
-            fuelMeter.fillAmount = fuelPercent;
 
-            UpdateSize();
-        }
-        else { fuelPercent = 0f; fuelMeter.fillAmount = fuelPercent; }
+        ftl.fuelCurrent = ftl.fuelMax;
+        fuelPercent = ftl.fuelCurrent / ftl.fuelMax;
+        fuelMeter.fillAmount = fuelPercent;
+
+        UpdateSize();
         sRb = GetComponent<ShipRbController>();
         col = GetComponent<Collider2D>();
         rb = sRb.rb;
@@ -63,20 +60,17 @@ public class ShipControl : MonoBehaviour
     {
         thruster = equipment.thrusterSlots[0].item as Thrusters;
         //Debug.Log("ftl is " + ftl);
-        thrusterEquipped = thruster != null;
-        if (thruster) { UpdateSize(); } //Change some visuals
-        else { if (ftlActive) ftlEnding = true; UpdateSize(); }
-
+        UpdateSize(); //Change some visuals
     }
 
     private void FixedUpdate()
     {
         if (GlobalRefs.Instance.playerIsDead) { rb.drag = 0; rb.angularDrag = 0; return; }
 
-        if (!ftlDisabled && thrusterEquipped && ftlActive) FTL();
-        else if (thrusterEquipped) Movement();
+        if (!ftlDisabled && ftlActive) FTL();
+        else Movement();
 
-        if (!ftlDisabled && thrusterEquipped && Input.GetKey(KeyCode.Space) && !ftlActive) ChargeFTL();
+        if (ftl.fuelCurrent > 0 && !ftlDisabled && Input.GetKey(KeyCode.Space) && !ftlActive) ChargeFTL();
         else if (ftlCharge > 0) ftlCharge -= 3;
         else if (ftlCharge < 0) ftlCharge = 0;
 
@@ -93,20 +87,16 @@ public class ShipControl : MonoBehaviour
     {
         if (ftlActive)
         {
-            if (thruster.fuelDrain != -1) thruster.fuelCurrent -= thruster.fuelDrain * modifier;
+            if (ftl.fuelDrain != -1) ftl.fuelCurrent -= ftl.fuelDrain * modifier;
         }
-        else if (thruster.fuelDrain != -1) thruster.fuelCurrent -= thruster.fuelDrain * modifier;
+        else if (ftl.fuelDrain != -1) ftl.fuelCurrent -= ftl.fuelDrain * modifier;
         UpdateFuel();
     }
-    void UpdateFuel()
+    public void UpdateFuel()
     {
-        if (thrusterEquipped)
-        {
-            if (thruster.fuelCurrent > thruster.fuelMax) thruster.fuelCurrent = thruster.fuelMax;
-            fuelPercent = thruster.fuelCurrent / thruster.fuelMax;
-            fuelMeter.fillAmount = fuelPercent;
-        }
-        else { fuelPercent = 0f; fuelMeter.fillAmount = fuelPercent; }
+         if (ftl.fuelCurrent > ftl.fuelMax) ftl.fuelCurrent = ftl.fuelMax;
+         fuelPercent = ftl.fuelCurrent / ftl.fuelMax;
+         fuelMeter.fillAmount = fuelPercent;
     }
     void UpdateSize()
     {
@@ -115,17 +105,18 @@ public class ShipControl : MonoBehaviour
             float _backModifier = 0;
             if (child == fuelBar.GetChild(0)) _backModifier = 0.05f;
             float currentFuel;
-            if (thrusterEquipped) { currentFuel = thruster.fuelMax; } else { currentFuel = 0; }
-            child.sizeDelta = new Vector2((currentFuel / 40000) + _backModifier, child.sizeDelta.y);
+            currentFuel = ftl.fuelMax;
+            child.sizeDelta = new Vector2((currentFuel / 5000) + _backModifier, child.sizeDelta.y);
         }
         UpdateFuel();
     }
     void ChargeFTL()
     {
         ftlCharge++;
-        if (ftlCharge >= thruster.chargeTime * 60) 
+        if (ftlCharge >= ftl.chargeTime * 60) 
         {
             ftlCharge = 0;
+            //GlobalRefs.Instance.playerIsInFtl = true;
             ActivateFTL();
         }
     }
@@ -143,25 +134,27 @@ public class ShipControl : MonoBehaviour
         ftlActive = false;
         rb.drag = 10000;
         ftlEnding = false;
+        //GlobalRefs.Instance.playerIsInFtl = false;
     }
 
     void FTL()
     {
-        rb.AddForce(transform.up * thruster.ftlAcc, ForceMode2D.Force);
-        float drag = thruster.ftlAcc / thruster.ftlMaxSpeed;
+        rb.AddForce(transform.up * ftl.ftlAcc, ForceMode2D.Force);
+        float drag = ftl.ftlAcc / ftl.ftlMaxSpeed;
         rb.drag = drag / (drag * Time.fixedDeltaTime + 1);
-        rb.angularDrag = (1 + thruster.ftlRotSpeed) * 2;
+        rb.angularDrag = (1 + ftl.ftlRotSpeed) * 2;
         if (Input.GetKey(KeyCode.A))
         {
-            rb.AddTorque(thruster.ftlRotSpeed, ForceMode2D.Force); //Add that force
+            rb.AddTorque(ftl.ftlRotSpeed, ForceMode2D.Force); //Add that force
         }
         if (Input.GetKey(KeyCode.D))
         {
-            rb.AddTorque(-thruster.ftlRotSpeed, ForceMode2D.Force);
+            rb.AddTorque(-ftl.ftlRotSpeed, ForceMode2D.Force);
         }
         duration++;
-        if (duration > thruster.maxDuration * 60  && thruster.maxDuration != -1) StopFTL();
-        UseFuel(thruster.fuelDrain);
+        if (duration > ftl.maxDuration * 60  && ftl.maxDuration != -1) StopFTL();
+        UseFuel(ftl.fuelDrain);
+        if (ftl.fuelCurrent < 0) { StopFTL(); }
     }
     void Movement()
     {

@@ -225,6 +225,7 @@ public class DragAndDrop : MonoBehaviour,
         SetItemDescriptionText(texts[1], sItem);
         texts[2].text = sItem.statsText;
         texts[3].text = sItem.statsValues;
+        texts[4].text = sItem.level.ToString();
         infoBoxActive = true;
     }
 
@@ -250,6 +251,7 @@ public class DragAndDrop : MonoBehaviour,
         SetItemDescriptionText(texts[1], sItem);
         texts[2].text = sItem.statsText;
         texts[3].text = sItem.statsValues;
+        texts[4].text = sItem.level.ToString();
     }
     void SetItemDescriptionText(TMP_Text textasset,Equipment equipment)
     {
@@ -266,7 +268,7 @@ public class DragAndDrop : MonoBehaviour,
                 textasset.text = (equipment as Shield).shieldType.ToString() + " - Shield";
                 break;
             case EquipmentTypes.Thruster:
-                textasset.text = (equipment as Thrusters).stlType.ToString() + "/" + (equipment as Thrusters).ftlType.ToString() + " - Thruster";
+                textasset.text = (equipment as Thrusters).stlType.ToString() + " - Thruster";
                 break;
             //case EquipmentTypes.FTL:
             //    textasset.text = (equipment as FTLEngine).ftlType.ToString() + " - FTL";
@@ -281,7 +283,7 @@ public class DragAndDrop : MonoBehaviour,
                 textasset.text = " - Cargo";
                 break;
             case EquipmentTypes.Collector:
-                textasset.text = (equipment as Collector).collectorType.ToString() + " - Collector";
+                textasset.text = (equipment as Collector).collectorType.ToString() + " - Collect";
                 break;
             case EquipmentTypes.Relic:
                 textasset.text = "Relic";

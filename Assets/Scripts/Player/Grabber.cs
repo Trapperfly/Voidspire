@@ -114,6 +114,12 @@ public class Grabber : GameTrigger
     public override void OnPickUpResource()
     {
         base.OnPickUpResource();
+        Debug.Log(transform.GetComponentInChildren<Resource>().worth);
+        GlobalRefs.Instance.player.GetComponent<PlayerHealth>().hull.hullCurrentHealth += (float)transform.GetComponentInChildren<Resource>().worth / 10;
+        GlobalRefs.Instance.player.GetComponent<PlayerHealth>().UpdateHealth();
+        GlobalRefs.Instance.player.GetComponent<ShipControl>().ftl.fuelCurrent += (float)transform.GetComponentInChildren<Resource>().worth * 50;
+        GlobalRefs.Instance.player.GetComponent<ShipControl>().UpdateFuel();
+        Debug.Log(GlobalRefs.Instance.player.GetComponent<PlayerHealth>().hull.hullCurrentHealth);
         wallet.GetComponent<StartPickup>().wallet += transform.GetComponentInChildren<Resource>().worth;
     }
     public override void OnPickUpWeapon()

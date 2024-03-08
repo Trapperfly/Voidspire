@@ -9881,6 +9881,7 @@ MonoBehaviour:
   - {fileID: 1437591405}
   - {fileID: 398018721}
   - {fileID: 528914663}
+  - {fileID: 1038157764}
   - {fileID: 1921242957}
   - {fileID: 101064437}
   ShipSelectionCanvas: {fileID: 1128937644}
