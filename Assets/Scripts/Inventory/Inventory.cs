@@ -106,7 +106,18 @@ public class Inventory : MonoBehaviour
     {
         items.Remove(item);
     }
+    public void Salvage (InventorySlot slot)
+    {
+        //Add value to wallet
+        if (slot is EquipmentSlot)
+        {
+            equipment.Remove(slot.item);
+        }
+        else items.Remove(slot.item);
+        slot.item = null;
 
+        onItemChangedCallback?.Invoke();
+    }
     public void Swap(InventorySlot slot0, InventorySlot slot1)
     {
         Item itemTemp = slot1.item;

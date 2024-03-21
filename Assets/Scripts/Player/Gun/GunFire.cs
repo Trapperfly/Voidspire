@@ -60,7 +60,7 @@ public class GunFire : MonoBehaviour
 
     public void SetNewWeapon()
     {
-        if (gc.weaponSlots[stat.gunNumber].item.id == 0)
+        if (gc.weaponSlots[stat.gunNumber].item && gc.weaponSlots[stat.gunNumber].item.id == 0)
         {
             var copy = Instantiate(gc.weaponSlots[stat.gunNumber].item as Weapon);
             Inventory.Instance.NewID(copy);

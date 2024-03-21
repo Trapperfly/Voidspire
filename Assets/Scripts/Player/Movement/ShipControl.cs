@@ -68,7 +68,7 @@ public class ShipControl : MonoBehaviour
         if (GlobalRefs.Instance.playerIsDead) { rb.drag = 0; rb.angularDrag = 0; return; }
 
         if (!ftlDisabled && ftlActive) FTL();
-        else Movement();
+        else if (thruster != null) Movement();
 
         if (ftl.fuelCurrent > 0 && !ftlDisabled && Input.GetKey(KeyCode.Space) && !ftlActive) ChargeFTL();
         else if (ftlCharge > 0) ftlCharge -= 3;

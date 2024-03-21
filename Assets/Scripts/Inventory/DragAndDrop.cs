@@ -107,7 +107,7 @@ public class DragAndDrop : MonoBehaviour,
                 if (s1.allowed == e0.equipType || (int)s1.allowed == 1)
                 {
                     DoSwapAndShrink();
-                    eventData.pointerEnter.GetComponentInParent<DragAndDrop>().DisplayInfoBox(eventData.pointerEnter.transform.parent.parent);
+                    eventData.pointerEnter.GetComponentInParent<DragAndDrop>().DisplayInfoBox(eventData.pointerEnter.transform.parent.parent, false);
                     return;
                 }
                 else { StartCoroutine(line.GetComponent<ShrinkAndExpire>().Expire()); line = null; return; }
@@ -120,7 +120,7 @@ public class DragAndDrop : MonoBehaviour,
                 if (s0.allowed == e1.equipType || (int)s0.allowed == 1)
                 {
                     DoSwapAndShrink();
-                    eventData.pointerEnter.GetComponentInParent<DragAndDrop>().DisplayInfoBox(eventData.pointerEnter.transform.parent.parent);
+                    eventData.pointerEnter.GetComponentInParent<DragAndDrop>().DisplayInfoBox(eventData.pointerEnter.transform.parent.parent, false);
                     return;
                 }
                 else { StartCoroutine(line.GetComponent<ShrinkAndExpire>().Expire()); line = null; return; }
@@ -135,14 +135,18 @@ public class DragAndDrop : MonoBehaviour,
         if (eventData.dragging && GetComponent<InventorySlot>().item && dnd.slot && dnd.slot.GetComponent<InventorySlot>().item)
         {
             //Debug.Log("Displaying ol box");
-            DisplayOldInfoBox(dnd.slot);
+            DisplayOldInfoBox(dnd.slot, false);
         }
         //Debug.Log(eventData.pointerEnter.transform.parent.parent.ToString());
         //Debug.Log(GetComponent<InventorySlot>().item);
         isHovering = true;
-        if (GetComponent<InventorySlot>().item)
+        if (eventData.dragging && GetComponent<InventorySlot>().item)
         {
-            DisplayInfoBox(transform);
+            DisplayInfoBox(transform, false);
+        }
+        else if (GetComponent<InventorySlot>().item)
+        {
+            DisplayInfoBox(transform, true);
         }
         //Debug.Log("hovering");
     }
@@ -203,55 +207,89 @@ public class DragAndDrop : MonoBehaviour,
         dnd.slot = null;
     }
 
-    private void DisplayInfoBox(Transform slot)
+    private void DisplayInfoBox(Transform slot, bool salvagable)
     {
         activeInfoBox =
                 Instantiate(infoBox,
                 (Vector2)slot.transform.position + new Vector2(55, 55),
                 new Quaternion(),
                 InventoryUI.Instance.inventoryGraphicsParent);
+
+        activeInfoBox.GetComponent<HoldToSalvage>().salvagable = salvagable;
+        activeInfoBox.GetComponent<HoldToSalvage>().slot = slot.GetComponent<InventorySlot>();
+
         Equipment sItem = slot.GetComponent<InventorySlot>().item as Equipment;
         Image backPanel = activeInfoBox.transform.GetChild(0).GetComponent<Image>();
         Image frontPanel = activeInfoBox.transform.GetChild(1).GetComponent<Image>();
+        Image deleteBack = activeInfoBox.transform.GetChild(2).GetComponent<Image>();
+        Image deleteFront = activeInfoBox.transform.GetChild(3).GetComponent<Image>();
 
+        int addSpace = salvagable ? 1 : 0;
         frontPanel.rectTransform.sizeDelta =
-            new Vector2(frontPanel.rectTransform.sizeDelta.x, frontPanel.rectTransform.sizeDelta.y + (26 * sItem.statLength));
+            new Vector2(frontPanel.rectTransform.sizeDelta.x, frontPanel.rectTransform.sizeDelta.y + (26 * (sItem.statLength + addSpace)));
         backPanel.rectTransform.sizeDelta =
-            new Vector2(backPanel.rectTransform.sizeDelta.x, backPanel.rectTransform.sizeDelta.y + (26 * sItem.statLength));
+            new Vector2(backPanel.rectTransform.sizeDelta.x, backPanel.rectTransform.sizeDelta.y + (26 * (sItem.statLength + addSpace)));
+        deleteBack.transform.localPosition -= new Vector3(0, 26 * (sItem.statLength + addSpace), 0);
+        deleteFront.transform.localPosition -= new Vector3(0, 26 * (sItem.statLength + addSpace), 0);
 
         backPanel.color = sItem.color;
         TMP_Text[] texts = activeInfoBox.GetComponentsInChildren<TMP_Text>();
+        texts[6].transform.localPosition -= new Vector3(0, 26 * (sItem.statLength + addSpace), 0);
         texts[0].text = sItem.itemName;
         SetItemDescriptionText(texts[1], sItem);
         texts[2].text = sItem.statsText;
         texts[3].text = sItem.statsValues;
         texts[4].text = sItem.level.ToString();
+
+        if (!salvagable)
+        {
+            deleteBack.gameObject.SetActive(false);
+            deleteFront.gameObject.SetActive(false);
+            texts[6].gameObject.SetActive(false);
+        }
         infoBoxActive = true;
     }
 
-    private void DisplayOldInfoBox(Transform slot)
+    private void DisplayOldInfoBox(Transform slot, bool salvagable)
     {
         dnd.savedInfoBox =
                 Instantiate(infoBox,
                 (Vector2)slot.transform.position + new Vector2(55, 55),
                 new Quaternion(),
                 InventoryUI.Instance.inventoryGraphicsParent);
+
+        dnd.savedInfoBox.GetComponent<HoldToSalvage>().salvagable = salvagable;
+        dnd.savedInfoBox.GetComponent<HoldToSalvage>().slot = slot.GetComponent<InventorySlot>();
+
         Equipment sItem = slot.GetComponent<InventorySlot>().item as Equipment;
         Image backPanel = dnd.savedInfoBox.transform.GetChild(0).GetComponent<Image>();
         Image frontPanel = dnd.savedInfoBox.transform.GetChild(1).GetComponent<Image>();
+        Image deleteBack = dnd.savedInfoBox.transform.GetChild(2).GetComponent<Image>();
+        Image deleteFront = dnd.savedInfoBox.transform.GetChild(3).GetComponent<Image>();
 
+        int addSpace = salvagable ? 1 : 0;
         frontPanel.rectTransform.sizeDelta =
-            new Vector2(frontPanel.rectTransform.sizeDelta.x, frontPanel.rectTransform.sizeDelta.y + (26 * sItem.statLength));
+            new Vector2(frontPanel.rectTransform.sizeDelta.x, frontPanel.rectTransform.sizeDelta.y + (26 * (sItem.statLength + addSpace)));
         backPanel.rectTransform.sizeDelta =
-            new Vector2(backPanel.rectTransform.sizeDelta.x, backPanel.rectTransform.sizeDelta.y + (26 * sItem.statLength));
+            new Vector2(backPanel.rectTransform.sizeDelta.x, backPanel.rectTransform.sizeDelta.y + (26 * (sItem.statLength + addSpace)));
+        deleteBack.transform.localPosition -= new Vector3(0, 26 * (sItem.statLength + addSpace), 0);
+        deleteFront.transform.localPosition -= new Vector3(0, 26 * (sItem.statLength + addSpace), 0);
 
         backPanel.color = sItem.color;
         TMP_Text[] texts = dnd.savedInfoBox.GetComponentsInChildren<TMP_Text>();
+        texts[6].transform.localPosition -= new Vector3(0, 26 * (sItem.statLength + addSpace), 0);
         texts[0].text = sItem.itemName;
         SetItemDescriptionText(texts[1], sItem);
         texts[2].text = sItem.statsText;
         texts[3].text = sItem.statsValues;
         texts[4].text = sItem.level.ToString();
+
+        if (!salvagable)
+        {
+            deleteBack.gameObject.SetActive(false);
+            deleteFront.gameObject.SetActive(false);
+            texts[6].gameObject.SetActive(false);
+        }
     }
     void SetItemDescriptionText(TMP_Text textasset,Equipment equipment)
     {
