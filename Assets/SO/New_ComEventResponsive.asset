@@ -12,9 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39490a1f759ba394e8502afac35faaeb, type: 3}
   m_Name: New_ComEventResponsive
   m_EditorClassIdentifier: 
-  responses:
-  - name: 
-    dependance: 0
-    responseText: 
-    result: 0
+  storyTitle: Test story
+  storyText: I am testing the story. I am a merchant vessel and here you have some
+    actions.
+  result:
+  - result: 0
     resultValue: 0
+  responses:
+  - name: Trade
+    dependance: 0
+    responseText: I am willing to trade
+    resultsBetween:
+    - {fileID: 0}
+    isExit: 0
+  - name: Threaten
+    dependance: 0
+    responseText: Give me free stuff
+    resultsBetween:
+    - {fileID: 0}
+    - {fileID: 0}
+    isExit: 0
+  - name: Good relation
+    dependance: 3
+    responseText: Help me out, would you?
+    resultsBetween:
+    - {fileID: 0}
+    - {fileID: 0}
+    isExit: 0
+  - name: Ree testing
+    dependance: 0
+    responseText: I want nothing to do with you!
+    resultsBetween:
+    - {fileID: 11400000, guid: 9e407f65bedb84a4f80b13413fc5df47, type: 2}
+    isExit: 0
