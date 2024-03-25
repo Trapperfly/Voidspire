@@ -34,6 +34,7 @@ public class ComHandler : MonoBehaviour
             Destroy(child.gameObject);
         }
         currentCom = com;
+        if (currentCom == null) { Debug.LogError("Somethings fucked yo"); return; }
         CopyComData();
     }
 
@@ -44,18 +45,20 @@ public class ComHandler : MonoBehaviour
         int i = 0;
         foreach (ComResponse r in currentCom.responses) {
             //if(dependance == true) {
+            int i2 = i;
             Transform responseOptionButton = Instantiate(comOption, comMenu.GetChild(3)).transform;
-            responseOptionButton.GetChild(0).GetComponent<TMP_Text>().text = r.responseText;
+            responseOptionButton.GetChild(0).GetComponent<TMP_Text>().text = i + 1 + ". " + r.responseText;
             if (r.isExit) responseOptionButton.GetComponent<Button>().onClick.AddListener(() => EndComMenu());
-            else responseOptionButton.GetComponent<Button>().onClick.AddListener(() => DoOption(i));
+            else responseOptionButton.GetComponent<Button>().onClick.AddListener(() => DoOption(i2));
             i++;
         }
     }
 
     void DoOption(int option)
     {
+        Debug.LogError(option);
         //Debug.LogError(currentCom.responses[option - 1].resultsBetween.Count);
-        int i = Random.Range(0, currentCom.responses[option - 1].resultsBetween.Count);
-        LoadNextCom(currentCom.responses[option - 1].resultsBetween[i]);
+        int i = Random.Range(0, currentCom.responses[option].resultsBetween.Count);
+        LoadNextCom(currentCom.responses[option].resultsBetween[i]);
     }
 }

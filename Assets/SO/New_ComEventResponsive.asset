@@ -23,7 +23,7 @@ MonoBehaviour:
     dependance: 0
     responseText: I am willing to trade
     resultsBetween:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 1ff335163aa22ab46bbf83fb30ce1616, type: 2}
     isExit: 0
   - name: Threaten
     dependance: 0
