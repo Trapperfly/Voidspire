@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class RandomizeEquipment : MonoBehaviour
 {
@@ -163,6 +164,60 @@ public class RandomizeEquipment : MonoBehaviour
     }
     #endregion
 
+    public Equipment RandomizeRandom(int level)
+    {
+        bool accepted = false;
+        EquipmentTypes type;
+        Equipment newEquipment = null;
+        while (!accepted)
+        {
+            
+            type = (EquipmentTypes)Random.Range(2, 10);
+            
+            switch (type)
+            {
+                case EquipmentTypes.Weapon:
+                    newEquipment = RandomizeGun(level) as Weapon;
+                    accepted = true;
+                    break;
+                case EquipmentTypes.Shield:
+                    newEquipment = RandomizeShield(level) as Shield;
+                    accepted = true;
+                    break;
+                case EquipmentTypes.Thruster:
+                    newEquipment = RandomizeThruster(level) as Thrusters;
+                    accepted = true;
+                    break;
+                //case EquipmentTypes.FTL:
+                //    newEquipment = RandomizeEquipment.Instance.RandomizeFTLEngine() as FTLEngine;
+                //    accepted = true;
+                //    break;
+                case EquipmentTypes.Hull:
+                    newEquipment = RandomizeHull(level) as Hull;
+                    accepted = true;
+                    break;
+                case EquipmentTypes.Scanner:
+                    newEquipment = RandomizeScanner(level) as Scanner;
+                    accepted = true;
+                    break;
+                case EquipmentTypes.Cargo:
+                    break;
+                case EquipmentTypes.Collector:
+                    newEquipment = RandomizeCollector(level) as Collector;
+                    accepted = true;
+                    break;
+                case EquipmentTypes.Relic:
+                    newEquipment = RandomizeRelic();
+                    accepted = true;
+                    break;
+                case EquipmentTypes.Default:
+                    break;
+                default:
+                    break;
+            }
+        }
+        return newEquipment;
+    }
     public Equipment RandomizeRelic()
     {
         Debug.Log(relics.Length);

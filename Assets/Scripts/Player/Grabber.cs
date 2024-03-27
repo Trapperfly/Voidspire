@@ -120,7 +120,7 @@ public class Grabber : GameTrigger
         GlobalRefs.Instance.player.GetComponent<ShipControl>().ftl.fuelCurrent += (float)transform.GetComponentInChildren<Resource>().worth * 50;
         GlobalRefs.Instance.player.GetComponent<ShipControl>().UpdateFuel();
         Debug.Log(GlobalRefs.Instance.player.GetComponent<PlayerHealth>().hull.hullCurrentHealth);
-        wallet.GetComponent<StartPickup>().wallet += transform.GetComponentInChildren<Resource>().worth;
+        GlobalRefs.Instance.wallet += transform.GetComponentInChildren<Resource>().worth;
     }
     public override void OnPickUpWeapon()
     {

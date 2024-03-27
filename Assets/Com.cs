@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewComEventResponsive", menuName = "ComEvent/Responsive")]
 public class Com : ScriptableObject
 {
+    public int level;
     public string storyTitle;
     [TextArea]
     public string storyText;
@@ -27,7 +28,7 @@ public class ComResponse
 public class ComResultTotal
 {
     public ComResultEnum result;
-    public float resultValue;
+    public Vector2 resultValue;
 }
 
 public enum ComDependance

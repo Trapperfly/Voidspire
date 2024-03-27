@@ -11,6 +11,8 @@ public class GlobalRefs : MonoBehaviour
     public GameObject sectorBossEvent;
     public Transform eventParent;
 
+    public int wallet = 0;
+
     [SerializeField] TMPro.TMP_Text seedText;
     private void Awake()
     {
