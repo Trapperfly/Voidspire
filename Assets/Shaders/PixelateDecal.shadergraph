@@ -4497,6 +4497,12 @@
             "m_Id": "9b2aa30e37494107832b0e78c0fd37a1"
         },
         {
+            "m_Id": "b2ce1656c9614c7fbb8da64e3d7f5f2d"
+        },
+        {
+            "m_Id": "ecf7b3749ef64238bd06976704bfca85"
+        },
+        {
             "m_Id": "fde23817d95445cc91d5de327fa4fcd9"
         },
         {
@@ -4521,7 +4527,9 @@
         "5c984fd7-6345-4f32-bcd7-b78f796d4433",
         "93f5da46-2c0b-4786-84fc-5a7d92f2361a",
         "683c73b4-7496-4966-bcc2-81fd5d772bf0",
-        "5f2a79ff-c28f-45d2-880f-cc4bdbdbeae1"
+        "5f2a79ff-c28f-45d2-880f-cc4bdbdbeae1",
+        "17fa120b-c7f5-4642-924c-6eb4b8ee5e1b",
+        "bfd82181-81e1-40c5-a970-95bf99c90d70"
     ],
     "m_PropertyIds": [
         -1846176288,
@@ -4529,7 +4537,9 @@
         -1353083305,
         -1289750437,
         753971907,
-        -1327599837
+        -1327599837,
+        -24610860,
+        814029136
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
@@ -8560,6 +8570,27 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
+    "m_ObjectId": "b2ce1656c9614c7fbb8da64e3d7f5f2d",
+    "m_Id": -24610860,
+    "m_DisplayName": "UV",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_UV",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.ClampNode",
     "m_ObjectId": "b3e26e5edb3d44c398d49c76145fed72",
     "m_Group": {
@@ -10816,6 +10847,20 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BooleanMaterialSlot",
+    "m_ObjectId": "ecf7b3749ef64238bd06976704bfca85",
+    "m_Id": 814029136,
+    "m_DisplayName": "SetUv",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_SetUv",
+    "m_StageCapability": 3,
+    "m_Value": false,
+    "m_DefaultValue": false
 }
 
 {
