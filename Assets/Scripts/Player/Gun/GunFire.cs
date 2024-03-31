@@ -215,7 +215,7 @@ public class GunFire : MonoBehaviour
         GameObject bullet = Instantiate(gc.bulletPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
         bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
         bullet.transform.localScale *= w.bulletSize;
-        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        bullet.GetComponent<Rigidbody2D>().velocity = (pRB.velocity * 0.5f) + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
@@ -357,7 +357,7 @@ public class GunFire : MonoBehaviour
         GameObject bullet = Instantiate(gc.laserPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
         bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
         bullet.transform.localScale *= w.bulletSize;
-        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        bullet.GetComponent<Rigidbody2D>().velocity = (pRB.velocity * 0.5f) + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
@@ -370,7 +370,7 @@ public class GunFire : MonoBehaviour
         GameObject bullet = Instantiate(gc.wavePrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
         bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
         bullet.transform.localScale *= w.bulletSize;
-        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        bullet.GetComponent<Rigidbody2D>().velocity = (pRB.velocity * 0.5f) + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
@@ -383,7 +383,7 @@ public class GunFire : MonoBehaviour
         GameObject bullet = Instantiate(gc.rocketPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
         bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
         bullet.transform.localScale *= w.bulletSize;
-        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        bullet.GetComponent<Rigidbody2D>().velocity = (pRB.velocity * 0.5f) + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
@@ -395,7 +395,7 @@ public class GunFire : MonoBehaviour
         GameObject bullet = Instantiate(gc.needlePrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
         bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
         bullet.transform.localScale *= w.bulletSize;
-        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        bullet.GetComponent<Rigidbody2D>().velocity = (pRB.velocity * 0.5f) + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
@@ -407,7 +407,7 @@ public class GunFire : MonoBehaviour
         GameObject bullet = Instantiate(gc.minePrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
         bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
         bullet.transform.localScale *= w.bulletSize;
-        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        bullet.GetComponent<Rigidbody2D>().velocity = (pRB.velocity * 0.5f) + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
@@ -419,7 +419,7 @@ public class GunFire : MonoBehaviour
         GameObject bullet = Instantiate(gc.hammerPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
         bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
         bullet.transform.localScale *= w.bulletSize;
-        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        bullet.GetComponent<Rigidbody2D>().velocity = (pRB.velocity * 0.5f) + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
@@ -432,7 +432,7 @@ public class GunFire : MonoBehaviour
         Bullet b = bullet.GetComponent<Bullet>();
         b.bc = gc.bc[stat.gunNumber];
         bullet.transform.localScale *= w.bulletSize;
-        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        bullet.GetComponent<Rigidbody2D>().velocity = (pRB.velocity * 0.5f) + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
         b.bulletSender = GlobalRefs.Instance.player;
@@ -444,7 +444,7 @@ public class GunFire : MonoBehaviour
         GameObject bullet = Instantiate(gc.arrowPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
         bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
         bullet.transform.localScale *= w.bulletSize;
-        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        bullet.GetComponent<Rigidbody2D>().velocity = (pRB.velocity * 0.5f) + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
@@ -456,7 +456,7 @@ public class GunFire : MonoBehaviour
         GameObject bullet = Instantiate(gc.grandPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bulletHolder);
         bullet.GetComponent<Bullet>().bc = gc.bc[stat.gunNumber];
         bullet.transform.localScale *= w.bulletSize;
-        bullet.GetComponent<Rigidbody2D>().velocity = pRB.velocity + (Vector2)(bullet.transform.up * Speed(w.speed));
+        bullet.GetComponent<Rigidbody2D>().velocity = (pRB.velocity * 0.5f) + (Vector2)(bullet.transform.up * Speed(w.speed));
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;

@@ -159,22 +159,39 @@ public class ShipControl : MonoBehaviour
     void Movement()
     {
         //Input and movement
-        if (Input.GetKey(KeyCode.W)) //Move forward with force
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E)) //Move forward with force
         {
-            rb.AddForce(transform.up * thruster.speed, ForceMode2D.Force);
-            float drag = thruster.speed / thruster.maxSpeed;
-            rb.drag = drag / (drag * Time.fixedDeltaTime + 1);  //Adjust drag while accelerating
+            
+            if (Input.GetKey(KeyCode.W))
+            {
+                rb.AddForce(transform.up * thruster.speed, ForceMode2D.Force);
+                float drag = thruster.speed / thruster.maxSpeed;
+                rb.drag = drag / (drag * Time.fixedDeltaTime + 1);  //Adjust drag while accelerating
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                rb.AddForce(-transform.up * (thruster.speed * 0.8f), ForceMode2D.Force);
+                float drag = (thruster.speed * 2) / thruster.maxSpeed;
+                rb.drag = drag / (drag * Time.fixedDeltaTime + 1);
+            }
+            if (Input.GetKey(KeyCode.Q))
+            {
+                rb.AddForce(-transform.right * (thruster.speed * 0.7f), ForceMode2D.Force);
+                float drag = (thruster.speed * 2) / thruster.maxSpeed;
+                rb.drag = drag / (drag * Time.fixedDeltaTime + 1);
+            }
+            if (Input.GetKey(KeyCode.E))
+            {
+                rb.AddForce(transform.right * (thruster.speed * 0.7f), ForceMode2D.Force);
+                float drag = (thruster.speed * 2) / thruster.maxSpeed;
+                rb.drag = drag / (drag * Time.fixedDeltaTime + 1);
+            }
         }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            rb.AddForce(-transform.up * (thruster.speed * 0.8f), ForceMode2D.Force);
-            float drag = (thruster.speed * 2) / thruster.maxSpeed;
-            rb.drag = drag / (drag * Time.fixedDeltaTime + 1);
-        }
+        
         else
         {
             if (rb.drag != thruster.brakingSpeed)    //Reset drag to slider value
-                rb.drag = thruster.brakingSpeed;
+                rb.drag = thruster.brakingSpeed * 3;
         }
 
         if (Input.GetKey(KeyCode.A))
@@ -187,7 +204,7 @@ public class ShipControl : MonoBehaviour
             //        stl.turnSpeed = stl.turnSpeedStored * multiplier;
             //}
             rb.AddTorque(thruster.turnSpeed, ForceMode2D.Force); //Add that force
-            rb.angularDrag = thruster.maxTurnSpeed;
+            rb.angularDrag = thruster.maxTurnSpeed * 3;
         }
         if (Input.GetKey(KeyCode.D))
         {

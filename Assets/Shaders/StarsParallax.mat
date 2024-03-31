@@ -70,7 +70,7 @@ Material:
     - _Float: 0
     - _NebulaNoise: 153
     - _NebulaNoiseScale: 37
-    - _NebulaParallax: 0.9999
+    - _NebulaParallax: 0.9998
     - _NebulaPixelation: 500
     - _NebulaVoronoi: 10
     - _NebulaWeakness: 2.07
