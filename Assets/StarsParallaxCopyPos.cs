@@ -13,9 +13,14 @@ public class StarsParallaxCopyPos : MonoBehaviour
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         mat = sr.materials[0];
-        mat.SetFloat("_Rot1", Random.Range(0, 361));
-        mat.SetFloat("_Rot2", Random.Range(0, 361));
-        mat.SetFloat("_Rot3", Random.Range(0, 361));
+        //mat.SetFloat("_Rot1", Random.Range(0, 361));
+        //mat.SetFloat("_Rot2", Random.Range(0, 361));
+        //mat.SetFloat("_Rot3", Random.Range(0, 361));
+        mat.SetVector("_NebulaOffset", new Vector2(R(),R()));
+        mat.SetVector("_NebulaOffset_1", new Vector2(R(), R()));
+        mat.SetVector("_Offset1", new Vector2(R(), R()));
+        mat.SetVector("_Offset2", new Vector2(R(), R()));
+        mat.SetVector("_Offset3", new Vector2(R(), R()));
     }
 
     // Update is called once per frame
@@ -26,5 +31,9 @@ public class StarsParallaxCopyPos : MonoBehaviour
         transform.rotation = Quaternion.Inverse(rotation);
         mat.SetVector("_TargetPos", new Vector2(transform.position.x, transform.position.y));
         mat.SetFloat("_NebulaVoronoi", mat.GetFloat("_NebulaVoronoi") + (voronoiSpeed * Time.deltaTime));
+    }
+    int R()
+    {
+        return Random.Range(-100, 100);
     }
 }

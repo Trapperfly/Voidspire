@@ -2318,6 +2318,20 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BooleanMaterialSlot",
+    "m_ObjectId": "4f56fb1df1534d3b86beb75edf8d417b",
+    "m_Id": 814029136,
+    "m_DisplayName": "SetUv",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_SetUv",
+    "m_StageCapability": 3,
+    "m_Value": false,
+    "m_DefaultValue": false
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "5231385f27474e989cee483ceb4bf2ad",
     "m_Id": 2,
@@ -3903,6 +3917,27 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
+    "m_ObjectId": "95792c87a8c74d7ab34ac4d86b451521",
+    "m_Id": -24610860,
+    "m_DisplayName": "UV",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_UV",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "9608f61ecd1c4d81a93d459f9ccdb378",
     "m_Id": 3,
@@ -4480,6 +4515,12 @@
             "m_Id": "d1181862da0c47468ed8ea64603ab0e7"
         },
         {
+            "m_Id": "95792c87a8c74d7ab34ac4d86b451521"
+        },
+        {
+            "m_Id": "4f56fb1df1534d3b86beb75edf8d417b"
+        },
+        {
             "m_Id": "57fa3003328842f09287d4d4c3218a19"
         },
         {
@@ -4504,7 +4545,9 @@
         "5c984fd7-6345-4f32-bcd7-b78f796d4433",
         "93f5da46-2c0b-4786-84fc-5a7d92f2361a",
         "683c73b4-7496-4966-bcc2-81fd5d772bf0",
-        "5f2a79ff-c28f-45d2-880f-cc4bdbdbeae1"
+        "5f2a79ff-c28f-45d2-880f-cc4bdbdbeae1",
+        "17fa120b-c7f5-4642-924c-6eb4b8ee5e1b",
+        "bfd82181-81e1-40c5-a970-95bf99c90d70"
     ],
     "m_PropertyIds": [
         -1846176288,
@@ -4512,7 +4555,9 @@
         -1353083305,
         -1289750437,
         753971907,
-        -1327599837
+        -1327599837,
+        -24610860,
+        814029136
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []

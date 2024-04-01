@@ -35,7 +35,19 @@ Material:
         m_Texture: {fileID: 2800000, guid: ca10ae357d8d7bb498bba1bd589ab95a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _PixelationSub_610ae6f0ecf043fca32afeb692161c55_Texture_2448791008_Texture2D:
+        m_Texture: {fileID: 2800000, guid: ca10ae357d8d7bb498bba1bd589ab95a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PixelationSub_80ceb6f5909d403291c5b09e6f83ffb2_Texture_2448791008_Texture2D:
+        m_Texture: {fileID: 2800000, guid: ca10ae357d8d7bb498bba1bd589ab95a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _PixelationSub_9de0c40e12a0476bb352a5cac3c78b75_Texture_2448791008_Texture2D:
+        m_Texture: {fileID: 2800000, guid: ca10ae357d8d7bb498bba1bd589ab95a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PixelationSub_a5dceb079c3a4eda8b91015ba7700f3b_Texture_2448791008_Texture2D:
         m_Texture: {fileID: 2800000, guid: ca10ae357d8d7bb498bba1bd589ab95a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -68,12 +80,20 @@ Material:
     - _CellDensity: 4.2
     - _CellOffset: 477.52
     - _Float: 0
-    - _NebulaNoise: 153
-    - _NebulaNoiseScale: 37
-    - _NebulaParallax: 0.9998
+    - _NebulaNoise: 134
+    - _NebulaNoiseScale: 56
+    - _NebulaNoiseScale_1: 28
+    - _NebulaNoise_1: 79
+    - _NebulaParallax: 0.998
+    - _NebulaParallax_1: 0.9998
     - _NebulaPixelation: 500
+    - _NebulaPixelation_1: 500
     - _NebulaVoronoi: 10
-    - _NebulaWeakness: 2.07
+    - _NebulaVoronoiSpacing: 1.49
+    - _NebulaVoronoiSpacing_1: 3.76
+    - _NebulaVoronoi_1: 10
+    - _NebulaWeakness: 3.15
+    - _NebulaWeakness_1: 1.9
     - _Parallax: 0.9994
     - _Parallax1: 0.9995
     - _Parallax2: 0.9994
@@ -92,8 +112,12 @@ Material:
     - _Seed2: 2
     - _Seed3: 3
     m_Colors:
-    - _NebulaColor: {r: 0.5410384, g: 0.037201855, b: 0.7169812, a: 0}
+    - _NebulaColor: {r: 0.5469917, g: 0.105909556, b: 0.6415094, a: 0}
+    - _NebulaColor_1: {r: 0.19885185, g: 0.11574403, b: 0.4811321, a: 0}
+    - _NebulaOffset: {r: 29.19, g: 0, b: 0, a: 0}
+    - _NebulaOffset_1: {r: 8.85, g: -13.37, b: 0, a: 0}
     - _NebulaTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _NebulaTiling_1: {r: 1, g: 1, b: 0, a: 0}
     - _TargetPos: {r: 0, g: 0, b: 0, a: 0}
     - _Tiling: {r: 5, g: 5, b: 0, a: 0}
     - _Tiling1: {r: 10, g: 10, b: 0, a: 0}
