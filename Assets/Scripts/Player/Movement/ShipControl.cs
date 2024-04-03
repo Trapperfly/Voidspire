@@ -204,7 +204,7 @@ public class ShipControl : MonoBehaviour
             //        stl.turnSpeed = stl.turnSpeedStored * multiplier;
             //}
             rb.AddTorque(thruster.turnSpeed, ForceMode2D.Force); //Add that force
-            rb.angularDrag = thruster.maxTurnSpeed * 3;
+            rb.angularDrag = thruster.maxTurnSpeed;
         }
         if (Input.GetKey(KeyCode.D))
         {
@@ -221,6 +221,6 @@ public class ShipControl : MonoBehaviour
         //if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))   //Reset turnspeed to slider value
         //    stl.turnSpeed = sliderRef.turnSpeedSlider.value;
         if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)) //Reset angular drag to slider value
-            rb.angularDrag = thruster.turnBrakingSpeed;
+            rb.angularDrag = thruster.turnBrakingSpeed * 3;
     }
 }
