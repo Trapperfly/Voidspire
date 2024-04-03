@@ -80,10 +80,10 @@ Material:
     - _CellDensity: 4.2
     - _CellOffset: 477.52
     - _Float: 0
-    - _NebulaNoise: 134
-    - _NebulaNoiseScale: 56
+    - _NebulaNoise: 64
+    - _NebulaNoiseScale: 9
     - _NebulaNoiseScale_1: 28
-    - _NebulaNoise_1: 79
+    - _NebulaNoise_1: 23
     - _NebulaParallax: 0.998
     - _NebulaParallax_1: 0.9998
     - _NebulaPixelation: 500
