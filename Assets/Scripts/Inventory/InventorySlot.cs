@@ -12,7 +12,8 @@ public class InventorySlot : MonoBehaviour
     public Image frame;
 
 
-
+    public bool locked;
+    public Sprite lockedSprite;
     public Item item;
 
     public void Refresh()
@@ -82,6 +83,12 @@ public class InventorySlot : MonoBehaviour
     public void ChangePHIcon()
     {
         EquipmentSlot equipSlot = this as EquipmentSlot;
+        if (locked)
+        {
+            equipSlot.placeholderIcon.sprite = lockedSprite;
+            equipSlot.placeholderIcon.color = new Color(1, 1, 1, 1);
+            return;
+        }
         equipSlot.placeholderIcon.color = new Color(1, 1, 1, 1);
         equipSlot.placeholderIcon.sprite = equipSlot.pHIcons[(int)equipSlot.allowed];
     }
@@ -91,5 +98,11 @@ public class InventorySlot : MonoBehaviour
         if (sprite == 0) { equipSlot.placeholderIcon.color = new Color(1,1,1,0); return; }
         equipSlot.placeholderIcon.color = new Color(1, 1, 1, 1);
         equipSlot.placeholderIcon.sprite = equipSlot.pHIcons[sprite];
+    }
+
+    public void Unlock()
+    {
+        locked = false;
+        ChangePHIcon();
     }
 }

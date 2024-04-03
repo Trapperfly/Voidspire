@@ -367,7 +367,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 78477dacc22b7ca4697038a526375b3d, type: 3}
   - {fileID: 21300000, guid: 561ec079184c8554194a8d9a6c07a0e4, type: 3}
   - {fileID: 21300000, guid: d25d1ec06c920a24f9d6a498ff90c05b, type: 3}
+  - {fileID: 21300000, guid: d25d1ec06c920a24f9d6a498ff90c05b, type: 3}
+  - {fileID: 21300000, guid: d25d1ec06c920a24f9d6a498ff90c05b, type: 3}
   frame: {fileID: 5169143230011797464}
+  locked: 0
+  lockedSprite: {fileID: 0}
   item: {fileID: 0}
 --- !u!114 &3133939725238532837
 MonoBehaviour:

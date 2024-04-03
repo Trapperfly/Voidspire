@@ -53,17 +53,18 @@ public class HandleRelic : GameTrigger
                         relics[i] = slot.item as Equipment;
                         for (int j = 0; j < equipment.weaponSlots.Count; j++)
                         {
-                            Weapon w = equipment.weaponSlots[j].item as Weapon;
-                            w.homing = QuantumTargeting.setHomingToThis;
-                            w.homingStrength += QuantumTargeting.aHomingStrength;
-                            w.speed *= QuantumTargeting.mProjectileSpeed;
-                            equipment.weaponSlots[j].item = w;
+                            if (equipment.weaponSlots[j].item != null) {
+                                Weapon w = equipment.weaponSlots[j].item as Weapon;
+                                w.homing = QuantumTargeting.setHomingToThis;
+                                w.homingStrength += QuantumTargeting.aHomingStrength;
+                                w.speed *= QuantumTargeting.mProjectileSpeed;
+                                equipment.weaponSlots[j].item = w;
+                            }
                         }
                         for (int j = 0; j < inventoryUI.slots.Length; j++)
                         {
                             Debug.Log(inventoryUI.slots[j].item);
-                            if (inventoryUI.slots[j].item != null && inventoryUI.slots[j].item is Weapon)
-                            {
+                            if (inventoryUI.slots[j].item != null && inventoryUI.slots[j].item is Weapon) {
                                 Weapon w = inventoryUI.slots[j].item as Weapon;
                                 w.homing = QuantumTargeting.setHomingToThis;
                                 w.homingStrength += QuantumTargeting.aHomingStrength;
@@ -81,11 +82,14 @@ public class HandleRelic : GameTrigger
                         relics[i] = slot.item as Equipment;
                         for (int j = 0; j < equipment.weaponSlots.Count; j++)
                         {
-                            Weapon w = equipment.weaponSlots[j].item as Weapon;
-                            w.amount *= Mathf.RoundToInt(FissionBarrel.mProjectileCount);
-                            w.spread *= FissionBarrel.mSpread;
-                            w.rotationSpeed *= FissionBarrel.mRotSpeed;
-                            equipment.weaponSlots[j].item = w;
+                            if (equipment.weaponSlots[j].item != null)
+                            {
+                                Weapon w = equipment.weaponSlots[j].item as Weapon;
+                                w.amount *= Mathf.RoundToInt(FissionBarrel.mProjectileCount);
+                                w.spread *= FissionBarrel.mSpread;
+                                w.rotationSpeed *= FissionBarrel.mRotSpeed;
+                                equipment.weaponSlots[j].item = w;
+                            }
                         }
                         for (int j = 0; j < inventoryUI.slots.Length; j++)
                         {
@@ -119,26 +123,30 @@ public class HandleRelic : GameTrigger
             case Relics.NotARelic:
                 break;
             case Relics.QuantumTargeting:
-                for (int i = 0; i < equipment.weaponSlots.Count; i++)
+                for (int j = 0; j < equipment.weaponSlots.Count; j++)
                 {
-                    Weapon w = equipment.weaponSlots[i].item as Weapon;
-                    if (CheckIfRelicIsEquipped(relic)) { }
-                    else w.homing = w.savedHoming;
-                    w.homingStrength -= QuantumTargeting.aHomingStrength;
-                    w.speed *= 1/QuantumTargeting.mProjectileSpeed;
-                    equipment.weaponSlots[i].item = w;
-                }
-                for (int i = 0; i < inventoryUI.slots.Length; i++)
-                {
-                    Debug.Log(inventoryUI.slots[i].item);
-                    if (inventoryUI.slots[i].item != null && inventoryUI.slots[i].item is Weapon)
+                    if (equipment.weaponSlots[j].item != null)
                     {
-                        Weapon w = inventoryUI.slots[i].item as Weapon;
+                        Weapon w = equipment.weaponSlots[j].item as Weapon;
                         if (CheckIfRelicIsEquipped(relic)) { }
                         else w.homing = w.savedHoming;
                         w.homingStrength -= QuantumTargeting.aHomingStrength;
                         w.speed *= 1 / QuantumTargeting.mProjectileSpeed;
-                        inventoryUI.slots[i].item = w;
+                        equipment.weaponSlots[j].item = w;
+                    }
+                    
+                }
+                for (int j = 0; j < inventoryUI.slots.Length; j++)
+                {
+                    Debug.Log(inventoryUI.slots[j].item);
+                    if (inventoryUI.slots[j].item != null && inventoryUI.slots[j].item is Weapon)
+                    {
+                        Weapon w = inventoryUI.slots[j].item as Weapon;
+                        if (CheckIfRelicIsEquipped(relic)) { }
+                        else w.homing = w.savedHoming;
+                        w.homingStrength -= QuantumTargeting.aHomingStrength;
+                        w.speed *= 1 / QuantumTargeting.mProjectileSpeed;
+                        inventoryUI.slots[j].item = w;
                     }
                 }
                 break;
@@ -147,11 +155,14 @@ public class HandleRelic : GameTrigger
             case Relics.FissionBarrel:
                 for (int j = 0; j < equipment.weaponSlots.Count; j++)
                 {
-                    Weapon w = equipment.weaponSlots[j].item as Weapon;
-                    w.amount /= Mathf.RoundToInt(FissionBarrel.mProjectileCount);
-                    w.spread *= 1/FissionBarrel.mSpread;
-                    w.rotationSpeed *= 1/FissionBarrel.mRotSpeed;
-                    equipment.weaponSlots[j].item = w;
+                    if (equipment.weaponSlots[j].item != null) {
+                        Weapon w = equipment.weaponSlots[j].item as Weapon;
+                        w.amount /= Mathf.RoundToInt(FissionBarrel.mProjectileCount);
+                        w.spread *= 1 / FissionBarrel.mSpread;
+                        w.rotationSpeed *= 1 / FissionBarrel.mRotSpeed;
+                        equipment.weaponSlots[j].item = w;
+                    }
+                        
                 }
                 for (int j = 0; j < inventoryUI.slots.Length; j++)
                 {

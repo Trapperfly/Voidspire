@@ -9,6 +9,10 @@ public class RandomizeEquipment : MonoBehaviour
     public Color[] typeColor;
     public ParticleSystem.MinMaxGradient[] gradients;
     public Equipment[] relics;
+    public Color keyColor;
+    public Sprite keySprite;
+    public string keyText;
+    public string keyName;
     [Space]
 
     public Transform textBoxParent;
@@ -172,7 +176,7 @@ public class RandomizeEquipment : MonoBehaviour
         while (!accepted)
         {
             
-            type = (EquipmentTypes)Random.Range(2, 10);
+            type = (EquipmentTypes)Random.Range(2, 11);
             
             switch (type)
             {
@@ -208,6 +212,17 @@ public class RandomizeEquipment : MonoBehaviour
                     break;
                 case EquipmentTypes.Relic:
                     newEquipment = RandomizeRelic();
+                    accepted = true;
+                    break;
+                case EquipmentTypes.Key:
+                    Equipment copyKey = ScriptableObject.CreateInstance<Equipment>();
+                    copyKey.equipType = EquipmentTypes.Key;
+                    copyKey.statsText = keyText;
+                    copyKey.statLength = 1;
+                    copyKey.color = keyColor;
+                    copyKey.icon = keySprite;
+                    copyKey.itemName = keyName;
+                    newEquipment = copyKey;
                     accepted = true;
                     break;
                 case EquipmentTypes.Default:

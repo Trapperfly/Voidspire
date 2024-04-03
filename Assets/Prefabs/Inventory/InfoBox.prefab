@@ -353,7 +353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slot: {fileID: 0}
   salvagable: 0
-  salvageSpeed: 0.7
+  salvageSpeed: 0.3
   salvageEquippedTime: 3
   salvageBar: {fileID: 396530223494695002}
 --- !u!1 &3069272556188166771

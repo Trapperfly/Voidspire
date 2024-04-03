@@ -159,4 +159,14 @@ public class Inventory : MonoBehaviour
 
         onItemChangedCallback?.Invoke();
     }
+
+    public void Unlock(InventorySlot keyslot, InventorySlot unlockedSlot)
+    {
+        unlockedSlot.Unlock();
+
+        items.Remove(keyslot.item);
+        keyslot.item = null;
+
+        onItemChangedCallback?.Invoke();
+    }
 }

@@ -103,7 +103,12 @@ public class DragAndDrop : MonoBehaviour,
             {
                 EquipmentSlot s1 = slot1 as EquipmentSlot;
                 Equipment e0 = slot0.item as Equipment;
-
+                if (s1.locked && (slot0.item as Equipment).equipType == EquipmentTypes.Key)
+                {
+                    Inventory.Instance.Unlock(slot0, s1);
+                    DoShrink();
+                    return;
+                }
                 if (s1.allowed == e0.equipType || (int)s1.allowed == 1)
                 {
                     DoSwapAndShrink();
@@ -116,7 +121,12 @@ public class DragAndDrop : MonoBehaviour,
             {
                 EquipmentSlot s0 = slot0 as EquipmentSlot;
                 Equipment e1 = slot1.item as Equipment;
-
+                if (s0.locked && (slot1.item as Equipment).equipType == EquipmentTypes.Key)
+                {
+                    Inventory.Instance.Unlock(slot1, s0);
+                    DoShrink();
+                    return;
+                }
                 if (s0.allowed == e1.equipType || (int)s0.allowed == 1)
                 {
                     DoSwapAndShrink();
@@ -179,6 +189,20 @@ public class DragAndDrop : MonoBehaviour,
     public void DoSwapAndShrink()
     {
         SwapSpaces();
+        if (line)
+        {
+            ShrinkAndExpire ls = line.GetComponent<ShrinkAndExpire>();
+            ls.startPos = startPos;
+            ls.endPos = endPos;
+            ls.canvasScale = canvas.scaleFactor;
+            ls.enabled = true;
+            StartCoroutine(ls.Shrink());
+            line = null;
+        }
+    }
+
+    public void DoShrink()
+    {
         if (line)
         {
             ShrinkAndExpire ls = line.GetComponent<ShrinkAndExpire>();

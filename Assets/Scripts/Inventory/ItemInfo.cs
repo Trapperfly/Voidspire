@@ -14,6 +14,8 @@ public class ItemInfo : MonoBehaviour
     public Equipment newEquipment;
     bool accepted = false;
 
+    public Equipment key;
+
     public ParticleSystem ps;
     public SpriteRenderer sprite;
     private void Start()
@@ -74,6 +76,10 @@ public class ItemInfo : MonoBehaviour
                     if (Random.value > relicChance && random)
                         accepted = false;
                     else accepted = true;
+                    break;
+                case EquipmentTypes.Key:
+                    newEquipment = key;
+                    accepted = true;
                     break;
                 case EquipmentTypes.Default:
                     break;

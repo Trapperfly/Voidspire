@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Equipment", menuName = "Inventory/Equipment")]
+[CreateAssetMenu(fileName = "New Equipment", menuName = "Inventory/GenericEquipment")]
 public class Equipment : Item
 {
     public int level;
@@ -40,6 +40,7 @@ public enum EquipmentTypes
     Cargo,
     Collector,
     Relic,
+    Key,
     Default
 }
 

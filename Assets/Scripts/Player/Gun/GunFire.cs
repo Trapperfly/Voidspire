@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ExtensionMethods;
+using UnityEngine.EventSystems;
 
 public class GunFire : MonoBehaviour
 {
@@ -77,6 +78,7 @@ public class GunFire : MonoBehaviour
         if (GlobalRefs.Instance.playerIsDead) return;
         if (stat.aimed && stat.active && Input.GetKey(KeyCode.Mouse0) && gunTimer >= Mathf.Clamp(60 / fireRateA, 1, 600))
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
             if (w.fireRateChange != 0 && w.fireRateChangeTimer != 0)
             {
                 fireRateScalar += (1 / fireRateA) / w.fireRateChangeTimer;
