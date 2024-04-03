@@ -30,7 +30,7 @@ public class StarsParallaxCopyPos : MonoBehaviour
         var rotation = Quaternion.LookRotation(parent.forward);
         transform.rotation = Quaternion.Inverse(rotation);
         mat.SetVector("_TargetPos", new Vector2(transform.position.x, transform.position.y));
-        mat.SetFloat("_NebulaVoronoi", mat.GetFloat("_NebulaVoronoi") + (voronoiSpeed * Time.deltaTime));
+        //mat.SetFloat("_NebulaVoronoi", mat.GetFloat("_NebulaVoronoi") + (voronoiSpeed * Time.deltaTime));
     }
     int R()
     {
