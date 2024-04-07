@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MothConqueror
   m_EditorClassIdentifier: 
   level: 0
-  aiName: Moth Conqueror
+  aiName: Chitin Conqueror
   description: 
   playerRelation: 5
   shipPrefab: {fileID: 0}
@@ -62,4 +62,4 @@ MonoBehaviour:
   specialHomingStrength: 150
   stopCoreWhenSpecial: 0
   reward: 10
-  value: 1
+  value: 4

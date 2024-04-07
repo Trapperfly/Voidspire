@@ -10,33 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c42329208f71aa469412ecfbbe6a610, type: 3}
-  m_Name: MothInterceptor
+  m_Name: MothLightCruiser
   m_EditorClassIdentifier: 
   level: 0
-  aiName: Chitin Interceptor
+  aiName: Chitin Light Cruiser
   description: 
   playerRelation: 5
   shipPrefab: {fileID: 0}
-  behaviour: 7
-  combatBehaviour: 2
-  lowHealthBehaviour: 2
+  behaviour: 3
+  combatBehaviour: 3
+  lowHealthBehaviour: 0
   lowHealthPercent: 0.1
   enrageBehaviour: 0
   enrageStrength: 0
   enrageSpecialAttack: 0
   contactBehaviour: 2
-  maxHealth: 80
+  maxHealth: 15
   maxShield: 0
-  mass: 2
+  mass: 1
   isDisabled: 0
-  speed: 2
-  rotSpeed: 0.06
+  speed: 1.2
+  rotSpeed: 0.03
   strafeSpeed: 0.2
   jumpTime: 4
   jumpSpeed: 100
   exploreMod: 0.5
   fleeMod: 2
-  combatMod: 5
+  combatMod: 2
   repairMod: 1
   combatDrag: 2
   combatAngularDrag: 2
@@ -48,18 +48,18 @@ MonoBehaviour:
   newMoveTargetTime: {x: 5, y: 8}
   targetRadius: 3
   changeTargetChance: 0.2
-  availableAttacks: 1
+  availableAttacks: 2
   isWeakened: 0
   isDisarmed: 0
-  specialAttack: 0
-  specialAttackCD: 0
-  specialAttackDamage: 0
-  specialAttackSpeed: 0
-  specialAttackSpread: 0
-  specialAmount: 0
+  specialAttack: 2
+  specialAttackCD: 2
+  specialAttackDamage: 1
+  specialAttackSpeed: 10
+  specialAttackSpread: 180
+  specialAmount: 1
   damageTickTime: 0
-  specialIsHoming: 0
-  specialHomingStrength: 0
+  specialIsHoming: 1
+  specialHomingStrength: 200
   stopCoreWhenSpecial: 0
   reward: 5
-  value: 1
+  value: 0.9

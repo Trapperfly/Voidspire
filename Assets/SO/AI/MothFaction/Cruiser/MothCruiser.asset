@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c42329208f71aa469412ecfbbe6a610, type: 3}
   m_Name: MothCruiser
   m_EditorClassIdentifier: 
-  aiName: Moth Interceptor
+  level: 0
+  aiName: Chitin Interceptor
   description: 
   playerRelation: 5
   shipPrefab: {fileID: 0}
@@ -61,4 +62,4 @@ MonoBehaviour:
   specialHomingStrength: 50
   stopCoreWhenSpecial: 0
   reward: 5
-  value: 1
+  value: 2

@@ -10,39 +10,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c42329208f71aa469412ecfbbe6a610, type: 3}
-  m_Name: MothInterceptor
+  m_Name: MothTransport
   m_EditorClassIdentifier: 
   level: 0
-  aiName: Chitin Interceptor
+  aiName: Chitin Transport
   description: 
   playerRelation: 5
   shipPrefab: {fileID: 0}
-  behaviour: 7
-  combatBehaviour: 2
+  behaviour: 4
+  combatBehaviour: 4
   lowHealthBehaviour: 2
-  lowHealthPercent: 0.1
+  lowHealthPercent: 0.6
   enrageBehaviour: 0
   enrageStrength: 0
   enrageSpecialAttack: 0
   contactBehaviour: 2
-  maxHealth: 80
+  maxHealth: 6
   maxShield: 0
-  mass: 2
+  mass: 0.4
   isDisabled: 0
-  speed: 2
-  rotSpeed: 0.06
-  strafeSpeed: 0.2
-  jumpTime: 4
+  speed: 1
+  rotSpeed: 0.04
+  strafeSpeed: 0.08
+  jumpTime: 2
   jumpSpeed: 100
-  exploreMod: 0.5
-  fleeMod: 2
-  combatMod: 5
+  exploreMod: 1
+  fleeMod: 1
+  combatMod: 1
   repairMod: 1
-  combatDrag: 2
-  combatAngularDrag: 2
+  combatDrag: 1
+  combatAngularDrag: 1
   canRepair: 0
   repairSpeed: 0
-  viewRange: 5
+  viewRange: 4
   reactRange: 12
   attackRange: 4
   newMoveTargetTime: {x: 5, y: 8}
@@ -52,14 +52,14 @@ MonoBehaviour:
   isWeakened: 0
   isDisarmed: 0
   specialAttack: 0
-  specialAttackCD: 0
-  specialAttackDamage: 0
-  specialAttackSpeed: 0
-  specialAttackSpread: 0
-  specialAmount: 0
+  specialAttackCD: 5
+  specialAttackDamage: 2
+  specialAttackSpeed: 3
+  specialAttackSpread: 180
+  specialAmount: 1
   damageTickTime: 0
-  specialIsHoming: 0
-  specialHomingStrength: 0
+  specialIsHoming: 1
+  specialHomingStrength: 50
   stopCoreWhenSpecial: 0
   reward: 5
   value: 1
