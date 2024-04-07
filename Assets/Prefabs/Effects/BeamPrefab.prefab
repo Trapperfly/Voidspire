@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6981941982628563924}
   - component: {fileID: 7149996758190833042}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: BeamPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

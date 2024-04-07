@@ -112,12 +112,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8da74cd004a4d454d987c00fe5dd32ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSender: {fileID: 0}
   type: 1
   indestructible: 1
   damageTimer: 5
   damage: 0
   currTime: 0
   timer: 0
+  homing: 0
+  homingStrength: 0
+  speed: 0
+  target: {fileID: 0}
 --- !u!1 &940026036900471780
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6317524544431385732}
   - component: {fileID: 137652226448250037}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: SpriteBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +380,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5065370640328786935}
   - component: {fileID: 5618056798762425749}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: SpriteMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,7 +465,7 @@ GameObject:
   - component: {fileID: 7540396795141503593}
   - component: {fileID: 632128324053943418}
   - component: {fileID: 4697008968178167547}
-  m_Layer: 14
+  m_Layer: 31
   m_Name: ElectricTrails
   m_TagString: Untagged
   m_Icon: {fileID: 0}

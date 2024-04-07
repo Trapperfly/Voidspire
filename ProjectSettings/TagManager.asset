@@ -54,7 +54,7 @@ TagManager:
   - 
   - MapShading
   - MapMarkers
-  - 
+  - Effects
   m_SortingLayers:
   - name: Default
     uniqueID: 0
