@@ -184,9 +184,6 @@ MonoBehaviour:
   doubleDamage: 0
   enabledSpecialAttack: 0
   unlockedGuns: 0
-  hud: {fileID: 0}
-  healthBarAndLevel: {fileID: 424752908760282577, guid: bb7b434864c5c4749b3138929ec81a1a, type: 3}
-  bossHealthBarAndLevel: {fileID: 0}
 --- !u!114 &730234620890172710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,6 +236,10 @@ MonoBehaviour:
   shipOverride: 1
   damageTakenFromWhat: {fileID: 0}
   healthPercent: 0
+  isBoss: 0
+  hud: {fileID: 0}
+  healthBarAndLevel: {fileID: 424752908760282577, guid: bb7b434864c5c4749b3138929ec81a1a, type: 3}
+  bossHealthBarAndLevel: {fileID: 424752908760282577, guid: 2acc574d09056124da746aee09ac07e1, type: 3}
 --- !u!114 &6318329735466974916
 MonoBehaviour:
   m_ObjectHideFlags: 0

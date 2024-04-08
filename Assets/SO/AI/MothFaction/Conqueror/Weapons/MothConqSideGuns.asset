@@ -18,8 +18,8 @@ MonoBehaviour:
   effectChance: 0
   damage: 0.2
   amount: 1
-  shotSpeed: 0.2
-  fireRate: 5
+  shotSpeed: 0.4
+  fireRate: 1.5
   spread: 5
   gunRotSpeed: 2
   homing: 0

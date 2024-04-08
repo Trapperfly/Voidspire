@@ -67,17 +67,17 @@ public class ShipAI : MonoBehaviour
     Vector2 combatTScaling;
     float healthScaling;
 
-    public Transform hud;
-    public GameObject healthBarAndLevel;
-    public GameObject bossHealthBarAndLevel;
-    Image healthBar;
-    TMP_Text levelText;
+    //public Transform hud;
+    //public GameObject healthBarAndLevel;
+    //public GameObject bossHealthBarAndLevel;
+    //Image healthBar;
+    //TMP_Text levelText;
 
     private void Start()
     {
         if (level == 0)
             level += (GlobalRefs.Instance.currentSector - 1) * 10;
-        Init();
+        //Init();
         var tEmis = thrustersPS.emission;
         tEmis.enabled = false;
         aiBullets = EnemyManager.Instance.bh;
@@ -123,28 +123,28 @@ public class ShipAI : MonoBehaviour
         healthModule.healthPercent = healthModule.currentHealth / healthModule.startHealth;
     }
 
-    void Init()
-    {
-        if (isBoss)
-        {
-            gameObject.name = ship.aiName;
-            hud = GameObject.FindGameObjectWithTag("Hud").transform;
-            GameObject b = Instantiate(bossHealthBarAndLevel, hud);
-            healthBar = b.transform.GetChild(2).GetChild(2).GetComponent<Image>();
-            b.transform.GetChild(1).GetChild(2).GetComponent<TMP_Text>().text = gameObject.name;
-            levelText = b.transform.GetChild(0).GetChild(2).GetComponent<TMP_Text>();
-            levelText.text = level.ToString();
-            b.GetComponent<EnemyHealthBar>().target = transform;
-            return;
-        }
-        gameObject.name = ship.aiName;
-        hud = GameObject.FindGameObjectWithTag("Hud").transform;
-        GameObject h = Instantiate(healthBarAndLevel, transform.position, new Quaternion(), hud);
-        healthBar = h.transform.GetChild(1).GetChild(2).GetComponent<Image>();
-        levelText = h.transform.GetChild(0).GetChild(2).GetComponent<TMP_Text>();
-        levelText.text = level.ToString();
-        h.GetComponent<EnemyHealthBar>().target = transform;
-    }
+    //void Init()
+    //{
+    //    if (isBoss)
+    //    {
+    //        gameObject.name = ship.aiName;
+    //        hud = GameObject.FindGameObjectWithTag("Hud").transform;
+    //        GameObject b = Instantiate(bossHealthBarAndLevel, hud);
+    //        healthBar = b.transform.GetChild(2).GetChild(2).GetComponent<Image>();
+    //        b.transform.GetChild(1).GetChild(2).GetComponent<TMP_Text>().text = gameObject.name;
+    //        levelText = b.transform.GetChild(0).GetChild(2).GetComponent<TMP_Text>();
+    //        levelText.text = level.ToString();
+    //        b.GetComponent<EnemyHealthBar>().target = transform;
+    //        return;
+    //    }
+    //    gameObject.name = ship.aiName;
+    //    hud = GameObject.FindGameObjectWithTag("Hud").transform;
+    //    GameObject h = Instantiate(healthBarAndLevel, transform.position, new Quaternion(), hud);
+    //    healthBar = h.transform.GetChild(1).GetChild(2).GetComponent<Image>();
+    //    levelText = h.transform.GetChild(0).GetChild(2).GetComponent<TMP_Text>();
+    //    levelText.text = level.ToString();
+    //    h.GetComponent<EnemyHealthBar>().target = transform;
+    //}
     private void FixedUpdate()
     {
         currentModifier = CheckDistanceAndSetModifier();
@@ -290,12 +290,11 @@ public class ShipAI : MonoBehaviour
     //Draw debug rays for vectors in CheckProximity
     private void Update()
     {
-        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, healthModule.healthPercent, 0.1f);
+        //healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, healthModule.healthPercent, 0.1f);
         foreach (Vector2 line in dirs)
         {
             Debug.DrawRay(transform.position, line.normalized);
         }
-
     }
     void ActivateEnrage()
     {

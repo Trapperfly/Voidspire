@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ExtensionMethods;
-using static UnityEngine.Rendering.DebugUI;
-using System.Drawing;
-using UnityEngine.UIElements;
 
 public class SpawnResourceOnDestroy : MonoBehaviour
 {

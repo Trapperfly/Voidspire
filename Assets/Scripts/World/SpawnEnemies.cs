@@ -7,7 +7,7 @@ public class SpawnEnemies : MonoBehaviour
 {
     //[SerializeField] float secondsTillNextSpawnAttempt = 5f;
     [SerializeField] int maxAmount;
-    int amount = 0;
+    public int funds = 0;
     [Header("Void")]
     [SerializeField] GameObject lurkerPrefab;
     [SerializeField] GameObject arbalestPrefab;
@@ -44,7 +44,7 @@ public class SpawnEnemies : MonoBehaviour
     #endregion
     public void SpawnVoidEnemies(Vector2 pos, float range, int level)
     {
-        amount = Random.Range(1, 101) switch
+        int amount = Random.Range(1, 101) switch
         {
             > (100 - tenSpawnPercent) => 10,
             > (100 - fiveSpawnPercent) => 5,
@@ -79,7 +79,7 @@ public class SpawnEnemies : MonoBehaviour
 
     public void SpawnChitinEnemies(Vector2 pos, float range, int level)
     {
-        int amount = Random.Range(1, 31);
+        int amount = Random.Range(0, funds);
         Vector2 spawnLocation = pos + new Vector2(Random.Range(-range, range), Random.Range(-range, range));
 
         while (amount > 0)
@@ -97,7 +97,7 @@ public class SpawnEnemies : MonoBehaviour
 
     public void SpawnChromeEnemies(Vector2 pos, float range, int level)
     {
-        amount = Random.Range(1, 101) switch
+        int amount = Random.Range(1, 101) switch
         {
             > (100 - tenSpawnPercent) => 10,
             > (100 - fiveSpawnPercent) => 5,
@@ -132,7 +132,7 @@ public class SpawnEnemies : MonoBehaviour
 
     public void SpawnPirateEnemies(Vector2 pos, float range, int level)
     {
-        amount = Random.Range(1, 101) switch
+        int amount = Random.Range(1, 101) switch
         {
             > (100 - tenSpawnPercent) => 10,
             > (100 - fiveSpawnPercent) => 5,
@@ -167,7 +167,7 @@ public class SpawnEnemies : MonoBehaviour
 
     public void SpawnCiv(Vector2 pos, float range, int level)
     {
-        amount = Random.Range(1, 101) switch
+        int amount = Random.Range(1, 101) switch
         {
             > (100 - tenSpawnPercent) => 10,
             > (100 - fiveSpawnPercent) => 5,
@@ -205,7 +205,7 @@ public class SpawnEnemies : MonoBehaviour
         Instantiate
         (
             enemyPrefab,
-            spawnLocation + (Vector2)Random.insideUnitSphere,
+            spawnLocation + ((Vector2)Random.insideUnitSphere * (Mathf.Sqrt(funds) / 2)),
             Quaternion.Euler(0, 0, (Random.value * 360) - 180),
             transform
         ).GetComponent<ShipAI>().level = level;

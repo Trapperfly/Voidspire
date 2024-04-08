@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Damagable : GameTrigger
 {
@@ -10,8 +12,16 @@ public class Damagable : GameTrigger
     public bool shipOverride;
     public GameObject damageTakenFromWhat;
     public float healthPercent;
+
+    public bool isBoss;
+    public Transform hud;
+    public GameObject healthBarAndLevel;
+    public GameObject bossHealthBarAndLevel;
+    Image healthBar;
+    TMP_Text levelText;
     private void Start()
     {
+        Init();
         if (shipOverride) { return; }
         if (startHealth == 0)
         {
@@ -20,6 +30,46 @@ public class Damagable : GameTrigger
         }
         currentHealth = startHealth;
         healthPercent = currentHealth / startHealth;
+    }
+    private void Update()
+    {
+        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, healthPercent, 0.1f);
+    }
+
+    void Init()
+    {
+        TryGetComponent(out ShipAI s);
+        if (s && isBoss)
+        {
+            gameObject.name = s.ship.aiName;
+            hud = GameObject.FindGameObjectWithTag("Hud").transform;
+            GameObject b = Instantiate(bossHealthBarAndLevel, hud);
+            healthBar = b.transform.GetChild(2).GetChild(2).GetComponent<Image>();
+            b.transform.GetChild(1).GetChild(2).GetComponent<TMP_Text>().text = gameObject.name;
+            levelText = b.transform.GetChild(0).GetChild(2).GetComponent<TMP_Text>();
+            levelText.text = GetComponent<DropsLoot>().level.ToString();
+            b.GetComponent<EnemyHealthBar>().target = transform;
+            return;
+        }
+        else if (s)
+        {
+            gameObject.name = s.ship.aiName;
+            hud = GameObject.FindGameObjectWithTag("Hud").transform;
+            GameObject h = Instantiate(healthBarAndLevel, transform.position, new Quaternion(), hud);
+            healthBar = h.transform.GetChild(1).GetChild(2).GetComponent<Image>();
+            levelText = h.transform.GetChild(0).GetChild(2).GetComponent<TMP_Text>();
+            levelText.text = GetComponent<DropsLoot>().level.ToString();
+            h.GetComponent<EnemyHealthBar>().target = transform;
+        }
+        else
+        {
+            hud = GameObject.FindGameObjectWithTag("Hud").transform;
+            GameObject h = Instantiate(healthBarAndLevel, transform.position, new Quaternion(), hud);
+            healthBar = h.transform.GetChild(1).GetChild(2).GetComponent<Image>();
+            levelText = h.transform.GetChild(0).GetChild(2).GetComponent<TMP_Text>();
+            levelText.text = GetComponent<DropsLoot>().level.ToString();
+            h.GetComponent<EnemyHealthBar>().target = transform;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

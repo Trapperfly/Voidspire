@@ -16,6 +16,13 @@ public class DropsLoot : GameTrigger
     {
         resourceSpawner = GameObject.Find("SpawnResourceHandler").GetComponent<SpawnResourceOnDestroy>();
     }
+
+    private void Start()
+    {
+        if (GetComponent<ShipAI>())
+            value = GetComponent<ShipAI>().ship.value;
+    }
+
     private void OnDestroy()
     {
         if (noDrop)

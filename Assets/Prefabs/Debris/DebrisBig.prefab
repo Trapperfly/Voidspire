@@ -418,6 +418,10 @@ MonoBehaviour:
   shipOverride: 0
   damageTakenFromWhat: {fileID: 0}
   healthPercent: 0
+  isBoss: 0
+  hud: {fileID: 0}
+  healthBarAndLevel: {fileID: 424752908760282577, guid: bb7b434864c5c4749b3138929ec81a1a, type: 3}
+  bossHealthBarAndLevel: {fileID: 424752908760282577, guid: 2acc574d09056124da746aee09ac07e1, type: 3}
 --- !u!114 &-8973844629681964601
 MonoBehaviour:
   m_ObjectHideFlags: 0
