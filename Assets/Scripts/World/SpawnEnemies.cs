@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class SpawnEnemies : MonoBehaviour
 {
@@ -16,13 +17,15 @@ public class SpawnEnemies : MonoBehaviour
     [SerializeField] const int tenSpawnPercent = 1;
 
     [Header("Chitin")]
-    [SerializeField] GameObject interceptorPrefab;
-    [SerializeField] GameObject cruiserPrefab;
-    [SerializeField] GameObject conquerorPrefab;
-    const int straggler = 10;
-    const int smallSquad = 5;
-    const int largeSquad = 2;
-    const int conqueror = 1;
+    public Enemy[] chitinShips;
+
+    [System.Serializable]
+    public class Enemy
+    {
+        public string name;
+        public int cost;
+        public GameObject prefab;
+    }
 
     #region Singleton
     public static SpawnEnemies Instance;
@@ -76,98 +79,19 @@ public class SpawnEnemies : MonoBehaviour
 
     public void SpawnChitinEnemies(Vector2 pos, float range, int level)
     {
-        amount = Random.Range(1, 101) switch
-        {
-            > (100 - conqueror) => 4,
-            > (100 - largeSquad) => 3,
-            > (100 - smallSquad) => 2,
-            > (100 - straggler) => 1,
-            _ => 0
-        };
+        int amount = Random.Range(1, 31);
         Vector2 spawnLocation = pos + new Vector2(Random.Range(-range, range), Random.Range(-range, range));
-        switch (amount)
+
+        while (amount > 0)
         {
-            case 1:
-                Instantiate
-                (
-                    interceptorPrefab,
-                    spawnLocation + (Vector2)Random.insideUnitSphere,
-                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
-                    transform
-                ).GetComponent<ShipAI>().level = level;
-                break;
-            case 2:
-                Instantiate
-                (
-                    interceptorPrefab,
-                    spawnLocation + (Vector2)Random.insideUnitSphere,
-                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
-                    transform
-                ).GetComponent<ShipAI>().level = level;
-                Instantiate
-                (
-                    cruiserPrefab,
-                    spawnLocation + (Vector2)Random.insideUnitSphere,
-                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
-                    transform
-                ).GetComponent<ShipAI>().level = level;
-                break;
-            case 3:
-                Instantiate
-                (
-                    interceptorPrefab,
-                    spawnLocation + (Vector2)Random.insideUnitSphere,
-                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
-                    transform
-                ).GetComponent<ShipAI>().level = level;
-                Instantiate
-                (
-                    interceptorPrefab,
-                    spawnLocation + (Vector2)Random.insideUnitSphere,
-                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
-                    transform
-                ).GetComponent<ShipAI>().level = level;
-                Instantiate
-                (
-                    cruiserPrefab,
-                    spawnLocation + (Vector2)Random.insideUnitSphere,
-                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
-                    transform
-                ).GetComponent<ShipAI>().level = level;
-                Instantiate
-                (
-                    cruiserPrefab,
-                    spawnLocation + (Vector2)Random.insideUnitSphere,
-                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
-                    transform
-                ).GetComponent<ShipAI>().level = level;
-                break;
-            case 4:
-                Instantiate
-                (
-                    interceptorPrefab,
-                    spawnLocation + (Vector2)Random.insideUnitSphere,
-                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
-                    transform
-                ).GetComponent<ShipAI>().level = level;
-                Instantiate
-                (
-                    interceptorPrefab,
-                    spawnLocation + (Vector2)Random.insideUnitSphere,
-                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
-                    transform
-                ).GetComponent<ShipAI>().level = level;
-                Instantiate
-                (
-                    conquerorPrefab,
-                    spawnLocation + (Vector2)Random.insideUnitSphere,
-                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
-                    transform
-                ).GetComponent<ShipAI>().level = level;
-                break;
-            default:
-                break;
+            int selected = Random.Range(0, chitinShips.Length);
+            if (chitinShips[selected].cost <= amount)
+            {
+                SpawnEnemy(spawnLocation, level, chitinShips[selected].prefab);
+                amount -= chitinShips[selected].cost;
+            }
         }
+        
         
     } // Spawns preset squadron sizes
 
@@ -275,6 +199,17 @@ public class SpawnEnemies : MonoBehaviour
             }
         }
     } // Spawns a few, with military escorts
+
+    public void SpawnEnemy(Vector2 spawnLocation, int level, GameObject enemyPrefab)
+    {
+        Instantiate
+        (
+            enemyPrefab,
+            spawnLocation + (Vector2)Random.insideUnitSphere,
+            Quaternion.Euler(0, 0, (Random.value * 360) - 180),
+            transform
+        ).GetComponent<ShipAI>().level = level;
+    }
 
     //Vector3 RandomOutsideView()
     //{

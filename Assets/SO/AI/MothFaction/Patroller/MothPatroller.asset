@@ -17,7 +17,7 @@ MonoBehaviour:
   description: 
   playerRelation: 5
   shipPrefab: {fileID: 0}
-  behaviour: 3
+  behaviour: 7
   combatBehaviour: 3
   lowHealthBehaviour: 2
   lowHealthPercent: 0.5

@@ -1479,7 +1479,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 10
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5672,7 +5672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseBased: 0
   targetBased: 1
-  limitRot: 1
+  limitRot: 0
   limitRotValues: {x: -48, y: 97}
   rotSpeed: 1
   advancedTargeting: 0
@@ -5706,7 +5706,7 @@ Transform:
   m_GameObject: {fileID: 7477372570779041397}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -0.245, z: -0}
+  m_LocalPosition: {x: -0, y: 0.046, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6430,7 +6430,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.6
+      value: 0.33
       mode: 0
       spread: 0
       speed:
@@ -6549,7 +6549,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 10
       minScalar: 10
       maxCurve:
         serializedVersion: 2

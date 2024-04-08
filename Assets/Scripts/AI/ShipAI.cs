@@ -819,7 +819,7 @@ public class ShipAI : MonoBehaviour
         var pEmission = ps.emission;
         if (dir != new Vector2(0, 0))
         {
-            pEmission.rateOverTime = (ship.viewRange - _distance) * 20f;
+            pEmission.rateOverTime = (ship.viewRange - _distance) * 2f;
         }
         else if (!ps.isPaused)
         {

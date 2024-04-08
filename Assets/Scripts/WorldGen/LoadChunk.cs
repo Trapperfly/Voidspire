@@ -62,11 +62,8 @@ public class LoadChunk : MonoBehaviour
     }
     IEnumerator LoadChitinEnemies(float amount, int level)
     {
-        for (int i = 0; i < amount; i++)
-        {
-            if (Random.value < Mathf.Pow(chunk.chitinValue, 3))
-                SpawnEnemies.Instance.SpawnChitinEnemies(transform.position, loader.chunkSize / 2, level);
-        }
+        if (Random.value < Mathf.Pow(chunk.chitinValue, 5))
+            SpawnEnemies.Instance.SpawnChitinEnemies(transform.position, loader.chunkSize / 2, level);
         yield return null;
     }
     IEnumerator LoadChromeEnemies(float amount, int level)
