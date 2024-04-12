@@ -19,9 +19,11 @@ public class Damagable : GameTrigger
     public GameObject bossHealthBarAndLevel;
     Image healthBar;
     TMP_Text levelText;
+
+    public EnemyHealthBar hb;
     private void Start()
     {
-        Init();
+        if (isBoss) { Init(); }
         if (shipOverride) { return; }
         if (startHealth == 0)
         {
@@ -33,10 +35,11 @@ public class Damagable : GameTrigger
     }
     private void Update()
     {
-        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, healthPercent, 0.1f);
+        if (hb != null)
+            healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, healthPercent, 0.1f);
     }
 
-    void Init()
+    public void Init()
     {
         TryGetComponent(out ShipAI s);
         if (s && isBoss)
@@ -49,6 +52,8 @@ public class Damagable : GameTrigger
             levelText = b.transform.GetChild(0).GetChild(2).GetComponent<TMP_Text>();
             levelText.text = GetComponent<DropsLoot>().level.ToString();
             b.GetComponent<EnemyHealthBar>().target = transform;
+            hb = b.GetComponent<EnemyHealthBar>();
+            hb.isBoss = true;
             return;
         }
         else if (s)
@@ -60,6 +65,7 @@ public class Damagable : GameTrigger
             levelText = h.transform.GetChild(0).GetChild(2).GetComponent<TMP_Text>();
             levelText.text = GetComponent<DropsLoot>().level.ToString();
             h.GetComponent<EnemyHealthBar>().target = transform;
+            hb = h.GetComponent<EnemyHealthBar>();
         }
         else
         {
@@ -69,6 +75,7 @@ public class Damagable : GameTrigger
             levelText = h.transform.GetChild(0).GetChild(2).GetComponent<TMP_Text>();
             levelText.text = GetComponent<DropsLoot>().level.ToString();
             h.GetComponent<EnemyHealthBar>().target = transform;
+            hb = h.GetComponent<EnemyHealthBar>();
         }
     }
 
@@ -104,6 +111,11 @@ public class Damagable : GameTrigger
         OnHitEvent(value, position);
         damageTakenFromWhat = whatDealtDamage;
         currentHealth -= value;
+        if (hb != null) { hb.timer = 0; }
+        else
+        {
+            if (!isBoss) { Init(); }
+        }
         HealthCheck();
     }
 

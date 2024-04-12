@@ -1822,8 +1822,8 @@ public class RandomizeEquipment : MonoBehaviour
                 thruster.maxSpeed *= 10;
                 thruster.turnSpeed *= 0.8f;
                 thruster.maxTurnSpeed *= 0.8f;
-                thruster.turnBrakingSpeed *= 0.3f;
-                thruster.brakingSpeed *= 0.3f;
+                thruster.turnBrakingSpeed *= 2f;
+                thruster.brakingSpeed *= 2f;
                 break;
             case STLTypes.Crawler: //Slow but very controllable rotation
                 thruster.speed *= 1f;
@@ -1908,12 +1908,12 @@ public class RandomizeEquipment : MonoBehaviour
         string statsNames = "Something is wong";
         string statsValues = "WTF";
         statsNames = "";
-        statsNames += "Speed:\n"; thruster.statLength++;
+        statsNames += "Mobility:\n"; thruster.statLength++;
         //statsNames += "Max speed: \n";
-        statsNames += "Turning: \n"; thruster.statLength++;
+        statsNames += "Agility: \n"; thruster.statLength++;
         //statsNames += "Max turn speed: \n";
-        statsNames += "Linear control: \n"; thruster.statLength++;
-        statsNames += "Angular control: \n"; thruster.statLength++;
+        statsNames += "Control: \n"; thruster.statLength++;
+        //statsNames += "Angular control: \n"; thruster.statLength++;
 
         //statsNames += "Acceleration:\n"; thruster.statLength++;
         //statsNames += "Rotation speed: \n"; thruster.statLength++;
@@ -1930,7 +1930,7 @@ public class RandomizeEquipment : MonoBehaviour
 
         statsValues +=
             thruster.speed.ToString("F0")
-            + " / " + (thruster.maxSpeed).ToString("F0")
+            //+ " / " + (thruster.maxSpeed).ToString("F0")
             + "\n";
         //+ " FTL: "
         //+ (thruster.ftlAcc).ToString("F0") 
@@ -1941,16 +1941,17 @@ public class RandomizeEquipment : MonoBehaviour
         statsValues +=
             (thruster.turnSpeed * 10).ToString("F0")
             + " / "
-            + (thruster.maxTurnSpeed * 10).ToString("F0")
+            //+ (thruster.maxTurnSpeed * 10).ToString("F0")
             + "\n";
-            //+ " FTL: "
-            //+ (thruster.ftlRotSpeed * 10).ToString("F0")
-            //+ " / "
-            //+ (thruster.maxTurnSpeed).ToString("F0")
-            //+ "\n";
+        //+ " FTL: "
+        //+ (thruster.ftlRotSpeed * 10).ToString("F0")
+        //+ " / "
+        //+ (thruster.maxTurnSpeed).ToString("F0")
+        //+ "\n";
         //statsValues += (thruster.maxTurnSpeed * 10).ToString("F0") + "\n";
-        statsValues += thruster.brakingSpeed.ToString("F2") + "\n";
-        statsValues += thruster.turnBrakingSpeed.ToString("F0") + "\n";
+        float control = thruster.brakingSpeed * thruster.turnBrakingSpeed;
+        statsValues += control.ToString("F") + "\n";
+        //statsValues += thruster.turnBrakingSpeed.ToString("F0") + "\n";
 
         //statsValues += thruster.acceleration.ToString("F0") + "\n";
         //statsValues += thruster.maxSpeed.ToString("F0") + "\n";
@@ -2121,18 +2122,19 @@ public class RandomizeEquipment : MonoBehaviour
         string statsNames = "Something is wong";
         string statsValues = "WTF";
         statsNames = "";
-        statsNames += "Speed to:\n"; col.statLength++;
-        statsNames += "Speed from: \n"; col.statLength++;
+        statsNames += "Speed:\n"; col.statLength++;
+        //statsNames += "Speed from: \n"; col.statLength++;
         statsNames += "Amount: \n"; col.statLength++;
         statsNames += "Range: \n"; col.statLength++;
 
         col.statsText = statsNames;
 
         statsValues = "";
-        statsValues += col.collectorSpeedTo.ToString("F2") + "\n";
-        statsValues += col.collectorSpeedFrom.ToString("F2") + "\n";
+        float speed = col.collectorSpeedFrom + col.collectorSpeedTo;
+        statsValues += speed.ToString("F2") + "\n";
+        //statsValues += col.collectorSpeedFrom.ToString("F2") + "\n";
         statsValues += col.amount.ToString("F0") + "\n";
-        statsValues += col.range.ToString("F2") + "\n";
+        statsValues += col.range.ToString("F1") + "\n";
 
         col.statsValues = statsValues;
 
@@ -2341,7 +2343,7 @@ public class RandomizeEquipment : MonoBehaviour
         switch (scanner.type)
         {
             case ScannerTypes.Custom:
-                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y) * 0.5f), 1, 100); 
+                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y) * 1f), 1, 100); 
                 scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 1.5f), 1, 100);
                 scanner.mapUpdateAmount = iR(mapUpdateAmount);
                 scanner.mapUpdateSpeed = fR(mapUpdateSpeed) * 0.5f;
@@ -2355,15 +2357,15 @@ public class RandomizeEquipment : MonoBehaviour
                 scanner.frequency = (Frequencies)iR(2, 5);
                 break;
             case ScannerTypes.Radio:
-                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y) * 1.5f), 1, 100);
-                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 1), 1, 100);
+                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y) * 1f), 1, 100);
+                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 0.8f), 1, 100);
                 scanner.mapUpdateAmount = (int)(iR(mapUpdateAmount) * 2);
                 scanner.mapUpdateSpeed = fR(mapUpdateSpeed) * 1f;
                 scanner.frequency = (Frequencies)iR(0, 6);
                 break;
             case ScannerTypes.Gamma:
-                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y) * 1.5f), 1, 100);
-                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 0.5f), 1, 100);
+                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y) * 1f), 1, 100);
+                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 0.7f), 1, 100);
                 scanner.mapUpdateAmount = (int)(iR(mapUpdateAmount) * 2f);
                 scanner.mapUpdateSpeed = fR(mapUpdateSpeed) * 1f;
                 scanner.frequency = (Frequencies)iR(5, 7);
@@ -2391,16 +2393,17 @@ public class RandomizeEquipment : MonoBehaviour
         statsNames = "";
         statsNames += "Maps:\n"; scanner.statLength++;
         statsNames += "Zoom: \n"; scanner.statLength++;
-        statsNames += "Update speed: \n"; scanner.statLength++;
-        statsNames += "Update delay: \n"; scanner.statLength++;
+        statsNames += "Map speed: \n"; scanner.statLength++;
+        //statsNames += "Update delay: \n"; scanner.statLength++;
 
         scanner.statsText = statsNames;
 
         statsValues = "";
         statsValues += scanner.frequency.ToString() + "\n";
         statsValues += scanner.zoom.x.ToString("F0") + " - " + scanner.zoom.y.ToString("F0") + "\n";
-        statsValues += (scanner.mapUpdateAmount).ToString("F0") + "\n";
-        statsValues += (scanner.mapUpdateSpeed).ToString("F2") + "\n";
+        //statsValues += (scanner.mapUpdateAmount).ToString("F0") + "\n";
+        float mapSpeed = scanner.mapUpdateSpeed * scanner.mapUpdateAmount;
+        statsValues += mapSpeed.ToString("F1") + "\n";
 
         scanner.statsValues = statsValues;
 

@@ -50,9 +50,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08fbe87b9ae3653458058ce1ab872114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBoss: 0
   target: {fileID: 0}
   offset: {x: 0, y: 0.75}
   followSpeed: 0.2
+  visibilityTime: 5
+  timer: 0
 --- !u!1 &1371947153923984128
 GameObject:
   m_ObjectHideFlags: 0
