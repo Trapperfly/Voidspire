@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4005a4d4bfb0c64397f5fb79cd6a494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doAnim: 1
   text: {fileID: 0}
   fadeCurve:
     serializedVersion: 2
@@ -181,5 +182,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  strength: 1
-  fadeTime: 1
+  strength: 0.7
+  fadeTime: 0.3

@@ -2338,7 +2338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -3504,7 +3504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -6035,7 +6035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -6809,7 +6809,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -7794,7 +7794,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -14084,7 +14084,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -16811,7 +16811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &662615168
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17491,7 +17491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -19539,7 +19539,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -20704,7 +20704,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -28860,7 +28860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -29804,7 +29804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -29877,7 +29877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -29950,7 +29950,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -30366,7 +30366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -31750,7 +31750,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -32427,7 +32427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -33017,7 +33017,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -34540,7 +34540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -34847,7 +34847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -36115,7 +36115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -37135,7 +37135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -40142,7 +40142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -40716,7 +40716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -41088,7 +41088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -41473,7 +41473,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -42363,7 +42363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -42441,7 +42441,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random
@@ -42545,7 +42545,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: level
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550548959946609248, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
       propertyPath: random

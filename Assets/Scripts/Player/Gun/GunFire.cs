@@ -341,7 +341,7 @@ public class GunFire : MonoBehaviour
         hitscanLinePs.transform.position = hitscan.GetPosition(1) + (hitscan.GetPosition(0) - hitscan.GetPosition(1)) / 2;
         float length = Vector2.Distance(hitscan.GetPosition(0), hitscan.GetPosition(1));
         shape.radius = length / 2;
-        ParticleSystem.Burst newBurst = new(0, length * 100);
+        ParticleSystem.Burst newBurst = new(0, length * 50);
         hitscanLinePs.emission.SetBurst(0, newBurst);
         hitscanLinePs.Play();
         Destroy(hitscanLinePs.gameObject, 1f);

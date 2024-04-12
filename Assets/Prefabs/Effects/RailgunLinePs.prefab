@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2162149604825816402}
   - component: {fileID: 7933821983867524302}
   - component: {fileID: 3959705029638743935}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: RailgunLinePs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
