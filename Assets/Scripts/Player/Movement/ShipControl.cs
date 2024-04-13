@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using FMOD.Studio;
 
 public class ShipControl : MonoBehaviour
 {
@@ -25,20 +26,30 @@ public class ShipControl : MonoBehaviour
     public Thrusters ftl; //Change with ship
     public Thrusters thruster;
     EquipmentController equipment;
+
+    EventInstance thrusterMain;
+    EventInstance thrusterSide;
+    EventInstance thrusterRotate;
+    EventInstance thrusterBack;
+
+    EventInstance ftlAmbient;
+    EventInstance ftlStart;
+    EventInstance ftlStop;
     private void Awake()
     {
         EquipmentController.Instance.onEquipmentLoadComplete += CustomStart;
     }
-    //private void Start()
-    //{
-    //    stat = GetComponent<EngineStats>();
-    //    stat.fuel = stat.fuelMax;
-    //    fuelPercent = stat.fuel / stat.fuelMax;
-    //    fuelMeter.fillAmount = fuelPercent;
-    //    sRb = GetComponent<ShipRbController>();
-    //    col = GetComponent<Collider2D>();
-    //    rb = sRb.rb;
-    //}
+    private void Start()
+    {
+        thrusterMain = AudioManager.Instance.CreateInstance(FMODEvents.Instance.mainThruster);
+        thrusterSide = AudioManager.Instance.CreateInstance(FMODEvents.Instance.sideThruster);
+        thrusterRotate = AudioManager.Instance.CreateInstance(FMODEvents.Instance.rotateThruster);
+        thrusterBack = AudioManager.Instance.CreateInstance(FMODEvents.Instance.backThruster);
+
+        ftlAmbient = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ftlAmbient);
+        ftlStart = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ftlCharge);
+        ftlStop = AudioManager.Instance.CreateInstance(FMODEvents.Instance.ftlExit);
+    }
     private void CustomStart()
     {
         //Debug.Log("CustomStartActivated");
@@ -71,8 +82,7 @@ public class ShipControl : MonoBehaviour
         else if (thruster != null) Movement();
 
         if (ftl.fuelCurrent > 0 && !ftlDisabled && Input.GetKey(KeyCode.Space) && !ftlActive) ChargeFTL();
-        else if (ftlCharge > 0) ftlCharge -= 3;
-        else if (ftlCharge < 0) ftlCharge = 0;
+        else { ftlCharge = 0; }
 
         if (ftlEnding) StopFTL();
     }
@@ -81,6 +91,8 @@ public class ShipControl : MonoBehaviour
     {
         if ((ftlDisabled && ftlActive) || (ftlActive && (Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.S))))
             ftlEnding = true;
+        if (!ftlActive && Input.GetKeyUp(KeyCode.Space) && ftlCharge < ftl.chargeTime * 60)
+            StopPlayback(ftlStart, STOP_MODE.ALLOWFADEOUT);
     }
 
     void UseFuel(float modifier)
@@ -113,9 +125,9 @@ public class ShipControl : MonoBehaviour
     void ChargeFTL()
     {
         ftlCharge++;
-        if (ftlCharge >= ftl.chargeTime * 60) 
+        StartPlayback(ftlStart);
+        if (!ftlActive && ftlCharge >= ftl.chargeTime * 60) 
         {
-            ftlCharge = 0;
             //GlobalRefs.Instance.playerIsInFtl = true;
             ActivateFTL();
         }
@@ -123,12 +135,16 @@ public class ShipControl : MonoBehaviour
 
     void ActivateFTL()
     {
+        StopPlayback(thrusterMain, STOP_MODE.ALLOWFADEOUT);
+        StartPlayback(ftlAmbient);
         col.enabled = false;
         ftlActive = true;
     }
 
     void StopFTL()
     {
+        StopPlayback(ftlAmbient, STOP_MODE.ALLOWFADEOUT);
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.ftlExit, transform.position);
         col.enabled = true;
         duration = 0;
         ftlActive = false;
@@ -161,33 +177,43 @@ public class ShipControl : MonoBehaviour
         //Input and movement
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E)) //Move forward with force
         {
-            
+
             if (Input.GetKey(KeyCode.W))
             {
                 rb.AddForce(transform.up * thruster.speed, ForceMode2D.Force);
                 float drag = thruster.speed / thruster.maxSpeed;
                 rb.drag = drag / (drag * Time.fixedDeltaTime + 1);  //Adjust drag while accelerating
+                StartPlayback(thrusterMain);
             }
+
             if (Input.GetKey(KeyCode.S))
             {
                 rb.AddForce(-transform.up * (thruster.speed * 0.8f), ForceMode2D.Force);
                 float drag = (thruster.speed * 2) / thruster.maxSpeed;
                 rb.drag = drag / (drag * Time.fixedDeltaTime + 1);
+                StartPlayback(thrusterBack);
             }
+            else 
+
             if (Input.GetKey(KeyCode.Q))
             {
                 rb.AddForce(-transform.right * (thruster.speed * 0.7f), ForceMode2D.Force);
                 float drag = (thruster.speed * 2) / thruster.maxSpeed;
                 rb.drag = drag / (drag * Time.fixedDeltaTime + 1);
+                StartPlayback(thrusterSide);
             }
             if (Input.GetKey(KeyCode.E))
             {
                 rb.AddForce(transform.right * (thruster.speed * 0.7f), ForceMode2D.Force);
                 float drag = (thruster.speed * 2) / thruster.maxSpeed;
                 rb.drag = drag / (drag * Time.fixedDeltaTime + 1);
+                StartPlayback(thrusterSide);
             }
+            if (!Input.GetKey(KeyCode.Q) && !Input.GetKey(KeyCode.E)) StopPlayback(thrusterSide, STOP_MODE.ALLOWFADEOUT);
         }
-        
+        if (!Input.GetKey(KeyCode.W)) StopPlayback(thrusterMain, STOP_MODE.ALLOWFADEOUT);
+        if (!Input.GetKey(KeyCode.S)) StopPlayback(thrusterBack, STOP_MODE.ALLOWFADEOUT);
+
         else
         {
             if (rb.drag != thruster.brakingSpeed)    //Reset drag to slider value
@@ -205,6 +231,7 @@ public class ShipControl : MonoBehaviour
             //}
             rb.AddTorque(thruster.turnSpeed, ForceMode2D.Force); //Add that force
             rb.angularDrag = thruster.maxTurnSpeed;
+            StartPlayback(thrusterRotate);
         }
         if (Input.GetKey(KeyCode.D))
         {
@@ -217,10 +244,27 @@ public class ShipControl : MonoBehaviour
             //}
             rb.AddTorque(-thruster.turnSpeed, ForceMode2D.Force);
             rb.angularDrag = thruster.maxTurnSpeed;
+            StartPlayback(thrusterRotate);
         }
         //if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))   //Reset turnspeed to slider value
         //    stl.turnSpeed = sliderRef.turnSpeedSlider.value;
         if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)) //Reset angular drag to slider value
+        {
+            StopPlayback(thrusterRotate, STOP_MODE.ALLOWFADEOUT);
             rb.angularDrag = thruster.turnBrakingSpeed * 3;
+        }
+    }
+    void StartPlayback(EventInstance audio)
+    {
+        PLAYBACK_STATE state;
+        audio.getPlaybackState(out state);
+        if (state.Equals(PLAYBACK_STATE.STOPPED))
+        {
+            audio.start();
+        }
+    }
+    void StopPlayback(EventInstance audio, STOP_MODE stopMode)
+    {
+        audio.stop(stopMode);
     }
 }

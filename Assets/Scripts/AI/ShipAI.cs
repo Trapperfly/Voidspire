@@ -869,4 +869,10 @@ public class ShipAI : MonoBehaviour
         Gizmos.DrawSphere(targetPos, 0.3f);
     }
     */
+
+    private void OnDestroy()
+    {
+        if (healthModule.currentHealth <= 0)
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.explosion, transform.position);
+    }
 }

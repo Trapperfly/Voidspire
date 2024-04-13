@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using FMOD.Studio;
 
 public class PassiveShield : GameTrigger
 {
@@ -32,6 +33,8 @@ public class PassiveShield : GameTrigger
     Shield shield;
     public bool noShield;
     bool newShieldCheck;
+
+    EventInstance shieldUp;
     private void Awake()
     {
         EquipmentController.Instance.onEquipmentLoadComplete += CustomStart;
@@ -40,6 +43,7 @@ public class PassiveShield : GameTrigger
 
     private void CustomStart()
     {
+        shieldUp = AudioManager.Instance.CreateInstance(FMODEvents.Instance.shieldUp);
         //Debug.Log("CustomStartActivated");
         equipment = EquipmentController.Instance;
         shieldBarImage = shieldBar.GetChild(2).GetComponent<Image>();
@@ -135,6 +139,8 @@ public class PassiveShield : GameTrigger
 
     IEnumerator BreakShield()
     {
+        StopPlayback(shieldUp, STOP_MODE.ALLOWFADEOUT);
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.shieldDown, transform.position);
         shieldCurrent = 0;
         shieldActive = false;
         rechargeTimer = 0;
@@ -156,6 +162,7 @@ public class PassiveShield : GameTrigger
 
     IEnumerator RestoreShield()
     {
+        StartPlayback(shieldUp);
         spritesToBeHidden.SetActive(true);
         shieldActive = true;
         int timer = 0;
@@ -169,5 +176,18 @@ public class PassiveShield : GameTrigger
         spritesToBeHidden.transform.localScale = new Vector3(1, 1, 1);
         col.enabled = true;
         yield return null;
+    }
+    void StartPlayback(EventInstance audio)
+    {
+        PLAYBACK_STATE state;
+        audio.getPlaybackState(out state);
+        if (state.Equals(PLAYBACK_STATE.STOPPED))
+        {
+            audio.start();
+        }
+    }
+    void StopPlayback(EventInstance audio, STOP_MODE stopMode)
+    {
+        audio.stop(stopMode);
     }
 }

@@ -36,5 +36,6 @@ public class PassiveShieldCollider : GameTrigger
     public override void OnHitEvent(float damage, Vector2 position)
     {
         base.OnHitEvent(damage, position);
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.shieldHit, transform.position);
     }
 }

@@ -155,6 +155,7 @@ public class PlayerHealth : GameTrigger
         }
         if (iFrames <= 0)
             HealthCheck();
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.playerHit, transform.position);
     }
     public void HealthCheck()
     {

@@ -164,7 +164,7 @@ MonoBehaviour:
   sourceProjectPath: Assets/FMOD/VoidspireFMODProject/VoidspireFMODProject.fspro
   sourceBankPath: Assets/FMOD/VoidspireFMODProject/Build
   sourceBankPathUnformatted: 
-  BankRefreshCooldown: 5
+  BankRefreshCooldown: 10
   ShowBankRefreshWindow: 1
   AutomaticEventLoading: 1
   BankLoadType: 0

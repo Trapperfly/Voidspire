@@ -221,6 +221,7 @@ public class GunFire : MonoBehaviour
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gunFire, transform.position);
         yield return null;
     }
 
