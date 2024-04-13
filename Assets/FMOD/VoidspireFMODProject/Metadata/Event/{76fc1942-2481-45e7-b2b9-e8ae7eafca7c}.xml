@@ -5,7 +5,7 @@
 			<value>EnemyHit</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{d2d4e786-80e3-4c4b-bdd4-005936d959c7}</destination>
@@ -155,9 +155,15 @@
 	<object class="MixerBusEffectChain" id="{af0e687e-4b85-4a79-a949-e65ec540237c}">
 		<relationship name="effects">
 			<destination>{43701d0e-c484-4137-9f2e-efdf8046d14e}</destination>
+			<destination>{891660cb-12d3-4d10-8de1-50d149f63aef}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{cbb0f17c-cfdd-4255-8b90-55326796d532}" />
 	<object class="MixerBusFader" id="{074dc6fb-8552-4dca-badd-2b00627a9f9e}" />
 	<object class="MixerBusFader" id="{43701d0e-c484-4137-9f2e-efdf8046d14e}" />
+	<object class="SpatialiserEffect" id="{891660cb-12d3-4d10-8de1-50d149f63aef}">
+		<property name="distanceRolloffType">
+			<value>1</value>
+		</property>
+	</object>
 </objects>
