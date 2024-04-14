@@ -6,6 +6,7 @@ public class GameTriggerVars : MonoBehaviour
 {
     public GameObject dmgNrGO;
     public Transform parent;
+    public bool showDamageNumbers;
 
     public static GameTriggerVars instance;
 

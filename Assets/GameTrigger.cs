@@ -20,6 +20,7 @@ public class GameTrigger : MonoBehaviour
 
     public virtual void OnHitEvent(float damage, Vector2 position)
     {
+        if (!GameTriggerVars.instance.showDamageNumbers) { return; }
         Debug.Log(damage + " damage was dealt");
         TMP_Text textAsset = Instantiate(GameTriggerVars.instance.dmgNrGO, position, new Quaternion(), GameTriggerVars.instance.parent).GetComponent<TMP_Text>();
         textAsset.text = damage.ToString("F1");
