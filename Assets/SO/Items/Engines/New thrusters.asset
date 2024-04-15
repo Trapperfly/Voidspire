@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Starting thruster
   description: 
-  icon: {fileID: 21300000, guid: 3d6425c74d6f0f0438c30b6858454db0, type: 3}
+  icon: {fileID: 21300000, guid: f5774d7dc081caf47abdaa0a54740622, type: 3}
   isDefault: 0
   id: 1
   value: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Starting collector
   description: 
-  icon: {fileID: 21300000, guid: 6c9a8e729dda63b42b9c050bb687109d, type: 3}
+  icon: {fileID: 21300000, guid: f9d0419c9b71e6a4a82f600c840e942a, type: 3}
   isDefault: 0
   id: 0
   value: 0

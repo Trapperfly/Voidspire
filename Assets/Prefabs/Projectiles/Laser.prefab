@@ -77,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: -1228900973
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f99407d21310a17478ef7d6a67d658b0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0f18964506e0cf741bb655ac0547fbc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.7, y: 1.1}
+  m_Size: {x: 0.03125, y: 0.625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -128,10 +128,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bc: {fileID: 0}
+  bulletSender: {fileID: 0}
   _localDamage: 0
+  _splashDamage: 0
+  _splashRange: 0
   _localBounce: 0
   _localPierce: 0
   _localHoming: 0
+  _explosive: 0
+  _cluster: 0
+  _isClusterProjectile: 0
+  _clusterAmount: 0
+  _clusterSpeed: 0
+  _clusterPrefab: {fileID: 0}
   currTime: 0
   rb: {fileID: 0}
   lastVelocity: {x: 0, y: 0, z: 0}
@@ -171,9 +180,9 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.015625, y: 0.3125}
-    newSize: {x: 1.7, y: 1.1}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.03125, y: 0.625}
+    newSize: {x: 0.03125, y: 0.625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

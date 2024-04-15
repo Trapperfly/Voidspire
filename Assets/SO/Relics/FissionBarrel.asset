@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FissionBarrel
   itemName: Fission Barrel
   description: Two is better than one!
-  icon: {fileID: 21300000, guid: 12e11160201927b4698c6a8f0449ee3a, type: 3}
+  icon: {fileID: 21300000, guid: 0c1a22f61a67da34189826cf98762347, type: 3}
   isDefault: 0
   id: 1
   value: 100

@@ -10,6 +10,8 @@ public class ComHandler : MonoBehaviour
     public GameObject comOption;
     public Com currentCom;
 
+    public Sprite[] comResponseSprites;
+
     public void StartCom(Com com)
     {
         currentCom = com;
@@ -47,9 +49,13 @@ public class ComHandler : MonoBehaviour
             //if(dependance == true) {
             int i2 = i;
             Transform responseOptionButton = Instantiate(comOption, comMenu.GetChild(3)).transform;
-            responseOptionButton.GetChild(0).GetComponent<TMP_Text>().text = i + 1 + ". " + r.responseText;
+            responseOptionButton.GetChild(1).GetComponent<TMP_Text>().text = i + 1 + ". " + r.responseText;
             if (r.isExit) responseOptionButton.GetComponent<Button>().onClick.AddListener(() => EndComMenu());
             else responseOptionButton.GetComponent<Button>().onClick.AddListener(() => DoOption(i2));
+
+            if (i == 0) responseOptionButton.GetChild(0).GetComponent<Image>().sprite = comResponseSprites[0];
+            else if (i == currentCom.responses.Count) responseOptionButton.GetChild(0).GetComponent<Image>().sprite = comResponseSprites[3];
+            else responseOptionButton.GetChild(0).GetComponent<Image>().sprite = comResponseSprites[i];
             i++;
         }
         ApplyComResult();

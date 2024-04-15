@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Starting Weapon
   description: 
-  icon: {fileID: 21300000, guid: 6b4016aca2d926246a6bcebf2a367fae, type: 3}
+  icon: {fileID: 21300000, guid: 13e4c0eedad95fe428a73674a3879035, type: 3}
   isDefault: 0
   id: 0
   value: 0
@@ -90,7 +90,7 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     m_ColorMin: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMax: {r: 0, g: 0, b: 0, a: 0}
-  gameSpaceSprite: {fileID: 21300000, guid: 80740eca5c3182e4eb21a8b54db9683e, type: 3}
+  gameSpaceSprite: {fileID: 21300000, guid: 48af9b7b7f5f9404db2ef02a78c53d04, type: 3}
   weaponType: 0
   isExplosive: 0
   savedIsExplosive: 0

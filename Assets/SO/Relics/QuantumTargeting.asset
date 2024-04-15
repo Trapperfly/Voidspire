@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Quantum Targeting
   description: So hitting the enemies is crucial, eh?
-  icon: {fileID: 21300000, guid: 4d32f767a728c144d9d89be57a22ed69, type: 3}
+  icon: {fileID: 21300000, guid: a832ae2ba20e3ec44baeb07fc7c08a84, type: 3}
   isDefault: 0
   id: 2
   value: 100

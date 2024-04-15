@@ -101,6 +101,6 @@ public class InventoryUI : MonoBehaviour
         {
             equipmentSlots[i].Refresh();
         }
-        text.text = new string(inventory.items.Count + " / " + slots.Length);
+        text.text = inventory.items.Count.ToString();
     }
 }
