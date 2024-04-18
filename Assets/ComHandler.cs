@@ -21,7 +21,7 @@ public class ComHandler : MonoBehaviour
 
     public void EndComMenu()
     {
-        foreach (Transform child in comMenu.GetChild(3))
+        foreach (Transform child in comMenu.GetChild(1).GetChild(1))
         {
             Destroy(child.gameObject);
         }
@@ -31,7 +31,7 @@ public class ComHandler : MonoBehaviour
 
     void LoadNextCom(Com com)
     {
-        foreach (Transform child in comMenu.GetChild(3))
+        foreach (Transform child in comMenu.GetChild(1).GetChild(1))
         {
             Destroy(child.gameObject);
         }
@@ -42,13 +42,12 @@ public class ComHandler : MonoBehaviour
 
     void CopyComData()
     {
-        comMenu.GetChild(1).GetComponent<TMP_Text>().text = currentCom.storyTitle;
-        comMenu.GetChild(2).GetComponent<TMP_Text>().text = currentCom.storyText;
+        comMenu.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = currentCom.storyText;
         int i = 0;
         foreach (ComResponse r in currentCom.responses) {
             //if(dependance == true) {
             int i2 = i;
-            Transform responseOptionButton = Instantiate(comOption, comMenu.GetChild(3)).transform;
+            Transform responseOptionButton = Instantiate(comOption, comMenu.GetChild(1).GetChild(1)).transform;
             responseOptionButton.GetChild(1).GetComponent<TMP_Text>().text = i + 1 + ". " + r.responseText;
             if (r.isExit) responseOptionButton.GetComponent<Button>().onClick.AddListener(() => EndComMenu());
             else responseOptionButton.GetComponent<Button>().onClick.AddListener(() => DoOption(i2));

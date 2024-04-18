@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GlobalRefs : MonoBehaviour 
 {
@@ -12,6 +14,8 @@ public class GlobalRefs : MonoBehaviour
     public Transform eventParent;
 
     public int wallet = 0;
+
+    public Transform tutorialPanel;
 
     [SerializeField] TMPro.TMP_Text seedText;
     private void Awake()
@@ -88,5 +92,13 @@ public class GlobalRefs : MonoBehaviour
         clearThese.Clear();
         ChunkLoader.Instance.Clear();
         Instantiate(sectorBossEvent, eventParent);
+    }
+
+    public void ShowTutorialInfo(Vector2 where, string what)
+    {
+        tutorialPanel.gameObject.SetActive(true);
+        Transform t = tutorialPanel.GetChild(1);
+        t.position = where;
+        t.GetChild(1).GetComponent<TMP_Text>().text = what;
     }
 }
