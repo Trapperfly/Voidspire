@@ -17,6 +17,7 @@ public class ComHandler : MonoBehaviour
         currentCom = com;
         CopyComData();
         comMenu.gameObject.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void EndComMenu()
@@ -27,6 +28,7 @@ public class ComHandler : MonoBehaviour
         }
         currentCom = null;
         comMenu.gameObject.SetActive(false);
+        Time.timeScale = 1.0f;
     }
 
     void LoadNextCom(Com com)
