@@ -91,7 +91,7 @@ MonoBehaviour:
     m_ColorMin: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMax: {r: 0, g: 0, b: 0, a: 0}
   type: 0
-  frequency: 2
+  frequency: 0
   zoom: {x: 3, y: 5}
-  mapUpdateSpeed: 0.2
+  mapUpdateSpeed: 0.1
   mapUpdateAmount: 10
