@@ -32,6 +32,11 @@ public class RenderChunkData : MonoBehaviour
     Texture2D texture;
     public RawImage rawImage;
 
+    [Space]
+    [SerializeField] Sprite topButton;
+    [SerializeField] Sprite midButton;
+    [SerializeField] Sprite botButton;
+
     Vector2 pos;
     float dScale;
     float voidScale;
@@ -89,11 +94,11 @@ public class RenderChunkData : MonoBehaviour
     }
     public void SetMapButtons()
     {
-        int i = 0;
         foreach (Transform child in buttonsParent)
         {
-            if (i == 0) { i++; }
-            else child.gameObject.SetActive(false);
+            child.TryGetComponent(out Image image);
+            image.sprite = midButton;
+            child.gameObject.SetActive(false);
         }
         if (!scanner) { return; }
         switch (scanner.frequency)
@@ -110,52 +115,71 @@ public class RenderChunkData : MonoBehaviour
             // 9 = Yield
             // 10 = Event
             // 11 = Shop
-            case Frequencies.Friendly:
-                buttonsParent.GetChild(1).gameObject.SetActive(true);
-                buttonsParent.GetChild(8).gameObject.SetActive(true);
-                break;
+            //case Frequencies.Friendly:
+            //    buttonsParent.GetChild(0).gameObject.SetActive(true);
+            //    buttonsParent.GetChild(4).gameObject.SetActive(true);
+            //    break;
             case Frequencies.General:
-                buttonsParent.GetChild(2).gameObject.SetActive(true);
-                buttonsParent.GetChild(3).gameObject.SetActive(true);
+                buttonsParent.GetChild(0).gameObject.SetActive(true);
+                SetImageToSprite(buttonsParent, 0, topButton);
+                buttonsParent.GetChild(1).gameObject.SetActive(true);
+                SetImageToSprite(buttonsParent, 1, botButton);
                 break;
             case Frequencies.Factions:
+                buttonsParent.GetChild(1).gameObject.SetActive(true);
+                SetImageToSprite(buttonsParent, 1, topButton);
+                buttonsParent.GetChild(2).gameObject.SetActive(true);
                 buttonsParent.GetChild(3).gameObject.SetActive(true);
                 buttonsParent.GetChild(4).gameObject.SetActive(true);
-                buttonsParent.GetChild(5).gameObject.SetActive(true);
-                buttonsParent.GetChild(6).gameObject.SetActive(true);
-                buttonsParent.GetChild(7).gameObject.SetActive(true);
+                SetImageToSprite(buttonsParent, 4, botButton);
+                //buttonsParent.GetChild(7).gameObject.SetActive(true);
                 break;
             case Frequencies.Transmitters:
-                buttonsParent.GetChild(10).gameObject.SetActive(true);
-                buttonsParent.GetChild(11).gameObject.SetActive(true);
+                buttonsParent.GetChild(4).gameObject.SetActive(true);
+                SetImageToSprite(buttonsParent, 4, topButton);
+                buttonsParent.GetChild(5).gameObject.SetActive(true);
+                SetImageToSprite(buttonsParent, 5, botButton);
                 break;
-            case Frequencies.Mining:
-                buttonsParent.GetChild(2).gameObject.SetActive(true);
-                buttonsParent.GetChild(9).gameObject.SetActive(true);
-                break;
-            case Frequencies.Action:
-                buttonsParent.GetChild(3).gameObject.SetActive(true);
-                buttonsParent.GetChild(10).gameObject.SetActive(true);
-                break;
+            //case Frequencies.Mining:
+            //    buttonsParent.GetChild(2).gameObject.SetActive(true);
+            //    buttonsParent.GetChild(9).gameObject.SetActive(true);
+            //    break;
+            //case Frequencies.Action:
+            //    buttonsParent.GetChild(3).gameObject.SetActive(true);
+            //    buttonsParent.GetChild(10).gameObject.SetActive(true);
+            //    break;
             case Frequencies.Diplomat:
-                buttonsParent.GetChild(8).gameObject.SetActive(true);
-                buttonsParent.GetChild(10).gameObject.SetActive(true);
-                buttonsParent.GetChild(11).gameObject.SetActive(true);
-                buttonsParent.GetChild(7).gameObject.SetActive(true);
+                buttonsParent.GetChild(1).gameObject.SetActive(true);
+                SetImageToSprite(buttonsParent, 1, topButton);
+                buttonsParent.GetChild(5).gameObject.SetActive(true);
+                SetImageToSprite(buttonsParent, 5, botButton);
+                //buttonsParent.GetChild(11).gameObject.SetActive(true);
+                //buttonsParent.GetChild(7).gameObject.SetActive(true);
                 break;
             case Frequencies.Broad:
-                buttonsParent.GetChild(1).gameObject.SetActive(true);
-                buttonsParent.GetChild(2).gameObject.SetActive(true);
-                buttonsParent.GetChild(11).gameObject.SetActive(true);
-                buttonsParent.GetChild(10).gameObject.SetActive(true);
-                buttonsParent.GetChild(8).gameObject.SetActive(true);
-                buttonsParent.GetChild(2).gameObject.SetActive(true);
+                buttonsParent.GetChild(0).gameObject.SetActive(true);
+                SetImageToSprite(buttonsParent, 0, topButton);
+                buttonsParent.GetChild(4).gameObject.SetActive(true);
+                buttonsParent.GetChild(5).gameObject.SetActive(true);
+                SetImageToSprite(buttonsParent, 5, botButton);
+                //buttonsParent.GetChild(10).gameObject.SetActive(true);
+                //buttonsParent.GetChild(8).gameObject.SetActive(true);
+                //buttonsParent.GetChild(2).gameObject.SetActive(true);
                 break;
             case Frequencies.Default:
                 break;
             default:
                 break;
         }
+    }
+
+    private void SetImageToSprite(Image image, Sprite sprite)
+    {
+        image.sprite = sprite;
+    }
+    private void SetImageToSprite(Transform parent, int child, Sprite sprite)
+    {
+        parent.GetChild(child).GetComponent<Image>().sprite = sprite;
     }
 
     private void Start()

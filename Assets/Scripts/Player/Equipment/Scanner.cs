@@ -24,12 +24,12 @@ public enum ScannerTypes
 
 public enum Frequencies
 {
-    Friendly, //Just combined and civilization
+    //Friendly, //Just combined and civilization
     General, //Factions and combined
     Factions, //Factions and individual factions
     Transmitters, //Events and stores
-    Mining, //Yield and debris
-    Action, //Events and factions
+    //Mining, //Yield and debris
+    //Action, //Events and factions
     Diplomat, //Civ, event, shop, pirate
     Broad, //Combined, factions, shops, events, civ, debris
     Default
