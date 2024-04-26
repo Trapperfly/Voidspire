@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c42329208f71aa469412ecfbbe6a610, type: 3}
+  m_Name: AI_PirateDestroyer
+  m_EditorClassIdentifier: 
+  level: 0
+  aiName: Pirate Destroyer
+  description: 
+  playerRelation: 4
+  shipPrefab: {fileID: 0}
+  behaviour: 3
+  combatBehaviour: 3
+  lowHealthBehaviour: 0
+  lowHealthPercent: 0
+  enrageBehaviour: 0
+  enrageStrength: 0
+  enrageSpecialAttack: 0
+  contactBehaviour: 0
+  maxHealth: 40
+  maxShield: 0
+  mass: 2
+  isDisabled: 0
+  speed: 1.5
+  rotSpeed: 1
+  strafeSpeed: 1
+  jumpTime: 0
+  jumpSpeed: 0
+  exploreMod: 1
+  fleeMod: 1
+  combatMod: 2
+  repairMod: 0
+  combatDrag: 2
+  combatAngularDrag: 10
+  canRepair: 1
+  repairSpeed: 0
+  viewRange: 4
+  reactRange: 10
+  attackRange: 6
+  newMoveTargetTime: {x: 3, y: 5}
+  targetRadius: 2
+  changeTargetChance: 0.1
+  availableAttacks: 2
+  isWeakened: 0
+  isDisarmed: 0
+  specialAttack: 5
+  startSpecialImmediately: 1
+  specialAttackCD: 4
+  specialAttackDamage: 3
+  specialAttackSpeed: 5
+  specialAttackSpread: 0
+  specialAmount: 3
+  damageTickTime: 0
+  specialIsHoming: 0
+  specialHomingStrength: 0
+  aimTheSpecial: 1
+  stopCoreWhenSpecial: 0
+  stopCoreWhenSpecialLong: 0
+  stopCoreForSeconds: 3
+  predictWhenAiming: 0
+  specialHitMask:
+    serializedVersion: 2
+    m_Bits: 200256
+  reward: 0
+  value: 0

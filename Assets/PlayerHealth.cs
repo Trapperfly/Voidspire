@@ -144,7 +144,7 @@ public class PlayerHealth : GameTrigger
     }
     #endregion
 
-    void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         if (!noHull)
         {

@@ -19,10 +19,11 @@ public class AIGun : MonoBehaviour
 
     private void Awake()
     {
-        stat = ai.guns[idRelation];
+        if (ai.guns.Length != 0) stat = ai.guns[idRelation];
     }
     private void Start()
     {
+        if (!stat) return;
         bh = EnemyManager.Instance.bh;
         hbh = EnemyManager.Instance.hbh;
         float tempDamage = stat.damage;
@@ -41,6 +42,7 @@ public class AIGun : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!stat) return;
         if (autoFire)
         {
             float fireRate = 
@@ -87,6 +89,10 @@ public class AIGun : MonoBehaviour
                 break;
             case AIAttack.Cannon:
                 bullet = Instantiate(EnemyManager.Instance.CannonPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bh);
+                break;
+            case AIAttack.SpawnEnemy:
+                break;
+            case AIAttack.LayMine:
                 break;
             default:
                 return;

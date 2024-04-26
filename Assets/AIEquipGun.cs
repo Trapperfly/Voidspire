@@ -28,7 +28,9 @@ public enum AIAttack
     ElectricRailgun,
     Flak,
     RapidFire,
-    Cannon
+    Cannon,
+    SpawnEnemy,
+    LayMine,
 }
 public enum EffectFromAttack
 {

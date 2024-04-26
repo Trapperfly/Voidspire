@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 
 
+
 public class ShipAI : MonoBehaviour
 {
     public bool isBoss;
@@ -73,6 +74,8 @@ public class ShipAI : MonoBehaviour
     //Image healthBar;
     //TMP_Text levelText;
 
+    List<ParticleSystem> toDestroy = new();
+
     private void Start()
     {
         if (level == 0)
@@ -121,6 +124,8 @@ public class ShipAI : MonoBehaviour
         healthModule.currentHealth = healthScaling;
         lastFrameHealth = healthModule.currentHealth;
         healthModule.healthPercent = healthModule.currentHealth / healthModule.startHealth;
+
+        if(ship.startSpecialImmediately) { curCD = Mathf.RoundToInt(ship.specialAttackCD * 60); }
     }
 
     //void Init()
@@ -364,15 +369,17 @@ public class ShipAI : MonoBehaviour
     }
     IEnumerator InitSpecialAttack(SpecialAttack special)
     {
-        if(ship.stopCoreWhenSpecial && target.target) {
-            idle = true;
+        if(ship.aimTheSpecial && target.target) {
+            if (ship.stopCoreWhenSpecial) idle = true;
             for (int i = 0; i < 4; i++)
             {
                 if (target.target) {
-                    targetPos = (Vector2)target.target.position
-                        + (target.targetRB.velocity
-                        * (Vector2.Distance(transform.position, target.target.position)
-                        / ship.specialAttackSpeed));
+                    if (ship.predictWhenAiming)
+                        targetPos = (Vector2)target.target.position
+                            + (target.targetRB.velocity
+                            * (Vector2.Distance(transform.position, target.target.position)
+                            / ship.specialAttackSpeed));
+                    else targetPos = (Vector2)target.target.position;
                 }
                 yield return new WaitForSeconds(0.2f);
             }
@@ -380,7 +387,24 @@ public class ShipAI : MonoBehaviour
         curCD = 0;
         
         FireSpecialAttack(special);
-        if (ship.stopCoreWhenSpecial)
+        if (ship.aimTheSpecial && target.target)
+        {
+            if (ship.stopCoreWhenSpecial) idle = true;
+            for (int i = 0; i < ship.stopCoreForSeconds * 10; i++)
+            {
+                if (target.target)
+                {
+                    if (ship.predictWhenAiming)
+                        targetPos = (Vector2)target.target.position
+                            + (target.targetRB.velocity
+                            * (Vector2.Distance(transform.position, target.target.position)
+                            / ship.specialAttackSpeed));
+                    else targetPos = (Vector2)target.target.position;
+                }
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+        if (ship.stopCoreWhenSpecial || ship.stopCoreWhenSpecialLong)
         {
             idle = false;
             StartCoroutine(GetNewTargetPos());
@@ -406,6 +430,9 @@ public class ShipAI : MonoBehaviour
             case SpecialAttack.VoidNova:
                 break;
             case SpecialAttack.SelfDestruct:
+                break;
+            case SpecialAttack.DestroyerBeam:
+                StartCoroutine(ShootBeam());
                 break;
             default:
                 break;
@@ -451,6 +478,58 @@ public class ShipAI : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         yield return null;
+    }
+
+    public IEnumerator ShootBeam()
+    {
+        bool active = true;
+        float timer = 0;
+        LineRenderer beam = Instantiate(EnemyManager.Instance.beamPrefab, transform.position, transform.rotation, transform).GetComponent<LineRenderer>();
+        ParticleSystem beamHitPs = Instantiate(EnemyManager.Instance.beamTipPrefab).GetComponent<ParticleSystem>();
+        toDestroy.Add(beamHitPs);
+        beam.material.SetColor("_TrailColor", EnemyManager.Instance.beamColor);
+        var trails = beamHitPs.trails;
+        trails.colorOverTrail = EnemyManager.Instance.beamColor;
+        var emis = beamHitPs.emission;
+        while (active)
+        {
+            //Calculate baser and hit
+            RaycastHit2D[] hitTemp = Physics2D.RaycastAll(transform.position, transform.up, ship.specialAttackSpeed, ship.specialHitMask);
+            if (hitTemp.Length > 1) {
+                RaycastHit2D hit = hitTemp[1];
+                hit.collider.TryGetComponent(out Damagable dm);
+                hit.collider.TryGetComponent(out PlayerHealth ph);
+                hit.collider.TryGetComponent(out PassiveShieldCollider sh);
+                float damage = ship.specialAttackDamage * Time.deltaTime;
+                if (Random.value > 0.9f)
+                {
+                    if (dm) dm.TakeDamage(damage * 10, hit.point, gameObject);
+                    if (ph) ph.TakeDamage(damage * 10);
+                    if (sh) sh.TakeDamage(damage * 10);
+                }
+                //Viusal effects
+                if (dm || ph || sh)
+                {
+                    beam.SetPosition(1, transform.InverseTransformPoint(hit.point));
+                    beamHitPs.transform.position = hit.point;
+                    beamHitPs.transform.LookAt(transform);
+                    emis.enabled = true;
+                }
+            }
+            else
+            {
+                beam.SetPosition(1, new Vector2(0, 1) * ship.specialAttackSpeed);
+                emis.enabled = false;
+            }
+            
+            timer += Time.deltaTime;
+            if(timer > ship.specialAmount)
+                active = false;
+            yield return new WaitForEndOfFrame();
+        }
+        Destroy(beam.gameObject);
+        emis.enabled = false;
+        Destroy(beamHitPs.gameObject, 0.5f);
     }
     Quaternion Spread(Quaternion baseRotation, float spread)
     {
@@ -874,5 +953,9 @@ public class ShipAI : MonoBehaviour
     {
         if (healthModule.currentHealth <= 0)
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.explosion, transform.position);
+        foreach (var ps in toDestroy)
+        {
+            Destroy(ps);
+        }
     }
 }

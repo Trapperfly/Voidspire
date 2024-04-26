@@ -11,8 +11,7 @@ public class PassiveShieldCollider : GameTrigger
         {
             float damage = collision.collider.GetComponent<Bullet>()._localDamage;
             OnHitEvent(damage, collision.transform.position);
-            master.shieldCurrent -= damage;
-            master.ShieldCheck();
+            TakeDamage(damage);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,16 +21,20 @@ public class PassiveShieldCollider : GameTrigger
         {
             float damage = collision.GetComponent<Bullet>()._localDamage;
             OnHitEvent(damage, collision.transform.position);
-            master.shieldCurrent -= damage;
-            master.ShieldCheck();
+            TakeDamage(damage);
         }
         if (collision.CompareTag("AIBullet"))
         {
             float damage = collision.GetComponent<AIBullet>().damage;
             OnHitEvent(damage, collision.transform.position);
-            master.shieldCurrent -= damage;
-            master.ShieldCheck();
+            TakeDamage(damage);
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        master.shieldCurrent -= damage;
+        master.ShieldCheck();
     }
     public override void OnHitEvent(float damage, Vector2 position)
     {

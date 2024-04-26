@@ -33,6 +33,9 @@ public class EnemyManager : MonoBehaviour
     public GameObject HomingMissilesPrefab;
     public GameObject VoidNovaPrefab;
     public GameObject SelfDestructPrefab;
+    public GameObject beamPrefab;
+    public GameObject beamTipPrefab;
+    public Color beamColor;
 
     [Space]
     [Header("Bullet controllers")]

@@ -61,6 +61,7 @@ public class Ship : AI
 
     [Header("SpecialAttack")]
     public SpecialAttack specialAttack;
+    public bool startSpecialImmediately;
     public float specialAttackCD;
     public float specialAttackDamage;
     public float specialAttackSpeed;
@@ -69,7 +70,12 @@ public class Ship : AI
     public float damageTickTime;
     public bool specialIsHoming;
     public float specialHomingStrength;
+    public bool aimTheSpecial;
     public bool stopCoreWhenSpecial;
+    public bool stopCoreWhenSpecialLong;
+    public float stopCoreForSeconds;
+    public bool predictWhenAiming;
+    public LayerMask specialHitMask;
 
     [Header("Rewards")]
     public Reward reward;
@@ -140,7 +146,8 @@ public enum SpecialAttack
     ElectricBall,
     HomingMissiles,
     VoidNova,
-    SelfDestruct
+    SelfDestruct,
+    DestroyerBeam
 }
 
 public enum AvailableAttacks

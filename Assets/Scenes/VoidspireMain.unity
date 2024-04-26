@@ -20627,6 +20627,9 @@ MonoBehaviour:
   HomingMissilesPrefab: {fileID: 5787769136944929484, guid: ca836d15eeb1d804795767f6681eeab7, type: 3}
   VoidNovaPrefab: {fileID: 0}
   SelfDestructPrefab: {fileID: 0}
+  beamPrefab: {fileID: 1014769786928894636, guid: e636c59e22a803d46b5c2683edaad4b1, type: 3}
+  beamTipPrefab: {fileID: 5285321912691313874, guid: 278f628ae5c4c584b8f5bb44cae55e0b, type: 3}
+  beamColor: {r: 1, g: 0.16666667, b: 0, a: 1}
   bh: {fileID: 2023635959}
   hbh: {fileID: 1787165830}
 --- !u!4 &854715704
@@ -40329,6 +40332,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f72e688e37ef4ae4889ce64b2055bfce, type: 3}
+--- !u!1001 &2007680474
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 651877200622359586, guid: ea1747c5fff6c3d41a57a09e0006e925, type: 3}
+      propertyPath: m_Name
+      value: P_PirateDestroyer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966464828988249086, guid: ea1747c5fff6c3d41a57a09e0006e925, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.8045094
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966464828988249086, guid: ea1747c5fff6c3d41a57a09e0006e925, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.032499522
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966464828988249086, guid: ea1747c5fff6c3d41a57a09e0006e925, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966464828988249086, guid: ea1747c5fff6c3d41a57a09e0006e925, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966464828988249086, guid: ea1747c5fff6c3d41a57a09e0006e925, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966464828988249086, guid: ea1747c5fff6c3d41a57a09e0006e925, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966464828988249086, guid: ea1747c5fff6c3d41a57a09e0006e925, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966464828988249086, guid: ea1747c5fff6c3d41a57a09e0006e925, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966464828988249086, guid: ea1747c5fff6c3d41a57a09e0006e925, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966464828988249086, guid: ea1747c5fff6c3d41a57a09e0006e925, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6273218851927099377, guid: ea1747c5fff6c3d41a57a09e0006e925, type: 3}
+      propertyPath: guns.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ea1747c5fff6c3d41a57a09e0006e925, type: 3}
 --- !u!1 &2011602453
 GameObject:
   m_ObjectHideFlags: 0
@@ -54903,3 +54967,4 @@ SceneRoots:
   - {fileID: 7234749976992769894}
   - {fileID: 1063303197}
   - {fileID: 662615168}
+  - {fileID: 2007680474}

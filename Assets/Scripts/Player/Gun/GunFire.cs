@@ -257,9 +257,6 @@ public class GunFire : MonoBehaviour
                 }
                     
             }
-
-            
-
             //Viusal effects
             if (actualHits <= w.pierce)
             {

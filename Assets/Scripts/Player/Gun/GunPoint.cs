@@ -28,8 +28,11 @@ public class GunPoint : MonoBehaviour
         if (TryGetComponent(out AIGun aiGun)) 
         {
             Debug.Log(aiGun.stat);
-            stat = aiGun.stat; 
-            rotSpeed = stat.gunRotSpeed; 
+            if (aiGun.stat) {
+                stat = aiGun.stat;
+                rotSpeed = stat.gunRotSpeed;
+            }
+            
         }
         if (TryGetComponent(out GunStats gunStats)) gun = gunStats;
         foreach (Transform child in transform)
