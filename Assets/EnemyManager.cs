@@ -27,6 +27,7 @@ public class EnemyManager : MonoBehaviour
     public GameObject FlakPrefab;
     public GameObject RapidPrefab;
     public GameObject CannonPrefab;
+    public GameObject enemySpawnPrefab;
     [Space]
     [Header("Special Attacks")]
     public GameObject ElectricBallPrefab;

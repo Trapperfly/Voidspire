@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c42329208f71aa469412ecfbbe6a610, type: 3}
-  m_Name: AI_PirateDestroyer
+  m_Name: AI_PirateInterceptor
   m_EditorClassIdentifier: 
   level: 0
-  aiName: Pirate Destroyer
+  aiName: Pirate Interceptor
   description: 
   playerRelation: 4
   shipPrefab: {fileID: 0}
-  behaviour: 3
+  behaviour: 7
   combatBehaviour: 3
   lowHealthBehaviour: 0
   lowHealthPercent: 0
@@ -25,49 +25,49 @@ MonoBehaviour:
   enrageStrength: 0
   enrageSpecialAttack: 0
   contactBehaviour: 0
-  maxHealth: 40
+  maxHealth: 5
   maxShield: 0
-  mass: 2
+  mass: 1
   isDisabled: 0
-  speed: 1.5
-  rotSpeed: 0.5
-  strafeSpeed: 1
+  speed: 2
+  rotSpeed: 0.1
+  strafeSpeed: 0.5
   jumpTime: 0
   jumpSpeed: 0
   exploreMod: 1
   fleeMod: 1
-  combatMod: 2
+  combatMod: 1
   repairMod: 0
   combatDrag: 2
   combatAngularDrag: 10
   canRepair: 1
   repairSpeed: 0
-  viewRange: 4
-  reactRange: 10
-  attackRange: 6
-  newMoveTargetTime: {x: 3, y: 5}
-  targetRadius: 2
+  viewRange: 3
+  reactRange: 6
+  attackRange: 4
+  newMoveTargetTime: {x: 0.5, y: 1}
+  targetRadius: 0
   changeTargetChance: 0.1
-  availableAttacks: 2
+  availableAttacks: 1
   isWeakened: 0
   isDisarmed: 0
-  specialAttack: 5
-  startSpecialImmediately: 1
-  specialAttackCD: 4
-  specialAttackDamage: 3
-  specialAttackSpeed: 5
+  specialAttack: 0
+  startSpecialImmediately: 0
+  specialAttackCD: 0
+  specialAttackDamage: 0
+  specialAttackSpeed: 0
   specialAttackSpread: 0
-  specialAmount: 3
+  specialAmount: 0
   damageTickTime: 0
   specialIsHoming: 0
   specialHomingStrength: 0
-  aimTheSpecial: 1
+  aimTheSpecial: 0
   stopCoreWhenSpecial: 0
   stopCoreWhenSpecialLong: 0
-  stopCoreForSeconds: 3
+  stopCoreForSeconds: 0
   predictWhenAiming: 0
   specialHitMask:
     serializedVersion: 2
     m_Bits: 200256
   reward: 1
-  value: 1
+  value: 0.1

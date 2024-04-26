@@ -494,9 +494,9 @@ public class ShipAI : MonoBehaviour
         while (active)
         {
             //Calculate baser and hit
-            RaycastHit2D[] hitTemp = Physics2D.RaycastAll(transform.position, transform.up, ship.specialAttackSpeed, ship.specialHitMask);
-            if (hitTemp.Length > 1) {
-                RaycastHit2D hit = hitTemp[1];
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, ship.specialAttackSpeed, ship.specialHitMask);
+            if (hit.collider)
+            {
                 hit.collider.TryGetComponent(out Damagable dm);
                 hit.collider.TryGetComponent(out PlayerHealth ph);
                 hit.collider.TryGetComponent(out PassiveShieldCollider sh);

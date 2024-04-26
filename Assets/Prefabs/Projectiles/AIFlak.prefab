@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9193599421053691148
 Transform:
   m_ObjectHideFlags: 0
@@ -201,6 +201,10 @@ MonoBehaviour:
   damage: 0
   currTime: 0
   timer: 0
+  homing: 0
+  homingStrength: 0
+  speed: 0
+  target: {fileID: 0}
 --- !u!1 &6912771707488453214
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 293505474505745168}
   - component: {fileID: 4028603162817695439}
-  m_Layer: 14
+  m_Layer: 31
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

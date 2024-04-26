@@ -17,12 +17,16 @@ public class AIGun : MonoBehaviour
     float damageScaling = 0;
     float attackSpeedScaling = 0;
 
+    GameObject spawnedEnemy;
+    public float gunTimerOffset;
+
     private void Awake()
     {
         if (ai.guns.Length != 0) stat = ai.guns[idRelation];
     }
     private void Start()
     {
+        gunTimer -= gunTimerOffset;
         if (!stat) return;
         bh = EnemyManager.Instance.bh;
         hbh = EnemyManager.Instance.hbh;
@@ -65,6 +69,7 @@ public class AIGun : MonoBehaviour
         if (stat.homing) { bh = EnemyManager.Instance.hbh; }
         else bh = EnemyManager.Instance.bh;
         GameObject bullet = null;
+        bool isSpawnedEnemy = false;
         switch (stat.attack)
         {
             case AIAttack.None:
@@ -91,13 +96,25 @@ public class AIGun : MonoBehaviour
                 bullet = Instantiate(EnemyManager.Instance.CannonPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bh);
                 break;
             case AIAttack.SpawnEnemy:
+                bullet = Instantiate(EnemyManager.Instance.enemySpawnPrefab, bulletSpawnPoint.position, Spread(transform.rotation), SpawnEnemies.Instance.transform);
+                Debug.LogError("Spawned enemy");
+                isSpawnedEnemy = true;
                 break;
             case AIAttack.LayMine:
                 break;
             default:
                 return;
         }
-        if( bullet == null ) { return; }
+        if ( bullet == null ) { return; }
+        if ( isSpawnedEnemy ) {
+            bullet.GetComponent<ShipAI>().idle = true;
+            bullet.GetComponent<Collider2D>().enabled = false;
+            spawnedEnemy = bullet;
+            Invoke(nameof(ActivateSpawnedEnemy), 0.5f);
+            bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.up * stat.shotSpeed, ForceMode2D.Impulse);
+            gunTimer = 0f;
+            return;
+        }
         Physics2D.IgnoreCollision(GetComponentInParent<Collider2D>(), bullet.GetComponent<Collider2D>());
         AIBullet b = bullet.GetComponent<AIBullet>();
         b.damage =
@@ -115,6 +132,14 @@ public class AIGun : MonoBehaviour
 
         bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.up * stat.shotSpeed, ForceMode2D.Impulse);
         gunTimer = 0f;
+    }
+
+    void ActivateSpawnedEnemy()
+    {
+        spawnedEnemy.GetComponent<ShipAI>().idle = false;
+        spawnedEnemy.GetComponent<ShipAI>().inCombat = true;
+        spawnedEnemy.GetComponent<ShipAI>().target.target = ai.target.target;
+        spawnedEnemy.GetComponent<Collider2D>().enabled = true;
     }
 
     Quaternion Spread(Quaternion baseRotation)
