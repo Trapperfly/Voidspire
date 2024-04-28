@@ -5,7 +5,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static System.Net.WebRequestMethods;
 
 public class DragAndDrop : MonoBehaviour, 
     IPointerDownHandler, 

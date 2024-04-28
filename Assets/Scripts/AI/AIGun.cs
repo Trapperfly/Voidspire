@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ExtensionMethods;
+using FMODUnity;
 
 public class AIGun : MonoBehaviour
 {
@@ -19,6 +20,13 @@ public class AIGun : MonoBehaviour
 
     GameObject spawnedEnemy;
     public float gunTimerOffset;
+
+    StudioEventEmitter fireProjectile;
+    StudioEventEmitter fireProjectileLight;
+    StudioEventEmitter fireProjectileMedium;
+    StudioEventEmitter fireProjectileHeavy;
+    StudioEventEmitter fireProjectileBig;
+    StudioEventEmitter fireProjectileMissile;
 
     private void Awake()
     {
@@ -76,29 +84,42 @@ public class AIGun : MonoBehaviour
                 break;
             case AIAttack.Bullet:
                 bullet = Instantiate(EnemyManager.Instance.bulletPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bh);
+
                 break;
             case AIAttack.VoidSphere:
                 bullet = Instantiate(EnemyManager.Instance.VoidSpherePrefab, bulletSpawnPoint.position, Spread(transform.rotation), bh);
+                fireProjectileHeavy = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyFireHeavyProjectile, gameObject);
+                fireProjectileHeavy.Play();
                 break;
             case AIAttack.FireMissile:
                 bullet = Instantiate(EnemyManager.Instance.MissilePrefab, bulletSpawnPoint.position, Spread(transform.rotation), bh);
+                fireProjectileMissile = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyFireMissile, gameObject);
+                fireProjectileMissile.Play();
                 break;
             case AIAttack.ElectricRailgun:
                 bullet = Instantiate(EnemyManager.Instance.RailgunPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bh);
                 break;
             case AIAttack.Flak:
                 bullet = Instantiate(EnemyManager.Instance.FlakPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bh);
+                fireProjectile = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyFireProjectile, gameObject);
+                fireProjectile.Play();
                 break;
             case AIAttack.RapidFire:
                 bullet = Instantiate(EnemyManager.Instance.RapidPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bh);
+                fireProjectileLight = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyFireLightProjectile, gameObject);
+                fireProjectileLight.Play();
                 break;
             case AIAttack.Cannon:
                 bullet = Instantiate(EnemyManager.Instance.CannonPrefab, bulletSpawnPoint.position, Spread(transform.rotation), bh);
+                fireProjectileMedium = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyFireMediumProjectile, gameObject);
+                fireProjectileMedium.Play();
                 break;
             case AIAttack.SpawnEnemy:
                 bullet = Instantiate(EnemyManager.Instance.enemySpawnPrefab, bulletSpawnPoint.position, Spread(transform.rotation), SpawnEnemies.Instance.transform);
                 Debug.LogError("Spawned enemy");
                 isSpawnedEnemy = true;
+                fireProjectileBig = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyFireBigProjectile, gameObject);
+                fireProjectileBig.Play();
                 break;
             case AIAttack.LayMine:
                 break;

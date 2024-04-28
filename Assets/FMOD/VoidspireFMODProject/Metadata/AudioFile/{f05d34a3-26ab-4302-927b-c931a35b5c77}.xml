@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{f05d34a3-26ab-4302-927b-c931a35b5c77}">
+		<property name="assetPath">
+			<value>SFX_EnemyProjectile1.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.35999999999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{26dd1d6f-fde3-425e-b923-69c05dcb05ad}</destination>
+		</relationship>
+	</object>
+</objects>

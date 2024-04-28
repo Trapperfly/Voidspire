@@ -329,7 +329,7 @@ MonoBehaviour:
       Data2: 1172776065
       Data3: -1360479822
       Data4: 2093657982
-    Path: event:/EnemyHit
+    Path: event:/Enemy/EnemyHit
   Event: 
   PlayEvent: 0
   StopEvent: 0
@@ -338,9 +338,9 @@ MonoBehaviour:
   Preload: 0
   AllowNonRigidbodyDoppler: 0
   Params: []
-  OverrideAttenuation: 1
+  OverrideAttenuation: 0
   OverrideMinDistance: 1
-  OverrideMaxDistance: 15
+  OverrideMaxDistance: 20
 --- !u!1 &1355696783839400034
 GameObject:
   m_ObjectHideFlags: 0
@@ -5537,6 +5537,7 @@ MonoBehaviour:
   stat: {fileID: 0}
   bulletSpawnPoint: {fileID: 7575920735612044579}
   autoFire: 1
+  gunTimerOffset: 0
 --- !u!114 &2542750512166968375
 MonoBehaviour:
   m_ObjectHideFlags: 0

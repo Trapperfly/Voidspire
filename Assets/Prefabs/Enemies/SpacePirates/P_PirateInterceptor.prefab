@@ -396,7 +396,7 @@ MonoBehaviour:
       Data2: 1172776065
       Data3: -1360479822
       Data4: 2093657982
-    Path: event:/EnemyHit
+    Path: event:/Enemy/EnemyHit
   Event: 
   PlayEvent: 0
   StopEvent: 0
@@ -405,9 +405,9 @@ MonoBehaviour:
   Preload: 0
   AllowNonRigidbodyDoppler: 0
   Params: []
-  OverrideAttenuation: 1
+  OverrideAttenuation: 0
   OverrideMinDistance: 1
-  OverrideMaxDistance: 15
+  OverrideMaxDistance: 20
 --- !u!1 &1355696783839400034
 GameObject:
   m_ObjectHideFlags: 0
@@ -5677,6 +5677,7 @@ GameObject:
   - component: {fileID: 6133877336260596057}
   - component: {fileID: 5505400461554588577}
   - component: {fileID: 2542750512166968375}
+  - component: {fileID: 8350604017458795802}
   m_Layer: 9
   m_Name: Gun0
   m_TagString: Untagged
@@ -5741,6 +5742,37 @@ MonoBehaviour:
   notAGun: 0
   noFireWhenOutOfReach: 0
   doRotate: 1
+--- !u!114 &8350604017458795802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7398338475702890295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1996233026
+      Data2: 1172776065
+      Data3: -1360479822
+      Data4: 2093657982
+    Path: event:/Enemy/EnemyHit
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 10
 --- !u!1 &7477372570779041397
 GameObject:
   m_ObjectHideFlags: 0
@@ -10664,6 +10696,7 @@ GameObject:
   - component: {fileID: 1302678416986897753}
   - component: {fileID: 7328181336767338210}
   - component: {fileID: 4707580415197772468}
+  - component: {fileID: 1408023578647510772}
   m_Layer: 9
   m_Name: Gun1
   m_TagString: Untagged
@@ -10728,3 +10761,34 @@ MonoBehaviour:
   notAGun: 0
   noFireWhenOutOfReach: 0
   doRotate: 1
+--- !u!114 &1408023578647510772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114099427697709607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1996233026
+      Data2: 1172776065
+      Data3: -1360479822
+      Data4: 2093657982
+    Path: event:/Enemy/EnemyHit
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 10

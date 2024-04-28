@@ -131,6 +131,9 @@ public class Inventory : MonoBehaviour
         if (slot0 is EquipmentSlot) { s0Equip = true; }
         if (slot1 is EquipmentSlot) { s1Equip = true; }
 
+        if (s0Equip || s1Equip) { AudioManager.Instance.PlayOneShot(FMODEvents.Instance.equipItem, transform.position); }
+        else if (!s0Equip && !s1Equip) { AudioManager.Instance.PlayOneShot(FMODEvents.Instance.swapItem, transform.position); }
+
         if (slot0.item != null && slot0 is not TrashSlot) { s0Filled = true; }
         if (slot1.item != null && slot1 is not TrashSlot) { s1Filled = true; }
 

@@ -329,7 +329,7 @@ MonoBehaviour:
       Data2: 1172776065
       Data3: -1360479822
       Data4: 2093657982
-    Path: event:/EnemyHit
+    Path: event:/Enemy/EnemyHit
   Event: 
   PlayEvent: 0
   StopEvent: 0
@@ -338,9 +338,9 @@ MonoBehaviour:
   Preload: 0
   AllowNonRigidbodyDoppler: 0
   Params: []
-  OverrideAttenuation: 1
+  OverrideAttenuation: 0
   OverrideMinDistance: 1
-  OverrideMaxDistance: 15
+  OverrideMaxDistance: 20
 --- !u!1 &1018959150269026237
 GameObject:
   m_ObjectHideFlags: 0

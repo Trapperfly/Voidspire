@@ -4,6 +4,8 @@ using UnityEngine;
 using ExtensionMethods;
 using UnityEngine.UI;
 using TMPro;
+using FMOD.Studio;
+using FMODUnity;
 
 
 
@@ -18,6 +20,7 @@ public class ShipAI : MonoBehaviour
     bool firingSpecial;
     bool rotate = true;
     public bool jumping;
+    bool jumped;
     public Transform aiBullets;
 
     public AIEquipGun[] guns;
@@ -76,8 +79,20 @@ public class ShipAI : MonoBehaviour
 
     List<ParticleSystem> toDestroy = new();
 
+    StudioEventEmitter fireMissileEmitter;
+    StudioEventEmitter fireEleBallEmitter;
+    StudioEventEmitter fireBeamEmitter;
+
+    StudioEventEmitter enemyChargeFTLEmitter;
+    StudioEventEmitter enemyEnterFTLEmitter;
+
     private void Start()
     {
+        
+        
+        
+        
+        
         if (level == 0)
             level += (GlobalRefs.Instance.currentSector - 1) * 10;
         //Init();
@@ -442,6 +457,8 @@ public class ShipAI : MonoBehaviour
     {
         for (int i = 0; i < ship.specialAmount; i++)
         {
+            fireEleBallEmitter = AudioManager.Instance.InitEmitter(FMODEvents.Instance.electricBallFire, gameObject);
+            fireEleBallEmitter.Play();
             AIBullet bullet = Instantiate
                 (EnemyManager.Instance.ElectricBallPrefab,
                 transform.position, Spread(transform.rotation,
@@ -475,6 +492,8 @@ public class ShipAI : MonoBehaviour
             bullet.damage = ship.specialAttackDamage;
             bullet.speed = ship.specialAttackSpeed;
             bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * ship.specialAttackSpeed, ForceMode2D.Impulse);
+            fireMissileEmitter = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyFireMissile, gameObject);
+            fireMissileEmitter.Play();
             yield return new WaitForSeconds(0.1f);
         }
         yield return null;
@@ -491,6 +510,8 @@ public class ShipAI : MonoBehaviour
         var trails = beamHitPs.trails;
         trails.colorOverTrail = EnemyManager.Instance.beamColor;
         var emis = beamHitPs.emission;
+        fireBeamEmitter = AudioManager.Instance.InitEmitter(FMODEvents.Instance.beam, gameObject);
+        fireBeamEmitter.Play();
         while (active)
         {
             //Calculate baser and hit
@@ -527,6 +548,7 @@ public class ShipAI : MonoBehaviour
                 active = false;
             yield return new WaitForEndOfFrame();
         }
+        fireBeamEmitter.Stop();
         Destroy(beam.gameObject);
         emis.enabled = false;
         Destroy(beamHitPs.gameObject, 0.5f);
@@ -925,10 +947,20 @@ public class ShipAI : MonoBehaviour
     }
     void Jump()
     {
+        if (!enemyChargeFTLEmitter.IsPlaying()) { 
+            enemyChargeFTLEmitter = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyChargeFTL, gameObject); 
+            enemyChargeFTLEmitter.Play(); }
         jumping = true;
         var tEmis = thrustersPS.emission;
         if (jumpTimer > ship.jumpTime * 60)
         {
+            if (jumped) enemyChargeFTLEmitter.Stop();
+            if (jumped) {
+                enemyEnterFTLEmitter = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyEnterFTL, gameObject);
+                enemyEnterFTLEmitter.Play();
+            }
+            
+            jumped = false;
             if (!tEmis.enabled)
                 tEmis.enabled = true;
             if (!GetComponent<Collider2D>().isTrigger)

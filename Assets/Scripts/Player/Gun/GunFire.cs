@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ExtensionMethods;
 using UnityEngine.EventSystems;
+using FMOD.Studio;
 
 public class GunFire : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class GunFire : MonoBehaviour
     float fireRateScalar = 0;
     float spreadScalar;
 
+    EventInstance beamAudio;
+
     private void Awake()
     {
         pRB = GlobalRefs.Instance.player.GetComponent<Rigidbody2D>();
@@ -38,6 +41,7 @@ public class GunFire : MonoBehaviour
     }
     private void Start()
     {
+        beamAudio = AudioManager.Instance.CreateInstance(FMODEvents.Instance.beam);
         //gc = GunController.Instance;
         //Debug.Log(gc);
         //w = gc.weapons[stat.gunNumber].item as Weapon;
@@ -221,7 +225,7 @@ public class GunFire : MonoBehaviour
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
-        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gunFire, transform.position);
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gunHeavy, transform.position);
         yield return null;
     }
 
@@ -236,6 +240,7 @@ public class GunFire : MonoBehaviour
         var emis = beamHitPs.emission;
         gunMaster.hasFired = true;
         gunTimer = 0;
+        StartPlayback(beamAudio);
         while (Input.GetMouseButton(0) && stat.active)
         {
             //Calculate baser and hit
@@ -273,6 +278,7 @@ public class GunFire : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
+        StopPlayback(beamAudio, STOP_MODE.ALLOWFADEOUT);
         Destroy(beam.gameObject);
         emis.enabled = false;
         Destroy(beamHitPs.gameObject, 0.5f);
@@ -348,6 +354,7 @@ public class GunFire : MonoBehaviour
         gunTimer = 0;
         gunMaster.hasFired = true;
         bulletSpawnPoint.rotation = transform.rotation;
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.railgun, transform.position);
         yield return null;
     }
 
@@ -361,6 +368,7 @@ public class GunFire : MonoBehaviour
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gunLaser, transform.position);
         yield return null;
     }
 
@@ -374,6 +382,7 @@ public class GunFire : MonoBehaviour
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gunLight, transform.position);
         yield return null;
     }
 
@@ -387,6 +396,7 @@ public class GunFire : MonoBehaviour
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gunHeavy, transform.position);
         yield return null;
     }
     public IEnumerator ShootNeedle()
@@ -399,6 +409,7 @@ public class GunFire : MonoBehaviour
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gunLight, transform.position);
         yield return null;
     }
     public IEnumerator ShootMine()
@@ -411,6 +422,7 @@ public class GunFire : MonoBehaviour
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gunHeavy, transform.position);
         yield return null;
     }
     public IEnumerator ShootHammer()
@@ -423,6 +435,7 @@ public class GunFire : MonoBehaviour
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gunHeavy, transform.position);
         yield return null;
     }
     public IEnumerator ShootCluster()
@@ -436,6 +449,7 @@ public class GunFire : MonoBehaviour
         gunTimer = 0;
         gunMaster.hasFired = true;
         b.bulletSender = GlobalRefs.Instance.player;
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gunHeavy, transform.position);
         yield return null;
     }
     public IEnumerator ShootArrow()
@@ -460,6 +474,7 @@ public class GunFire : MonoBehaviour
         gunTimer = 0;
         gunMaster.hasFired = true;
         bullet.GetComponent<Bullet>().bulletSender = GlobalRefs.Instance.player;
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gunHeavy, transform.position);
         yield return null;
     }
     private bool InBounds(int index, RaycastHit2D[] array)
@@ -501,5 +516,18 @@ public class GunFire : MonoBehaviour
     float CurveWeightedRandom(AnimationCurve curve)
     {
         return curve.Evaluate(Random.value);
+    }
+    void StartPlayback(EventInstance audio)
+    {
+        PLAYBACK_STATE state;
+        audio.getPlaybackState(out state);
+        if (state.Equals(PLAYBACK_STATE.STOPPED))
+        {
+            audio.start();
+        }
+    }
+    void StopPlayback(EventInstance audio, STOP_MODE stopMode)
+    {
+        audio.stop(stopMode);
     }
 }

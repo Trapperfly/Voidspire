@@ -28,6 +28,7 @@ public class MenuController : MonoBehaviour
 
     public void PauseGame()
     {
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.openInventory, transform.position);
         if (!gamePaused)
         {
             escActive = true;
@@ -40,6 +41,7 @@ public class MenuController : MonoBehaviour
 
     public void MapMode()
     {
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.openInventory, transform.position);
         if (map.activeSelf) { map.SetActive(false); mapActive = false; }
         else { map.SetActive(true); mapActive = true; }
     }
@@ -52,6 +54,7 @@ public class MenuController : MonoBehaviour
 
     public void Inventory()
     {
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.openInventory, transform.position);
         if (inventory.activeSelf)
         {
             Time.timeScale = 1f;
@@ -69,6 +72,7 @@ public class MenuController : MonoBehaviour
 
     public void ResumeGame()
     {
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.openInventory, transform.position);
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
         gamePaused = false;

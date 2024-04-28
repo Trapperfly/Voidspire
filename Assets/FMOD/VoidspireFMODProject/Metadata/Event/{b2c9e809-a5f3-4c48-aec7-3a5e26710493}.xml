@@ -8,7 +8,7 @@
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{d2d4e786-80e3-4c4b-bdd4-005936d959c7}</destination>
+			<destination>{d690dafd-0d07-48b0-bfb6-a4e8246df325}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{a2fe00eb-2ba8-4bdb-b33b-ecc06126cabb}</destination>
@@ -100,7 +100,6 @@
 		<property name="timelockedOffset">
 			<value>0.5</value>
 		</property>
-		<property name="name" />
 		<relationship name="fadeInCurve">
 			<destination>{9839e0dc-b2b0-43ff-8d9b-8b3002951aff}</destination>
 		</relationship>
