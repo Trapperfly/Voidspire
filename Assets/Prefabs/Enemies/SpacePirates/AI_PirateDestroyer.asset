@@ -30,7 +30,7 @@ MonoBehaviour:
   mass: 2
   isDisabled: 0
   speed: 1.5
-  rotSpeed: 0.5
+  rotSpeed: 0.3
   strafeSpeed: 1
   jumpTime: 0
   jumpSpeed: 0

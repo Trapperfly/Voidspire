@@ -25,11 +25,11 @@ MonoBehaviour:
   enrageStrength: 2
   enrageSpecialAttack: 0
   contactBehaviour: 0
-  maxHealth: 750
+  maxHealth: 400
   maxShield: 0
   mass: 20
   isDisabled: 0
-  speed: 1.5
+  speed: 1.1
   rotSpeed: 0.1
   strafeSpeed: 0.1
   jumpTime: 0

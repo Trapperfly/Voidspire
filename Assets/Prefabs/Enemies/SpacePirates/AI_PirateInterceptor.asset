@@ -30,7 +30,7 @@ MonoBehaviour:
   mass: 1
   isDisabled: 0
   speed: 2
-  rotSpeed: 0.1
+  rotSpeed: 0.03
   strafeSpeed: 0.5
   jumpTime: 0
   jumpSpeed: 0
@@ -39,7 +39,7 @@ MonoBehaviour:
   combatMod: 1
   repairMod: 0
   combatDrag: 2
-  combatAngularDrag: 10
+  combatAngularDrag: 2
   canRepair: 1
   repairSpeed: 0
   viewRange: 3
