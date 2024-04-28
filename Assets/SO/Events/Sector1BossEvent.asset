@@ -16,7 +16,8 @@ MonoBehaviour:
   id: 1
   difficulty: 0
   category: 8
-  pingCondition: 1
+  pingCondition: 4
+  conditionValue: 3
   position: 3
   boss: {fileID: 5658329314286419434, guid: c932f401e91116845ad0b42bf0107f2d, type: 3}
   ads:

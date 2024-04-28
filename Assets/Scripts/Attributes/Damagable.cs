@@ -121,6 +121,17 @@ public class Damagable : GameTrigger
         }
         HealthCheck();
     }
+    public void TakeDamage(float value, Vector2 position)
+    {
+        OnHitEvent(value, position);
+        currentHealth -= value;
+        if (hb != null) { hb.timer = 0; }
+        else
+        {
+            if (!isBoss) { Init(); }
+        }
+        HealthCheck();
+    }
 
     public void HealthCheck()
     {

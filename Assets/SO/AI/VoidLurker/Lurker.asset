@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c42329208f71aa469412ecfbbe6a610, type: 3}
   m_Name: Lurker
   m_EditorClassIdentifier: 
+  level: 0
   aiName: Lurker
   description: 
   playerRelation: 3
@@ -24,6 +25,9 @@ MonoBehaviour:
   enrageStrength: 0
   enrageSpecialAttack: 0
   contactBehaviour: 1
+  possibleComs: []
+  possibleLowHealthComs: []
+  baseCom: {fileID: 11400000, guid: d408ffeb297fadb4991f2270a357dac2, type: 2}
   maxHealth: 80
   maxShield: 0
   mass: 2
@@ -51,6 +55,7 @@ MonoBehaviour:
   isWeakened: 0
   isDisarmed: 0
   specialAttack: 0
+  startSpecialImmediately: 0
   specialAttackCD: 0
   specialAttackDamage: 0
   specialAttackSpeed: 0
@@ -59,6 +64,13 @@ MonoBehaviour:
   damageTickTime: 0
   specialIsHoming: 0
   specialHomingStrength: 0
+  aimTheSpecial: 0
   stopCoreWhenSpecial: 0
+  stopCoreWhenSpecialLong: 0
+  stopCoreForSeconds: 0
+  predictWhenAiming: 0
+  specialHitMask:
+    serializedVersion: 2
+    m_Bits: 0
   reward: 1
   value: 1

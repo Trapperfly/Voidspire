@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39490a1f759ba394e8502afac35faaeb, type: 3}
-  m_Name: 2
+  m_Name: Base_GainBossClue
   m_EditorClassIdentifier: 
   level: 0
-  storyTitle: i am next step
-  storyText: Gain boss hint
+  storyTitle: Boss clue
+  storyText: You gain a boss clue.
   result:
   - result: 11
     resultValue: {x: 1, y: 0}
   responses:
-  - name: exit
+  - name: Exit
     dependance: 0
     responseText: Exit.
     resultsBetween: []

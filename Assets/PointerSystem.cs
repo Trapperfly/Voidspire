@@ -18,6 +18,8 @@ public class PointerSystem : MonoBehaviour
     public float pointerSpeed = 0.02f;
     float opacity = 0;
 
+    public float bossHints;
+
     #region Singleton
     public static PointerSystem Instance;
 
@@ -115,8 +117,6 @@ public class PointerSystem : MonoBehaviour
         pings.Add(pos);
         opacity = 5;
     }
-
-
     public void TestAddPing()
     {
         if (target.targetRB) {

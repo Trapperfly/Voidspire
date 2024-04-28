@@ -16,6 +16,9 @@ public class Ship : AI
     public float enrageStrength;
     public SpecialAttack enrageSpecialAttack;
     public ContactBehaviour contactBehaviour;
+    public Com[] possibleComs;
+    public Com[] possibleLowHealthComs;
+    public Com baseCom;
 
     [Header("Health/Shield")]
     public float maxHealth;

@@ -79,6 +79,9 @@ public class ShipAI : MonoBehaviour
 
     List<ParticleSystem> toDestroy = new();
 
+    public Com contact;
+    public Com lowHealthContact;
+
     StudioEventEmitter fireMissileEmitter;
     StudioEventEmitter fireEleBallEmitter;
     StudioEventEmitter fireBeamEmitter;
@@ -88,11 +91,8 @@ public class ShipAI : MonoBehaviour
 
     private void Start()
     {
-        
-        
-        
-        
-        
+        contact = ship.possibleComs.Length > 0 ? ship.possibleComs[Random.Range(0, ship.possibleComs.Length - 1)] : ship.baseCom;
+        lowHealthContact = ship.possibleLowHealthComs.Length > 0 ? ship.possibleLowHealthComs[Random.Range(0, ship.possibleLowHealthComs.Length - 1)] : ship.baseCom;
         if (level == 0)
             level += (GlobalRefs.Instance.currentSector - 1) * 10;
         //Init();
@@ -639,7 +639,19 @@ public class ShipAI : MonoBehaviour
         healthModule.damageTaken = false;
         healthModule.damageTakenFromWhat = null;
     }
-
+    public void StartCombat(Transform whatToCombat)
+    {
+        combatTarget = whatToCombat;
+        targetTransform = combatTarget;
+        ToggleCombat(true);
+        StartCoroutine(nameof(GetNewTargetPos));
+        StartCoroutine(target.InitTargetValues(combatTarget, combatTarget.GetComponent<Rigidbody2D>()));
+    }
+    public void StopCombat()
+    {
+        ToggleCombat(false);
+        StartCoroutine(nameof(GetNewTargetPos));
+    }
     void TryStopCombat()
     {
         if (inCombat && (!target.target || !target.targetRB))

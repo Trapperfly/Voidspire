@@ -10,7 +10,7 @@ public class Event : ScriptableObject
     public EventCategory category;
 
     public PingCondition pingCondition;
-
+    public float conditionValue;
     public EventPosition position;
 }
 

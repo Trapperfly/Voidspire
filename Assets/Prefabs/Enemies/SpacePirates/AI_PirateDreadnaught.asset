@@ -25,6 +25,9 @@ MonoBehaviour:
   enrageStrength: 2
   enrageSpecialAttack: 0
   contactBehaviour: 0
+  possibleComs: []
+  possibleLowHealthComs: []
+  baseCom: {fileID: 11400000, guid: d408ffeb297fadb4991f2270a357dac2, type: 2}
   maxHealth: 400
   maxShield: 0
   mass: 20

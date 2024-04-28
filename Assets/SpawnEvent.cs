@@ -45,6 +45,8 @@ public class SpawnEvent : MonoBehaviour
             case PingCondition.PingWhenActivated:
                 break;
             case PingCondition.PingWhenConditionIsMet:
+                gameObject.name = _event.eventName;
+                StartCoroutine(nameof(CheckIfConditionIsMet));
                 break;
             case PingCondition.PingAfterTimer:
                 iTimer = true;
@@ -52,9 +54,19 @@ public class SpawnEvent : MonoBehaviour
             default:
                 break;
         }
-        
-        
         StartCoroutine(CheckPlayerDistanceToEvent());
+    }
+
+    IEnumerator CheckIfConditionIsMet()
+    {
+        yield return new WaitForSeconds(10);
+        bool isMet = false;
+        if (PointerSystem.Instance.bossHints >= _event.conditionValue)
+        {
+            PointerSystem.Instance.AddPing(transform);
+            isMet = true;
+        }
+        if (!isMet) StartCoroutine(nameof(CheckIfConditionIsMet));
     }
 
     IEnumerator CheckPlayerDistanceToEvent()
