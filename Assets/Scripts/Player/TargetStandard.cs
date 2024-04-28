@@ -70,6 +70,7 @@ public class TargetStandard : MonoBehaviour
         Debug.Log("Chose: " + bestDistance);
         if (hit != null)
         {
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.targetEnemy, transform.position);
             Debug.Log("Hit targetable");
             targetInstance = Instantiate    //If hit nothing, make a vector 2 and use that as target
             (targetTransformPrefab, hit.transform.position, new Quaternion(), hit.transform);
@@ -77,6 +78,7 @@ public class TargetStandard : MonoBehaviour
         }
         else
         {
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.targetNothing, transform.position);
             Debug.Log("Spawning target transform");
             targetInstance = Instantiate    //If hit nothing, make a vector 2 and use that as target
             (
@@ -103,6 +105,7 @@ public class TargetStandard : MonoBehaviour
     }
     public void RemoveTarget()
     {
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.targetCancel, transform.position);
         if (targetInstance != null)
         {
             Destroy(targetInstance);
