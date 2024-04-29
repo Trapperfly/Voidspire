@@ -22,7 +22,7 @@ public class ComHandler : MonoBehaviour
             target.target.TryGetComponent(out ShipAI ship);
             if (ship)
             {
-                if (Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown(KeyCode.F) && !currentCom)
                 {
                     StartCom(ship.contact, ship);
                     ship.contact = ship.ship.baseCom;
@@ -217,6 +217,7 @@ public class ComHandler : MonoBehaviour
                 case ComResultEnum.GiveEventPing:
                     break;
                 case ComResultEnum.GiveBossClue:
+                    PointerSystem.Instance.bossHints += currentCom.result[i].resultValue.x;
                     //add event or ping, or add to a value and when that reaches max, add the boss event.
                     break;
                 default:

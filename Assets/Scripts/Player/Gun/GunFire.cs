@@ -4,6 +4,7 @@ using UnityEngine;
 using ExtensionMethods;
 using UnityEngine.EventSystems;
 using FMOD.Studio;
+using UnityEngine.UI;
 
 public class GunFire : MonoBehaviour
 {
@@ -32,11 +33,16 @@ public class GunFire : MonoBehaviour
 
     EventInstance beamAudio;
 
+    Transform gunTimerMeters;
+    Image meter;
+
     private void Awake()
     {
+        gunTimerMeters = GameObject.FindGameObjectWithTag("GunTimers").transform;
         pRB = GlobalRefs.Instance.player.GetComponent<Rigidbody2D>();
         EquipmentController.Instance.onGunLoadComplete += CustomStart;
         stat = GetComponent<GunStats>();
+        meter = gunTimerMeters.GetChild(stat.gunNumber).GetChild(1).GetComponent<Image>();
         gunPoint = GetComponent<GunPoint>();
     }
     private void Start()
@@ -483,6 +489,7 @@ public class GunFire : MonoBehaviour
     }
     private void Update()
     {
+        if (w) { meter.fillAmount = gunTimer / (Mathf.Clamp(60 / fireRateA, 1, 600)); } else meter.fillAmount = 0;
         Debug.DrawRay(bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.up);
     }
     float Speed(float baseSpeed)

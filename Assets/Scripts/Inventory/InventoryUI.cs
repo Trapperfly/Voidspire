@@ -4,6 +4,7 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 using static Inventory;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -24,6 +25,9 @@ public class InventoryUI : MonoBehaviour
     public EquipmentSlot[] equipmentSlots;
 
     public TMP_Text text;
+
+    public Transform slotsHud;
+    public Image newItemIcon;
 
     #region Singleton
     public static InventoryUI Instance;
@@ -64,9 +68,10 @@ public class InventoryUI : MonoBehaviour
         List<int> loggedItems = new();
         for (int i = 0; i < slots.Length; i++) //Logging items
         {
-            if (slots[i].item != null) { loggedItems.Add(slots[i].item.id); }
-        }
+            
+            if (slots[i].item != null) { loggedItems.Add(slots[i].item.id);  }
 
+        }
         for (int i = 0; i < slots.Length; i++)
         {
             //if (i < inventory.items.Count)
@@ -76,8 +81,8 @@ public class InventoryUI : MonoBehaviour
             //{
             //    slots[i].ClearSlot();
             //}
-
-            if (slots[i].item != null) {  }
+            if (slots[i].item != null) {
+            }
             else
             {
                 for (int j = 0; j < inventory.items.Count; j++)
@@ -90,12 +95,23 @@ public class InventoryUI : MonoBehaviour
                     else
                     {
                         slots[i].AddItem(inventory.items[j]);
+                        newItemIcon.color = new Color(1, 1, 1, 1);
                         loggedItems.Add(inventory.items[j].id);
                         //Debug.Log("Added item " + inventory.items[j].name + " to slot " + i + ". It has id " + inventory.items[j].id);
                     }
                 }
             }
             slots[i].Refresh();
+            for (int s = 0; s < slots.Length; s++)
+            {
+                Image slotHudIcon = slotsHud.GetChild(s).GetComponent<Image>();
+
+                if (slots[s].item != null)
+                {
+                    slotHudIcon.color = new Color(1, 1, 1, 1);
+                }
+                else slotHudIcon.color = new Color(1, 1, 1, 0);
+            }
         }
         for (int i = 0; i < equipmentSlots.Length; i++)
         {

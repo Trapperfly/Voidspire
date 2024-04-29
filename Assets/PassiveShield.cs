@@ -26,6 +26,8 @@ public class PassiveShield : GameTrigger
     public GameObject spritesToBeHidden;
     public Transform shieldBar;
     Image shieldBarImage;
+    public Transform shieldRechargeBar;
+    Image shieldRechargeImage;
 
     float lastFrameCurrentShield;
 
@@ -46,7 +48,8 @@ public class PassiveShield : GameTrigger
         shieldUp = AudioManager.Instance.CreateInstance(FMODEvents.Instance.shieldUp);
         //Debug.Log("CustomStartActivated");
         equipment = EquipmentController.Instance;
-        shieldBarImage = shieldBar.GetChild(2).GetComponent<Image>();
+        shieldBarImage = shieldBar.GetChild(1).GetComponent<Image>();
+        shieldRechargeImage = shieldRechargeBar.GetChild(1).GetComponent<Image>();
         shieldActive = true;
         shieldActiveForColliders = true;
         SetNewStats();
@@ -74,6 +77,7 @@ public class PassiveShield : GameTrigger
     private void Update()
     {
         shieldBarImage.fillAmount = Mathf.Lerp(shieldBarImage.fillAmount, shieldPercent, 0.1f);
+        shieldRechargeImage.fillAmount = Mathf.Lerp(shieldRechargeImage.fillAmount, rechargeTimer / (shield.shieldRechargeDelay * 60), 0.5f);
     }
     private void FixedUpdate()
     {
@@ -104,15 +108,17 @@ public class PassiveShield : GameTrigger
 
     void UpdateSize()
     {
-        foreach (RectTransform child in shieldBar)
-        {
-            float _backModifier = 0;
-            if (child == shieldBar.GetChild(0)) _backModifier = 0.05f;
-            if (!noShield) child.sizeDelta = new Vector2((shield.shieldHealth / shieldBarDividedByInLength) + _backModifier, child.sizeDelta.y);
-            else child.sizeDelta = new Vector2(0 + _backModifier, child.sizeDelta.y);
-        }
+        //foreach (RectTransform child in shieldBar)
+        //{
+        //    float _backModifier = 0;
+        //    if (child == shieldBar.GetChild(0)) _backModifier = 0.05f;
+        //    if (!noShield) child.sizeDelta = new Vector2((shield.shieldHealth / shieldBarDividedByInLength) + _backModifier, child.sizeDelta.y);
+        //    else child.sizeDelta = new Vector2(0 + _backModifier, child.sizeDelta.y);
+        //}
         if (!noShield)
         {
+            shieldBarImage.color = shield.shieldColor;
+            shieldRechargeImage.color = shield.shieldColor * new Color(1,1,1,0.5f);
             mat.SetColor("_ShieldColor", shield.shieldColor);
             mat.SetColor("_BreakageColor", shield.breakColor);
             mat.SetFloat("_ShieldHealth", shieldPercent);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
@@ -13,10 +14,16 @@ public class MenuController : MonoBehaviour
     [SerializeField] Object startScene;
     [SerializeField] Object mainMenuScene;
 
+    public Transform mapSprites;
+    public Transform bigMapHolder;
+    public Transform smallMapHolder;
+
     bool inventoryActive;
     bool mapActive;
     //bool chunkMapActive;
     bool escActive;
+
+    public Image newItemIcon;
     void Update()
     {
         if (inventoryActive && Input.GetKeyDown(KeyCode.Escape)) Inventory();
@@ -42,8 +49,20 @@ public class MenuController : MonoBehaviour
     public void MapMode()
     {
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.openInventory, transform.position);
-        if (map.activeSelf) { map.SetActive(false); mapActive = false; }
-        else { map.SetActive(true); mapActive = true; }
+        if (map.activeSelf) {
+            mapSprites.SetParent(smallMapHolder);
+            mapSprites.localScale = new(1, 1);
+            mapSprites.localPosition = new(0, 0, 0);
+            map.SetActive(false); 
+            mapActive = false; 
+        }
+        else {
+            mapSprites.SetParent(bigMapHolder);
+            mapSprites.localScale = new(1, 1);
+            mapSprites.localPosition = new(0, 0, 0);
+            map.SetActive(true); 
+            mapActive = true; 
+        }
     }
 
     //public void ChunkMapMode()
@@ -54,6 +73,7 @@ public class MenuController : MonoBehaviour
 
     public void Inventory()
     {
+        newItemIcon.color = new(1, 1, 1, 0);
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.openInventory, transform.position);
         if (inventory.activeSelf)
         {

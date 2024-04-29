@@ -91,6 +91,8 @@ MonoBehaviour:
     m_ColorMin: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMax: {r: 0, g: 0, b: 0, a: 0}
   hullType: 0
+  hullNodesMax: 4
+  hullNodesCurrent: 4
   hullCurrentHealth: 20
   hullHealth: 20
   hullDamageNegation: 5

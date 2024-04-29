@@ -24,3 +24,9 @@ MonoBehaviour:
     responseText: Exit.
     resultsBetween: []
     isExit: 1
+  - name: BossClue
+    dependance: 0
+    responseText: Boss clue
+    resultsBetween:
+    - {fileID: 11400000, guid: e7e5c33fe0328cb428bf83c437374ab9, type: 2}
+    isExit: 0

@@ -17,7 +17,7 @@ MonoBehaviour:
   storyText: You gain a boss clue.
   result:
   - result: 11
-    resultValue: {x: 1, y: 0}
+    resultValue: {x: 3, y: 0}
   responses:
   - name: Exit
     dependance: 0

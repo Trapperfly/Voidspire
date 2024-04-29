@@ -22,6 +22,7 @@ TagManager:
   - PlayerManager
   - Hud
   - Chitin
+  - GunTimers
   layers:
   - Default
   - TransparentFX
@@ -51,7 +52,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Compass
   - MapShading
   - MapMarkers
   - Effects

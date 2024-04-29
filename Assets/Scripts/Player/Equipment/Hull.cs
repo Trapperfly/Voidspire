@@ -5,6 +5,8 @@ using UnityEngine;
 public class Hull : Equipment
 {
     public HullTypes hullType;
+    public int hullNodesMax;
+    public int hullNodesCurrent;
     public float hullCurrentHealth;
     public float hullHealth;
     public float hullDamageNegation;

@@ -36,6 +36,8 @@ public class RenderChunkData : MonoBehaviour
     [SerializeField] Sprite topButton;
     [SerializeField] Sprite midButton;
     [SerializeField] Sprite botButton;
+    [SerializeField] Transform availableSettings;
+    [SerializeField] Transform[] extraSettings;
 
     Vector2 pos;
     float dScale;
@@ -86,7 +88,7 @@ public class RenderChunkData : MonoBehaviour
             renderDelay = scanner.mapUpdateSpeed;
             renderSpeed = scanner.mapUpdateAmount;
             SetMapButtons();
-
+            SetRendering(0);
             zoomer.minZoom = scanner.zoom.x;
             zoomer.maxZoom = scanner.zoom.y;
         }
@@ -120,24 +122,24 @@ public class RenderChunkData : MonoBehaviour
             //    buttonsParent.GetChild(4).gameObject.SetActive(true);
             //    break;
             case Frequencies.General:
-                buttonsParent.GetChild(0).gameObject.SetActive(true);
+                SetButtonsActive(0);
                 SetImageToSprite(buttonsParent, 0, topButton);
-                buttonsParent.GetChild(1).gameObject.SetActive(true);
+                SetButtonsActive(1);
                 SetImageToSprite(buttonsParent, 1, botButton);
                 break;
             case Frequencies.Factions:
-                buttonsParent.GetChild(1).gameObject.SetActive(true);
+                SetButtonsActive(1);
                 SetImageToSprite(buttonsParent, 1, topButton);
-                buttonsParent.GetChild(2).gameObject.SetActive(true);
-                buttonsParent.GetChild(3).gameObject.SetActive(true);
-                buttonsParent.GetChild(4).gameObject.SetActive(true);
+                SetButtonsActive(2); 
+                SetButtonsActive(3); 
+                SetButtonsActive(4);
                 SetImageToSprite(buttonsParent, 4, botButton);
                 //buttonsParent.GetChild(7).gameObject.SetActive(true);
                 break;
             case Frequencies.Transmitters:
-                buttonsParent.GetChild(4).gameObject.SetActive(true);
+                SetButtonsActive(4);
                 SetImageToSprite(buttonsParent, 4, topButton);
-                buttonsParent.GetChild(5).gameObject.SetActive(true);
+                SetButtonsActive(5);
                 SetImageToSprite(buttonsParent, 5, botButton);
                 break;
             //case Frequencies.Mining:
@@ -149,18 +151,18 @@ public class RenderChunkData : MonoBehaviour
             //    buttonsParent.GetChild(10).gameObject.SetActive(true);
             //    break;
             case Frequencies.Diplomat:
-                buttonsParent.GetChild(1).gameObject.SetActive(true);
+                SetButtonsActive(1);
                 SetImageToSprite(buttonsParent, 1, topButton);
-                buttonsParent.GetChild(5).gameObject.SetActive(true);
+                SetButtonsActive(5);
                 SetImageToSprite(buttonsParent, 5, botButton);
                 //buttonsParent.GetChild(11).gameObject.SetActive(true);
                 //buttonsParent.GetChild(7).gameObject.SetActive(true);
                 break;
             case Frequencies.Broad:
-                buttonsParent.GetChild(0).gameObject.SetActive(true);
+                SetButtonsActive(0);
                 SetImageToSprite(buttonsParent, 0, topButton);
-                buttonsParent.GetChild(4).gameObject.SetActive(true);
-                buttonsParent.GetChild(5).gameObject.SetActive(true);
+                SetButtonsActive(4); 
+                SetButtonsActive(5);
                 SetImageToSprite(buttonsParent, 5, botButton);
                 //buttonsParent.GetChild(10).gameObject.SetActive(true);
                 //buttonsParent.GetChild(8).gameObject.SetActive(true);
@@ -171,6 +173,12 @@ public class RenderChunkData : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private void SetButtonsActive(int i)
+    {
+        buttonsParent.GetChild(i).gameObject.SetActive(true);
+        availableSettings.GetChild(i).gameObject.SetActive(true);
     }
 
     private void SetImageToSprite(Image image, Sprite sprite)
@@ -224,6 +232,30 @@ public class RenderChunkData : MonoBehaviour
         alpha = newAlpha;
     }
 
+    void SetMapSettingIcon(int setting)
+    {
+        foreach(Transform child in availableSettings)
+        {
+            child.GetComponent<Image>().color = new(1, 1, 1, 0.5f);
+        }
+        extraSettings[0].gameObject.SetActive(false);
+        extraSettings[1].gameObject.SetActive(false);
+        switch (setting)
+        {
+            case 0 or 1 or 2 or 3 or 4 or 5:
+                availableSettings.GetChild(setting).GetComponent<Image>().color = new(1, 1, 1, 1);
+                break;
+            case 10:
+                extraSettings[0].gameObject.SetActive(true);
+                break;
+            case 11:
+                extraSettings[1].gameObject.SetActive(true);
+                break;
+            default:
+                break;
+        }
+    }
+
     public void SetRendering(int mode)
     {
         MapMode tempMode = MapMode.normal;
@@ -231,27 +263,33 @@ public class RenderChunkData : MonoBehaviour
         {
             case 0:
                 tempMode = MapMode.normal;
+                SetMapSettingIcon(10);
                 break;
             case 1:
                 tempMode = MapMode.combinedData;
                 break;
             case 2:
                 tempMode = MapMode.debrisMode;
+                SetMapSettingIcon(0);
                 break;
             case 3:
                 tempMode = MapMode.factionMode;
+                SetMapSettingIcon(4);
                 break;
             case 4:
                 tempMode = MapMode.voidMode;
+                SetMapSettingIcon(3);
                 break;
             case 5:
                 tempMode = MapMode.chitinMode;
+                SetMapSettingIcon(2);
                 break;
             case 6:
                 tempMode = MapMode.chromeMode;
                 break;
             case 7:
                 tempMode = MapMode.pirateMode;
+                SetMapSettingIcon(1);
                 break;
             case 8:
                 tempMode = MapMode.civMode;
@@ -261,12 +299,14 @@ public class RenderChunkData : MonoBehaviour
                 break;
             case 10:
                 tempMode = MapMode.eventMode;
+                SetMapSettingIcon(5);
                 break;
             case 11:
                 tempMode = MapMode.shopMode;
                 break;
             case 12:
                 tempMode = MapMode.difMode;
+                SetMapSettingIcon(11);
                 break;
             default:
                 Debug.Log("Wrong map mode");

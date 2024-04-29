@@ -59,7 +59,7 @@ public class SpawnEvent : MonoBehaviour
 
     IEnumerator CheckIfConditionIsMet()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(1);
         bool isMet = false;
         if (PointerSystem.Instance.bossHints >= _event.conditionValue)
         {

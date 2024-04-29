@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Entities.UniversalDelegates;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HandleRelic : GameTrigger
 {
@@ -8,6 +10,9 @@ public class HandleRelic : GameTrigger
     InventoryUI inventoryUI;
     Inventory inventory;
     public Equipment[] relics;
+
+    public Transform RelicIcons;
+    public Sprite[] relicBWIcons;
 
     private void Awake()
     {
@@ -37,7 +42,10 @@ public class HandleRelic : GameTrigger
         {
             Equipment relic = null;
             if (relics[i] != null) { relic = relics[i]; }
-            if (slot.item == null) { if (relic != null) UnEquipRelic(relic); relics[i] = null; }
+            if (slot.item == null) { 
+                if (relic != null) UnEquipRelic(relic); 
+                relics[i] = null; 
+                RelicIcons.GetChild(i).GetComponent<Image>().color = new Color(1, 1, 1, 0); }
             else if (relics[i] == slot.item as Equipment) {  }
             else
             {
@@ -110,6 +118,11 @@ public class HandleRelic : GameTrigger
                         break;
                 }
             }
+            if (relics[i] != null) { 
+                RelicIcons.GetChild(i).GetComponent<Image>().sprite = relicBWIcons[(int)relics[i].relic];
+                RelicIcons.GetChild(i).GetComponent<Image>().color = new Color(1, 1, 1, 1); 
+            }
+            else RelicIcons.GetChild(i).GetComponent<Image>().color = new Color(1, 1, 1, 0);
             i++;
         });
         

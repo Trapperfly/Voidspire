@@ -112,14 +112,14 @@ public class ShipControl : MonoBehaviour
     }
     void UpdateSize()
     {
-        foreach (RectTransform child in fuelBar)
-        {
-            float _backModifier = 0;
-            if (child == fuelBar.GetChild(0)) _backModifier = 0.05f;
-            float currentFuel;
-            currentFuel = ftl.fuelMax;
-            child.sizeDelta = new Vector2((currentFuel / 5000) + _backModifier, child.sizeDelta.y);
-        }
+        //foreach (RectTransform child in fuelBar)
+        //{
+        //    float _backModifier = 0;
+        //    if (child == fuelBar.GetChild(0)) _backModifier = 0.05f;
+        //    float currentFuel;
+        //    currentFuel = ftl.fuelMax;
+        //    child.sizeDelta = new Vector2((currentFuel / 5000) + _backModifier, child.sizeDelta.y);
+        //}
         UpdateFuel();
     }
     void ChargeFTL()
