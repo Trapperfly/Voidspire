@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39490a1f759ba394e8502afac35faaeb, type: 3}
+  m_Name: 0PirateHelpfulBossClue
+  m_EditorClassIdentifier: 
+  level: 0
+  storyTitle: Boss clue
+  storyText: '"Hey man, these Chitin suckers are messing this sector up. Would you
+    help clear out their command?"
+
+    Could be interesting.'
+  result:
+  - result: 0
+    resultValue: {x: 2, y: 0}
+  responses:
+  - name: Sure
+    dependance: 0
+    responseText: We'll look into it.
+    resultsBetween: []
+    isExit: 1
+  - name: Exit
+    dependance: 0
+    responseText: Nope!
+    resultsBetween: []
+    isExit: 1

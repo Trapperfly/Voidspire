@@ -90,7 +90,7 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     m_ColorMin: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMax: {r: 0, g: 0, b: 0, a: 0}
-  gameSpaceSprite: {fileID: 21300000, guid: 48af9b7b7f5f9404db2ef02a78c53d04, type: 3}
+  gameSpaceSprite: {fileID: 21300000, guid: 39f0ea9acc879ef4ab193ec920f629bc, type: 3}
   weaponType: 0
   isExplosive: 0
   savedIsExplosive: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   clusterSpeed: 0
   damage: 1
   bulletSize: 1
-  fireRate: 5
+  fireRate: 0.4
   fireRateChange: 0
   fireRateChangeTimer: 0
   amount: 1

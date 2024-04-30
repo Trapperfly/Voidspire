@@ -70,7 +70,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 0
@@ -185,6 +185,8 @@ MonoBehaviour:
   doubleDamage: 0
   enabledSpecialAttack: 0
   unlockedGuns: 0
+  contact: {fileID: 0}
+  lowHealthContact: {fileID: 0}
 --- !u!114 &730234620890172710
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39490a1f759ba394e8502afac35faaeb, type: 3}
+  m_Name: ChitinBossClue
+  m_EditorClassIdentifier: 
+  level: 0
+  storyTitle: Boss Clue
+  storyText: 'The communication gear crackles with weird frequencies. Seems they
+    are sending coordinates to some sort of challenge, but only some of the coordinates
+    mean something. Maybe the compass will find something if we collect more pieces. '
+  result:
+  - result: 11
+    resultValue: {x: 1, y: 0}
+  responses:
+  - name: Exit
+    dependance: 0
+    responseText: Exit.
+    resultsBetween: []
+    isExit: 1

@@ -138,7 +138,7 @@ public class RandomizeEquipment : MonoBehaviour
     [SerializeField] string[] hullNameFirst;
     [SerializeField] string[] hullNameLast;
 
-    [SerializeField] Vector3 hullCurrent;
+    [SerializeField] Vector2 hullNodes;
     [SerializeField] Vector3 hullMax;
     [SerializeField] Vector3 hullDamageNeg;
     [SerializeField] Vector3 hullWeight;
@@ -1640,7 +1640,7 @@ public class RandomizeEquipment : MonoBehaviour
                 weapon.chargeUp = fR(chargeUp);
                 weapon.burst = iR(burst) * 2;
                 weapon.burstDelay = fR(burstDelay);
-                weapon.amount *= 2;
+                //weapon.amount *= 2;
                 weapon.fireRate = 60;
                 if (style == 0) // is low damage and high attack
                 {
@@ -1823,8 +1823,8 @@ public class RandomizeEquipment : MonoBehaviour
                 thruster.maxSpeed *= 10;
                 thruster.turnSpeed *= 0.8f;
                 thruster.maxTurnSpeed *= 0.8f;
-                thruster.turnBrakingSpeed *= 2f;
-                thruster.brakingSpeed *= 2f;
+                thruster.turnBrakingSpeed *= 0.1f;
+                thruster.brakingSpeed *= 0.1f;
                 break;
             case STLTypes.Crawler: //Slow but very controllable rotation
                 thruster.speed *= 1f;
@@ -2256,20 +2256,20 @@ public class RandomizeEquipment : MonoBehaviour
         switch (hull.hullType)
         {
             case HullTypes.Default:
+                hull.hullNodesMax = iR(hullNodes);
                 hull.hullHealth = fR(hullMax);
-                hull.hullCurrentHealth = hull.hullHealth - (hull.hullHealth * (fR(hullCurrent) / 100));
                 hull.hullDamageNegation = fR(hullDamageNeg);
                 hull.hullWeight = fR(hullWeight);
                 break;
             case HullTypes.HeavyClass:
-                hull.hullHealth = fR(hullMax) * 2;
-                hull.hullCurrentHealth = hull.hullHealth - (hull.hullHealth * (fR(hullCurrent) / 100));
+                hull.hullNodesMax = iR(hullNodes) * 2;
+                hull.hullHealth = fR(hullMax);
                 hull.hullDamageNegation = fR(hullDamageNeg) * 2;
                 hull.hullWeight = fR(hullWeight) * 1.5f;
                 break;
             case HullTypes.LightClass:
-                hull.hullHealth = fR(hullMax) * 0.5f;
-                hull.hullCurrentHealth = hull.hullHealth - (hull.hullHealth * (fR(hullCurrent) / 100));
+                hull.hullNodesMax = Mathf.RoundToInt((float)iR(hullNodes) * 0.5f);
+                hull.hullHealth = fR(hullMax);
                 hull.hullDamageNegation = fR(hullDamageNeg) * 0.5f;
                 hull.hullWeight = fR(hullWeight) * 0.8f;
                 break;
@@ -2300,11 +2300,12 @@ public class RandomizeEquipment : MonoBehaviour
             hull.hullDamageNegation *= 1 + (hullDamageNeg.z);
             //hull.hullSpecialEffectChance = 1 + (hull.level * .z);
         }
+        hull.hullNodesCurrent = hull.hullNodesMax;
 
         string statsNames = "Something is wong";
         string statsValues = "WTF";
         statsNames = "";
-        statsNames += "Current health:\n"; hull.statLength++;
+        statsNames += "Health nodes:\n"; hull.statLength++;
         statsNames += "Max health: \n"; hull.statLength++;
         statsNames += "Damage negation: \n"; hull.statLength++;
         statsNames += "Weight: \n"; hull.statLength++;
@@ -2312,7 +2313,7 @@ public class RandomizeEquipment : MonoBehaviour
         hull.statsText = statsNames;
 
         statsValues = "";
-        statsValues += hull.hullCurrentHealth.ToString("F1") + "\n";
+        statsValues += hull.hullNodesMax.ToString("F0") + "\n";
         statsValues += hull.hullHealth.ToString("F1") + "\n";
         statsValues += (hull.hullDamageNegation).ToString("F0") + "%\n";
         statsValues += (hull.hullWeight * 100).ToString("F0") + "\n";

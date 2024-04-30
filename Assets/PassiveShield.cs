@@ -66,15 +66,11 @@ public class PassiveShield : GameTrigger
         if (shield) { animTime = shield.shieldBreakAnimTime; storedID = shield.id; }
         shield = equipment.shieldSlots[0].item as Shield;
         if (shield) animTime = shield.shieldBreakAnimTime;
-        if (!shield) { noShield = true;
-            if (start) shieldCurrent = shield.shieldHealth;
-            else shieldCurrent = 0; }
+        if (!shield) { noShield = true; }
         else
         {
-            if (shield.id != storedID) {
-                if (start) shieldCurrent = shield.shieldHealth;
-                else shieldCurrent = 0;
-            }
+            if (start) shieldCurrent = shield.shieldHealth;
+            else if (shield.id != storedID) shieldCurrent = 0;
             noShield = false;
         }
         UpdateSize();

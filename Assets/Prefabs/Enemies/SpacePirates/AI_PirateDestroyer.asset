@@ -25,9 +25,14 @@ MonoBehaviour:
   enrageStrength: 0
   enrageSpecialAttack: 0
   contactBehaviour: 0
-  possibleComs: []
+  possibleComs:
+  - {fileID: 11400000, guid: 806ee0faa94e95d45aae2a51a33cad06, type: 2}
+  - {fileID: 11400000, guid: 8374b54e3eed9b045b061e83e410fc7a, type: 2}
+  - {fileID: 11400000, guid: dbf2d779a329d4c40bd36a8bffeeb521, type: 2}
+  - {fileID: 11400000, guid: 8ab3754406b1dac4ca5f412715c63cbd, type: 2}
+  - {fileID: 11400000, guid: 4f9e7b504e2ec86438fa83cfc827527d, type: 2}
   possibleLowHealthComs: []
-  baseCom: {fileID: 11400000, guid: d408ffeb297fadb4991f2270a357dac2, type: 2}
+  baseCom: {fileID: 11400000, guid: a6a6b7f5fd3fc584fb2cd85ce0b6636a, type: 2}
   maxHealth: 10
   maxShield: 0
   mass: 2

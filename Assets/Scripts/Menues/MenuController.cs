@@ -25,15 +25,17 @@ public class MenuController : MonoBehaviour
     //bool chunkMapActive;
     bool escActive;
 
+    public bool comActive;
+
     public Image newItemIcon;
     void Update()
     {
         if (inventoryActive && Input.GetKeyDown(KeyCode.Escape)) Inventory();
         else if (mapActive && Input.GetKeyDown(KeyCode.Escape)) MapMode();
         else if (settingsActive && Input.GetKeyDown(KeyCode.Escape)) OpenSettings();
-        else if (Input.GetKeyDown(KeyCode.Escape)) PauseGame();
-        if (!escActive && !inventoryActive && !settingsActive && Input.GetKeyDown(KeyCode.M)) MapMode();
-        if (!escActive && !mapActive && !settingsActive && Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)) Inventory();
+        else if (!comActive && Input.GetKeyDown(KeyCode.Escape)) PauseGame();
+        if (!comActive && !escActive && !inventoryActive && !settingsActive && Input.GetKeyDown(KeyCode.M)) MapMode();
+        if (!comActive && !escActive && !mapActive && !settingsActive && Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)) Inventory();
     }
 
     public void PauseGame()

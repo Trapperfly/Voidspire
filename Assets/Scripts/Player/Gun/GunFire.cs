@@ -39,7 +39,6 @@ public class GunFire : MonoBehaviour
     private void Awake()
     {
         gunTimerMeters = GameObject.FindGameObjectWithTag("GunTimers").transform;
-        pRB = GlobalRefs.Instance.player.GetComponent<Rigidbody2D>();
         EquipmentController.Instance.onGunLoadComplete += CustomStart;
         stat = GetComponent<GunStats>();
         meter = gunTimerMeters.GetChild(stat.gunNumber).GetChild(1).GetComponent<Image>();
@@ -58,13 +57,17 @@ public class GunFire : MonoBehaviour
 
     private void CustomStart()
     {
+        pRB = GlobalRefs.Instance.player.GetComponent<Rigidbody2D>();
         //Debug.Log("CustomStartActivated");
         gc = EquipmentController.Instance;
         //Debug.Log(gc);
         SetNewWeapon();
         bulletHolder = gc.bc[stat.gunNumber].transform;
-        fireRateA = w.fireRate;
-        spreadA = w.spread;
+        if (stat.active)
+        {
+            fireRateA = w.fireRate;
+            spreadA = w.spread;
+        }
         EquipmentController.Instance.onGunLoadComplete -= CustomStart;
         EquipmentController.Instance.onGunLoadComplete += SetNewWeapon;
     }
@@ -107,7 +110,7 @@ public class GunFire : MonoBehaviour
                 charge++;
             }
         }
-        if (!Input.GetKey(KeyCode.Mouse0))
+        if (stat.active && !Input.GetKey(KeyCode.Mouse0))
         {
             if (charge >= w.chargeUp * 60) { }
             else if (charge >= 2)
@@ -499,7 +502,7 @@ public class GunFire : MonoBehaviour
         else if (w) { meter.fillAmount = gunTimer / (Mathf.Clamp(60 / fireRateA, 1, 600)); }
         else meter.fillAmount = 0;
 
-        if (w.chargeUp > 0 && charge >= w.chargeUp * 60 && Input.GetKeyUp(KeyCode.Mouse0)) FireWeapon();
+        if (w && w.chargeUp > 0 && charge >= w.chargeUp * 60 && Input.GetKeyUp(KeyCode.Mouse0)) FireWeapon();
         Debug.DrawRay(bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.up);
     }
     float Speed(float baseSpeed)

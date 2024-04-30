@@ -115,9 +115,9 @@ public class Grabber : GameTrigger
     {
         base.OnPickUpResource();
         Debug.Log(transform.GetComponentInChildren<Resource>().worth);
-        GlobalRefs.Instance.player.GetComponent<PlayerHealth>().hull.hullCurrentHealth += (float)transform.GetComponentInChildren<Resource>().worth / 10;
+        GlobalRefs.Instance.player.GetComponent<PlayerHealth>().hull.hullCurrentHealth += (float)transform.GetComponentInChildren<Resource>().worth;
         GlobalRefs.Instance.player.GetComponent<PlayerHealth>().UpdateHealth();
-        GlobalRefs.Instance.player.GetComponent<ShipControl>().ftl.fuelCurrent += (float)transform.GetComponentInChildren<Resource>().worth * 50;
+        GlobalRefs.Instance.player.GetComponent<ShipControl>().ftl.fuelCurrent += (float)transform.GetComponentInChildren<Resource>().worth * 200;
         GlobalRefs.Instance.player.GetComponent<ShipControl>().UpdateFuel();
         Debug.Log(GlobalRefs.Instance.player.GetComponent<PlayerHealth>().hull.hullCurrentHealth);
         GlobalRefs.Instance.wallet += transform.GetComponentInChildren<Resource>().worth;

@@ -141,7 +141,9 @@ public class PlayerHealth : GameTrigger
             noHull = false;
             GetComponent<Rigidbody2D>().mass = hull.hullWeight;
         }
-        UpdateSize();
+        if(noHull) { return; }
+        SetNodes();
+        UpdateHealth();
     }
 
     public void UpdateHealth()

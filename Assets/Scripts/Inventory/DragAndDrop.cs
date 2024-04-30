@@ -108,7 +108,7 @@ public class DragAndDrop : MonoBehaviour,
                     DoShrink();
                     return;
                 }
-                if (s1.allowed == e0.equipType || (int)s1.allowed == 1)
+                if (!s1.locked && (s1.allowed == e0.equipType || (int)s1.allowed == 1))
                 {
                     DoSwapAndShrink();
                     eventData.pointerEnter.GetComponentInParent<DragAndDrop>().DisplayInfoBox(eventData.pointerEnter.transform.parent.parent, false);
@@ -126,7 +126,7 @@ public class DragAndDrop : MonoBehaviour,
                     DoShrink();
                     return;
                 }
-                if (s0.allowed == e1.equipType || (int)s0.allowed == 1)
+                if (!s0.locked && (s0.allowed == e1.equipType || (int)s0.allowed == 1))
                 {
                     DoSwapAndShrink();
                     eventData.pointerEnter.GetComponentInParent<DragAndDrop>().DisplayInfoBox(eventData.pointerEnter.transform.parent.parent, false);

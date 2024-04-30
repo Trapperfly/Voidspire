@@ -104,5 +104,5 @@ MonoBehaviour:
   chargeTime: 2
   fuelCurrent: 10000
   fuelMax: 10000
-  fuelDrain: 3
+  fuelDrain: 2
   maxDuration: -1

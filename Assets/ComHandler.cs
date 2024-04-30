@@ -15,6 +15,8 @@ public class ComHandler : MonoBehaviour
 
     public Sprite[] comResponseSprites;
 
+    public MenuController menuController;
+
     private void Update()
     {
         if (target.target)
@@ -30,9 +32,30 @@ public class ComHandler : MonoBehaviour
                 }
             }
         }
+        if (currentCom)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                DoOption(0);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                DoOption(1);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                DoOption(2);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                DoOption(3);
+            }
+        }
+        
     }
     public void StartCom(Com com)
     {
+        menuController.comActive = true;
         currentCom = com;
         CopyComData();
         comMenu.gameObject.SetActive(true);
@@ -41,6 +64,7 @@ public class ComHandler : MonoBehaviour
     }
     public void StartCom(Com com, ShipAI contact)
     {
+        menuController.comActive = true;
         currentCom = com;
         CopyComData(contact);
         comMenu.gameObject.SetActive(true);
@@ -49,6 +73,7 @@ public class ComHandler : MonoBehaviour
     }
     public void StartCom(Com com, Event contact)
     {
+        menuController.comActive = true;
         currentCom = com;
         CopyComData();
         comMenu.gameObject.SetActive(true);
@@ -64,6 +89,7 @@ public class ComHandler : MonoBehaviour
         }
         currentCom = null;
         comMenu.gameObject.SetActive(false);
+        menuController.comActive = false;
         Time.timeScale = 1.0f;
     }
 
@@ -318,8 +344,10 @@ public class ComHandler : MonoBehaviour
 
     void DoOption(int option)
     {
-        Debug.LogError(option);
         //Debug.LogError(currentCom.responses[option - 1].resultsBetween.Count);
+        //Debug.LogError((option + 1) + " of " + currentCom.responses.Count);
+        if (option + 1 > currentCom.responses.Count) { return; }
+        if (currentCom.responses[option].isExit) { EndComMenu(); return; }
         int i = Random.Range(0, currentCom.responses[option].resultsBetween.Count);
         LoadNextCom(currentCom.responses[option].resultsBetween[i]);
     }
