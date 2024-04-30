@@ -87,14 +87,14 @@ public class MenuController : MonoBehaviour
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.openInventory, transform.position);
         if (map.activeSelf) {
             mapSprites.SetParent(smallMapHolder);
-            mapSprites.localScale = new(1, 1);
+            mapSprites.localScale = new(1, 1, 1);
             mapSprites.localPosition = new(0, 0, 0);
             map.SetActive(false); 
             mapActive = false; 
         }
         else {
             mapSprites.SetParent(bigMapHolder);
-            mapSprites.localScale = new(1, 1);
+            mapSprites.localScale = new(1, 1, 1);
             mapSprites.localPosition = new(0, 0, 0);
             map.SetActive(true); 
             mapActive = true; 
