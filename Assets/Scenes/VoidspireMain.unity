@@ -308,6 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1efdb858a1e736942987d68e017388e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMainMenu: 0
 --- !u!1 &19542721
 GameObject:
   m_ObjectHideFlags: 0
@@ -6166,6 +6167,171 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!43 &310809726
+Mesh:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 11
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 42
+    topology: 0
+    baseVertex: 0
+    firstVertex: 0
+    vertexCount: 16
+    localAABB:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0.5, y: 0.5, z: 0}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_BonesAABB: []
+  m_VariableBoneCountWeights:
+    m_Data: 
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexFormat: 0
+  m_IndexBuffer: 00000100020003000100000003000400010005000400030006000400050004000600070002000800000000000900030001000a00020004000b00010003000c00050007000d00040005000e00060006000f000700
+  m_VertexData:
+    serializedVersion: 3
+    m_VertexCount: 16
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 28
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 704
+    _typelessdata: 0000003f000000bf000000000000803f0000008000000080000000800000003f000000bf0000003f000000bf0000003f0000003f00000000000000800000803f00000080000000800000003f0000003f0000003f0000003f0000003f00000000000000000000803f0000008000000080000000800000003f0000003f0000003f000000bf00000000000000bf0000000000000080000080bf00000000000000800000003f000000bf000000bf000000bf000000000000003f00000000000000800000803f0000008000000080000000bf0000003f0000003f0000003f000000bf000000bf0000000000000080000080bf0000000000000080000000bf000000bf000000bf000000bf000000bf0000000000000000000080bf000000800000008000000080000000bf000000bf000000bf0000003f000000bf0000003f00000000000080bf000000800000008000000080000000bf0000003f000000bf0000003f0000003f00000000000000000000803f0000008000000080000000800000003f0000003f0000003f000000bf0000003f000000bf0000000000000080000080bf00000000000000800000003f000000bf0000003f000000bf0000003f0000003f000000000000803f0000008000000080000000800000003f0000003f0000003f0000003f000000000000003f00000000000000800000803f0000008000000080000000bf0000003f0000003f0000003f00000000000000bf0000000000000080000080bf00000000000000800000003f000000bf000000bf000000bf000000bf0000003f00000000000000800000803f0000008000000080000000bf0000003f000000bf0000003f000000bf000000bf00000000000080bf000000800000008000000080000000bf000000bf000000bf000000bf000000bf0000000000000000000080bf000000800000008000000080000000bf000000bf000000bf0000003f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0.5, y: 0.5, z: 0}
+  m_MeshUsageFlags: 0
+  m_CookingOptions: 30
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshMetrics[0]: 1
+  m_MeshMetrics[1]: 1
+  m_MeshOptimizationFlags: 1
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!1 &315174592
 GameObject:
   m_ObjectHideFlags: 0
@@ -7705,12 +7871,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387165567}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1647590538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &389771080
 GameObject:
@@ -9426,12 +9592,6 @@ MonoBehaviour:
   eventParent: {fileID: 476736394}
   wallet: 0
   tutorialPanel: {fileID: 0}
-  audioSettings:
-  - 0.5
-  - 0.5
-  - 0.5
-  - 0.5
-  hudSetting: 0
   seedText: {fileID: 84284854}
   player: {fileID: 3085379300055439446}
   playerIsDead: 0
@@ -21701,50 +21861,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 747705880}
   m_CullTransparentMesh: 1
---- !u!1 &752473904
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 752473905}
-  - component: {fileID: 752473906}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &752473905
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 752473904}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1647590538}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &752473906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 752473904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba8f5ab7234b6184688f4d01d8b5eedc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &753468244
 GameObject:
   m_ObjectHideFlags: 0
@@ -30934,337 +31050,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1136044743}
   m_CullTransparentMesh: 1
---- !u!1 &1137560105
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1137560106}
-  - component: {fileID: 1137560107}
-  m_Layer: 0
-  m_Name: FMODEvents
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1137560106
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1137560105}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1647590538}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1137560107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1137560105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75d80b10579cb4a47ac26740e6cb82ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <mainThruster>k__BackingField:
-    Guid:
-      Data1: 399720898
-      Data2: 1093742272
-      Data3: -369823047
-      Data4: 487038193
-    Path: event:/Movement/ThrusterMain
-  <sideThruster>k__BackingField:
-    Guid:
-      Data1: -1256754515
-      Data2: 1208044861
-      Data3: -1789790321
-      Data4: -938669225
-    Path: event:/Movement/SideThruster
-  <rotateThruster>k__BackingField:
-    Guid:
-      Data1: 1260018734
-      Data2: 1121111288
-      Data3: -1486674794
-      Data4: -1372283464
-    Path: event:/Movement/RotateThruster
-  <backThruster>k__BackingField:
-    Guid:
-      Data1: 1631440157
-      Data2: 1115619885
-      Data3: -748582003
-      Data4: 407362723
-    Path: event:/Movement/BackThruster
-  <ftlAmbient>k__BackingField:
-    Guid:
-      Data1: -1450757482
-      Data2: 1270960793
-      Data3: 1385955729
-      Data4: -796814248
-    Path: event:/Movement/FTLAmbient
-  <ftlCharge>k__BackingField:
-    Guid:
-      Data1: 47159678
-      Data2: 1304697936
-      Data3: 54298756
-      Data4: 275420736
-    Path: event:/Movement/FTLChargeUp
-  <ftlExit>k__BackingField:
-    Guid:
-      Data1: 1555186353
-      Data2: 1194292994
-      Data3: -2117379181
-      Data4: -1820506858
-    Path: event:/Movement/FTLEnd
-  <gunLaser>k__BackingField:
-    Guid:
-      Data1: 849066350
-      Data2: 1184738691
-      Data3: 1444336031
-      Data4: 674167125
-    Path: event:/Weapon/GunFire
-  <gunLight>k__BackingField:
-    Guid:
-      Data1: -475462890
-      Data2: 1329188004
-      Data3: -1444830305
-      Data4: -1203673312
-    Path: event:/Weapon/GunLight
-  <gunHeavy>k__BackingField:
-    Guid:
-      Data1: 1246870014
-      Data2: 1271138384
-      Data3: 632964031
-      Data4: -1414009675
-    Path: event:/Weapon/GunHeavy
-  <beam>k__BackingField:
-    Guid:
-      Data1: -265085151
-      Data2: 1270540973
-      Data3: 1562000017
-      Data4: -1908739455
-    Path: event:/Weapon/BeamContinous
-  <railgun>k__BackingField:
-    Guid:
-      Data1: -1818330568
-      Data2: 1147355544
-      Data3: -447937919
-      Data4: -1940008519
-    Path: event:/Weapon/Railgun
-  <weaponChargeUp>k__BackingField:
-    Guid:
-      Data1: -446955084
-      Data2: 1336969326
-      Data3: 901182652
-      Data4: 2061003198
-    Path: event:/Weapon/WeaponChargeUp
-  <targetNothing>k__BackingField:
-    Guid:
-      Data1: 2078221358
-      Data2: 1076688856
-      Data3: -1997991490
-      Data4: -1689012867
-    Path: event:/Targeting/TargetNothing
-  <targetEnemy>k__BackingField:
-    Guid:
-      Data1: 1845074709
-      Data2: 1220704245
-      Data3: -488708176
-      Data4: -443488603
-    Path: event:/Targeting/TargetEnemy
-  <targetCancel>k__BackingField:
-    Guid:
-      Data1: -1602067106
-      Data2: 1125992150
-      Data3: -1498304849
-      Data4: 814811725
-    Path: event:/Targeting/TargetCancel
-  <comEventStart>k__BackingField:
-    Guid:
-      Data1: 853741168
-      Data2: 1250902182
-      Data3: 91508118
-      Data4: -1569259303
-    Path: event:/General/ComPling
-  <enemyActions>k__BackingField:
-    Guid:
-      Data1: -1550718775
-      Data2: 1275395995
-      Data3: -1840746349
-      Data4: -1765625025
-    Path: event:/General/EnemyActions
-  <enemyChargeFTL>k__BackingField:
-    Guid:
-      Data1: 1206239316
-      Data2: 1149038285
-      Data3: -345164122
-      Data4: 1765129769
-    Path: event:/Enemy/EnemyChargeFTL
-  <enemyEnterFTL>k__BackingField:
-    Guid:
-      Data1: 736000983
-      Data2: 1076018359
-      Data3: -2069986628
-      Data4: 2097700635
-    Path: event:/Enemy/EnemyEnterFTL
-  <enemyFireProjectile>k__BackingField:
-    Guid:
-      Data1: -1322337711
-      Data2: 1339779695
-      Data3: 53804434
-      Data4: 1563125434
-    Path: event:/Enemy/EnemyProjectile
-  <enemyFireLightProjectile>k__BackingField:
-    Guid:
-      Data1: 162116435
-      Data2: 1285867380
-      Data3: -2121020502
-      Data4: 236771787
-    Path: event:/Enemy/EnemyProjectileLight
-  <enemyFireMediumProjectile>k__BackingField:
-    Guid:
-      Data1: 1658520061
-      Data2: 1289374242
-      Data3: 1412740763
-      Data4: 2126021575
-    Path: event:/Enemy/EnemyProjectileMedium
-  <enemyFireHeavyProjectile>k__BackingField:
-    Guid:
-      Data1: -596716058
-      Data2: 1156750209
-      Data3: 1847161017
-      Data4: 1840867202
-    Path: event:/Enemy/EnemyProjectileLow
-  <enemyFireBigProjectile>k__BackingField:
-    Guid:
-      Data1: 28447756
-      Data2: 1330897147
-      Data3: -754807378
-      Data4: 731991649
-    Path: event:/Enemy/EnemyProjectileLowest
-  <enemyFireMissile>k__BackingField:
-    Guid:
-      Data1: 223615802
-      Data2: 1108181037
-      Data3: 963101346
-      Data4: 1007049541
-    Path: event:/Enemy/EnemyMissile
-  <electricBallFire>k__BackingField:
-    Guid:
-      Data1: 1316879488
-      Data2: 1277407614
-      Data3: 1875041444
-      Data4: 161836099
-    Path: event:/General/ElectricBallFire
-  <electricBallAmbient>k__BackingField:
-    Guid:
-      Data1: 573381247
-      Data2: 1295708547
-      Data3: -562003013
-      Data4: -155387826
-    Path: event:/General/ElecticBallAmbient
-  <playerHit>k__BackingField:
-    Guid:
-      Data1: -1600591811
-      Data2: 1178813806
-      Data3: 1303396024
-      Data4: -87891559
-    Path: event:/General/PlayerHit
-  <shieldHit>k__BackingField:
-    Guid:
-      Data1: -1777020610
-      Data2: 1294954334
-      Data3: -1614418795
-      Data4: -701341797
-    Path: event:/Shield/ShieldHit
-  <enemyHit>k__BackingField:
-    Guid:
-      Data1: 1996233026
-      Data2: 1172776065
-      Data3: -1360479822
-      Data4: 2093657982
-    Path: event:/Enemy/EnemyHit
-  <explosion>k__BackingField:
-    Guid:
-      Data1: -1309333272
-      Data2: 1310137929
-      Data3: -753904998
-      Data4: -1835757976
-    Path: event:/Enemy/Explosion
-  <shieldDown>k__BackingField:
-    Guid:
-      Data1: 317188977
-      Data2: 1212449583
-      Data3: 1176353442
-      Data4: -414822775
-    Path: event:/Shield/ShieldDown
-  <shieldUp>k__BackingField:
-    Guid:
-      Data1: -1983128016
-      Data2: 1333089034
-      Data3: -90099568
-      Data4: -511200054
-    Path: event:/Shield/ShieldUp
-  <hover>k__BackingField:
-    Guid:
-      Data1: -1944227480
-      Data2: 1251310357
-      Data3: -540873333
-      Data4: -794915692
-    Path: event:/UI/UIHover
-  <click>k__BackingField:
-    Guid:
-      Data1: -1509888905
-      Data2: 1106551514
-      Data3: -996955772
-      Data4: -311682815
-    Path: event:/UI/UISelect
-  <openInventory>k__BackingField:
-    Guid:
-      Data1: -399561220
-      Data2: 1337748716
-      Data3: 786765750
-      Data4: -380538792
-    Path: event:/UI/UIOpenInventory
-  <equipItem>k__BackingField:
-    Guid:
-      Data1: 1822731428
-      Data2: 1301255086
-      Data3: 878732942
-      Data4: 1073199860
-    Path: event:/UI/UIEquipItem
-  <swapItem>k__BackingField:
-    Guid:
-      Data1: -776754389
-      Data2: 1303677688
-      Data3: 2141318591
-      Data4: 2089265026
-    Path: event:/UI/UISwapItem
-  <mainMenuAmbient>k__BackingField:
-    Guid:
-      Data1: -1145687561
-      Data2: 1119280484
-      Data3: 2110502318
-      Data4: -434858784
-    Path: event:/AmbientMusic/MainMenu
-  <spaceAmbient>k__BackingField:
-    Guid:
-      Data1: 156929410
-      Data2: 1095440964
-      Data3: -327105121
-      Data4: 273515802
-    Path: event:/AmbientMusic/AmbientSpace
 --- !u!1 &1138824299
 GameObject:
   m_ObjectHideFlags: 0
@@ -33618,171 +33403,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213671023}
   m_CullTransparentMesh: 1
---- !u!43 &1217931920
-Mesh:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  serializedVersion: 11
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 42
-    topology: 0
-    baseVertex: 0
-    firstVertex: 0
-    vertexCount: 16
-    localAABB:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.5, y: 0.5, z: 0}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_BonesAABB: []
-  m_VariableBoneCountWeights:
-    m_Data: 
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexFormat: 0
-  m_IndexBuffer: 00000100020003000100000003000400010005000400030006000400050004000600070002000800000000000900030001000a00020004000b00010003000c00050007000d00040005000e00060006000f000700
-  m_VertexData:
-    serializedVersion: 3
-    m_VertexCount: 16
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 12
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 28
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 704
-    _typelessdata: 0000003f000000bf000000000000803f0000008000000080000000800000003f000000bf0000003f000000bf0000003f0000003f00000000000000800000803f00000080000000800000003f0000003f0000003f0000003f0000003f00000000000000000000803f0000008000000080000000800000003f0000003f0000003f000000bf00000000000000bf0000000000000080000080bf00000000000000800000003f000000bf000000bf000000bf000000000000003f00000000000000800000803f0000008000000080000000bf0000003f0000003f0000003f000000bf000000bf0000000000000080000080bf0000000000000080000000bf000000bf000000bf000000bf000000bf0000000000000000000080bf000000800000008000000080000000bf000000bf000000bf0000003f000000bf0000003f00000000000080bf000000800000008000000080000000bf0000003f000000bf0000003f0000003f00000000000000000000803f0000008000000080000000800000003f0000003f0000003f000000bf0000003f000000bf0000000000000080000080bf00000000000000800000003f000000bf0000003f000000bf0000003f0000003f000000000000803f0000008000000080000000800000003f0000003f0000003f0000003f000000000000003f00000000000000800000803f0000008000000080000000bf0000003f0000003f0000003f00000000000000bf0000000000000080000080bf00000000000000800000003f000000bf000000bf000000bf000000bf0000003f00000000000000800000803f0000008000000080000000bf0000003f000000bf0000003f000000bf000000bf00000000000080bf000000800000008000000080000000bf000000bf000000bf000000bf000000bf0000000000000000000080bf000000800000008000000080000000bf000000bf000000bf0000003f
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.5, y: 0.5, z: 0}
-  m_MeshUsageFlags: 0
-  m_CookingOptions: 30
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
-  m_MeshOptimizationFlags: 1
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
 --- !u!1 &1230026623
 GameObject:
   m_ObjectHideFlags: 0
@@ -41076,12 +40696,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1584028489}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1647590538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1584028492
 MonoBehaviour:
@@ -42705,10 +42325,10 @@ Transform:
   - {fileID: 193543351}
   - {fileID: 854715704}
   - {fileID: 394186932}
-  - {fileID: 752473905}
-  - {fileID: 1137560106}
   - {fileID: 15718598}
   - {fileID: 649462291}
+  - {fileID: 1584028491}
+  - {fileID: 387165569}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1650748984
@@ -59062,8 +58682,8 @@ MonoBehaviour:
   - {x: 0.5, y: 0.5, z: 0}
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
-  m_Mesh: {fileID: 1217931920}
-  m_InstanceId: 38034
+  m_Mesh: {fileID: 310809726}
+  m_InstanceId: 734278
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.5, y: 0.5, z: 0}
@@ -65375,8 +64995,6 @@ SceneRoots:
   - {fileID: 1930293723}
   - {fileID: 591270149}
   - {fileID: 1647590538}
-  - {fileID: 1584028491}
-  - {fileID: 387165569}
   - {fileID: 1893648610}
   - {fileID: 1148641624}
   - {fileID: 479825805}

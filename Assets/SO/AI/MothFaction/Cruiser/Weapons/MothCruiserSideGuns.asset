@@ -19,7 +19,7 @@ MonoBehaviour:
   damage: 0.2
   amount: 1
   shotSpeed: 1
-  fireRate: 2
+  fireRate: 1
   spread: 10
   gunRotSpeed: 2
   homing: 0

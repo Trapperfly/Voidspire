@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
 public class GlobalRefs : MonoBehaviour 
 {
     public static GlobalRefs Instance;
@@ -17,9 +16,6 @@ public class GlobalRefs : MonoBehaviour
 
     public Transform tutorialPanel;
 
-    public float[] audioSettings;
-    public bool hudSetting;
-
     [SerializeField] TMPro.TMP_Text seedText;
     private void Awake()
     {
@@ -32,6 +28,7 @@ public class GlobalRefs : MonoBehaviour
             Instance = this;
         }
         SetSeeds();
+        DontDestroyOnLoad(gameObject);
     }
 
     public GameObject player;
@@ -59,7 +56,7 @@ public class GlobalRefs : MonoBehaviour
     }
     private void SetSeeds()
     {
-        if (seed == 0) { seed = Random.Range(-10000000, 10000000); Random.InitState(seed); seedText.text = seed.ToString(); }
+        if (seed == 0) { seed = Random.Range(-10000000, 10000000); Random.InitState(seed); if (seedText) seedText.text = seed.ToString(); }
         
         //Set seeds 
         xSeed = Random.Range(-10000, 10000);

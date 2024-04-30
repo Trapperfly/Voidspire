@@ -36,7 +36,7 @@ MonoBehaviour:
   rotSpeed: 0.2
   strafeSpeed: 0.1
   jumpTime: 10
-  jumpSpeed: 100
+  jumpSpeed: 1000
   exploreMod: 0.5
   fleeMod: 1
   combatMod: 1

@@ -35,6 +35,7 @@ public class PassiveShield : GameTrigger
     Shield shield;
     public bool noShield;
     bool newShieldCheck;
+    bool start = false;
 
     EventInstance shieldUp;
     private void Awake()
@@ -52,8 +53,10 @@ public class PassiveShield : GameTrigger
         shieldRechargeImage = shieldRechargeBar.GetChild(1).GetComponent<Image>();
         shieldActive = true;
         shieldActiveForColliders = true;
+        start = true;
         SetNewStats();
         UpdateSize();
+        start = false;
 
         EquipmentController.Instance.onEquipmentLoadComplete -= CustomStart;
         EquipmentController.Instance.onEquipmentLoadComplete += SetNewStats;
@@ -63,10 +66,15 @@ public class PassiveShield : GameTrigger
         if (shield) { animTime = shield.shieldBreakAnimTime; storedID = shield.id; }
         shield = equipment.shieldSlots[0].item as Shield;
         if (shield) animTime = shield.shieldBreakAnimTime;
-        if (!shield) { noShield = true; shieldCurrent = 0; }
+        if (!shield) { noShield = true;
+            if (start) shieldCurrent = shield.shieldHealth;
+            else shieldCurrent = 0; }
         else
         {
-            if (shield.id != storedID) { shieldCurrent = 0; }
+            if (shield.id != storedID) {
+                if (start) shieldCurrent = shield.shieldHealth;
+                else shieldCurrent = 0;
+            }
             noShield = false;
         }
         UpdateSize();

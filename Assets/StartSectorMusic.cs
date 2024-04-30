@@ -5,13 +5,20 @@ using FMOD.Studio;
 
 public class StartSectorMusic : MonoBehaviour
 {
+    public bool isMainMenu;
     EventInstance backgroundMusic;
     // Start is called before the first frame update
     void Start()
     {
-        backgroundMusic = AudioManager.Instance.CreateInstance(FMODEvents.Instance.spaceAmbient);
+        if (isMainMenu) backgroundMusic = AudioManager.Instance.CreateInstance(FMODEvents.Instance.mainMenuAmbient);
+        else backgroundMusic = AudioManager.Instance.CreateInstance(FMODEvents.Instance.spaceAmbient);
         StartPlayback(backgroundMusic);
     }
+    private void OnDestroy()
+    {
+        StopPlayback(backgroundMusic, STOP_MODE.ALLOWFADEOUT);
+    }
+
     void StartPlayback(EventInstance audio)
     {
         PLAYBACK_STATE state;

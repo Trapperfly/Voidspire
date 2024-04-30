@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using FMODUnity;
+using ExtensionMethods;
 
 public class Damagable : GameTrigger
 {
@@ -23,10 +24,9 @@ public class Damagable : GameTrigger
 
     public EnemyHealthBar hb;
 
-    StudioEventEmitter emitter;
     private void Start()
     {
-        emitter = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyActions, gameObject);
+        
         if (isBoss) { Init(); }
         if (shipOverride) { return; }
         if (startHealth == 0)
@@ -151,7 +151,6 @@ public class Damagable : GameTrigger
     public override void OnHitEvent(float damage, Vector2 position)
     {
         base.OnHitEvent(damage, position);
-        emitter.EventInstance.setParameterByName("EnemyAction", 0);
-        emitter.Play();
+        AudioManager.Instance.PlayEmitter(FMODEvents.Instance.enemyActions, transform, 0);
     }
 }

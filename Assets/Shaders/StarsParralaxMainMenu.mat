@@ -95,13 +95,13 @@ Material:
     m_Colors:
     - _NebulaColor: {r: 0.75380325, g: 0, b: 1, a: 0}
     - _NebulaColor_1: {r: 0.9691129, g: 0, b: 1, a: 0}
-    - _NebulaOffset: {r: 2000.1764, g: 2000.2369, b: 0, a: 0}
-    - _NebulaOffset_1: {r: 1000.70593, g: 1000.94824, b: 0, a: 0}
+    - _NebulaOffset: {r: 2000.1113, g: 2000.2598, b: 0, a: 0}
+    - _NebulaOffset_1: {r: 1000.448, g: 1001.0384, b: 0, a: 0}
     - _NebulaTiling: {r: 1, g: 1, b: 0, a: 0}
     - _NebulaTiling_1: {r: 1, g: 1, b: 0, a: 0}
-    - _Offset1: {r: 203.53004, g: 204.74103, b: 0, a: 0}
-    - _Offset2: {r: 505.88345, g: 507.90176, b: 0, a: 0}
-    - _Offset3: {r: 1011.7669, g: 1015.8035, b: 0, a: 0}
+    - _Offset1: {r: 202.23979, g: 205.1922, b: 0, a: 0}
+    - _Offset2: {r: 503.73303, g: 508.65366, b: 0, a: 0}
+    - _Offset3: {r: 1007.46606, g: 1017.3073, b: 0, a: 0}
     - _TargetPos: {r: 441.0257, g: 1581.0258, b: 0, a: 0}
     - _Tiling1: {r: 10, g: 10, b: 0, a: 0}
     - _Tiling2: {r: 7.5, g: 7.5, b: 0, a: 0}
