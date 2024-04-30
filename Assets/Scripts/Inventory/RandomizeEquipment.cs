@@ -271,8 +271,8 @@ public class RandomizeEquipment : MonoBehaviour
     #region RandomizeGun
     public Weapon RandomizeGun(int level)
     {
-        bool fireRateBonus = false;
-        bool accuracyBonus = false;
+        //bool fireRateBonus = false;
+        //bool accuracyBonus = false;
         bool isHoming = false;
         bool isBounce = false;
         bool isPierce = false;
@@ -408,10 +408,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        fireRateBonus = true;
+                        //fireRateBonus = true;
                         break;
                     case 2:
-                        accuracyBonus = true;
+                        //accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -439,10 +439,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        fireRateBonus = true;
+                        //fireRateBonus = true;
                         break;
                     case 2:
-                        accuracyBonus = true;
+                        //accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -487,10 +487,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        fireRateBonus = true;
+                        //fireRateBonus = true;
                         break;
                     case 2:
-                        accuracyBonus = true;
+                        //accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -532,10 +532,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        fireRateBonus = true;
+                        //fireRateBonus = true;
                         break;
                     case 2:
-                        accuracyBonus = true;
+                        //accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -581,10 +581,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        fireRateBonus = true;
+                        //fireRateBonus = true;
                         break;
                     case 2:
-                        accuracyBonus = true;
+                        //accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -628,10 +628,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        fireRateBonus = true;
+                        //fireRateBonus = true;
                         break;
                     case 2:
-                        accuracyBonus = true;
+                        //accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -662,10 +662,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        fireRateBonus = true;
+                        //fireRateBonus = true;
                         break;
                     case 2:
-                        accuracyBonus = true;
+                        //accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -700,10 +700,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        fireRateBonus = true;
+                        //fireRateBonus = true;
                         break;
                     case 2:
-                        accuracyBonus = true;
+                        //accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -737,10 +737,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        fireRateBonus = true;
+                        //fireRateBonus = true;
                         break;
                     case 2:
-                        accuracyBonus = true;
+                        //accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -785,10 +785,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        fireRateBonus = true;
+                        //fireRateBonus = true;
                         break;
                     case 2:
-                        accuracyBonus = true;
+                        //accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -821,10 +821,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        fireRateBonus = true;
+                        //fireRateBonus = true;
                         break;
                     case 2:
-                        accuracyBonus = true;
+                        //accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -871,10 +871,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        fireRateBonus = true;
+                        //fireRateBonus = true;
                         break;
                     case 2:
-                        accuracyBonus = true;
+                        //accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -932,7 +932,7 @@ public class RandomizeEquipment : MonoBehaviour
         #region Weapon type stats text
         string statsNames = "Something is wong";
         string statsValues = "WTF";
-        bool showFireRate = true;
+        //bool showFireRate = true;
         bool anyBonus = isHoming || isPierce || isBounce || isBurst || isCharge;
         bool anyBonusBeamSpecific = isPierce;
         bool anyBonusRailgunSpecific = isBurst || isCharge || isPierce;
@@ -1641,6 +1641,7 @@ public class RandomizeEquipment : MonoBehaviour
                 weapon.burst = iR(burst) * 2;
                 weapon.burstDelay = fR(burstDelay);
                 weapon.amount *= 2;
+                weapon.fireRate = 60;
                 if (style == 0) // is low damage and high attack
                 {
                     weapon.burst *= 2;

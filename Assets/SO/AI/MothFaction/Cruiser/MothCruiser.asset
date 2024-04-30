@@ -28,7 +28,7 @@ MonoBehaviour:
   possibleComs: []
   possibleLowHealthComs: []
   baseCom: {fileID: 11400000, guid: d408ffeb297fadb4991f2270a357dac2, type: 2}
-  maxHealth: 120
+  maxHealth: 20
   maxShield: 0
   mass: 5
   isDisabled: 0

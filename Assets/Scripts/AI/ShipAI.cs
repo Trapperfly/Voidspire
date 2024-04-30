@@ -82,15 +82,12 @@ public class ShipAI : MonoBehaviour
     public Com contact;
     public Com lowHealthContact;
 
-    StudioEventEmitter fireMissileEmitter;
-    StudioEventEmitter fireEleBallEmitter;
-    StudioEventEmitter fireBeamEmitter;
-
-    StudioEventEmitter enemyChargeFTLEmitter;
-    StudioEventEmitter enemyEnterFTLEmitter;
+    StudioEventEmitter emitter;
+    bool startedJump;
 
     private void Start()
     {
+        emitter = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyActions, gameObject);
         contact = ship.possibleComs.Length > 0 ? ship.possibleComs[Random.Range(0, ship.possibleComs.Length - 1)] : ship.baseCom;
         lowHealthContact = ship.possibleLowHealthComs.Length > 0 ? ship.possibleLowHealthComs[Random.Range(0, ship.possibleLowHealthComs.Length - 1)] : ship.baseCom;
         if (level == 0)
@@ -457,8 +454,8 @@ public class ShipAI : MonoBehaviour
     {
         for (int i = 0; i < ship.specialAmount; i++)
         {
-            fireEleBallEmitter = AudioManager.Instance.InitEmitter(FMODEvents.Instance.electricBallFire, gameObject);
-            fireEleBallEmitter.Play();
+            emitter.EventInstance.setParameterByName("EnemyAction", 5);
+            emitter.Play();
             AIBullet bullet = Instantiate
                 (EnemyManager.Instance.ElectricBallPrefab,
                 transform.position, Spread(transform.rotation,
@@ -492,8 +489,8 @@ public class ShipAI : MonoBehaviour
             bullet.damage = ship.specialAttackDamage;
             bullet.speed = ship.specialAttackSpeed;
             bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * ship.specialAttackSpeed, ForceMode2D.Impulse);
-            fireMissileEmitter = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyFireMissile, gameObject);
-            fireMissileEmitter.Play();
+            emitter.EventInstance.setParameterByName("EnemyAction", 4);
+            emitter.Play();
             yield return new WaitForSeconds(0.1f);
         }
         yield return null;
@@ -510,8 +507,8 @@ public class ShipAI : MonoBehaviour
         var trails = beamHitPs.trails;
         trails.colorOverTrail = EnemyManager.Instance.beamColor;
         var emis = beamHitPs.emission;
-        fireBeamEmitter = AudioManager.Instance.InitEmitter(FMODEvents.Instance.beam, gameObject);
-        fireBeamEmitter.Play();
+        emitter.EventInstance.setParameterByName("EnemyAction", 6);
+        emitter.Play();
         while (active)
         {
             //Calculate baser and hit
@@ -548,7 +545,7 @@ public class ShipAI : MonoBehaviour
                 active = false;
             yield return new WaitForEndOfFrame();
         }
-        fireBeamEmitter.Stop();
+        emitter.Stop();
         Destroy(beam.gameObject);
         emis.enabled = false;
         Destroy(beamHitPs.gameObject, 0.5f);
@@ -959,19 +956,22 @@ public class ShipAI : MonoBehaviour
     }
     void Jump()
     {
-        if (!enemyChargeFTLEmitter.IsPlaying()) { 
-            enemyChargeFTLEmitter = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyChargeFTL, gameObject); 
-            enemyChargeFTLEmitter.Play(); }
-        jumping = true;
+        if (!startedJump)
+        {
+            emitter.EventInstance.setParameterByName("EnemyAction", 2);
+            emitter.Play();
+            startedJump = true;
+        }
         var tEmis = thrustersPS.emission;
         if (jumpTimer > ship.jumpTime * 60)
         {
-            if (jumped) enemyChargeFTLEmitter.Stop();
             if (jumped) {
-                enemyEnterFTLEmitter = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyEnterFTL, gameObject);
-                enemyEnterFTLEmitter.Play();
+                emitter.EventInstance.setParameterByName("EnemyAction", 2);
+                emitter.Stop();
+                emitter.EventInstance.setParameterByName("EnemyAction", 3);
+                emitter.Play();
             }
-            
+
             jumped = false;
             if (!tEmis.enabled)
                 tEmis.enabled = true;
@@ -981,7 +981,10 @@ public class ShipAI : MonoBehaviour
         }
         jumpTimer++;
         if (jumpTimer > ship.jumpTime * 60 * 2)
+        {
             Destroy(gameObject);
+
+        }
     }
 
     /*

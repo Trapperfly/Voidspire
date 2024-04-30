@@ -26,6 +26,7 @@ public class Damagable : GameTrigger
     StudioEventEmitter emitter;
     private void Start()
     {
+        emitter = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyActions, gameObject);
         if (isBoss) { Init(); }
         if (shipOverride) { return; }
         if (startHealth == 0)
@@ -150,7 +151,7 @@ public class Damagable : GameTrigger
     public override void OnHitEvent(float damage, Vector2 position)
     {
         base.OnHitEvent(damage, position);
-        emitter = AudioManager.Instance.InitEmitter(FMODEvents.Instance.enemyHit, gameObject);
+        emitter.EventInstance.setParameterByName("EnemyAction", 0);
         emitter.Play();
     }
 }

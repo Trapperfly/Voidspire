@@ -98,22 +98,9 @@ public class GunFire : MonoBehaviour
                 spreadScalar += (1 / fireRateA) / w.spreadChangeTimer;
             }
             FindExtraShotChance(fireRateA);
-            if (w.chargeUp == 0 || charge > w.chargeUp * 60)
+            if (w.chargeUp == 0)
             {
-                if (w.burst != 0 && !inBurst)
-                {
-                    StartCoroutine(Burst(w.burst, w.burstDelay));
-                }
-                else if (!inBurst)
-                {
-                    for (int i = w.amount + extraShot; i > 0; i--)
-                    {
-                        Shoot();
-                        charge = 0;
-                        chargeAvailable = false;
-                    }
-                    extraShot = 0;
-                }
+                FireWeapon();
             }
             else if (w.chargeUp != 0 && chargeAvailable == true)
             {
@@ -122,7 +109,8 @@ public class GunFire : MonoBehaviour
         }
         if (!Input.GetKey(KeyCode.Mouse0))
         {
-            if (charge >= 2)
+            if (charge >= w.chargeUp * 60) { }
+            else if (charge >= 2)
             {
                 charge -= 2;
             }
@@ -152,6 +140,24 @@ public class GunFire : MonoBehaviour
             gunTimer++;
         }
         else { spreadA = 0; fireRateA = 0; gunTimer = 0; }
+    }
+
+    void FireWeapon()
+    {
+        if (w.burst != 0 && !inBurst)
+        {
+            StartCoroutine(Burst(w.burst, w.burstDelay));
+        }
+        else if (!inBurst)
+        {
+            for (int i = w.amount + extraShot; i > 0; i--)
+            {
+                Shoot();
+                charge = 0;
+                chargeAvailable = false;
+            }
+            extraShot = 0;
+        }
     }
     IEnumerator Burst(int times, float delay)
     {
@@ -489,7 +495,11 @@ public class GunFire : MonoBehaviour
     }
     private void Update()
     {
-        if (w) { meter.fillAmount = gunTimer / (Mathf.Clamp(60 / fireRateA, 1, 600)); } else meter.fillAmount = 0;
+        if (w && w.chargeUp > 0) { meter.fillAmount = charge / (60 * w.chargeUp); }
+        else if (w) { meter.fillAmount = gunTimer / (Mathf.Clamp(60 / fireRateA, 1, 600)); }
+        else meter.fillAmount = 0;
+
+        if (w.chargeUp > 0 && charge >= w.chargeUp * 60 && Input.GetKeyUp(KeyCode.Mouse0)) FireWeapon();
         Debug.DrawRay(bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.up);
     }
     float Speed(float baseSpeed)

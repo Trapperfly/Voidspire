@@ -60,7 +60,11 @@ public class FPSCounter : MonoBehaviour
         }
         // Assign to UI with additional text indicator
         {
-            FPS_Text.text = "FPS: " + Text.text;
+            string result = "";
+            if (Text.text.Length == 1) result = "  " + Text.text;
+            else if (Text.text.Length == 2) result = " " + Text.text;
+            else result = Text.text;
+            FPS_Text.text = "FPS:" + result;
         }
 
     }

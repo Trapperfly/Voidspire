@@ -18,7 +18,7 @@ MonoBehaviour:
     can have the one thing i have.
   result:
   - result: 5
-    resultValue: {x: 5, y: 0}
+    resultValue: {x: 5, y: 2}
   responses:
   - name: Continue
     dependance: 0

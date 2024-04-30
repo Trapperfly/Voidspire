@@ -158,7 +158,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.7045965, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5202,6 +5202,8 @@ MonoBehaviour:
   doubleDamage: 0
   enabledSpecialAttack: 0
   unlockedGuns: 0
+  contact: {fileID: 0}
+  lowHealthContact: {fileID: 0}
 --- !u!114 &3550362939253741042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5445,6 +5447,7 @@ MonoBehaviour:
   stat: {fileID: 0}
   bulletSpawnPoint: {fileID: 1058510015244001123}
   autoFire: 0
+  gunTimerOffset: 0
 --- !u!114 &2216482716536093299
 MonoBehaviour:
   m_ObjectHideFlags: 0

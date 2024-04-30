@@ -138,7 +138,7 @@ public class SpawnEnemies : MonoBehaviour
         int amount = Random.Range(0, funds);
         Vector2 spawnLocation = pos + new Vector2(Random.Range(-range, range), Random.Range(-range, range));
 
-        while (amount > 0)
+        while (NotFullySpent(pirateShips, amount))
         {
             int selected = Random.Range(0, pirateShips.Length);
             if (pirateShips[selected].cost <= amount)
@@ -195,6 +195,24 @@ public class SpawnEnemies : MonoBehaviour
             Quaternion.Euler(0, 0, (Random.value * 360) - 180),
             transform
         ).GetComponent<ShipAI>().level = level;
+    }
+
+    bool NotFullySpent(Enemy[] faction, int wallet)
+    {
+        int lowestCost = 1000;
+        for (int i = 0; i < faction.Length; i++)
+        {
+            int temp = faction[i].cost;
+            if (temp < lowestCost)
+            {
+                lowestCost = temp;
+            }
+        }
+        if (lowestCost <= wallet && wallet > 0)
+        {
+            return true;
+        }
+        else return false;
     }
 
     //Vector3 RandomOutsideView()

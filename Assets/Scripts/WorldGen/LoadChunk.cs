@@ -77,8 +77,10 @@ public class LoadChunk : MonoBehaviour
     }
     IEnumerator LoadPirateEnemies(float amount, int level)
     {
-        if (Random.value < Mathf.Pow(chunk.pirateValue, 3))
+        if (Random.value < Mathf.Pow(chunk.pirateValue, 5))
+        {
             SpawnEnemies.Instance.SpawnPirateEnemies(transform.position, loader.chunkSize / 2, level);
+        }
         yield return null;
     }
     IEnumerator LoadCiv(float amount, int level)

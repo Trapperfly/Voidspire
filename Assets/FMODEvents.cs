@@ -31,6 +31,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference comEventStart { get; private set; }
     
     [field: Header("Enemy")]
+    [field: SerializeField] public EventReference enemyActions { get; private set; }
     [field: SerializeField] public EventReference enemyChargeFTL { get; private set; }
     [field: SerializeField] public EventReference enemyEnterFTL { get; private set; }
     [field: SerializeField] public EventReference enemyFireProjectile { get; private set; }
