@@ -19,6 +19,9 @@ public class SpawnEnemies : MonoBehaviour
     [Header("Chitin")]
     public Enemy[] chitinShips;
 
+    [Header("Space Pirate")]
+    public Enemy[] pirateShips;
+
     [System.Serializable]
     public class Enemy
     {
@@ -132,38 +135,21 @@ public class SpawnEnemies : MonoBehaviour
 
     public void SpawnPirateEnemies(Vector2 pos, float range, int level)
     {
-        int amount = Random.Range(1, 101) switch
-        {
-            > (100 - tenSpawnPercent) => 10,
-            > (100 - fiveSpawnPercent) => 5,
-            > (100 - twoSpawnPercent) => 2,
-            > (100 - oneSpawnPercent) => 1,
-            _ => 0
-        };
+        int amount = Random.Range(0, funds);
         Vector2 spawnLocation = pos + new Vector2(Random.Range(-range, range), Random.Range(-range, range));
-        for (int i = amount; i > 0; i--)
+
+        while (amount > 0)
         {
-            if (Random.Range(0, 2) == 0)
-                Instantiate
-                (
-                    lurkerPrefab,
-                    spawnLocation + (Vector2)Random.insideUnitSphere,
-                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
-                    transform
-                ).GetComponent<ShipAI>().level = level;
-            else
+            int selected = Random.Range(0, pirateShips.Length);
+            if (pirateShips[selected].cost <= amount)
             {
-                Instantiate
-                (
-                    arbalestPrefab,
-                    spawnLocation + (Vector2)Random.insideUnitSphere,
-                    Quaternion.Euler(0, 0, (Random.value * 360) - 180),
-                    transform
-                ).GetComponent<ShipAI>().level = level;
-                i--;
+                SpawnEnemy(spawnLocation, level, pirateShips[selected].prefab);
+                amount -= pirateShips[selected].cost;
             }
         }
-    } // Spawns one
+
+
+    } // Spawns preset squadron sizes
 
     public void SpawnCiv(Vector2 pos, float range, int level)
     {

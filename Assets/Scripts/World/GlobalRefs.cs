@@ -17,6 +17,9 @@ public class GlobalRefs : MonoBehaviour
 
     public Transform tutorialPanel;
 
+    public float[] audioSettings;
+    public bool hudSetting;
+
     [SerializeField] TMPro.TMP_Text seedText;
     private void Awake()
     {

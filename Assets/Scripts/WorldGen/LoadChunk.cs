@@ -46,7 +46,7 @@ public class LoadChunk : MonoBehaviour
         StartCoroutine(LoadVoidEnemies(ChunkLoader.voidMultiplier, chunkLevel));
         StartCoroutine(LoadChitinEnemies(ChunkLoader.chitinMultiplier, chunkLevel));
         //StartCoroutine(LoadChromeEnemies(ChunkLoader.chromeMultiplier, Mathf.RoundToInt(chunkDif)));
-        //StartCoroutine(LoadPirateEnemies(ChunkLoader.pirateMultiplier, Mathf.RoundToInt(chunkDif)));
+        StartCoroutine(LoadPirateEnemies(ChunkLoader.pirateMultiplier, chunkLevel));
         //StartCoroutine(LoadCiv(ChunkLoader.civMultiplier, Mathf.RoundToInt(chunkDif)));
         yield return null;
     }
@@ -77,11 +77,8 @@ public class LoadChunk : MonoBehaviour
     }
     IEnumerator LoadPirateEnemies(float amount, int level)
     {
-        for (int i = 0; i < amount; i++)
-        {
-            if (Random.value < Mathf.Pow(chunk.pirateValue, 3))
-                SpawnEnemies.Instance.SpawnPirateEnemies(transform.position, loader.chunkSize / 2, level);
-        }
+        if (Random.value < Mathf.Pow(chunk.pirateValue, 3))
+            SpawnEnemies.Instance.SpawnPirateEnemies(transform.position, loader.chunkSize / 2, level);
         yield return null;
     }
     IEnumerator LoadCiv(float amount, int level)

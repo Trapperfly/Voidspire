@@ -8,6 +8,7 @@ public class MenuController : MonoBehaviour
 {
     bool gamePaused;
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject settingsMenu;
     [SerializeField] GameObject map;
     [SerializeField] GameObject chunkMap;
     [SerializeField] GameObject inventory;
@@ -19,6 +20,7 @@ public class MenuController : MonoBehaviour
     public Transform smallMapHolder;
 
     bool inventoryActive;
+    bool settingsActive;
     bool mapActive;
     //bool chunkMapActive;
     bool escActive;
@@ -28,9 +30,10 @@ public class MenuController : MonoBehaviour
     {
         if (inventoryActive && Input.GetKeyDown(KeyCode.Escape)) Inventory();
         else if (mapActive && Input.GetKeyDown(KeyCode.Escape)) MapMode();
+        else if (settingsActive && Input.GetKeyDown(KeyCode.Escape)) OpenSettings();
         else if (Input.GetKeyDown(KeyCode.Escape)) PauseGame();
-        if (!escActive && !inventoryActive && Input.GetKeyDown(KeyCode.M)) MapMode();
-        if (!escActive && !mapActive && Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)) Inventory();
+        if (!escActive && !inventoryActive && !settingsActive && Input.GetKeyDown(KeyCode.M)) MapMode();
+        if (!escActive && !mapActive && !settingsActive && Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)) Inventory();
     }
 
     public void PauseGame()
@@ -44,6 +47,37 @@ public class MenuController : MonoBehaviour
             pauseMenu.SetActive(true);
         }
         else ResumeGame();
+    }
+
+    public void OpenSettings()
+    {
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.openInventory, transform.position);
+        if (settingsActive)
+        {
+            settingsActive = false;
+            settingsMenu.SetActive(false);
+            if (escActive)
+            {
+                pauseMenu.SetActive(true);
+            }
+            else
+            {
+                gamePaused = false;
+                Time.timeScale = 1f;
+            }
+            return;
+        }
+        if (escActive)
+        {
+            pauseMenu.SetActive(false);
+        }
+        if (!gamePaused)
+        {
+            gamePaused = true;
+            Time.timeScale = 0f;
+        }
+        settingsActive = true;
+        settingsMenu.SetActive(true);
     }
 
     public void MapMode()

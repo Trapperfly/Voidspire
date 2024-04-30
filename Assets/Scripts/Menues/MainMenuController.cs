@@ -17,11 +17,11 @@ public class MainMenuController : MonoBehaviour
     {
         //find saved run and swap savedRun to true
         //then enable the button if it finds a saved run, else disable button
-        if (!savedRun) mainButtons[0].interactable = false;
-        mainButtons[2].interactable = false;
-        mainButtons[3].interactable = false;
-        mainButtons[4].interactable = false;
-        mainButtons[5].interactable = false;
+        //if (!savedRun) mainButtons[0].interactable = false;
+        //mainButtons[2].interactable = false;
+        //mainButtons[3].interactable = false;
+        //mainButtons[4].interactable = false;
+        //mainButtons[5].interactable = false;
     }
 
     public void NewGame()
