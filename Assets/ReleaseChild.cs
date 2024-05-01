@@ -9,7 +9,7 @@ public class ReleaseChild : MonoBehaviour
     public Transform toWhatParent;
     private void OnDisable()
     {
-        if (quitting) return;
+        if (MenuController.Instance.isChangingScene || quitting) return;
         foreach (Transform t in child) { t.parent = null; if (t.GetComponent<DestroyPS>()) t.GetComponent<DestroyPS>().enabled = true; }
     }
     private void OnApplicationQuit()

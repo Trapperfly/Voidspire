@@ -28,6 +28,21 @@ public class MenuController : MonoBehaviour
     public bool comActive;
 
     public Image newItemIcon;
+
+    public bool isChangingScene = false;
+
+    public static MenuController Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     void Update()
     {
         if (inventoryActive && Input.GetKeyDown(KeyCode.Escape)) Inventory();
@@ -151,6 +166,7 @@ public class MenuController : MonoBehaviour
     IEnumerator QuitOut()
     {
         Time.timeScale = 1;
+        isChangingScene = true;
         SceneManager.LoadScene(1);
         yield return null;
     }
