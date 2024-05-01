@@ -25,6 +25,8 @@ public class SettingsManager : MonoBehaviour
         {
             Instance.controllers = controllers;
             Instance.settingsMenu = settingsMenu;
+            Instance.hudSprites = hudSprites;
+            Instance.hudSettingGO = hudSettingGO;
             Instance.hudItems = hudItems;
             Instance.hudCorners = hudCorners;
             Destroy(this);
@@ -34,18 +36,6 @@ public class SettingsManager : MonoBehaviour
             Instance = this;
         }
         DontDestroyOnLoad(gameObject);
-    }
-    IEnumerator StartSettingsMenu()
-    {
-        settingsMenu.SetActive(true);
-        yield return new WaitForFixedUpdate();
-        settingsMenu.SetActive(false);
-        yield return null;
-    }
-    private void Start()
-    {
-        StartCoroutine(nameof(StartSettingsMenu));
-        SetHudSetting(true);
     }
 
     public void SetHudSetting(bool onOff)

@@ -386,6 +386,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 0.2
-  infoBox: {fileID: 1769174328247172620, guid: 446f996a2c3dc404a8483137f5cc447e, type: 3}
+  infoBoxSmall: {fileID: 1769174328247172620, guid: 446f996a2c3dc404a8483137f5cc447e, type: 3}
+  infoBoxMedium: {fileID: 1769174328247172620, guid: b4cd79e98245d0f44b04fa10c9345184, type: 3}
+  infoBoxLarge: {fileID: 1769174328247172620, guid: d5acd8e813f813141a0533419d1c2665, type: 3}
   infoBoxActive: 0
   activeInfoBox: {fileID: 0}

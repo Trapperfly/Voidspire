@@ -16,6 +16,8 @@ public class InventorySlot : MonoBehaviour
     public Sprite lockedSprite;
     public Item item;
 
+    public bool low;
+
     public void Refresh()
     {
         if (this is EquipmentSlot)
