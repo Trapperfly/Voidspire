@@ -142,14 +142,14 @@ public class AudioManager : MonoBehaviour
     {
         GameObject _emitterGO = Instantiate(emitterPrefab, transform);
         StudioEventEmitter _emitter = InitEmitter(_event, _emitterGO);
-        _emitter.EventInstance.setParameterByName("EnemyAction", param);
+        _emitter.Params[0].Value = param; //.SetParameter("EnemyAction", param);
         _emitter.Play();
     }
     public StudioEventEmitter PlayEmitterWithReturn(EventReference _event, Transform transform, int param)
     {
         GameObject _emitterGO = Instantiate(emitterPrefab, transform);
         StudioEventEmitter _emitter = InitEmitter(_event, _emitterGO);
-        _emitter.EventInstance.setParameterByName("EnemyAction", param);
+        _emitter.Params[0].Value = param;
         _emitter.Play();
         return _emitter;
     }

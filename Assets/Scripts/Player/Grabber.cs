@@ -121,10 +121,12 @@ public class Grabber : GameTrigger
         GlobalRefs.Instance.player.GetComponent<ShipControl>().UpdateFuel();
         Debug.Log(GlobalRefs.Instance.player.GetComponent<PlayerHealth>().hull.hullCurrentHealth);
         GlobalRefs.Instance.wallet += transform.GetComponentInChildren<Resource>().worth;
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.resourcePickup, transform.position);
     }
     public override void OnPickUpWeapon()
     {
         base.OnPickUpWeapon();
         openspace = GetComponentInChildren<ItemInfo>().Pickup();
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.lootPickup, transform.position);
     }
 }

@@ -60,7 +60,9 @@ MonoBehaviour:
   TriggerOnce: 0
   Preload: 0
   AllowNonRigidbodyDoppler: 0
-  Params: []
+  Params:
+  - Name: EnemyAction
+    Value: 0
   OverrideAttenuation: 1
   OverrideMinDistance: 1
   OverrideMaxDistance: 10

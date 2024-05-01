@@ -807,12 +807,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.96770006, y: 0.96770006, z: 0.96770006}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 954084893}
+  - {fileID: 379845565}
   m_Father: {fileID: 1209582733}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -0.7000122, y: 0}
+  m_AnchoredPosition: {x: -0.6999512, y: 0}
   m_SizeDelta: {x: 1078.125, y: 1125}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &110948814
@@ -2853,19 +2855,19 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379845564}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -27}
-  m_LocalScale: {x: 0.96770006, y: 0.96770006, z: 0.96770006}
+  m_LocalPosition: {x: 0, y: 0, z: -27.901207}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1437591404}
   - {fileID: 1038157763}
   - {fileID: 1921242956}
   - {fileID: 101064436}
-  m_Father: {fileID: 1209582733}
+  m_Father: {fileID: 110948813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -745.8, y: -252.85}
+  m_AnchoredPosition: {x: -316.98953, y: -261.28964}
   m_SizeDelta: {x: 383.22498, y: 530.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &385636042
@@ -3885,6 +3887,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   emitterPrefab: {fileID: 7749023627688339987, guid: 35fb0b8e6610dc24086ebcd32752c4c1, type: 3}
+  combatTime: 0
+  explorationTime: 0
+  magicTime: 0
 --- !u!4 &511484220
 Transform:
   m_ObjectHideFlags: 0
@@ -6410,6 +6415,27 @@ MonoBehaviour:
       Data3: -327105121
       Data4: 273515802
     Path: event:/AmbientMusic/AmbientSpace
+  <music>k__BackingField:
+    Guid:
+      Data1: -428796772
+      Data2: 1175371502
+      Data3: 157282726
+      Data4: 49414250
+    Path: event:/AmbientMusic/AdaptiveMusic
+  <resourcePickup>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <lootPickup>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!4 &759920867
 Transform:
   m_ObjectHideFlags: 0
@@ -7126,16 +7152,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954084892}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.033378, y: 1.033378, z: 1.033378}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1209582733}
+  m_Father: {fileID: 110948813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -493.7, y: -514.2}
+  m_AnchoredPosition: {x: -56.474884, y: -531.36304}
   m_SizeDelta: {x: 190.4, y: 18.27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &954084894
@@ -7158,7 +7184,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0.2.0
+  m_text: 0.2.21
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1c98d7d1bc518a14c9b4c3e9b3adf0fc, type: 2}
   m_sharedMaterial: {fileID: -7623979546091122847, guid: 1c98d7d1bc518a14c9b4c3e9b3adf0fc, type: 2}
@@ -8912,8 +8938,6 @@ RectTransform:
   - {fileID: 208703362}
   - {fileID: 715218219}
   - {fileID: 110948813}
-  - {fileID: 379845565}
-  - {fileID: 954084893}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -11563,7 +11587,14 @@ MonoBehaviour:
   - 0.5
   - 0.5
   hudSetting: 0
+  hudItems: []
+  hudCorners: []
+  hudSprites: []
   settingsMenu: {fileID: 882882046}
+  controllers: []
+  defaultVolumeSetting: []
+  hudSettingGO: []
+  defaultHudSetting: 0
 --- !u!4 &1549745485
 Transform:
   m_ObjectHideFlags: 0

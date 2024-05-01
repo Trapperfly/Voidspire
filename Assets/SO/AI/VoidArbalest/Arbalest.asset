@@ -57,19 +57,19 @@ MonoBehaviour:
   isDisarmed: 0
   specialAttack: 1
   startSpecialImmediately: 0
-  specialAttackCD: 5
+  specialAttackCD: 4
   specialAttackDamage: 1
   specialAttackSpeed: 3
   specialAttackSpread: 0
   specialAmount: 1
   damageTickTime: 0.1
-  specialIsHoming: 0
-  specialHomingStrength: 0
-  aimTheSpecial: 0
+  specialIsHoming: 1
+  specialHomingStrength: 50
+  aimTheSpecial: 1
   stopCoreWhenSpecial: 1
   stopCoreWhenSpecialLong: 0
-  stopCoreForSeconds: 0
-  predictWhenAiming: 0
+  stopCoreForSeconds: 1
+  predictWhenAiming: 1
   specialHitMask:
     serializedVersion: 2
     m_Bits: 0

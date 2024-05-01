@@ -960,7 +960,7 @@ public class ShipAI : MonoBehaviour
         if (jumpTimer > ship.jumpTime * 60)
         {
             if (jumped) {
-                StudioEventEmitter emitter = AudioManager.Instance.PlayEmitterWithReturn(FMODEvents.Instance.enemyEnterFTL, transform);
+                StudioEventEmitter emitter = AudioManager.Instance.PlayEmitterWithReturn(FMODEvents.Instance.enemyEnterFTL, transform, 3);
                 emitter.transform.SetParent(null);
             }
 
@@ -990,8 +990,6 @@ public class ShipAI : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (healthModule.currentHealth <= 0)
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.explosion, transform.position);
         foreach (var ps in toDestroy)
         {
             Destroy(ps);

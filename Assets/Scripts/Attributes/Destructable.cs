@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class Destructable : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class Destructable : MonoBehaviour
     }
     private void OnDestroy()
     {
+        TryGetComponent(out Damagable health);
+        if (health && health.currentHealth <= 0) {
+            AudioManager.Instance.PlayEmitter(FMODEvents.Instance.enemyActions, transform, 1);
+            //emitter.transform.SetParent(null);
+        }
         if (addParticleEffect)
         {
             var emis = ps.emission;
