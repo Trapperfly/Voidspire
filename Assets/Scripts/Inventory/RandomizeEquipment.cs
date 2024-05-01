@@ -271,8 +271,8 @@ public class RandomizeEquipment : MonoBehaviour
     #region RandomizeGun
     public Weapon RandomizeGun(int level)
     {
-        //bool fireRateBonus = false;
-        //bool accuracyBonus = false;
+        bool fireRateBonus = false;
+        bool accuracyBonus = false;
         bool isHoming = false;
         bool isBounce = false;
         bool isPierce = false;
@@ -408,10 +408,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        //fireRateBonus = true;
+                        fireRateBonus = true;
                         break;
                     case 2:
-                        //accuracyBonus = true;
+                        accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -434,19 +434,6 @@ public class RandomizeEquipment : MonoBehaviour
                 weapon.punch = fR(punch) / 2;
                 break;
             case WeaponType.Beam:
-                switch (AddBonusFireROrAcc(weapon))
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        //fireRateBonus = true;
-                        break;
-                    case 2:
-                        //accuracyBonus = true;
-                        break;
-                    default:
-                        break;
-                }
 
                 switch (AddBounceOrPierce(weapon))
                 {
@@ -487,10 +474,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        //fireRateBonus = true;
+                        fireRateBonus = true;
                         break;
                     case 2:
-                        //accuracyBonus = true;
+                        accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -532,10 +519,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        //fireRateBonus = true;
+                        fireRateBonus = true;
                         break;
                     case 2:
-                        //accuracyBonus = true;
+                        accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -581,10 +568,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        //fireRateBonus = true;
+                        fireRateBonus = true;
                         break;
                     case 2:
-                        //accuracyBonus = true;
+                        accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -628,10 +615,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        //fireRateBonus = true;
+                        fireRateBonus = true;
                         break;
                     case 2:
-                        //accuracyBonus = true;
+                        accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -662,10 +649,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        //fireRateBonus = true;
+                        fireRateBonus = true;
                         break;
                     case 2:
-                        //accuracyBonus = true;
+                        accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -700,10 +687,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        //fireRateBonus = true;
+                        fireRateBonus = true;
                         break;
                     case 2:
-                        //accuracyBonus = true;
+                        accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -737,10 +724,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        //fireRateBonus = true;
+                        fireRateBonus = true;
                         break;
                     case 2:
-                        //accuracyBonus = true;
+                        accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -785,10 +772,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        //fireRateBonus = true;
+                        fireRateBonus = true;
                         break;
                     case 2:
-                        //accuracyBonus = true;
+                        accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -821,10 +808,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        //fireRateBonus = true;
+                        fireRateBonus = true;
                         break;
                     case 2:
-                        //accuracyBonus = true;
+                        accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -871,10 +858,10 @@ public class RandomizeEquipment : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        //fireRateBonus = true;
+                        fireRateBonus = true;
                         break;
                     case 2:
-                        //accuracyBonus = true;
+                        accuracyBonus = true;
                         break;
                     default:
                         break;
@@ -933,7 +920,7 @@ public class RandomizeEquipment : MonoBehaviour
         string statsNames = "Something is wong";
         string statsValues = "WTF";
         //bool showFireRate = true;
-        bool anyBonus = isHoming || isPierce || isBounce || isBurst || isCharge;
+        bool anyBonus = isHoming || isPierce || isBounce || isBurst || isCharge || fireRateBonus || accuracyBonus;
         bool anyBonusBeamSpecific = isPierce;
         bool anyBonusRailgunSpecific = isBurst || isCharge || isPierce;
 
@@ -963,6 +950,8 @@ public class RandomizeEquipment : MonoBehaviour
                 if (isBounce) { statsValues += "Bounce: " + weapon.bounce + "\n"; weapon.statLength++; }
                 if (isBurst) { statsValues += "Burst: " + weapon.burst + "\n"; weapon.statLength++; }
                 if (isCharge) { statsValues += "Charge: " + weapon.chargeUp.ToString("F2") + "\n"; weapon.statLength++; }
+                if (fireRateBonus) { statsValues += "Cascading: " + weapon.fireRateChange + "\n"; weapon.statLength++; }
+                if (accuracyBonus) { statsValues += "Narrowing: " + weapon.spreadChange + "\n"; weapon.statLength++; }
                 if (!anyBonus) { statsValues += "None"; weapon.statLength++; }
                 break;
             //if (isHoming) { statsNames += "Homing:\n" + "Strength:\n"; weapon.statLength += 2; }
@@ -1025,6 +1014,8 @@ public class RandomizeEquipment : MonoBehaviour
                 if (isBounce) { statsValues += "Bounce: " + weapon.bounce + "\n"; weapon.statLength++; }
                 if (isBurst) { statsValues += "Burst: " + weapon.burst + "\n"; weapon.statLength++; }
                 if (isCharge) { statsValues += "Charge: " + weapon.chargeUp.ToString("F2") + "\n"; weapon.statLength++; }
+                if (fireRateBonus) { statsValues += "Cascading: " + weapon.fireRateChange + "\n"; weapon.statLength++; }
+                if (accuracyBonus) { statsValues += "Narrowing: " + weapon.spreadChange + "\n"; weapon.statLength++; }
                 statsValues += "Hitscan"; weapon.statLength++;
                 //statsNames = "";
                 //if (isPierce) { statsNames += "Piercing:\n"; weapon.statLength++; }
@@ -1062,6 +1053,8 @@ public class RandomizeEquipment : MonoBehaviour
                 if (isBounce) { statsValues += "Bounce: " + weapon.bounce + "\n"; weapon.statLength++; }
                 if (isBurst) { statsValues += "Burst: " + weapon.burst + "\n"; weapon.statLength++; }
                 if (isCharge) { statsValues += "Charge: " + weapon.chargeUp.ToString("F2") + "\n"; weapon.statLength++; }
+                if (fireRateBonus) { statsValues += "Cascading: " + weapon.fireRateChange + "\n"; weapon.statLength++; }
+                if (accuracyBonus) { statsValues += "Narrowing: " + weapon.spreadChange + "\n"; weapon.statLength++; }
                 statsValues += "Hitscan"; weapon.statLength++;
                 //statsNames = "";
                 //if (isPierce) { statsNames += "Piercing:\n"; weapon.statLength++; }
@@ -1114,6 +1107,8 @@ public class RandomizeEquipment : MonoBehaviour
                 if (isBounce) { statsValues += "Bounce: " + weapon.bounce + "\n"; weapon.statLength++; }
                 if (isBurst) { statsValues += "Burst: " + weapon.burst + "\n"; weapon.statLength++; }
                 if (isCharge) { statsValues += "Charge: " + weapon.chargeUp.ToString("F2") + "\n"; weapon.statLength++; }
+                if (fireRateBonus) { statsValues += "Cascading: " + weapon.fireRateChange + "\n"; weapon.statLength++; }
+                if (accuracyBonus) { statsValues += "Narrowing: " + weapon.spreadChange + "\n"; weapon.statLength++; }
                 if (!anyBonus) { statsValues += "None"; weapon.statLength++; }
                 //statsNames = "";
                 //if (isHoming) { statsNames += "Homing:\n" + "Strength:\n"; weapon.statLength += 2; }
@@ -1174,6 +1169,8 @@ public class RandomizeEquipment : MonoBehaviour
                 if (isBounce) { statsValues += "Bounce: " + weapon.bounce + "\n"; weapon.statLength++; }
                 if (isBurst) { statsValues += "Burst: " + weapon.burst + "\n"; weapon.statLength++; }
                 if (isCharge) { statsValues += "Charge: " + weapon.chargeUp.ToString("F2") + "\n"; weapon.statLength++; }
+                if (fireRateBonus) { statsValues += "Cascading: " + weapon.fireRateChange + "\n"; weapon.statLength++; }
+                if (accuracyBonus) { statsValues += "Narrowing: " + weapon.spreadChange + "\n"; weapon.statLength++; }
                 statsValues += "Expanding"; weapon.statLength++;
                 //statsNames = "";
                 //if (isPierce) { statsNames += "Piercing:\n"; weapon.statLength++; }
@@ -1230,6 +1227,8 @@ public class RandomizeEquipment : MonoBehaviour
                 if (isBounce) { statsValues += "Bounce: " + weapon.bounce + "\n"; weapon.statLength++; }
                 if (isBurst) { statsValues += "Burst: " + weapon.burst + "\n"; weapon.statLength++; }
                 if (isCharge) { statsValues += "Charge: " + weapon.chargeUp.ToString("F2") + "\n"; weapon.statLength++; }
+                if (fireRateBonus) { statsValues += "Cascading: " + weapon.fireRateChange + "\n"; weapon.statLength++; }
+                if (accuracyBonus) { statsValues += "Narrowing: " + weapon.spreadChange + "\n"; weapon.statLength++; }
                 if (!anyBonus) { statsValues += "None"; weapon.statLength++; }
                 //statsNames = "";
                 //if (isHoming) { statsNames += "Homing:\n" + "Strength:\n"; weapon.statLength += 2; }
@@ -1292,6 +1291,8 @@ public class RandomizeEquipment : MonoBehaviour
                 if (isBounce) { statsValues += "Bounce: " + weapon.bounce + "\n"; weapon.statLength++; }
                 if (isBurst) { statsValues += "Burst: " + weapon.burst + "\n"; weapon.statLength++; }
                 if (isCharge) { statsValues += "Charge: " + weapon.chargeUp.ToString("F2") + "\n"; weapon.statLength++; }
+                if (fireRateBonus) { statsValues += "Cascading: " + weapon.fireRateChange + "\n"; weapon.statLength++; }
+                if (accuracyBonus) { statsValues += "Narrowing: " + weapon.spreadChange + "\n"; weapon.statLength++; }
                 if (!anyBonus) { statsValues += "None"; weapon.statLength++; }
                 //statsNames = "";
                 //if (isHoming) { statsNames += "Homing:\n" + "Strength:\n"; weapon.statLength += 2; }
@@ -1352,6 +1353,8 @@ public class RandomizeEquipment : MonoBehaviour
                 if (isBounce) { statsValues += "Bounce: " + weapon.bounce + "\n"; weapon.statLength++; }
                 if (isBurst) { statsValues += "Burst: " + weapon.burst + "\n"; weapon.statLength++; }
                 if (isCharge) { statsValues += "Charge: " + weapon.chargeUp.ToString("F2") + "\n"; weapon.statLength++; }
+                if (fireRateBonus) { statsValues += "Cascading: " + weapon.fireRateChange + "\n"; weapon.statLength++; }
+                if (accuracyBonus) { statsValues += "Narrowing: " + weapon.spreadChange + "\n"; weapon.statLength++; }
                 if (!anyBonus) { statsValues += "None"; weapon.statLength++; }
                 //statsNames = "";
                 //if (isHoming) { statsNames += "Homing:\n" + "Strength:\n"; weapon.statLength += 2; }
@@ -1408,6 +1411,8 @@ public class RandomizeEquipment : MonoBehaviour
                 if (isBounce) { statsValues += "Bounce: " + weapon.bounce + "\n"; weapon.statLength++; }
                 if (isBurst) { statsValues += "Burst: " + weapon.burst + "\n"; weapon.statLength++; }
                 if (isCharge) { statsValues += "Charge: " + weapon.chargeUp.ToString("F2") + "\n"; weapon.statLength++; }
+                if (fireRateBonus) { statsValues += "Cascading: " + weapon.fireRateChange + "\n"; weapon.statLength++; }
+                if (accuracyBonus) { statsValues += "Narrowing: " + weapon.spreadChange + "\n"; weapon.statLength++; }
                 if (!anyBonus) { statsValues += "None"; weapon.statLength++; }
                 //statsNames = "";
                 //if (isPierce) { statsNames += "Piercing:\n"; weapon.statLength++; }
@@ -1466,6 +1471,8 @@ public class RandomizeEquipment : MonoBehaviour
                 if (isBounce) { statsValues += "Bounce: " + weapon.bounce + "\n"; weapon.statLength++; }
                 if (isBurst) { statsValues += "Burst: " + weapon.burst + "\n"; weapon.statLength++; }
                 if (isCharge) { statsValues += "Charge: " + weapon.chargeUp.ToString("F2") + "\n"; weapon.statLength++; }
+                if (fireRateBonus) { statsValues += "Cascading: " + weapon.fireRateChange + "\n"; weapon.statLength++; }
+                if (accuracyBonus) { statsValues += "Narrowing: " + weapon.spreadChange + "\n"; weapon.statLength++; }
                 statsValues += "Splitting"; weapon.statLength++;
                 //statsNames = "";
                 //if (isHoming) { statsNames += "Homing:\n" + "Strength:\n"; weapon.statLength += 2; }
@@ -1571,6 +1578,8 @@ public class RandomizeEquipment : MonoBehaviour
                 if (isBounce) { statsValues += "Bounce: " + weapon.bounce + "\n"; weapon.statLength++; }
                 if (isBurst) { statsValues += "Burst: " + weapon.burst + "\n"; weapon.statLength++; }
                 if (isCharge) { statsValues += "Charge: " + weapon.chargeUp.ToString("F2") + "\n"; weapon.statLength++; }
+                if (fireRateBonus) { statsValues += "Cascading: " + weapon.fireRateChange + "\n"; weapon.statLength++; }
+                if (accuracyBonus) { statsValues += "Narrowing: " + weapon.spreadChange + "\n"; weapon.statLength++; }
                 if (!anyBonus) { statsValues += "None"; weapon.statLength++; }
                 //statsNames = "";
                 //if (isHoming) { statsNames += "Homing:\n" + "Strength:\n"; weapon.statLength += 2; }

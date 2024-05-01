@@ -18,6 +18,7 @@ public class Destructable : MonoBehaviour
     }
     private void OnDestroy()
     {
+        if (Random.value < 0.1f) AudioManager.Instance.explorationTime = 100;
         TryGetComponent(out Damagable health);
         if (health && health.currentHealth <= 0) {
             AudioManager.Instance.PlayEmitter(FMODEvents.Instance.enemyActions, transform, 1);
