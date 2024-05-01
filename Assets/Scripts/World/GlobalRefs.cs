@@ -28,8 +28,8 @@ public class GlobalRefs : MonoBehaviour
             Instance = this;
         }
         SetSeeds();
-        DontDestroyOnLoad(gameObject);
     }
+
 
     public GameObject player;
     public bool playerIsDead;

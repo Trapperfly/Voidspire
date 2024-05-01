@@ -10,6 +10,10 @@ public class ComHandler : MonoBehaviour
     public GameObject comOption;
     public Com currentCom;
     public ShipAI contactingShip;
+    public Image comImage;
+    public Sprite[] factionSprites;
+
+    public TMP_Text text;
 
     public ActiveTarget target;
 
@@ -70,6 +74,7 @@ public class ComHandler : MonoBehaviour
         comMenu.gameObject.SetActive(true);
         Time.timeScale = 0f;
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.comEventStart, transform.position);
+        text.text = contact.level.ToString("F0");
     }
     public void StartCom(Com com, Event contact)
     {
@@ -79,6 +84,11 @@ public class ComHandler : MonoBehaviour
         comMenu.gameObject.SetActive(true);
         Time.timeScale = 0f;
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.comEventStart, transform.position);
+    }
+
+    void SetFaction(Ship ship)
+    {
+        comImage.sprite = factionSprites[(int)ship.faction];
     }
 
     public void EndComMenu()

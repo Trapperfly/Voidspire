@@ -6,6 +6,7 @@ public class AI : ScriptableObject
 {
     public int level;
     public string aiName;
+    public Faction faction;
     public string description;
     public Relation playerRelation;
 
@@ -25,10 +26,9 @@ public enum Faction
 {
     None,
     Human,
-    Traveler,
     SpacePirate,
     Unknown,
-    Moth,
+    Chitin,
     Nano,
     Error
 }

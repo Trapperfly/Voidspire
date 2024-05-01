@@ -66,11 +66,11 @@ public class PassiveShield : GameTrigger
         if (shield) { animTime = shield.shieldBreakAnimTime; storedID = shield.id; }
         shield = equipment.shieldSlots[0].item as Shield;
         if (shield) animTime = shield.shieldBreakAnimTime;
-        if (!shield) { noShield = true; }
+        if (!shield) { noShield = true; shieldCurrent = 0; shieldPercent = 0; }
         else
         {
             if (start) shieldCurrent = shield.shieldHealth;
-            else if (shield.id != storedID) shieldCurrent = 0;
+            else if (shield.id != storedID) { shieldCurrent = 0; }
             noShield = false;
         }
         UpdateSize();
@@ -81,7 +81,8 @@ public class PassiveShield : GameTrigger
     private void Update()
     {
         shieldBarImage.fillAmount = Mathf.Lerp(shieldBarImage.fillAmount, shieldPercent, 0.1f);
-        shieldRechargeImage.fillAmount = Mathf.Lerp(shieldRechargeImage.fillAmount, rechargeTimer / (shield.shieldRechargeDelay * 60), 0.5f);
+        if (!noShield) shieldRechargeImage.fillAmount = Mathf.Lerp(shieldRechargeImage.fillAmount, rechargeTimer / (shield.shieldRechargeDelay * 60), 0.5f);
+        else shieldRechargeImage.fillAmount = 0;
     }
     private void FixedUpdate()
     {
@@ -129,12 +130,10 @@ public class PassiveShield : GameTrigger
             mat.SetFloat("_BreathingOffset", offset);
             UpdateShield();
         }
-        else if (shieldActive) { }
     }
 
     public void ShieldCheck()
     {
-        //Debug.Log("Checking if broken");
         if (newShieldCheck) { }
         else { rechargeTimer = 0; }
         newShieldCheck = false;

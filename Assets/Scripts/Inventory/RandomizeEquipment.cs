@@ -2345,29 +2345,29 @@ public class RandomizeEquipment : MonoBehaviour
         switch (scanner.type)
         {
             case ScannerTypes.Custom:
-                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y) * 1f), 1, 100); 
-                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 1.5f), 1, 100);
+                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y) * 1f), 1, 10); 
+                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 1.5f), 5, 10);
                 scanner.mapUpdateAmount = iR(mapUpdateAmount);
                 scanner.mapUpdateSpeed = fR(mapUpdateSpeed) * 0.5f;
                 scanner.frequency = (Frequencies)iR(0, 1);
                 break;
             case ScannerTypes.Lookout:
-                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y)), 1, 100);
-                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 2f), 1, 100);
+                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y)), 1, 10);
+                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 2f), 5, 10);
                 scanner.mapUpdateAmount = (int)(iR(mapUpdateAmount) * 0.5f);
                 scanner.mapUpdateSpeed = fR(mapUpdateSpeed) * 2f;
                 scanner.frequency = (Frequencies)iR(1, 2);
                 break;
             case ScannerTypes.Radio:
-                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y) * 1f), 1, 100);
-                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 0.8f), 1, 100);
+                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y) * 1f), 1, 10);
+                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 0.8f), 5, 10);
                 scanner.mapUpdateAmount = (int)(iR(mapUpdateAmount) * 2);
                 scanner.mapUpdateSpeed = fR(mapUpdateSpeed) * 1f;
                 scanner.frequency = (Frequencies)iR(0, 4);
                 break;
             case ScannerTypes.Gamma:
-                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y) * 1f), 1, 100);
-                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 0.7f), 1, 100);
+                scanner.zoom.x = Mathf.Clamp((int)(iR((int)zoom.x, (int)zoom.y) * 1f), 1, 10);
+                scanner.zoom.y = Mathf.Clamp((int)(iR((int)zoom.z, (int)zoom.w) * 0.7f), 5, 10);
                 scanner.mapUpdateAmount = (int)(iR(mapUpdateAmount) * 2f);
                 scanner.mapUpdateSpeed = fR(mapUpdateSpeed) * 1f;
                 scanner.frequency = (Frequencies)iR(3, 4);

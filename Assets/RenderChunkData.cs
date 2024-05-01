@@ -83,12 +83,14 @@ public class RenderChunkData : MonoBehaviour
     }
     public void SetNewScanner()
     {
+        bool sameScanner = false;
+        if (scanner) sameScanner = scanner == equipment.scannerSlots[0].item as Scanner;
         scanner = equipment.scannerSlots[0].item as Scanner;
         if (scanner) { 
             renderDelay = scanner.mapUpdateSpeed;
             renderSpeed = scanner.mapUpdateAmount;
             SetMapButtons();
-            SetRendering(0);
+            if (!sameScanner) SetRendering(0);
             zoomer.minZoom = scanner.zoom.x;
             zoomer.maxZoom = scanner.zoom.y;
         }
@@ -237,12 +239,14 @@ public class RenderChunkData : MonoBehaviour
         foreach(Transform child in availableSettings)
         {
             child.GetComponent<Image>().color = new(1, 1, 1, 0.5f);
+            child.gameObject.SetActive(false);
         }
         extraSettings[0].gameObject.SetActive(false);
         extraSettings[1].gameObject.SetActive(false);
         switch (setting)
         {
             case 0 or 1 or 2 or 3 or 4 or 5:
+                availableSettings.GetChild(setting).gameObject.SetActive(true);
                 availableSettings.GetChild(setting).GetComponent<Image>().color = new(1, 1, 1, 1);
                 break;
             case 10:

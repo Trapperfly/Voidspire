@@ -70,7 +70,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 29eeb1ed8dccac44faf7fb74a1476d5e, type: 3}
   frame: {fileID: 8925688700149374991}
   locked: 0
-  lockedSprite: {fileID: 21300000, guid: b35cd17df2afb9141a968ebfcc6bec21, type: 3}
+  lockedSprite: {fileID: 21300000, guid: cd42fd7c253468b41b5407df1a74c1e4, type: 3}
   item: {fileID: 0}
   allowed: 0
   pHIcons:
@@ -84,7 +84,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 35569461ff1c9ea4cb3790676cad5c7b, type: 3}
   - {fileID: 21300000, guid: 121d6e3f13adfbd43ae3489fcc1c48e8, type: 3}
   - {fileID: 21300000, guid: 9a8dbb9dce0e8524fa77b9f753bd6031, type: 3}
-  - {fileID: 21300000, guid: b35cd17df2afb9141a968ebfcc6bec21, type: 3}
+  - {fileID: 21300000, guid: cd42fd7c253468b41b5407df1a74c1e4, type: 3}
   placeholderIcon: {fileID: 1135409037658432787}
 --- !u!114 &3372305420830967783
 MonoBehaviour:

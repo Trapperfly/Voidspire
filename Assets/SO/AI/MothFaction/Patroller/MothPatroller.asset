@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   aiName: Chitin Patroller
+  faction: 4
   description: 
   playerRelation: 5
   shipPrefab: {fileID: 0}

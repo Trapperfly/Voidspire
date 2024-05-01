@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   aiName: Arbalest
+  faction: 3
   description: 
   playerRelation: 3
   shipPrefab: {fileID: 0}

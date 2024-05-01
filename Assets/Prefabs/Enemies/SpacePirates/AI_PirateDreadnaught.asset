@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   aiName: Pirate Interceptor
+  faction: 2
   description: 
   playerRelation: 4
   shipPrefab: {fileID: 0}
