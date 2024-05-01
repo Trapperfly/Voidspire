@@ -151,7 +151,7 @@ public class MenuController : MonoBehaviour
     IEnumerator QuitOut()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         yield return null;
     }
 

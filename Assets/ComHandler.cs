@@ -74,7 +74,8 @@ public class ComHandler : MonoBehaviour
         comMenu.gameObject.SetActive(true);
         Time.timeScale = 0f;
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.comEventStart, transform.position);
-        text.text = contact.level.ToString("F0");
+        SetFaction(contact.ship);
+        text.text = contact.level.ToString();
     }
     public void StartCom(Com com, Event contact)
     {
