@@ -52,6 +52,7 @@ public class GlobalRefs : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Instance.StartMusic();
         Instantiate(sectorBossEvent, eventParent);
     }
     private void SetSeeds()

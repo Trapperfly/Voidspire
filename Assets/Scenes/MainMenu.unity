@@ -3979,7 +3979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1efdb858a1e736942987d68e017388e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMainMenu: 0
+  isMainMenu: 1
 --- !u!4 &600263950
 Transform:
   m_ObjectHideFlags: 0
@@ -6129,46 +6129,46 @@ MonoBehaviour:
     Path: event:/AmbientMusic/AdaptiveMusic
   <Amusic>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 156929410
+      Data2: 1095440964
+      Data3: -327105121
+      Data4: 273515802
+    Path: event:/AmbientMusic/AmbientSpace
   <Emusic>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 972661416
+      Data2: 1177974565
+      Data3: 1200945578
+      Data4: -2079154978
+    Path: event:/AmbientMusic/Adventure
   <Cmusic>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -1673251055
+      Data2: 1274087541
+      Data3: 1801140408
+      Data4: -1944420408
+    Path: event:/AmbientMusic/combat
   <Mmusic>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -1883608115
+      Data2: 1309850691
+      Data3: 1755224972
+      Data4: 918589641
+    Path: event:/AmbientMusic/magic
   <resourcePickup>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -619215677
+      Data2: 1128202615
+      Data3: -1458801491
+      Data4: 544361509
+    Path: event:/General/GainResource
   <lootPickup>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -198307240
+      Data2: 1328954798
+      Data3: -748419690
+      Data4: -133525201
+    Path: event:/General/GainLoot
 --- !u!4 &759920867
 Transform:
   m_ObjectHideFlags: 0

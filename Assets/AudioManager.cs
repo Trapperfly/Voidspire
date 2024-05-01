@@ -54,7 +54,7 @@ public class AudioManager : MonoBehaviour
         eventEmitters = new List<StudioEventEmitter>();
         DontDestroyOnLoad(gameObject);
     }
-    private void Start()
+    public void StartMusic()
     {
         magicTime = 100;
         AmusicEvent = CreateInstance(FMODEvents.Instance.Amusic);
