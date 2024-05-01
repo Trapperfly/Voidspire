@@ -65,6 +65,8 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference mainMenuAmbient { get; private set; }
     [field: SerializeField] public EventReference spaceAmbient { get; private set; }
 
+    [field: SerializeField] public EventReference music { get; private set; }
+
 
     public static FMODEvents Instance { get; private set; }
     private void Awake()
