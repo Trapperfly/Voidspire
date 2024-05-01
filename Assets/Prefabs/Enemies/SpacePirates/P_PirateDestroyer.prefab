@@ -173,7 +173,7 @@ MonoBehaviour:
   jumping: 0
   aiBullets: {fileID: 0}
   guns:
-  - {fileID: 11400000, guid: e4f914f825f1d8f4285e6d45644b483f, type: 2}
+  - {fileID: 11400000, guid: cd17c6839566c834f9d8dd23f480f09d, type: 2}
   curCD: 0
   dirs: []
   target: {fileID: 730234620890172710}
