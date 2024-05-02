@@ -18,6 +18,8 @@ public class InventoryUI : MonoBehaviour
 
     public Transform slotsParent;
 
+    public GameObject inventoryCanvas;
+
     public Transform eqipmentSlotsParent;
 
     public InventorySlot[] slots;

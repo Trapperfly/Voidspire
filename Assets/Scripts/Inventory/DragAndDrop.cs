@@ -53,7 +53,7 @@ public class DragAndDrop : MonoBehaviour,
         rects.Add(line);
         line.gameObject.layer = 2;
         //line = gameObject.AddComponent<RectTransform>();
-        line.SetParent(GameObject.FindGameObjectWithTag("Inventory").transform);
+        line.SetParent(InventoryUI.Instance.inventoryCanvas.transform);
         line.gameObject.AddComponent<Image>().raycastTarget = false;
         line.gameObject.AddComponent<CanvasGroup>().blocksRaycasts = false;
         line.gameObject.AddComponent<ShrinkAndExpire>();
@@ -269,9 +269,9 @@ public class DragAndDrop : MonoBehaviour,
         //Image backPanel = activeInfoBox.transform.GetChild(0).GetComponent<Image>();
         //Image frontPanel = activeInfoBox.transform.GetChild(1).GetComponent<Image>();
         //Image deleteBack = activeInfoBox.transform.GetChild(2).GetComponent<Image>();
-        Image deleteFront = activeInfoBox.transform.GetChild(2).GetComponent<Image>();
+        //Image deleteFront = activeInfoBox.transform.GetChild(2).GetComponent<Image>();
 
-        int addSpace = salvagable ? 1 : 0;
+        //int addSpace = salvagable ? 1 : 0;
         //frontPanel.rectTransform.sizeDelta =
         //    new Vector2(frontPanel.rectTransform.sizeDelta.x, frontPanel.rectTransform.sizeDelta.y + (26 * (sItem.statLength + addSpace)));
         //backPanel.rectTransform.sizeDelta =
@@ -337,7 +337,7 @@ public class DragAndDrop : MonoBehaviour,
         //Image deleteBack = dnd.savedInfoBox.transform.GetChild(2).GetComponent<Image>();
         //Image deleteFront = dnd.savedInfoBox.transform.GetChild(2).GetComponent<Image>();
 
-        int addSpace = salvagable ? 1 : 0;
+        //int addSpace = salvagable ? 1 : 0;
         //frontPanel.rectTransform.sizeDelta =
         //    new Vector2(frontPanel.rectTransform.sizeDelta.x, frontPanel.rectTransform.sizeDelta.y + (26 * (sItem.statLength + addSpace)));
         //backPanel.rectTransform.sizeDelta =
