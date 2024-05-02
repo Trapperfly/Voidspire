@@ -83,6 +83,8 @@ public class ShipAI : MonoBehaviour
     public Com lowHealthContact;
     bool startedJump;
 
+    public StudioEventEmitter tEmitter;
+
     private void Start()
     {
         contact = ship.possibleComs.Length > 0 ? ship.possibleComs[Random.Range(0, ship.possibleComs.Length - 1)] : ship.baseCom;
@@ -891,11 +893,15 @@ public class ShipAI : MonoBehaviour
         {
             if (tEmis.enabled)
                 tEmis.enabled = false;
+            if (tEmitter.IsPlaying())
+            { tEmitter.Stop(); }
         }
         else
         {
             if (!tEmis.enabled)
                 tEmis.enabled = true;
+            if (!tEmitter.IsPlaying())
+            {  tEmitter.Play(); }
             rb.AddForce
                 (
                 speedScaling
@@ -994,5 +1000,6 @@ public class ShipAI : MonoBehaviour
         {
             Destroy(ps);
         }
+        tEmitter.Stop();
     }
 }

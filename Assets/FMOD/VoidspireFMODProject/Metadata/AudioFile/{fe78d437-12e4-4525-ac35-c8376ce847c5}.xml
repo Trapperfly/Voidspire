@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{fe78d437-12e4-4525-ac35-c8376ce847c5}">
+		<property name="assetPath">
+			<value>56 - Space Pirate Thruster.WAV</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>37.89496598639456</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{26dd1d6f-fde3-425e-b923-69c05dcb05ad}</destination>
+		</relationship>
+	</object>
+</objects>

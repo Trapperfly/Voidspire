@@ -213,6 +213,7 @@ public class ShipControl : MonoBehaviour
         }
         if (!Input.GetKey(KeyCode.W)) StopPlayback(thrusterMain, STOP_MODE.ALLOWFADEOUT);
         if (!Input.GetKey(KeyCode.S)) StopPlayback(thrusterBack, STOP_MODE.ALLOWFADEOUT);
+        if (!Input.GetKey(KeyCode.A)|| !Input.GetKey(KeyCode.D)) StopPlayback(thrusterSide, STOP_MODE.ALLOWFADEOUT);
 
         else
         {

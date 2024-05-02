@@ -5,7 +5,7 @@ using FMODUnity;
 
 public class Destructable : MonoBehaviour
 {
-    [SerializeField] float delay = 0f;
+    //[SerializeField] float delay = 0f;
     [SerializeField] bool addParticleEffect;
     [SerializeField] GameObject psPrefab;
     [SerializeField] float psLifetime;
@@ -13,7 +13,7 @@ public class Destructable : MonoBehaviour
     public IEnumerator DestroyMe()
     {
         if (addParticleEffect) ps = Instantiate(psPrefab, transform).GetComponent<ParticleSystem>();
-        Destroy(gameObject, delay);
+        Destroy(gameObject, 0);
         yield return null;
     }
     private void OnDestroy()

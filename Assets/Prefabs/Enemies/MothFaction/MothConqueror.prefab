@@ -6170,6 +6170,7 @@ GameObject:
   - component: {fileID: 3722462940183543493}
   - component: {fileID: 3379207523845680802}
   - component: {fileID: 2610142319956709576}
+  - component: {fileID: 5608898071962704264}
   m_Layer: 9
   m_Name: Thruster
   m_TagString: Untagged
@@ -10987,6 +10988,37 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &5608898071962704264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5055256722958679284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1796349011
+      Data2: 1181351841
+      Data3: 1926807983
+      Data4: -1011314099
+    Path: event:/Enemy/EnemyChitinThruster
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 10
 --- !u!1 &5146404538119438223
 GameObject:
   m_ObjectHideFlags: 0
@@ -11363,6 +11395,7 @@ MonoBehaviour:
   unlockedGuns: 0
   contact: {fileID: 0}
   lowHealthContact: {fileID: 0}
+  tEmitter: {fileID: 5608898071962704264}
 --- !u!114 &5011805948894674603
 MonoBehaviour:
   m_ObjectHideFlags: 0
