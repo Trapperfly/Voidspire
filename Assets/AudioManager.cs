@@ -28,7 +28,7 @@ public class AudioManager : MonoBehaviour
     public float magicVolume;
 
     bool isPlayingAmbient;
-    bool isPlayingCombat;
+    public bool isPlayingCombat;
     bool isPlayingExploration;
     bool isPlayingMagic;
 
@@ -76,7 +76,7 @@ public class AudioManager : MonoBehaviour
         explorationTime -= Time.deltaTime;
 
         if (!isPlayingCombat && combatTime > 0) { CmusicEvent.start(); isPlayingCombat = true; }
-        else if (isPlayingCombat && combatTime <= 0) CmusicEvent.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        else if (isPlayingCombat && combatTime <= -2) { CmusicEvent.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT); isPlayingCombat = false; }
 
         ambientVolume = Mathf.Lerp(ambientVolume,
             Mathf.Clamp(1 - (Mathf.Clamp(magicTime,0,1) + Mathf.Clamp(combatTime, 0, 1) + Mathf.Clamp(explorationTime, 0, 1)), 0, 1), 0.01f);

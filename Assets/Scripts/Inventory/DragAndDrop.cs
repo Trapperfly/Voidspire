@@ -345,7 +345,7 @@ public class DragAndDrop : MonoBehaviour,
         //deleteBack.transform.localPosition -= new Vector3(0, 26 * (sItem.statLength + addSpace), 0);
         //deleteFront.transform.localPosition -= new Vector3(0, 26 * (sItem.statLength + addSpace), 0);
 
-        activeInfoBox.transform.GetChild(1).GetComponent<Image>().color = sItem.color;
+        dnd.savedInfoBox.transform.GetChild(1).GetComponent<Image>().color = sItem.color;
         TMP_Text[] texts = dnd.savedInfoBox.GetComponentsInChildren<TMP_Text>();
         //texts[6].transform.localPosition -= new Vector3(0, 26 * (sItem.statLength + addSpace), 0);
         texts[0].text = sItem.itemName;

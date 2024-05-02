@@ -28,7 +28,7 @@ public class ComHandler : MonoBehaviour
             target.target.TryGetComponent(out ShipAI ship);
             if (ship)
             {
-                if (Input.GetKeyDown(KeyCode.F) && !currentCom)
+                if (!MenuController.Instance.screenActive && Input.GetKeyDown(KeyCode.F))
                 {
                     StartCom(ship.contact, ship);
                     ship.contact = ship.ship.baseCom;
@@ -36,7 +36,7 @@ public class ComHandler : MonoBehaviour
                 }
             }
         }
-        if (currentCom)
+        if (currentCom )
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {

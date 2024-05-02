@@ -26,7 +26,7 @@ public class MenuController : MonoBehaviour
     bool escActive;
 
     public bool comActive;
-
+    public bool screenActive;
     public Image newItemIcon;
 
     public bool isChangingScene = false;
@@ -64,6 +64,7 @@ public class MenuController : MonoBehaviour
             pauseMenu.SetActive(true);
         }
         else ResumeGame();
+        screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive;
     }
 
     public void OpenSettings()
@@ -82,6 +83,7 @@ public class MenuController : MonoBehaviour
                 gamePaused = false;
                 Time.timeScale = 1f;
             }
+            screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive;
             return;
         }
         if (escActive)
@@ -95,6 +97,7 @@ public class MenuController : MonoBehaviour
         }
         settingsActive = true;
         settingsMenu.SetActive(true);
+        screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive;
     }
 
     public void MapMode()
@@ -114,6 +117,7 @@ public class MenuController : MonoBehaviour
             map.SetActive(true); 
             mapActive = true; 
         }
+        screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive;
     }
 
     //public void ChunkMapMode()
@@ -138,7 +142,7 @@ public class MenuController : MonoBehaviour
             inventory.SetActive(true);
             inventoryActive = true;
         }
-
+        screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive;
     }
 
     public void ResumeGame()
@@ -148,6 +152,7 @@ public class MenuController : MonoBehaviour
         pauseMenu.SetActive(false);
         gamePaused = false;
         escActive = false;
+        screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive;
     }
 
     public void ExitGame()
@@ -168,6 +173,7 @@ public class MenuController : MonoBehaviour
         Time.timeScale = 1;
         isChangingScene = true;
         SceneManager.LoadScene(1);
+        screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive;
         yield return null;
     }
 
@@ -175,5 +181,6 @@ public class MenuController : MonoBehaviour
     {
         SceneManager.LoadScene(2);
         Time.timeScale = 1;
+        screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive;
     }
 }

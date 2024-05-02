@@ -1950,7 +1950,7 @@ public class RandomizeEquipment : MonoBehaviour
         //statsValues += thruster.maxSpeed.ToString("F0") + " / " + (thruster.maxSpeed * 10 * 0.5f).ToString("F0") + "\n";
         statsValues +=
             (thruster.turnSpeed * 10).ToString("F0")
-            + " / "
+            //+ " / "
             //+ (thruster.maxTurnSpeed * 10).ToString("F0")
             + "\n";
         //+ " FTL: "
