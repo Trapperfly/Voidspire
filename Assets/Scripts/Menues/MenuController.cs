@@ -14,6 +14,7 @@ public class MenuController : MonoBehaviour
     [SerializeField] GameObject inventory;
     [SerializeField] Object startScene;
     [SerializeField] Object mainMenuScene;
+    [SerializeField] GameObject tutorial;
 
     public Transform mapSprites;
     public Transform bigMapHolder;
@@ -24,6 +25,7 @@ public class MenuController : MonoBehaviour
     bool mapActive;
     //bool chunkMapActive;
     bool escActive;
+    bool tutorialActive = true;
 
     public bool comActive;
     public bool screenActive;
@@ -43,16 +45,41 @@ public class MenuController : MonoBehaviour
             Instance = this;
         }
     }
+
+    private void Start()
+    {
+        OpenTutorial();
+    }
     void Update()
     {
         if (inventoryActive && Input.GetKeyDown(KeyCode.Escape)) Inventory();
         else if (mapActive && Input.GetKeyDown(KeyCode.Escape)) MapMode();
         else if (settingsActive && Input.GetKeyDown(KeyCode.Escape)) OpenSettings();
+        else if (tutorialActive && Input.GetKeyDown(KeyCode.Escape)) OpenTutorial();
         else if (!comActive && Input.GetKeyDown(KeyCode.Escape)) PauseGame();
-        if (!comActive && !escActive && !inventoryActive && !settingsActive && Input.GetKeyDown(KeyCode.M)) MapMode();
-        if (!comActive && !escActive && !mapActive && !settingsActive && Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)) Inventory();
+        if (!tutorialActive && !comActive && !escActive && !inventoryActive && !settingsActive && Input.GetKeyDown(KeyCode.M)) MapMode();
+        if (!tutorialActive && !comActive && !escActive && !mapActive && !settingsActive && Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)) Inventory();
+        if (!comActive && !escActive && !mapActive && !settingsActive && Input.GetKeyDown(KeyCode.H)) OpenTutorial();
+        if (!tutorialActive && !comActive && !escActive && !mapActive && Input.GetKeyDown(KeyCode.O)) OpenSettings();
     }
 
+    public void OpenTutorial()
+    {
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.openInventory, transform.position);
+        if (tutorial.activeSelf)
+        {
+            Time.timeScale = 1f;
+            tutorial.SetActive(false);
+            tutorialActive = false;
+        }
+        else
+        {
+            Time.timeScale = 0f;
+            tutorial.SetActive(true);
+            tutorialActive = true;
+        }
+        screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive || tutorialActive;
+    }
     public void PauseGame()
     {
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.openInventory, transform.position);
@@ -64,7 +91,7 @@ public class MenuController : MonoBehaviour
             pauseMenu.SetActive(true);
         }
         else ResumeGame();
-        screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive;
+        screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive || tutorialActive;
     }
 
     public void OpenSettings()
@@ -83,7 +110,7 @@ public class MenuController : MonoBehaviour
                 gamePaused = false;
                 Time.timeScale = 1f;
             }
-            screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive;
+            screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive || tutorialActive;
             return;
         }
         if (escActive)
@@ -97,7 +124,7 @@ public class MenuController : MonoBehaviour
         }
         settingsActive = true;
         settingsMenu.SetActive(true);
-        screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive;
+        screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive || tutorialActive;
     }
 
     public void MapMode()
@@ -117,7 +144,7 @@ public class MenuController : MonoBehaviour
             map.SetActive(true); 
             mapActive = true; 
         }
-        screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive;
+        screenActive = comActive || escActive || inventoryActive || mapActive || settingsActive || tutorialActive;
     }
 
     //public void ChunkMapMode()

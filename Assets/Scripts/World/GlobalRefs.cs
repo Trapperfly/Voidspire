@@ -12,11 +12,16 @@ public class GlobalRefs : MonoBehaviour
     public GameObject sectorBossEvent;
     public Transform eventParent;
 
+    public PointerSystem pointer;
+
     public int wallet = 0;
 
     public Transform tutorialPanel;
 
     [SerializeField] TMPro.TMP_Text seedText;
+
+    public SpawnEnemies spawnEnemies;
+    public TMP_Text sectorLevels;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -54,6 +59,7 @@ public class GlobalRefs : MonoBehaviour
     {
         AudioManager.Instance.StartMusic();
         Instantiate(sectorBossEvent, eventParent);
+        sectorLevels.text = (1 + ((currentSector - 1) * 10)).ToString() + " - " + (10 + ((currentSector - 1) * 10)).ToString();
     }
     private void SetSeeds()
     {
@@ -78,6 +84,7 @@ public class GlobalRefs : MonoBehaviour
     public void StartNewSector()
     {
         currentSector++;
+        pointer.ResetCompass();
         SetSeeds();
         for (int i = 0; i < clearTheseOfChildrenWhenNewSector.Length; i++)
         {
@@ -93,6 +100,8 @@ public class GlobalRefs : MonoBehaviour
         clearThese.Clear();
         ChunkLoader.Instance.Clear();
         Instantiate(sectorBossEvent, eventParent);
+        spawnEnemies.funds += 10;
+        sectorLevels.text = (1 + ((currentSector - 1) * 10)).ToString() + " - " + (10 + ((currentSector - 1) * 10)).ToString();
     }
 
     public void ShowTutorialInfo(Vector2 where, string what)

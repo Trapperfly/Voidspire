@@ -11,6 +11,8 @@ public class ChunkLoader : MonoBehaviour
 
     public Transform chunkHolder;
 
+    public TMPro.TMP_Text chunkLevelText;
+
     //Chunk chunk;
 
     public const float viewDist = 40;
@@ -118,11 +120,12 @@ public class ChunkLoader : MonoBehaviour
 
         int currentChunkCoordX = Mathf.RoundToInt(viewerPosition.x/ chunkSize);
         int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / chunkSize);
-
+        if (spaceChunkDictionary.ContainsKey(new Vector2(currentChunkCoordX, currentChunkCoordY)))
+            chunkLevelText.text = spaceChunkDictionary[new Vector2(currentChunkCoordX, currentChunkCoordY)].chunkGO.GetComponent<LoadChunk>().chunkLevel.ToString();
         for (int yOffset = -chunksVisibleInViewDist;  yOffset <= chunksVisibleInViewDist; yOffset++) {
             for (int xOffset = -chunksVisibleInViewDist; xOffset <= chunksVisibleInViewDist; xOffset++) {
                 Vector2 viewedChunkCoord = new(currentChunkCoordX + xOffset, currentChunkCoordY + yOffset);
-
+                
                 if (spaceChunkDictionary.ContainsKey(viewedChunkCoord))
                 {
                     spaceChunkDictionary[viewedChunkCoord].UpdateSpaceChunk();

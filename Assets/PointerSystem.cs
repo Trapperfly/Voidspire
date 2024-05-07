@@ -75,6 +75,7 @@ public class PointerSystem : MonoBehaviour
 
     public void ResetCompass()
     {
+        bossHints = 0;
         distanceText.text = new("???");
         compass.rotation = new(0, 0, 0, 0);
         active = false;

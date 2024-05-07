@@ -60,7 +60,7 @@ public class AudioManager : MonoBehaviour
         AmusicEvent = CreateInstance(FMODEvents.Instance.Amusic);
         AmusicEvent.setVolume(0);
         AmusicEvent.start();
-        EmusicEvent = CreateInstance(FMODEvents.Instance.Cmusic);
+        EmusicEvent = CreateInstance(FMODEvents.Instance.Emusic);
         EmusicEvent.setVolume(0);
         EmusicEvent.start();
         CmusicEvent = CreateInstance(FMODEvents.Instance.Cmusic);
