@@ -26,6 +26,7 @@ public class SetValuesForSettingMenu : MonoBehaviour
             b1.SetActive(false);
             b2.SetActive(true);
         }
+        GetComponent<Canvas>().enabled = true;
         gameObject.SetActive(false);
     }
 }

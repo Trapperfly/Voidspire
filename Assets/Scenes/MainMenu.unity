@@ -3760,6 +3760,7 @@ MonoBehaviour:
   combatVolume: 0
   explorationVolume: 0
   magicVolume: 0
+  isPlayingCombat: 0
 --- !u!4 &511484220
 Transform:
   m_ObjectHideFlags: 0
@@ -7077,7 +7078,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -56.474884, y: -531.36304}
+  m_AnchoredPosition: {x: -160, y: -531.36304}
   m_SizeDelta: {x: 190.4, y: 18.27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &954084894
@@ -7100,7 +7101,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0.2.3
+  m_text: 0.2.4 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1c98d7d1bc518a14c9b4c3e9b3adf0fc, type: 2}
   m_sharedMaterial: {fileID: -7623979546091122847, guid: 1c98d7d1bc518a14c9b4c3e9b3adf0fc, type: 2}
@@ -7134,7 +7135,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: -32
