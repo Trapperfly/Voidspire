@@ -236,7 +236,7 @@ public class DragAndDrop : MonoBehaviour,
     {
         Vector2 offset;
         Equipment sItem = slot.GetComponent<InventorySlot>().item as Equipment;
-        if (sItem && sItem.statLength > 10) { 
+        if (sItem && sItem.statLength > 9) { 
             offset = slot.GetComponent<InventorySlot>().low ? new Vector2(75, 525) : new Vector2(75, 55);
             activeInfoBox =
                     Instantiate(infoBoxLarge,
@@ -244,7 +244,7 @@ public class DragAndDrop : MonoBehaviour,
                     new Quaternion(),
                     InventoryUI.Instance.inventoryGraphicsParent);
         }
-        else if (sItem && sItem.statLength > 5)
+        else if (sItem && sItem.statLength > 4)
         {
             offset = slot.GetComponent<InventorySlot>().low ? new Vector2(75, 370) : new Vector2(75, 55);
             activeInfoBox =
@@ -266,18 +266,6 @@ public class DragAndDrop : MonoBehaviour,
 
         activeInfoBox.GetComponent<HoldToSalvage>().salvagable = salvagable;
         activeInfoBox.GetComponent<HoldToSalvage>().slot = slot.GetComponent<InventorySlot>();
-        //Image backPanel = activeInfoBox.transform.GetChild(0).GetComponent<Image>();
-        //Image frontPanel = activeInfoBox.transform.GetChild(1).GetComponent<Image>();
-        //Image deleteBack = activeInfoBox.transform.GetChild(2).GetComponent<Image>();
-        //Image deleteFront = activeInfoBox.transform.GetChild(2).GetComponent<Image>();
-
-        //int addSpace = salvagable ? 1 : 0;
-        //frontPanel.rectTransform.sizeDelta =
-        //    new Vector2(frontPanel.rectTransform.sizeDelta.x, frontPanel.rectTransform.sizeDelta.y + (26 * (sItem.statLength + addSpace)));
-        //backPanel.rectTransform.sizeDelta =
-        //    new Vector2(backPanel.rectTransform.sizeDelta.x, backPanel.rectTransform.sizeDelta.y + (26 * (sItem.statLength + addSpace)));
-        //deleteBack.transform.localPosition -= new Vector3(0, 26 * (sItem.statLength + addSpace), 0);
-        //deleteFront.transform.localPosition -= new Vector3(0, 26 * (sItem.statLength + addSpace), 0);
 
         activeInfoBox.transform.GetChild(1).GetComponent<Image>().color = sItem.color;
         TMP_Text[] texts = activeInfoBox.GetComponentsInChildren<TMP_Text>();
@@ -287,13 +275,6 @@ public class DragAndDrop : MonoBehaviour,
         texts[2].text = sItem.statsText;
         texts[3].text = sItem.statsValues;
         texts[4].text = sItem.level.ToString();
-
-        if (!salvagable)
-        {
-            //deleteBack.gameObject.SetActive(false);
-            //deleteFront.gameObject.SetActive(false);
-            //texts[6].gameObject.SetActive(false);
-        }
         infoBoxActive = true;
     }
 
@@ -301,7 +282,7 @@ public class DragAndDrop : MonoBehaviour,
     {
         Vector2 offset;
         Equipment sItem = slot.GetComponent<InventorySlot>().item as Equipment;
-        if (sItem && sItem.statLength > 10)
+        if (sItem && sItem.statLength > 9)
         {
             offset = slot.GetComponent<InventorySlot>().low ? new Vector2(75, 525) : new Vector2(75, 55);
             dnd.savedInfoBox =
@@ -310,7 +291,7 @@ public class DragAndDrop : MonoBehaviour,
                     new Quaternion(),
                     InventoryUI.Instance.inventoryGraphicsParent);
         }
-        else if (sItem && sItem.statLength > 5)
+        else if (sItem && sItem.statLength > 4)
         {
             offset = slot.GetComponent<InventorySlot>().low ? new Vector2(75, 370) : new Vector2(75, 55);
             dnd.savedInfoBox =

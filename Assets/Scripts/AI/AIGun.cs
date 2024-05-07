@@ -68,7 +68,7 @@ public class AIGun : MonoBehaviour
             { 
                 for (int i = 0; i < stat.amount; i++) { Fire(); }
             }
-            gunTimer++;
+            if (ai.inCombat) { gunTimer++; }
         }
     }
 

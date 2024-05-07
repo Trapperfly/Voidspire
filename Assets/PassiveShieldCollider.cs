@@ -35,10 +35,12 @@ public class PassiveShieldCollider : GameTrigger
     {
         master.shieldCurrent -= damage;
         master.ShieldCheck();
+        
     }
     public override void OnHitEvent(float damage, Vector2 position)
     {
         base.OnHitEvent(damage, position);
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.shieldHit, transform.position);
+        AudioManager.Instance.combatTime = 10;
     }
 }

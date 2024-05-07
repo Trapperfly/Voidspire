@@ -152,5 +152,6 @@ public class Damagable : GameTrigger
     {
         base.OnHitEvent(damage, position);
         AudioManager.Instance.PlayEmitter(FMODEvents.Instance.enemyActions, transform, 0);
+        if (shipOverride) AudioManager.Instance.combatTime = 10;
     }
 }

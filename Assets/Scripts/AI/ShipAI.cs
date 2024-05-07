@@ -211,7 +211,6 @@ public class ShipAI : MonoBehaviour
         }
         else if (inCombat)
         {
-            AudioManager.Instance.combatTime = 10;
             switch (ship.combatBehaviour)
             {
                 case CombatBehaviour.None:

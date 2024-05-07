@@ -20,10 +20,10 @@ MonoBehaviour:
   shipPrefab: {fileID: 0}
   behaviour: 7
   combatBehaviour: 3
-  lowHealthBehaviour: 7
-  lowHealthPercent: 25
-  enrageBehaviour: 1
-  enrageStrength: 2
+  lowHealthBehaviour: 0
+  lowHealthPercent: 0
+  enrageBehaviour: 0
+  enrageStrength: 0
   enrageSpecialAttack: 0
   contactBehaviour: 0
   possibleComs: []
