@@ -357,6 +357,7 @@ public class ComHandler : MonoBehaviour
     {
         //Debug.LogError(currentCom.responses[option - 1].resultsBetween.Count);
         //Debug.LogError((option + 1) + " of " + currentCom.responses.Count);
+        Debug.LogError("Doing option " + option + 1);
         if (option + 1 > currentCom.responses.Count) { return; }
         if (currentCom.responses[option].isExit) { EndComMenu(); return; }
         int i = Random.Range(0, currentCom.responses[option].resultsBetween.Count);

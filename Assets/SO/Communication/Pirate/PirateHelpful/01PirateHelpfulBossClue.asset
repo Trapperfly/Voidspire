@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 01PirateHelpfulBossClue
   m_EditorClassIdentifier: 
   level: 0
-  storyTitle: Boss clue
+  storyTitle: Boss Clue
   storyText: '"Awesome! We have no clue where they are, but we''ve lost contact with
     several of our ships in this part."
 
