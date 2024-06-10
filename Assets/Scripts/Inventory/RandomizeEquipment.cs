@@ -801,6 +801,8 @@ public class RandomizeEquipment : MonoBehaviour
                 weapon.cluster = iR(cluster);
                 weapon.clusterAmount = iR(clusterAmount);
                 weapon.clusterSpeed = weapon.speed / 2;
+                weapon.speed = weapon.speed / 2;
+                weapon.longevity /= 2;
                 break;
             case WeaponType.Arrow:
                 switch (AddBonusFireROrAcc(weapon))
@@ -1473,7 +1475,7 @@ public class RandomizeEquipment : MonoBehaviour
                 if (isCharge) { statsValues += "Charge: " + weapon.chargeUp.ToString("F2") + "\n"; weapon.statLength++; }
                 if (fireRateBonus) { statsValues += "Cascading: " + weapon.fireRateChange.ToString("F1") + "\n"; weapon.statLength++; }
                 if (accuracyBonus) { statsValues += "Narrowing: " + weapon.spreadChange.ToString("F1") + "\n"; weapon.statLength++; }
-                statsValues += "Splitting"; weapon.statLength++;
+                statsValues += "Splitting " + weapon.cluster; weapon.statLength++;
                 //statsNames = "";
                 //if (isHoming) { statsNames += "Homing:\n" + "Strength:\n"; weapon.statLength += 2; }
                 //if (isPierce) { statsNames += "Piercing:\n"; weapon.statLength++; }

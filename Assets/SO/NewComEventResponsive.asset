@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39490a1f759ba394e8502afac35faaeb, type: 3}
   m_Name: NewComEventResponsive
   m_EditorClassIdentifier: 
-  level: 50
+  level: 1
   storyTitle: No dice
   storyText: I'm sorry, I dont have much to sell. I don't even need money, so you
     can have the one thing i have.
   result:
   - result: 5
-    resultValue: {x: 5, y: 0}
+    resultValue: {x: 5, y: 2}
   responses:
   - name: Continue
     dependance: 0

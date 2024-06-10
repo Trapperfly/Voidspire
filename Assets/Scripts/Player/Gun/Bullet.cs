@@ -84,11 +84,12 @@ public class Bullet : MonoBehaviour
         }
         if (_cluster > 0)
         {
-            Debug.Log("Clustering");
             for (int i = 0; i < _clusterAmount; i++)
             {
                 Rigidbody2D bullet = Instantiate(_clusterPrefab, transform.position, Quaternion.Euler(0, 0, Random.Range(0f, 360f)), transform.parent).GetComponent<Rigidbody2D>();
                 Bullet b = bullet.GetComponent<Bullet>();
+                Debug.LogError(b);
+                b.rb = bullet;
                 b._localDamage *= 0.2f;
                 b._cluster = _cluster - 1;
                 b.bulletSender = bulletSender;

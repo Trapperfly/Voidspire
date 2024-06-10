@@ -59,8 +59,8 @@ public class MenuController : MonoBehaviour
         else if (!comActive && Input.GetKeyDown(KeyCode.Escape)) PauseGame();
         if (!tutorialActive && !comActive && !escActive && !inventoryActive && !settingsActive && Input.GetKeyDown(KeyCode.M)) MapMode();
         if (!tutorialActive && !comActive && !escActive && !mapActive && !settingsActive && Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)) Inventory();
-        if (!comActive && !escActive && !mapActive && !settingsActive && Input.GetKeyDown(KeyCode.H)) OpenTutorial();
-        if (!tutorialActive && !comActive && !escActive && !mapActive && Input.GetKeyDown(KeyCode.O)) OpenSettings();
+        if (!inventoryActive && !comActive && !escActive && !mapActive && !settingsActive && Input.GetKeyDown(KeyCode.H)) OpenTutorial();
+        if (!inventoryActive && !tutorialActive && !comActive && !escActive && !mapActive && Input.GetKeyDown(KeyCode.O)) OpenSettings();
     }
 
     public void OpenTutorial()
